@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Stazione"
+        android:id="@+id/statName"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Visitato"
+        android:id="@+id/visited"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/statName"
+        android:layout_toEndOf="@+id/statName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Arrivo1"
+        android:id="@+id/planArr"
+        android:layout_below="@+id/statName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Arrivo2"
+        android:id="@+id/expArr"
+        android:layout_below="@+id/visited"
+        android:layout_toRightOf="@+id/planArr"
+        android:layout_toEndOf="@+id/planArr" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Binario1"
+        android:id="@+id/platf1"
+        android:layout_below="@+id/planArr"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Binario2"
+        android:id="@+id/platf2"
+        android:layout_below="@+id/expArr"
+        android:layout_toRightOf="@+id/platf1"
+        android:layout_toEndOf="@+id/platf1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="RIT"
+        android:id="@+id/delay"
+        android:layout_below="@+id/visited"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

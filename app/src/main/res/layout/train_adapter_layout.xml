@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CAT"
+        android:id="@+id/trainCat"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="17dp"
+        android:linksClickable="true"
+        android:textSize="15dp"
+        android:layout_marginStart="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Num:"
+        android:id="@+id/trainNum"
+        android:layout_marginLeft="26dp"
+        android:layout_above="@+id/timelastseen"
+        android:layout_toRightOf="@+id/condition"
+        android:layout_toEndOf="@+id/condition"
+        android:layout_marginStart="26dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DEL"
+        android:id="@+id/delay"
+        android:textSize="30dp"
+        android:layout_alignTop="@+id/trainNum"
+        android:layout_toRightOf="@+id/moving"
+        android:layout_toEndOf="@+id/moving"
+        android:layout_marginLeft="48dp"
+        android:layout_marginStart="48dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="lastseen"
+        android:id="@+id/lastseen"
+        android:layout_below="@+id/trainCat"
+        android:layout_alignLeft="@+id/trainCat"
+        android:layout_alignStart="@+id/trainCat" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="hh:mm"
+        android:id="@+id/timelastseen"
+        android:layout_above="@+id/condition"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_toRightOf="@+id/trainNum"
+        android:layout_toEndOf="@+id/trainNum" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="condition"
+        android:id="@+id/condition"
+        android:layout_below="@+id/lastseen"
+        android:layout_alignLeft="@+id/lastseen"
+        android:layout_alignStart="@+id/lastseen" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="moving"
+        android:id="@+id/moving"
+        android:layout_below="@+id/timelastseen"
+        android:layout_alignLeft="@+id/timelastseen"
+        android:layout_alignStart="@+id/timelastseen" />
+
+</RelativeLayout>
+          
