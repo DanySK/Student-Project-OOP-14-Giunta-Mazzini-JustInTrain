@@ -6,8 +6,6 @@ import java.text.ParseException;
 
 public interface IScraper {
 	
-	void computeResult() throws ParseException, IOException;
-	
-	
+	Train computeResult() throws ParseException, IOException;
 	
 }

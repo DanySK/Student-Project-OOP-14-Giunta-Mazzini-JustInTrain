@@ -12,9 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.jaus.trainapp.model.Train;
-import com.jaus.trainapp.scrapers.STrainDetails;
-
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -81,7 +78,7 @@ public class FavouriteListActivity extends ActionBarActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_favourite_list, menu);
+        //inflater.inflate(R.menu.menu_favourite_list, menu);
 
     }
 
@@ -89,13 +86,13 @@ public class FavouriteListActivity extends ActionBarActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
-            case R.id.delete:
+            //case R.id.delete:
 
                 //adapter.remove(adapter.getItem(info.position));
                 //fava.removeFavourite(item.getActionView());
                 return true;
-            case R.id.pin:
-                return true;
+            //case R.id.pin:
+           //     return true;
             default:
                 return super.onContextItemSelected(item);
         }
@@ -105,9 +102,9 @@ public class FavouriteListActivity extends ActionBarActivity {
     private class ScrapingTask extends AsyncTask<Void, Void, Train> {
 
         //This class has a scraper for the train details
-        private final STrainDetails scraperTrain;
+        private final JsoupTrainDetails scraperTrain;
          protected ScrapingTask(String trainNumber){
-            this.scraperTrain = new STrainDetails(trainNumber);
+            this.scraperTrain = new JsoupTrainDetails(trainNumber);
         }
 
         @Override

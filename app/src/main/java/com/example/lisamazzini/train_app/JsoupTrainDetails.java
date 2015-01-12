@@ -63,9 +63,11 @@ public class JsoupTrainDetails implements IScraper{
 	 * @throws java.io.IOException
 	 * 
 	 */
-	public void computeResult() throws IOException{
+	public Train computeResult() throws IOException{
 		goToMainResultPage();
-		computeTrainStatus();		
+		computeTrainStatus();
+
+        return new Train(this.trainCategory, this.trainNumber, this.condition, this.lastSeenStation, this.lastSeenTime, this.isMoving, this.delay);
 	}
 	
 	/**

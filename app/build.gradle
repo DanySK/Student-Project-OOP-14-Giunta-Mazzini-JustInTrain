@@ -22,4 +22,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'org.jsoup:jsoup:1.8.1'
+    compile files('/Users/lisamazzini/AndroidStudioProjects/oop14-trainapp/libs/jsoup-1.8.1/jsoup-1.8.1.jar')
+    compile files('/Users/lisamazzini/AndroidStudioProjects/oop14-trainapp/libs/jsoup-1.8.1/jsoup-1.8.1-javadoc.jar')
+    compile files('/Users/lisamazzini/AndroidStudioProjects/oop14-trainapp/libs/jsoup-1.8.1/jsoup-1.8.1-sources.jar')
 }
