@@ -1315,7 +1315,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f08002e;
         public static final int action_mode_bar_stub=0x7f08002d;
         public static final int action_mode_close_button=0x7f080020;
-        public static final int action_settings=0x7f08006f;
+        public static final int action_settings=0x7f080071;
         public static final int activity_chooser_view_content=0x7f080021;
         public static final int always=0x7f080016;
         public static final int beginning=0x7f080013;
@@ -1332,6 +1332,7 @@ containing a value of this type.
         public static final int decor_content_parent=0x7f08002f;
         public static final int default_activity_button=0x7f080024;
         public static final int delay=0x7f08005e;
+        public static final int delete=0x7f08006f;
         public static final int details=0x7f080056;
         public static final int dialog=0x7f08001b;
         public static final int disableHome=0x7f08000c;
@@ -1361,6 +1362,7 @@ containing a value of this type.
         public static final int never=0x7f080019;
         public static final int none=0x7f08000e;
         public static final int normal=0x7f08000a;
+        public static final int pin=0x7f080070;
         public static final int planArr=0x7f08005a;
         public static final int platf1=0x7f08005c;
         public static final int platf2=0x7f08005d;
@@ -1454,7 +1456,8 @@ containing a value of this type.
         public static final int train_adapter_layout=0x7f030020;
     }
     public static final class menu {
-        public static final int menu_main=0x7f0c0000;
+        public static final int menu_fav_train=0x7f0c0000;
+        public static final int menu_main=0x7f0c0001;
     }
     public static final class string {
         public static final int abc_action_bar_home_description=0x7f0a0000;

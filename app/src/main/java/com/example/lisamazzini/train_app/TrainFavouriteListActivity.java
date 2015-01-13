@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -78,25 +79,26 @@ public class TrainFavouriteListActivity extends ActionBarActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
-        //inflater.inflate(R.menu.menu_favourite_list, menu);
+        inflater.inflate(R.menu.menu_fav_train, menu);
 
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        //AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-       // switch (item.getItemId()) {
-            //case R.id.delete:
+       AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+       Train prova = (Train)list.getItemAtPosition(info.position);
+       switch (item.getItemId()) {
+            case R.id.delete:
+                Log.d("OOOOOO", "" + prova.getNumber());
+                fava.removeFavourite(prova.getNumber());
 
-                //adapter.remove(adapter.getItem(info.position));
-                //fava.removeFavourite(item.getActionView());
-         //       return true;
-            //case R.id.pin:
-           //     return true;
-      //      default:
-        //        return super.onContextItemSelected(item);
-      //  }
-        return true;
+                return true;
+            case R.id.pin:
+                prova.pin();
+                return true;
+            default:
+               return super.onContextItemSelected(item);
+        }
     }
 
 

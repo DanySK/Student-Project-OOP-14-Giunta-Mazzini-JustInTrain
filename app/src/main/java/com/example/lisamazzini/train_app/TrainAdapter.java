@@ -18,6 +18,7 @@ public class TrainAdapter extends BaseAdapter {
 
     private List<Train> list = new LinkedList<>();
     private LayoutInflater inflater;
+    private ViewHolder holder;
 
     public TrainAdapter(Context context, List<Train> list) {
         this.list = list;
@@ -39,9 +40,10 @@ public class TrainAdapter extends BaseAdapter {
         return position;
     }
 
+
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.train_adapter_layout, parent, false);
             holder = new ViewHolder();

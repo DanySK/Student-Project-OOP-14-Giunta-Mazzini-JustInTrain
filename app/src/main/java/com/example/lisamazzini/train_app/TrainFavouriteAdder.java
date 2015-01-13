@@ -67,6 +67,7 @@ public class TrainFavouriteAdder implements IFavouriteAdder{
     public void removeFavourite(String key) {
         check();
         editor.remove(key);
+        editor.apply();
     }
 
     public Map<String, ?> getFavourites(){
