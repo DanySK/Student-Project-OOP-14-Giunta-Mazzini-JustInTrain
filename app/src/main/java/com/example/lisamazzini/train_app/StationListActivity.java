@@ -12,11 +12,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jaus.trainapp.model.Station;
-import com.jaus.trainapp.model.Train;
-import com.jaus.trainapp.scrapers.SJourneyDetails;
-import com.jaus.trainapp.scrapers.STrainDetails;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
@@ -70,14 +65,14 @@ public class StationListActivity extends ActionBarActivity {
     private class ScrapingTask extends AsyncTask<Void, Void, Train> {
 
         private String number;
-        private final STrainDetails scraperTrain;
-        private final SJourneyDetails scraperJourney;
+        private final JsoupTrainDetails scraperTrain;
+        private final JsoupJourneyDetails scraperJourney;
         private String progress;
 
         protected ScrapingTask(String trainNumber){
             this.number = trainNumber;
-            this.scraperTrain = new STrainDetails(this.number);
-            this.scraperJourney = new SJourneyDetails(this.number);
+            this.scraperTrain = new JsoupTrainDetails(this.number);
+            this.scraperJourney = new JsoupJourneyDetails(this.number);
         }
 
         @Override

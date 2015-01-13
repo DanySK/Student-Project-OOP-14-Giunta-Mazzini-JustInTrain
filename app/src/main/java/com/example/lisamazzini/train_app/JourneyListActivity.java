@@ -1,7 +1,6 @@
 package com.example.lisamazzini.train_app;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
@@ -22,14 +21,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 
-public class MainActivityA extends ActionBarActivity {
+public class JourneyListActivity extends ActionBarActivity {
 
     private static final int N_TIME_SLOT = 5;
     JourneyAdapter simple;
@@ -53,10 +49,10 @@ public class MainActivityA extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mainB);
+        setContentView(R.layout.activity_journey_list);
         list = (ListView)findViewById(R.id.journey_list);
         PlannedJourneySearch journeySearch;
-        simple = new JourneyAdapter(MainActivityA.this, jList);
+        simple = new JourneyAdapter(JourneyListActivity.this, jList);
         list.setAdapter(simple);
         try {
             this.selectTimeSlot();
@@ -72,7 +68,7 @@ public class MainActivityA extends ActionBarActivity {
         departure = intent.getStringExtra("journeyDeparture");
         arrival = intent.getStringExtra("journeyArrival");
 
-        journeyFavouriteAdder.setContext(MainActivityA.this);
+        journeyFavouriteAdder.setContext(JourneyListActivity.this);
         saveJourney = (Button)findViewById(R.id.btnAddToFavourites);
         saveJourney.setOnClickListener(new View.OnClickListener() {
             @Override

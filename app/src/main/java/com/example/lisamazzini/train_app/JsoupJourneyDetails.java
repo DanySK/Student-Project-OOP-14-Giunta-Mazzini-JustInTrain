@@ -14,7 +14,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 
-public class JsoupJourneyDetails implements IScraper {
+public class JsoupJourneyDetails {
 	
 	private static final String ALREADY_VISITED = "giaeffettuate";
 	private static final String NOT_VISITED_YET = "corpocentrale";
@@ -59,7 +59,7 @@ public class JsoupJourneyDetails implements IScraper {
 	}
 	
 	
-	public static void main(String[] args) throws ParseException {
+	/*public static void main(String[] args) throws ParseException {
 		JsoupJourneyDetails j = new JsoupJourneyDetails("2064");
 		
 		try {
@@ -71,7 +71,7 @@ public class JsoupJourneyDetails implements IScraper {
 		
 		j.computeStation(JsoupJourneyDetails.ALREADY_VISITED);
 		j.computeStation(JsoupJourneyDetails.NOT_VISITED_YET);
-	}
+	}*/
 	
 	/**
 	 * This method is the one which will be called outside the class in order to compute all the 
@@ -86,6 +86,15 @@ public class JsoupJourneyDetails implements IScraper {
 		computeStation(JsoupJourneyDetails.NOT_VISITED_YET);
 		
 	}
+
+    /**
+     * This method returns the progress of the train
+     *
+     * @return a String which describes the progress
+     */
+    public String getProgress(){
+        return convertProgress(computeProgress());
+    }
 	
 	/**
 	 * This method return the station list which will be part of the class Train
@@ -224,6 +233,48 @@ public class JsoupJourneyDetails implements IScraper {
 		Date departure = format.parse(this.expectedTime); 
 		return (departure.getTime() - arrival.getTime()) / (60 * 1000) % 60;
 	}
+
+    private long computeProgress(){
+
+        final List<Station> visitedStations = new LinkedList<>();
+        long progress = 0;
+        long intermediate;
+
+        if(this.stationList == null){
+            throw new NullPointerException();
+        }
+
+        for(Station s : stationList){
+            if(s.isVisited()){
+                visitedStations.add(s);
+            }
+        }
+
+        if(visitedStations.size() >= 5) {
+            for (int i = visitedStations.size() - 6; i < visitedStations.size() - 1; i++) {
+                intermediate = visitedStations.get(i + 1).getTimeDifference() - visitedStations.get(i).getTimeDifference();
+                progress += intermediate;
+            }
+        }else{
+            for(int i = 0 ; i<visitedStations.size()-1; i++) {
+                intermediate = visitedStations.get(i + 1).getTimeDifference() - visitedStations.get(i).getTimeDifference();
+                progress += intermediate;
+            }
+        }
+
+        return progress;
+    }
+
+    private String convertProgress(long progress){
+
+        if(progress < -2){              //magic fuckin number
+            return "In recupero";
+        }else if(progress > 2){
+            return "In rallentamento";
+        }else{
+            return "Costante";
+        }
+    }
 	
 
 }

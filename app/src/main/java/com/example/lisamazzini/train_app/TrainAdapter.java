@@ -7,9 +7,6 @@ import android.content.Context;
         import android.view.ViewGroup;
         import android.widget.BaseAdapter;
         import android.widget.TextView;
-
-        import com.jaus.trainapp.model.Train;
-
         import java.util.LinkedList;
         import java.util.List;
 

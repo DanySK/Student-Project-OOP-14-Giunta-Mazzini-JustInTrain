@@ -1,7 +1,6 @@
 package com.example.lisamazzini.train_app;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.*;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,13 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 
-import com.jaus.trainapp.scrapers.STrainDetails;
-import com.jaus.trainapp.model.Train;
-import java.io.IOException;
 
 
-
-public class BMainActivity extends ActionBarActivity {
+public class MiaMain extends ActionBarActivity {
 
     private Button button;
     private EditText insertNumber;
@@ -26,17 +21,17 @@ public class BMainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.insertNumber = (EditText)findViewById(R.id.editText);
-        this.button = (Button)findViewById(R.id.button);
-        this.preferiti = (Button)findViewById(R.id.butPref);
-        this.error = Toast.makeText(MainActivity.this, "Inserire un numero", Toast.LENGTH_SHORT);
+        this.insertNumber = (EditText)findViewById(R.id.insertDeparture);
+       // this.button = (Button)findViewById(R.id.button);
+       // this.preferiti = (Button)findViewById(R.id.butPref);
+        // this.error = Toast.makeText(MainActivity.this, "Inserire un numero", Toast.LENGTH_SHORT);
         this.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!insertNumber.getText().toString().equals("")) {
-                    Intent intent = new Intent(MainActivity.this, StationListActivity.class);
-                    intent.putExtra("trainNumber", insertNumber.getText().toString());
-                    startActivity(intent);
+                  //  Intent intent = new Intent(MainActivity.this, StationListActivity.class);
+                   // intent.putExtra("trainNumber", insertNumber.getText().toString());
+                   // startActivity(intent);
                 } else {
                     error.show();
                 }
@@ -46,9 +41,9 @@ public class BMainActivity extends ActionBarActivity {
         this.preferiti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FavouriteListActivity.class);
+                //Intent intent = new Intent(MainActivity.this, TrainFavouriteListActivity.class);
 
-                startActivity(intent);
+                //startActivity(intent);
             }
         });
 

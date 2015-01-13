@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class FavouriteListActivity extends ActionBarActivity {
+public class TrainFavouriteListActivity extends ActionBarActivity {
 
     private ListView list;
     private List<Train> favTrain;
@@ -39,7 +39,7 @@ public class FavouriteListActivity extends ActionBarActivity {
 
         //Get an instance of the TrainFavouriteAdder and set the context
         fava = TrainFavouriteAdder.getInstance();
-        fava.setContext(FavouriteListActivity.this);
+        fava.setContext(TrainFavouriteListActivity.this);
 
         //Register a ContextMenu for this list, so that if the user perform a long click on a item, the onCreateContextMenu method will be called
         registerForContextMenu(this.list);
@@ -61,7 +61,7 @@ public class FavouriteListActivity extends ActionBarActivity {
 
                 //Take the train number from the view
                 TextView tv = (TextView) view.findViewById(R.id.trainNum);
-                Intent intent = new Intent(FavouriteListActivity.this, StationListActivity.class);
+                Intent intent = new Intent(TrainFavouriteListActivity.this, StationListActivity.class);
                 intent.putExtra("trainNumber", tv.getText().toString());
 
                 //Start the new activity
@@ -84,18 +84,19 @@ public class FavouriteListActivity extends ActionBarActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        switch (item.getItemId()) {
+        //AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+       // switch (item.getItemId()) {
             //case R.id.delete:
 
                 //adapter.remove(adapter.getItem(info.position));
                 //fava.removeFavourite(item.getActionView());
-                return true;
+         //       return true;
             //case R.id.pin:
            //     return true;
-            default:
-                return super.onContextItemSelected(item);
-        }
+      //      default:
+        //        return super.onContextItemSelected(item);
+      //  }
+        return true;
     }
 
 
@@ -120,7 +121,7 @@ public class FavouriteListActivity extends ActionBarActivity {
         protected void onPostExecute(Train train){
             //After the execution of the task, the ListView is updated with the result.
             favTrain.add(train);
-            adapter = new TrainAdapter(FavouriteListActivity.this, favTrain);
+            adapter = new TrainAdapter(TrainFavouriteListActivity.this, favTrain);
             list.setAdapter(adapter);
         }
     }

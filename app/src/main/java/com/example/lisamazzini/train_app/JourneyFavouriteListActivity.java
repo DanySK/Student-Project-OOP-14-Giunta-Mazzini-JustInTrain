@@ -12,14 +12,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 
-public class FavouritesListActivity extends ActionBarActivity {
+public class JourneyFavouriteListActivity extends ActionBarActivity {
 
     List<String> list = new LinkedList<>();
     JourneyFavouriteAdder adder = new JourneyFavouriteAdder();
@@ -29,7 +28,7 @@ public class FavouritesListActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourites_list);
-        adder.setContext(FavouritesListActivity.this);
+        adder.setContext(JourneyFavouriteListActivity.this);
         lv = (ListView) findViewById(R.id.listView);
         aAdpt = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, list);
 
@@ -49,7 +48,7 @@ public class FavouritesListActivity extends ActionBarActivity {
                 String item = ((TextView)view).getText().toString();
                 String[] ar = item.split("_");
                 Log.d("wowo", ar[0] + " " + ar[1]);
-                Intent i = new Intent(FavouritesListActivity.this, MainActivity.class);
+                Intent i = new Intent(JourneyFavouriteListActivity.this, MainActivity.class);
                 i.putExtra("journeyDeparture", ar[0]);
                 i.putExtra("journeyArrival", ar[1]);
                 startActivity(i);
@@ -65,7 +64,7 @@ public class FavouritesListActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_favourites_list, menu);
+        //getMenuInflater().inflate(R.menu.menu_favourites_list, menu);
         return true;
     }
 

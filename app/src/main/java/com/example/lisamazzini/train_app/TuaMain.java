@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 
-public class JourneySerach extends ActionBarActivity {
+public class TuaMain extends ActionBarActivity {
 
     private TextView departure;
     private TextView arrival;
@@ -28,19 +28,19 @@ public class JourneySerach extends ActionBarActivity {
         setContentView(R.layout.activity_journey_serach);
         departure = (TextView)findViewById(R.id.tvInsertDeparture);
         arrival = (TextView)findViewById(R.id.tvInsertArrival);
-        search = (Button)findViewById(R.id.btnSearch);
-        search.setOnClickListener(new View.OnClickListener(){
+        search = (Button)findViewById(R.id.btnSearch);          // cambia nome
+        search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(JourneySerach.this, MainActivity.class);
+                Intent intent = new Intent(TuaMain.this, MainActivity.class);
                 intent.putExtra("journeyDeparture", departure.getText().toString());
                 intent.putExtra("journeyArrival", arrival.getText().toString());
                 startActivity(intent);
             }
         });
 
-        journeyFavouriteAdder.setContext(JourneySerach.this);
-        favourites = (Button)findViewById(R.id.btnFavourites);
+        journeyFavouriteAdder.setContext(TuaMain.this);
+        favourites = (Button)findViewById(R.id.btnFavourites);      //cambia nome
         favourites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +52,7 @@ public class JourneySerach extends ActionBarActivity {
                     }
                 }
 
-                Intent i = new Intent(JourneySerach.this, FavouritesListActivity.class);
+                Intent i = new Intent(TuaMain.this, JourneyFavouriteListActivity.class);
                 startActivity(i);
             }
         });
@@ -64,7 +64,7 @@ public class JourneySerach extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_journey_serach, menu);
+      //  getMenuInflater().inflate(R.menu.menu_journey_serach, menu);
         return true;
     }
 

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lisamazzini.train_app" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -16,6 +17,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity android:name=".StationListActivity"></activity>
+
+        <activity android:name=".JourneyListActivity"></activity>
+
+        <activity android:name=".TrainFavouriteListActivity"></activity>
+
+        <activity android:name=".JourneyFavouriteListActivity"></activity>
+
     </application>
 
 </manifest>
