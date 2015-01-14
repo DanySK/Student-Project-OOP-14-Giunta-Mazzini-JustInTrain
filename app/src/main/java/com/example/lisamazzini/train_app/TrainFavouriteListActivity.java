@@ -1,7 +1,10 @@
 package com.example.lisamazzini.train_app;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RemoteViews;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -85,16 +90,35 @@ public class TrainFavouriteListActivity extends ActionBarActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-       AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-       Train prova = (Train)list.getItemAtPosition(info.position);
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        Train prova = (Train)list.getItemAtPosition(info.position);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+
+        RemoteViews view = new RemoteViews(getPackageName(), R.layout.layout_notification);
+        view.setTextViewText(R.id.ntNumber, prova.getNumber());
+        view.setTextViewText(R.id.ntDelay, Integer.toString(prova.getDelay()));
+        view.setTextViewText(R.id.ntStation, prova.getLastSeenStation());
+        view.setTextViewText(R.id.ntTime, prova.getLastSeenTime());
+
+
+
+        Notification not = builder.setContent(view).setSmallIcon(R.drawable.ic_launcher).build();
+
+        NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+
+
+        builder.setOngoing(true);
+
        switch (item.getItemId()) {
             case R.id.delete:
-                Log.d("OOOOOO", "" + prova.getNumber());
                 fava.removeFavourite(prova.getNumber());
-
+                Toast.makeText(TrainFavouriteListActivity.this, "Rimosso dai preferiti", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.pin:
                 prova.pin();
+                manager.notify(1, not);
                 return true;
             default:
                return super.onContextItemSelected(item);
