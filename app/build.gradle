@@ -23,5 +23,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'org.jsoup:jsoup:1.8.1'
-    compile files('/Users/lisamazzini/AndroidStudioProjects/oop14-trainapp/libs/joda-time-1.6.jar');
+    compile 'joda-time:joda-time:1.6'
+    compile 'com.octo.android.robospice:robospice:1.4.13'
 }
