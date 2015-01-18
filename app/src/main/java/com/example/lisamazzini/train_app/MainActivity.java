@@ -42,7 +42,8 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if(!insertDeparture.getText().toString().equals("") || !insertArrival.getText().toString().equals("")) {
-                    Intent intent = new Intent(MainActivity.this, JourneyListActivity.class);
+//                    Intent intent = new Intent(MainActivity.this, JourneyListActivity.class);
+                    Intent intent = new Intent(MainActivity.this, JourneyListwRobospiceActivity.class);
                     intent.putExtra("journeyDeparture", insertDeparture.getText().toString());
                     intent.putExtra("journeyArrival", insertArrival.getText().toString());
                     startActivity(intent);

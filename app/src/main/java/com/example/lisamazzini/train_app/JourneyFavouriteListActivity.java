@@ -48,7 +48,7 @@ public class JourneyFavouriteListActivity extends ActionBarActivity {
                 String item = ((TextView)view).getText().toString();
                 String[] ar = item.split("_");
                 Log.d("wowo", ar[0] + " " + ar[1]);
-                Intent i = new Intent(JourneyFavouriteListActivity.this, MainActivity.class);
+                Intent i = new Intent(JourneyFavouriteListActivity.this, JourneyListwRobospiceActivity.class);
                 i.putExtra("journeyDeparture", ar[0]);
                 i.putExtra("journeyArrival", ar[1]);
                 startActivity(i);

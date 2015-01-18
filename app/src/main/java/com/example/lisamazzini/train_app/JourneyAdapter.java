@@ -47,7 +47,6 @@ public class JourneyAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.trainCategory = (TextView)convertView.findViewById(R.id.tvSetTrainCategory);
             holder.trainNumber = (TextView)convertView.findViewById(R.id.tvSetTrainNumber);
-//            holder.duration = (TextView)convertView.findViewById(R.id.tvSetDuration);
             holder.departure = (TextView)convertView.findViewById(R.id.tvSetDeparture);
             holder.departureTime = (TextView)convertView.findViewById(R.id.tvSetDepartureTime);
             holder.arrival = (TextView)convertView.findViewById(R.id.tvSetArrival);
@@ -65,7 +64,6 @@ public class JourneyAdapter extends BaseAdapter {
         holder.departureTime.setText(list.get(position).getDepartureTime());
         holder.arrival.setText(list.get(position).getArrivalStation());
         holder.arrivalTime.setText(list.get(position).getArrivalTime());
-        Log.d("asdf", "" + list.get(position).getDelay());
         holder.delay.setText("" + list.get(position).getDelay());
 
 

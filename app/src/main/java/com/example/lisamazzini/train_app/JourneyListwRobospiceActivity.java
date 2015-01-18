@@ -13,6 +13,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.octo.android.robospice.*;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.SpiceRequest;
+import com.octo.android.robospice.request.listener.RequestListener;
+
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 
@@ -25,7 +30,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class JourneyListActivity extends ActionBarActivity {
+public class JourneyListwRobospiceActivity extends ActionBarActivity {
 
     private static final int N_TIME_SLOT = 5;
     JourneyAdapter simple;
@@ -40,35 +45,41 @@ public class JourneyListActivity extends ActionBarActivity {
     Button saveJourney;
     LinkedList<Journey> jList = new LinkedList<>();
     LinkedList<String> lista = new LinkedList<>();
-    ArrayList<List<Journey>> arList = new ArrayList<List<Journey>>(5);
+    ArrayList<List<Journey>> arList = new ArrayList<>(5);
     JourneyFavouriteAdder journeyFavouriteAdder = JourneyFavouriteAdder.getInstance();
+    private int lisa;
 
-    int i;
+    private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
+
+    @Override
+    protected void onStart() {
+        spiceManager.start(this);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        spiceManager.shouldStop();
+        super.onStop();
+    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("CAZZI", "CREATA ACTIVITY");
         setContentView(R.layout.activity_journey_list);
         list = (ListView)findViewById(R.id.journey_list);
-        PlannedJourneySearch journeySearch;
-        simple = new JourneyAdapter(JourneyListActivity.this, jList);
+        simple = new JourneyAdapter(JourneyListwRobospiceActivity.this, jList);
         list.setAdapter(simple);
-        try {
-            this.selectTimeSlot();
-        } catch (ParseException e) {
-            e.printStackTrace();
+        for (int i = 0; i < N_TIME_SLOT; i++) {
+            arList.add(new LinkedList<Journey>());
         }
-
-         for (int i = 0; i < N_TIME_SLOT; i++) {
-             arList.add(new LinkedList<Journey>());
-         }
-
         Intent intent = getIntent();
         departure = intent.getStringExtra("journeyDeparture");
         arrival = intent.getStringExtra("journeyArrival");
 
-        journeyFavouriteAdder.setContext(JourneyListActivity.this);
+        journeyFavouriteAdder.setContext(JourneyListwRobospiceActivity.this);
         saveJourney = (Button)findViewById(R.id.btnAddToFavourites);
         saveJourney.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,24 +92,70 @@ public class JourneyListActivity extends ActionBarActivity {
             }
         });
 
+        try {
+            this.selectTimeSlot();
+            radioButSelector = timeSlot;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        iterateTimeSlots();
 
-        radioButSelector = timeSlot;
-        for (i = 0; i < N_TIME_SLOT; i++){
-            journeySearch = new PlannedJourneySearch();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                journeySearch.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, radioButSelector);
-            } else {
-                journeySearch.execute(radioButSelector);
-            }
+    }
+
+    private void iterateTimeSlots() {
+        for (int i = 0; i < N_TIME_SLOT; i++) {
+            Log.d("CAZZI", "lancio spiceManager " + radioButSelector);
+            JsoupPlannedJourneyRequest request = new JsoupPlannedJourneyRequest(radioButSelector, new JsoupPlannedJourney(), this.timeSlot, this.departure, this.arrival);
+//            JsoupPlannedJourneyRequest request = new JsoupPlannedJourneyRequest(radioButSelector);
+            spiceManager.execute(request, new JsoupPlannedJourneyRequestListener());
             if (radioButSelector == N_TIME_SLOT) {
-                radioButSelector = timeSlot-1;
+                radioButSelector = timeSlot - 1;
             } else if (radioButSelector < timeSlot) {
                 radioButSelector--;
             } else {
                 radioButSelector++;
             }
         }
-   }
+    }
+
+
+    private class JsoupPlannedJourneyRequestListener implements RequestListener <ListJourney>{
+        @Override
+        public void onRequestFailure(SpiceException spiceException) {
+            Toast.makeText(JourneyListwRobospiceActivity.this,
+                    "Error: " + spiceException.getMessage(), Toast.LENGTH_SHORT)
+                    .show();
+        }
+
+        @Override
+        public void onRequestSuccess(ListJourney cazzi) {
+            int index = cazzi.getRadio();
+            List<Journey> result = cazzi.getList();
+            if (result.size() != 0) {
+                Log.d("CAZZI", "onRequestSuccess || radio " + index + " timeSlot " + timeSlot);
+
+                arList.add(index-1, result);
+                jList.removeAll(jList);
+                for (List<Journey> l : arList) {
+                    jList.addAll(l);
+                }
+                    //controllo e metto la lista al primo non arrivato
+                    if (result.get(0).isFirstNotArrived()) {
+                        firstNotArrived = result.get(0);
+                    }
+                    firstNotArrivedPosition = jList.indexOf(firstNotArrived);
+                    simple.notifyDataSetChanged();
+                    list.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            list.setSelection(firstNotArrivedPosition);
+                        }
+                    });
+            }
+        }
+    }
+
+
 
     private void selectTimeSlot() throws ParseException {
         SimpleDateFormat time = new SimpleDateFormat("HH:mm");
@@ -127,58 +184,12 @@ public class JourneyListActivity extends ActionBarActivity {
                 (Minutes.minutesBetween(actualTime, finalTime).getMinutes()) > 0;
     }
 
-    private class PlannedJourneySearch extends AsyncTask<Integer, Void, List<Journey>> {
-
-        JsoupPlannedJourney journey = new JsoupPlannedJourney();
-
-        int radioBut;
-
-        protected void onPreExecute() {
-        }
-
-        @Override
-        protected List<Journey> doInBackground(Integer... radio) {
-            this.radioBut = radio[0];
-            if (radioBut == timeSlot) {
-                journey.computeResult(radio[0], timeSlot, departure, arrival);
-            } else {
-                journey.computeResult(radio[0], departure, arrival);
-            }
-            return journey.getJourneysList();
-        }
-
-        @Override
-        protected void onPostExecute(List<Journey> result) {
-            if (result.size() != 0) {
-                arList.add(radioBut-1, result);
-                jList.removeAll(jList);
-                for (List<Journey> l : arList) {
-                    jList.addAll(l);
-                }
-                if (result.get(0).isFirstNotArrived()) {
-                    firstNotArrived = result.get(0);
-                }
-                firstNotArrivedPosition = jList.indexOf(firstNotArrived);
-                Log.d("wowo", "" + firstNotArrivedPosition);
-                simple.notifyDataSetChanged();
-                list.post( new Runnable() {
-                    @Override
-                    public void run() {
-                      list.setSelection(firstNotArrivedPosition);
-                    }
-                });
-            }
-        }
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_journey_listw_robospice, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

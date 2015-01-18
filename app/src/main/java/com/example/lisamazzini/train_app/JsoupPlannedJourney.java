@@ -46,7 +46,7 @@ public class JsoupPlannedJourney {
 	private String arrivalTime = "";
 	
 	private int timeSlot = -1;
-	
+	private int radio = 0;
 	private List<Journey>journeysList = new LinkedList<>();
     private String category = "";
 	private int delay = 0;
@@ -68,8 +68,10 @@ public class JsoupPlannedJourney {
 	public void computeResult(Integer radioBut, String departure, String arrival) {
 		try {
 //            selectTimeSlot();
+            System.out.println("entrato in compute result");
             this.departureStation = departure;
             this.arrivalStation = arrival;
+            this.radio = radioBut;
 			goToMainResultPage(radioBut);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -79,9 +81,11 @@ public class JsoupPlannedJourney {
     public void computeResult(Integer radioBut, int timeSlot, String departure, String arrival) {
         try {
 //            selectTimeSlot();
+            System.out.println("entrato in compute result");
             this.departureStation = departure;
             this.arrivalStation = arrival;
             this.timeSlot = timeSlot;
+            this.radio = radioBut;
             goToMainResultPage(radioBut);
         } catch (IOException e) {
             e.printStackTrace();
@@ -266,7 +270,10 @@ public class JsoupPlannedJourney {
 //		System.out.println(this.journeysList.get(timeSlot - 1).get(journeysList.get(timeSlot - 1).size() - 1).toString());
 	}
 
-    public List<Journey> getJourneysList() {
-        return this.journeysList;
+    public ListJourney getJourneysList() {
+
+        ListJourney lj = new ListJourney(this.journeysList, this.radio);
+       return lj;
+//        return this.journeysList;
     }
 }

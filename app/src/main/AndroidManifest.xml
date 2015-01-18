@@ -3,6 +3,9 @@
     package="com.example.lisamazzini.train_app" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -17,15 +20,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <activity android:name=".StationListActivity"></activity>
-
-        <activity android:name=".JourneyListActivity"></activity>
-
-        <activity android:name=".TrainFavouriteListActivity"></activity>
-
-        <activity android:name=".JourneyFavouriteListActivity"></activity>
+        <activity android:name=".StationListActivity" />
+        <!--<activity android:name=".JourneyListActivity" />-->
+        <activity android:name=".JourneyListwRobospiceActivity"/>
+        <activity android:name=".TrainFavouriteListActivity" />
+        <activity android:name=".JourneyFavouriteListActivity" />
+        <service
+            android:name="com.octo.android.robospice.UncachedSpiceService"
+            android:exported="false" />
 
     </application>
 
