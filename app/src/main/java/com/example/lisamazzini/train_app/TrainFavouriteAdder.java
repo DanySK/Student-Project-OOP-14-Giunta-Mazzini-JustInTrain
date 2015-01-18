@@ -67,9 +67,8 @@ public class TrainFavouriteAdder implements IFavouriteAdder{
      */
     @Override
     public void removeFavourite(String ... data) {
-        check();
 
-        editor.remove(createKey(data[0], data[1], data[2]));
+        editor.remove(data[0]);
         editor.apply();
     }
 
