@@ -104,7 +104,7 @@ public class TrainFavouriteListActivity extends ActionBarActivity {
                 Toast.makeText(TrainFavouriteListActivity.this, "Rimosso dai preferiti", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.pin:
-                Log.d("prova", "" + prova.getNumber());
+                Log.d("MA DIO BONO ------------------ ", "" + prova.getNumber());
                 intent.putExtra("number", prova.getNumber());
                 startService(intent);
                 //pinner.pinTrain(prova.getNumber());

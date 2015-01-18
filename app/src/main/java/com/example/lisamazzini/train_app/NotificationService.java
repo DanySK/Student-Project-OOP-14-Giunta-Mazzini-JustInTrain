@@ -49,11 +49,13 @@ public class NotificationService extends Service {
                         .setOngoing(true)
                         .addAction(R.drawable.ic_launcher, "Aggiorna", pIntent1)
                         .addAction(R.drawable.ic_launcher, "Elimina", pIntent2)
-                        .setStyle(new NotificationCompat.BigTextStyle().bigText("CULO CULO CULO CULO CULO CULO"))
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText("vaffanculo"))
                         .build();
 
+        not.bigContentView = view;
+
         this.number = intent.getStringExtra("number");
-        Log.d("onStartCommand ", "" + number);
+        Log.d("OOOOOOOOOOOOOOOOOOOO", "On start command");
 
         ScrapingTask scraper = new ScrapingTask(this.number);
         scraper.execute();
@@ -85,6 +87,8 @@ public class NotificationService extends Service {
         @Override
         protected Train doInBackground(Void... params) {
             try {
+                Log.d("OOOOOOOOOOOOOOOOOOOO", "doinbackground");
+
                 train = scraperTrain.computeResult();
 
             } catch (IOException e) {
@@ -100,6 +104,7 @@ public class NotificationService extends Service {
             view.setTextViewText(R.id.ntDelay, Integer.toString(currentStateTrain.getDelay()));
             view.setTextViewText(R.id.ntStation, currentStateTrain.getLastSeenStation());
             view.setTextViewText(R.id.ntTime, currentStateTrain.getLastSeenTime());
+            Log.d("OOOOOOOOOOOOOOOOOOOO", "On post execute");
 
             startForeground(1, not);
 
