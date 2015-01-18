@@ -3,5 +3,6 @@
 
     <item android:id="@+id/delete" android:title="Elimina"></item>
     <item android:id="@+id/pin" android:title="Pin"></item>
+    <item android:id="@+id/unpin" android:title="Unpin"></item>
 
 </menu>

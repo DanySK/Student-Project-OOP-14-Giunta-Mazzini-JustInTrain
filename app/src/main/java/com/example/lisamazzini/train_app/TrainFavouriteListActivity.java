@@ -94,22 +94,9 @@ public class TrainFavouriteListActivity extends ActionBarActivity {
 
         Train prova = (Train)list.getItemAtPosition(info.position);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        Pinner pinner = new Pinner(this);
 
-        RemoteViews view = new RemoteViews(getPackageName(), R.layout.layout_notification);
-        view.setTextViewText(R.id.ntNumber, prova.getNumber());
-        view.setTextViewText(R.id.ntDelay, Integer.toString(prova.getDelay()));
-        view.setTextViewText(R.id.ntStation, prova.getLastSeenStation());
-        view.setTextViewText(R.id.ntTime, prova.getLastSeenTime());
-
-
-
-        Notification not = builder.setContent(view).setSmallIcon(R.drawable.ic_launcher).build();
-
-        NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-
-
-        builder.setOngoing(true);
+        Intent intent = new Intent(TrainFavouriteListActivity.this, NotificationService.class);
 
        switch (item.getItemId()) {
             case R.id.delete:
@@ -117,11 +104,15 @@ public class TrainFavouriteListActivity extends ActionBarActivity {
                 Toast.makeText(TrainFavouriteListActivity.this, "Rimosso dai preferiti", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.pin:
-                prova.pin();
-                manager.notify(1, not);
+                Log.d("prova", "" + prova.getNumber());
+                intent.putExtra("number", prova.getNumber());
+                startService(intent);
+                //pinner.pinTrain(prova.getNumber());
                 return true;
-            default:
-               return super.onContextItemSelected(item);
+           case R.id.unpin:
+                stopService(intent);
+           default:
+                return super.onContextItemSelected(item);
         }
     }
 

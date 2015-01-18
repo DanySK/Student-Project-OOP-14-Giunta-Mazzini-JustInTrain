@@ -1,5 +1,7 @@
 package com.example.lisamazzini.train_app;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -77,6 +79,7 @@ public class JsoupTrainDetails implements IScraper{
 	private void goToMainResultPage() throws IOException {
 		// now we visit the home page for the specified search and we enter the
 		// values in da form
+        Log.d("GoToMainResult", "" + trainNumber);
 		Connection.Response res = Jsoup.connect(baseurl + action)
 				.data("numeroTreno", trainNumber)
 				.method(Method.POST)

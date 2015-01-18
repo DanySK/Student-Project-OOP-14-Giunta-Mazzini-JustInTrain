@@ -1299,7 +1299,9 @@ containing a value of this type.
         public static final int abc_textfield_search_activated_mtrl_alpha=0x7f020030;
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f020031;
         public static final int abc_textfield_search_material=0x7f020032;
-        public static final int ic_launcher=0x7f020033;
+        public static final int exit=0x7f020033;
+        public static final int ic_launcher=0x7f020034;
+        public static final int refresh=0x7f020035;
     }
     public static final class id {
         public static final int action_bar=0x7f080031;
@@ -1315,7 +1317,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f08002e;
         public static final int action_mode_bar_stub=0x7f08002d;
         public static final int action_mode_close_button=0x7f080020;
-        public static final int action_settings=0x7f080079;
+        public static final int action_settings=0x7f08007a;
         public static final int activity_chooser_view_content=0x7f080021;
         public static final int always=0x7f080016;
         public static final int beginning=0x7f080013;
@@ -1419,6 +1421,7 @@ containing a value of this type.
         public static final int tvSetTrainCategory=0x7f080067;
         public static final int tvSetTrainNumber=0x7f080069;
         public static final int tvTrainNumber=0x7f080068;
+        public static final int unpin=0x7f080079;
         public static final int up=0x7f080008;
         public static final int useLogo=0x7f080012;
         public static final int visited=0x7f080059;

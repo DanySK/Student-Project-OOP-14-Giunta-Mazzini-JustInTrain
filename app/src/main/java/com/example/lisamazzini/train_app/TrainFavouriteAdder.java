@@ -43,10 +43,12 @@ public class TrainFavouriteAdder implements IFavouriteAdder{
      */
     public void addFavourite(String ... trainNumber){
         check();
+        //Nuovo concetto di preferito?
+        //createKey(trainNumber[0], trainNumber[1], trainNumber[2]);
+
+        //editor.putString(createKey(trainNumber[0], trainNumber[1], trainNumber[2]), trainNumber[0]);
         editor.putString(trainNumber[0], trainNumber[0]);
         editor.apply();
-
-
     }
 
     /**
@@ -61,12 +63,13 @@ public class TrainFavouriteAdder implements IFavouriteAdder{
 
     /**
      * This method removes a train from the favourite
-     * @param key
+     * @param
      */
     @Override
-    public void removeFavourite(String key) {
+    public void removeFavourite(String ... data) {
         check();
-        editor.remove(key);
+
+        editor.remove(createKey(data[0], data[1], data[2]));
         editor.apply();
     }
 
@@ -79,6 +82,18 @@ public class TrainFavouriteAdder implements IFavouriteAdder{
         if(sharedPref == null){
             throw new UnsupportedOperationException("You must setContext before using the adder");
         }
+    }
+
+    private String createKey(String trainNumber, String departureStation, String arrivalStation){
+        StringBuilder builder = new StringBuilder();
+        String key = builder.append(trainNumber)
+                .append("_")
+                .append(departureStation)
+                .append("_")
+                .append(arrivalStation)
+                .toString();
+
+        return key;
     }
 
 

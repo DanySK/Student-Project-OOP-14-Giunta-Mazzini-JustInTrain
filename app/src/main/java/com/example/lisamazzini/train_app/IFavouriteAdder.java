@@ -16,7 +16,7 @@ public interface IFavouriteAdder {
 
     public String getFavourite(String key);
 
-    public void removeFavourite(String key);
+    public void removeFavourite(String ... key);
 
     public Map<String, ?> getFavourites();
 
