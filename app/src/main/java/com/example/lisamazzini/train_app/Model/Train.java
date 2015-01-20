@@ -1,33 +1,21 @@
 package com.example.lisamazzini.train_app.Model;
 
+import com.example.lisamazzini.train_app.Exceptions.FieldNotBuiltException;
+import com.example.lisamazzini.train_app.Model.Station;
+
 import java.util.List;
 
-public class Train {
+public class Train extends BasicTrain {
 
-    private final String category; // fai enum
-    private final String number;
     private final boolean isMoving;
-    private final int delay;
     private final String birthStation;
     private final String deathStation;
     private final String lastSeenStation;
     private final String lastSeenTime;
     private final List<Station> stationList;
 
-    public String getCategory() {
-        return category;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
     public boolean isMoving() {
         return isMoving;
-    }
-
-    public int getDelay() {
-        return delay;
     }
 
     public String getBirthStation() {
@@ -46,25 +34,26 @@ public class Train {
         return lastSeenTime;
     }
 
-    public List<Station> getStationList() {
-        return stationList;
+    public List<Station> getStationList() throws FieldNotBuiltException {
+        if (this.stationList == null) {
+            throw new FieldNotBuiltException();
+        }
+        return this.stationList;
     }
 
     private Train(TrainBuilder builder) {
-        this.category = builder.category;
-        this.number = builder.number;
+        super(builder.category, builder.number, builder.delay);
         this.isMoving = builder.isMoving;
-        this.delay = builder.delay;
         this.birthStation = builder.birthStation;
         this.deathStation = builder.deathStation;
         this.lastSeenStation = builder.lastSeenStation;
         this.lastSeenTime = builder.lastSeenTime;
-        this.stationList = builder.stationList; //se non presenti potrebbe generare nullpointer?
+        this.stationList = builder.stationList;
     }
 
 
     public static class TrainBuilder {
-        private final String category; // fai enum
+        private final String category;
         private final String number;
         private final boolean isMoving;
         private final int delay;
@@ -97,7 +86,4 @@ public class Train {
             return new Train(this);
         }
     }
-
-
-
 }
