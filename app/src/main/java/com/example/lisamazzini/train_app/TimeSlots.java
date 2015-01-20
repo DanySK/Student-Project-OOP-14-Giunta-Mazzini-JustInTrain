@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app;
+/*package com.example.lisamazzini.train_app;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,3 +24,4 @@ public enum TimeSlots {
 	}
 	
 }
+*/

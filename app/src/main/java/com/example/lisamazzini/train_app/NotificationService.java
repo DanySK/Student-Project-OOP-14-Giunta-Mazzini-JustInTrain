@@ -52,7 +52,6 @@ public class NotificationService extends Service {
                         .setStyle(new NotificationCompat.BigTextStyle().bigText("vaffanculo"))
                         .build();
 
-        not.bigContentView = view;
 
         this.number = intent.getStringExtra("number");
         Log.d("OOOOOOOOOOOOOOOOOOOO", "On start command");

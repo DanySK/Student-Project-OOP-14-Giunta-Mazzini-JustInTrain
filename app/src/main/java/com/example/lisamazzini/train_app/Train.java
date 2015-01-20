@@ -2,9 +2,6 @@ package com.example.lisamazzini.train_app;
 
 import java.util.List;
 
-/**
- * Created by lisamazzini on 16/12/14.
- */
 public class Train {
     private final String condition;
     private final boolean isMoving;
@@ -15,15 +12,6 @@ public class Train {
     private final int delay;
     private final List<Station> stationList;
     private boolean pinned;
-
-
-   /*  public Train() {
-        this.category = category;
-        this.id = id;
-        this.delay = delay;
-        this.stationList = stationList;
-        this.pinned = false;
-    } */
 
     public Train(String category, String number, String condition, String lastSeenStation, String lastSeenTime, boolean isMoving, int delay) {
         this.category = category;

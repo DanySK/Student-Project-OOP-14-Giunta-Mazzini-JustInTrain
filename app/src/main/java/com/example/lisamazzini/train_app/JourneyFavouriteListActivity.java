@@ -3,14 +3,18 @@ package com.example.lisamazzini.train_app;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.internal.widget.AdapterViewCompat;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,6 +35,8 @@ public class JourneyFavouriteListActivity extends ActionBarActivity {
         adder.setContext(JourneyFavouriteListActivity.this);
         lv = (ListView) findViewById(R.id.listView);
         aAdpt = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, list);
+
+        registerForContextMenu(this.lv);
 
         Map<String, Set<String>> map = (Map<String, Set<String>>) adder.getFavourites();
         List<String> lstr = new LinkedList<>();
@@ -58,7 +64,28 @@ public class JourneyFavouriteListActivity extends ActionBarActivity {
         lv.setAdapter(aAdpt);
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_fav_train, menu);
+    }
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterViewCompat.AdapterContextMenuInfo info = (AdapterViewCompat.AdapterContextMenuInfo) item.getMenuInfo();
+
+        Journey prova = (Journey)lv.getItemAtPosition(info.position);
+
+        switch (item.getItemId()) {
+            case R.id.delete:
+                adder.removeFavourite(prova.getDepartureStation());
+                Toast.makeText(JourneyFavouriteListActivity.this, "Rimosso dai preferiti", Toast.LENGTH_LONG).show();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
 
 
     @Override

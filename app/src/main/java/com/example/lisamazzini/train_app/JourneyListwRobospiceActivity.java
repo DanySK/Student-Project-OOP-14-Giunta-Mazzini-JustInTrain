@@ -106,7 +106,6 @@ public class JourneyListwRobospiceActivity extends ActionBarActivity {
         for (int i = 0; i < N_TIME_SLOT; i++) {
             Log.d("CAZZI", "lancio spiceManager " + radioButSelector);
             JsoupPlannedJourneyRequest request = new JsoupPlannedJourneyRequest(radioButSelector, new JsoupPlannedJourney(), this.timeSlot, this.departure, this.arrival);
-//            JsoupPlannedJourneyRequest request = new JsoupPlannedJourneyRequest(radioButSelector);
             spiceManager.execute(request, new JsoupPlannedJourneyRequestListener());
             if (radioButSelector == N_TIME_SLOT) {
                 radioButSelector = timeSlot - 1;
@@ -139,18 +138,18 @@ public class JourneyListwRobospiceActivity extends ActionBarActivity {
                 for (List<Journey> l : arList) {
                     jList.addAll(l);
                 }
-                    //controllo e metto la lista al primo non arrivato
-                    if (result.get(0).isFirstNotArrived()) {
-                        firstNotArrived = result.get(0);
+                //controllo e metto la lista al primo non arrivato
+                if (result.get(0).isFirstNotArrived()) {
+                    firstNotArrived = result.get(0);
+                }
+                firstNotArrivedPosition = jList.indexOf(firstNotArrived);
+                simple.notifyDataSetChanged();
+                list.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        list.setSelection(firstNotArrivedPosition);
                     }
-                    firstNotArrivedPosition = jList.indexOf(firstNotArrived);
-                    simple.notifyDataSetChanged();
-                    list.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            list.setSelection(firstNotArrivedPosition);
-                        }
-                    });
+                });
             }
         }
     }
