@@ -94,7 +94,6 @@ public class TrainFavouriteListActivity extends ActionBarActivity {
 
         Train prova = (Train)list.getItemAtPosition(info.position);
 
-        Pinner pinner = new Pinner(this);
 
         Intent intent = new Intent(TrainFavouriteListActivity.this, NotificationService.class);
 
@@ -107,7 +106,6 @@ public class TrainFavouriteListActivity extends ActionBarActivity {
                 Log.d("MA DIO BONO ------------------ ", "" + prova.getNumber());
                 intent.putExtra("number", prova.getNumber());
                 startService(intent);
-                //pinner.pinTrain(prova.getNumber());
                 return true;
            case R.id.unpin:
                 stopService(intent);

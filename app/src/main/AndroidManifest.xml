@@ -30,6 +30,7 @@
             android:exported="false" />
         <service android:name=".NotificationService"
                 android:enabled="true"/>
+        <receiver android:name=".ButtonListener"/>
 
     </application>
 
