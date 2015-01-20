@@ -49,6 +49,4 @@
 
     </LinearLayout>
 
-<<<<<<< local
-</LinearLayout><!-- From: file:/Users/lisamazzini/AndroidStudioProjects/oop14-trainapp/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout/abc_activity_chooser_view_list_item.xml -->=======
-</LinearLayout><!-- From: file:/Users/albertogiunta/AndroidStudioProjects/oop14-trainapp/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout/abc_activity_chooser_view_list_item.xml -->>>>>>>> other
+</LinearLayout><!-- From: file:/Users/lisamazzini/AndroidStudioProjects/oop14-trainapp/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout/abc_activity_chooser_view_list_item.xml -->

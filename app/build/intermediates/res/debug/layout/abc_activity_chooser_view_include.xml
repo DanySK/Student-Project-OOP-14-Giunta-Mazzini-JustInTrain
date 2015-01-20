@@ -65,6 +65,4 @@
 
     </FrameLayout>
 
-<<<<<<< local
-</merge><!-- From: file:/Users/lisamazzini/AndroidStudioProjects/oop14-trainapp/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout/abc_activity_chooser_view_include.xml -->=======
-</merge><!-- From: file:/Users/albertogiunta/AndroidStudioProjects/oop14-trainapp/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout/abc_activity_chooser_view_include.xml -->>>>>>>> other
+</merge><!-- From: file:/Users/lisamazzini/AndroidStudioProjects/oop14-trainapp/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout/abc_activity_chooser_view_include.xml -->
