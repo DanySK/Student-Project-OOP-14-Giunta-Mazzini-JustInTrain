@@ -1,5 +1,7 @@
 package com.example.lisamazzini.train_app;
 
+import com.example.lisamazzini.train_app.Model.Station;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

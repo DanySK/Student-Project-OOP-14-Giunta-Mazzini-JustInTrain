@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app;
+package com.example.lisamazzini.train_app.Model;
 
 public class Station {
 	
@@ -49,16 +49,5 @@ public class Station {
 	public boolean isVisited(){
 		return this.visited;
 	}
-	
-	@Override
-	public String toString() {
-		return 	" \n|| stationName: " + this.stationName + 
-				" \n|| visited: " + this.visited + 
-				" \n|| scheduledArrival: " + this.scheduledArrival + 
-				" \n|| expectedArrival: " + this.expectedArrival + 
-				" \n|| timeDifference: " + this.timeDifference+ " min" + 
-				" \n|| scheduledPlatform: " + this.scheduledPlatform + 
-				" \n|| expectedPlatform: " + this.expectedPlatform + 
-				" \n||||||||||||||||||||||||||||||||||||||||";
-	}
+
 }

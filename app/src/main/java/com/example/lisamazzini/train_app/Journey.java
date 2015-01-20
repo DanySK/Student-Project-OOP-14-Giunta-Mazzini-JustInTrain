@@ -39,6 +39,7 @@ public class Journey {
     public String getTrainNumber() {
         return trainNumber;
     }
+
     public String getTrainCategory() {
         return trainCategory;
     }

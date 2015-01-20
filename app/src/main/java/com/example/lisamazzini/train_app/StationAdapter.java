@@ -1,13 +1,14 @@
 package com.example.lisamazzini.train_app;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+
+import com.example.lisamazzini.train_app.Model.Station;
 
 import java.util.List;
 

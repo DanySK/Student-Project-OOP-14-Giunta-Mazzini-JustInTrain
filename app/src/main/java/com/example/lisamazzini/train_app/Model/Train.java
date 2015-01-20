@@ -1,7 +1,5 @@
 package com.example.lisamazzini.train_app.Model;
 
-import com.example.lisamazzini.train_app.Station;
-
 import java.util.List;
 
 public class Train {
