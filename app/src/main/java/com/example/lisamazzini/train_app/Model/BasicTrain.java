@@ -3,7 +3,7 @@ package com.example.lisamazzini.train_app.Model;
 
 /**
  * BasicTrain models a basic train with category, number and delay fields,
- * it has getters too.
+ * it has getters.
  *
  * @author Alberto Giunta
  */

@@ -7,6 +7,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+/**
+ * TimeSlot is an enum made for categorize the possible options when choosing a daily time slot.
+ * Used mostly in JourneyResultsController (it chooses the time slot you're currently in).
+ * It has getters and a method which says if a datetime is minor then another datetime.
+ *
+ * @author Alberto Giunta
+ */
+
 public enum TimeSlots {
 
     EARLY_MORNING(1, "00:00", new DateTime()),

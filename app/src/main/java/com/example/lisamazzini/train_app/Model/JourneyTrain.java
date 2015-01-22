@@ -2,6 +2,16 @@ package com.example.lisamazzini.train_app.Model;
 
 import com.example.lisamazzini.train_app.Exceptions.FieldNotBuiltException;
 
+
+/**
+ * JourneyTrain extends from BasicTrain,
+ * it models the train you get when you search solutions which go from A to B, with informations about
+ * its id (same id for 2 or more journeys means each of them is only part of the travel, exchanges are present)
+ * its duration, departure and arrival station and time, and optionally departure and arrival platforms.
+ * It has getters, and builder class (builder pattern) which "exclude" platforms.
+ *
+ * @author Alberto Giunta
+ */
 public class JourneyTrain extends BasicTrain {
 
     private final int journeyID;

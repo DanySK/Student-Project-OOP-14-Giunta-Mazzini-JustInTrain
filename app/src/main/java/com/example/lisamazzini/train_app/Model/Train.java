@@ -5,6 +5,16 @@ import com.example.lisamazzini.train_app.Model.Station;
 
 import java.util.List;
 
+/**
+ * Train extends from BasicTrain,
+ * it models the kind of train you get when you want informations like if a train
+ * is moving, its birth and death stations, where and when it has been seen lastly,
+ * its whole station list, and its progress (on time, late etc...)
+ * It has getters and builder class (builder pattern)
+ *
+ * @author Alberto Giunta
+ */
+
 public class Train extends BasicTrain {
 
     private final boolean isMoving;

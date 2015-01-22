@@ -2,6 +2,8 @@ package com.example.lisamazzini.train_app.Model;
 
 /**
  * Contains constants for the whole project.
+ *
+ * @author Alberto Giunta
  */
 
 public class Constants {
