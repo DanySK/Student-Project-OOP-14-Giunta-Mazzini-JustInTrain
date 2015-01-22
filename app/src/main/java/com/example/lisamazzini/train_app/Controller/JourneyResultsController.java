@@ -52,19 +52,19 @@ public class JourneyResultsController {
 
     private int setCurrentTimeSlot() throws ParseException {
         // dicotomic search on timeslots
-        if (TimeSlots.NOW.isMinorThan(TimeSlots.AFTERNOON)) {               // before 13:00
+        if (TimeSlots.NOW.isMinorThan(TimeSlots.AFTERNOON)) {                       // before 13:00
             if (TimeSlots.NOW.isMinorThan(TimeSlots.MORNING)) {
-                return this.currentTimeSlot = TimeSlots.EARLY_MORNING.getIndex();  // before 6:00
+                return this.currentTimeSlot = TimeSlots.EARLY_MORNING.getIndex();   // before 6:00
             } else {
-                return this.currentTimeSlot = TimeSlots.MORNING.getIndex();        // after 6:00
+                return this.currentTimeSlot = TimeSlots.MORNING.getIndex();         // after 6:00
             }
-        } else {                                                            // after or at 13:00
+        } else {                                                                    // after or at 13:00
             if (TimeSlots.NOW.isMinorThan(TimeSlots.EVENING)) {
-                return this.currentTimeSlot = TimeSlots.AFTERNOON.getIndex();      // before 18:00
+                return this.currentTimeSlot = TimeSlots.AFTERNOON.getIndex();       // before 18:00
             } else if (!TimeSlots.NOW.isMinorThan(TimeSlots.NIGHT)) {
-                return this.currentTimeSlot = TimeSlots.NIGHT.getIndex();          // after 22:00
+                return this.currentTimeSlot = TimeSlots.NIGHT.getIndex();           // after 22:00
             } else {
-                return this.currentTimeSlot = TimeSlots.EVENING.getIndex();        // between 18:00 and 22:00
+                return this.currentTimeSlot = TimeSlots.EVENING.getIndex();         // between 18:00 and 22:00
             }
         }
     }

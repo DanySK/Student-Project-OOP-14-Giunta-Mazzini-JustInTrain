@@ -4,6 +4,8 @@ import com.example.lisamazzini.train_app.JsoupTrainDetails;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.JourneyTrain;
 
+import org.joda.time.DateTime;
+import org.joda.time.Minutes;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Method;
 import org.jsoup.Jsoup;
@@ -12,6 +14,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -31,10 +35,11 @@ public class JourneyResultsParser {
     private Document detailLinkResult;
 
     // FIELDS FOR RESULTS
-    private int journeyID = 0;
     private String category;
     private String trainNumber;
     private int delay;
+    private int journeyID = 0;
+    private String duration;
     private String departureTime;
     private String arrivalTime;
     private List<JourneyTrain> journeyTrainsList;
@@ -52,11 +57,11 @@ public class JourneyResultsParser {
         this.year = year;
     }
 
-    public void computeResult() {
-
+    public void computeResult() throws IOException, ParseException {
+        goToMainResultPage();
     }
 
-    private void goToMainResultPage() throws IOException {
+    private void goToMainResultPage() throws IOException, ParseException {
         Connection.Response response = Jsoup
                 .connect(Constants.BASE_URL +  Constants.EXT_URL + Constants.ACTION_PLANNED)
                 .data("partenza", departureStation, "arrivo", arrivalStation,
@@ -66,10 +71,19 @@ public class JourneyResultsParser {
                 .execute();
         Map<String, String> cookies = response.cookies();
         this.allResultsDoc = response.parse();
+        if (!checkForErrors(this.allResultsDoc)) {
+            iterateAllResults(cookies);
+        } else {
 
+        }
     }
 
-    private void iterateAllResults(Map<String, String> cookies) throws IOException {
+    private boolean checkForErrors(Document doc) {
+        return doc.title().equals("Ricerca Programma Orario");
+    }
+
+
+    private void iterateAllResults(Map<String, String> cookies) throws IOException, ParseException {
         Elements divs = this.allResultsDoc.select("div.bloccorisultato");
         if (divs.text().split(" ")[0].equals("Partenza:")) {
             for(Element el : divs){
@@ -78,20 +92,18 @@ public class JourneyResultsParser {
         }
     }
 
-    private void clickOnDetailsLink(Element el, Map<String, String> cookies) throws IOException {
+    private void clickOnDetailsLink(Element el, Map<String, String> cookies) throws IOException, ParseException {
         String detailLink = el.select("a").first().attr("href");
         this.detailLinkResult = Jsoup.connect(Constants.BASE_URL + detailLink).cookies(cookies).execute().parse();
         String[] s = this.detailLinkResult.select("div.bloccorisultato").get(0).text().split(" ");
         s[0] = "";
         computeJourneyDetails(s);
         this.journeyID++;
-//        computeIndex(s, 0);
-//        this.id++;
     }
 
 
     // TODO spiezza in due come ivan drago con rocky
-    private void computeJourneyDetails(String[] journeyTrainDetails) throws IOException {
+    private void computeJourneyDetails(String[] journeyTrainDetails) throws IOException, ParseException {
 
         int currentPosition = 0;
         // holds the wanted value in the array,
@@ -150,6 +162,7 @@ public class JourneyResultsParser {
                 // get ready for next round
                 lastPartenzaIndex = nextPartenzaIndex;
 
+                computeDuration();
                 computeDelay();
 
                 this.journeyTrainsList.add(new JourneyTrain.JourneyTrainBuilder(
@@ -161,6 +174,18 @@ public class JourneyResultsParser {
 
             }
         }
+    }
+
+    private void computeDuration() throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        DateTime arrivalDateTime;
+        DateTime departureDateTime;
+        arrivalDateTime = new DateTime(simpleDateFormat.parse(this.arrivalTime));
+        departureDateTime = new DateTime(simpleDateFormat.parse(this.departureTime));
+        int m = Minutes.minutesBetween(arrivalDateTime, departureDateTime).getMinutes();
+        int minutes = m % 60;
+        int hours = (m - minutes) / 60;
+        this.duration = "" +
     }
 
 
