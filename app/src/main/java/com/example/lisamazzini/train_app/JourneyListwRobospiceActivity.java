@@ -75,10 +75,12 @@ public class JourneyListwRobospiceActivity extends ActionBarActivity {
         for (int i = 0; i < N_TIME_SLOT; i++) {
             arList.add(new LinkedList<Journey>());
         }
+
+        /***/
         Intent intent = getIntent();
         departure = intent.getStringExtra("journeyDeparture");
         arrival = intent.getStringExtra("journeyArrival");
-
+        /***/
         journeyFavouriteAdder.setContext(JourneyListwRobospiceActivity.this);
         saveJourney = (Button)findViewById(R.id.btnAddToFavourites);
         saveJourney.setOnClickListener(new View.OnClickListener() {
@@ -117,8 +119,8 @@ public class JourneyListwRobospiceActivity extends ActionBarActivity {
         }
     }
 
-
-    private class JsoupPlannedJourneyRequestListener implements RequestListener <ListJourney>{
+    /***/
+    public class JsoupPlannedJourneyRequestListener implements RequestListener <ListJourney>{
         @Override
         public void onRequestFailure(SpiceException spiceException) {
             Toast.makeText(JourneyListwRobospiceActivity.this,
@@ -153,7 +155,7 @@ public class JourneyListwRobospiceActivity extends ActionBarActivity {
             }
         }
     }
-
+    /***/
 
 
     private void selectTimeSlot() throws ParseException {

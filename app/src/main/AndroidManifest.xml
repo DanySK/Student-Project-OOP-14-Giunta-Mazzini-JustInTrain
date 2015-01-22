@@ -21,17 +21,24 @@
             </intent-filter>
         </activity>
         <activity android:name=".StationListActivity" />
-        <!--<activity android:name=".JourneyListActivity" />-->
-        <activity android:name=".JourneyListwRobospiceActivity"/>
+        <!-- <activity android:name=".JourneyListActivity" /> -->
+        <activity android:name=".JourneyListwRobospiceActivity" />
         <activity android:name=".TrainFavouriteListActivity" />
         <activity android:name=".JourneyFavouriteListActivity" />
+
         <service
             android:name="com.octo.android.robospice.UncachedSpiceService"
             android:exported="false" />
-        <service android:name=".NotificationService"
-                android:enabled="true"/>
-        <receiver android:name=".ButtonListener"/>
+        <service
+            android:name=".NotificationService"
+            android:enabled="true" />
 
+        <receiver android:name=".ButtonListener" />
+
+        <activity
+            android:name=".GUI.JourneyResultsActivity"
+            android:label="@string/title_activity_journey_results" >
+        </activity>
     </application>
 
 </manifest>
