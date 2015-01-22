@@ -58,7 +58,7 @@ public class JourneyResultsParser {
     }
 
     public static void main(String[] args) {
-        JourneyResultsParser j = new JourneyResultsParser("pesaro", "cesena", 3, 3, "22", "01", "2015");
+        JourneyResultsParser j = new JourneyResultsParser("asdf", "asdf", 3, 3, "22", "01", "2015");
         try {
             j.computeResult();
         } catch (IOException e) {
@@ -86,10 +86,15 @@ public class JourneyResultsParser {
             System.out.println("documento parsato");
 //            iterateAllResults(cookies);
         } else {
-            System.out.println("documento non parsato causa errore");
             String e = getErrorString(this.allResultsDoc);
-            if (e.equals("localita' non trovata...")) {
-
+            System.out.println(e);
+            switch(e) {
+                case "localita' non trovata" :
+                    break;
+                case "Data non valida" :
+                    break;
+                case "Inserire almeno 3 caratteri" :
+                    break;
             }
         }
     }
@@ -98,6 +103,7 @@ public class JourneyResultsParser {
         return doc.title().equals("Ricerca Programma Orario");
     }
 
+    // TODO in caso di più errori (ad esempio entrambe le località sbagliate) prevedere cosa fare? salvare in un array di stringhe? salvarne solo uno?
     private String getErrorString(Document doc) {
         return doc.select("span.errore").text();
     }

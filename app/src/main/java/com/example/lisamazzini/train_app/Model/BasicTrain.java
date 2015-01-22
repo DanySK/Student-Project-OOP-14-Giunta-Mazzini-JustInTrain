@@ -1,5 +1,13 @@
 package com.example.lisamazzini.train_app.Model;
 
+
+/**
+ * BasicTrain models a basic train with category, number and delay fields,
+ * it has getters too.
+ *
+ * @author Alberto Giunta
+ */
+
 public class BasicTrain {
 
     private final String category;
