@@ -39,6 +39,10 @@
             android:name=".GUI.JourneyResultsActivity"
             android:label="@string/title_activity_journey_results" >
         </activity>
+        <activity
+            android:name=".GUI.FavouriteJourneyList"
+            android:label="@string/title_activity_favourite_journey_list" >
+        </activity>
     </application>
 
 </manifest>

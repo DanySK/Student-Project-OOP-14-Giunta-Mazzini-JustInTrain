@@ -4,6 +4,7 @@ import com.example.lisamazzini.train_app.Journey;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.JsoupPlannedJourney;
 import com.example.lisamazzini.train_app.JsoupPlannedJourneyRequest;
+import com.example.lisamazzini.train_app.Model.TimeSlots;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class JourneyResultsController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         for (int i = 0; i < listOfJourneyList.size(); i++) {
             listOfJourneyList.add(new LinkedList<Journey>());
         }
@@ -39,9 +41,10 @@ public class JourneyResultsController {
         this.arrival = arrival;
     }
 
-    public JsoupPlannedJourneyRequest iterateTimeSlots() {
-        JsoupPlannedJourneyRequest request = new JsoupPlannedJourneyRequest(this.timeSlotSelector.value(), new JsoupPlannedJourney(),
-                                                                            this.currentTimeSlot, this.departure, this.arrival);
+    public JourneyRequest iterateTimeSlots() {
+        JourneyRequest request = new JourneyRequest(new JsoupPlannedJourney(),
+                                                    this.timeSlotSelector.value(), this.currentTimeSlot,
+                                                    this.departure, this.arrival);
         timeSlotSelector.increment();
         return request;
     }
@@ -91,5 +94,5 @@ public class JourneyResultsController {
     }
 }
 
-//  TODO adder fai controller separato con strategy
+
 

@@ -1,5 +1,6 @@
 package com.example.lisamazzini.train_app.GUI;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,12 +25,21 @@ public class JourneyResultsActivity extends ActionBarActivity {
 
     private final JourneyResultsController journeyController = new JourneyResultsController("departureString", "arrivalString");
     private final SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
-
+    private String departure;
+    private String arrival;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey_results);
-        //  TODO adapter, listview o quel che è,
+        //  TODO adapter, listview o quel che è
+
+        Intent intent = getIntent();
+        departure = intent.getStringExtra("journeyDeparture");
+        arrival = intent.getStringExtra("journeyArrival");
+
+        //  TODO listener per salvare i preferiti con favouriteController
+
+        makeRequests();
     }
 
     private void makeRequests() {
