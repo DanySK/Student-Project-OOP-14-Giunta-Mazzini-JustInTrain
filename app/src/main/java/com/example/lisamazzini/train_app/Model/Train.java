@@ -13,6 +13,7 @@ public class Train extends BasicTrain {
     private final String lastSeenStation;
     private final String lastSeenTime;
     private final List<Station> stationList;
+    private final String progress;
 
     public boolean isMoving() {
         return isMoving;
@@ -34,6 +35,10 @@ public class Train extends BasicTrain {
         return lastSeenTime;
     }
 
+    public String getProgress(){
+        return this.progress;
+    }
+
     public List<Station> getStationList() throws FieldNotBuiltException {
         if (this.stationList == null) {
             throw new FieldNotBuiltException();
@@ -49,6 +54,7 @@ public class Train extends BasicTrain {
         this.lastSeenStation = builder.lastSeenStation;
         this.lastSeenTime = builder.lastSeenTime;
         this.stationList = builder.stationList;
+        this.progress = builder.progress;
     }
 
 
@@ -62,6 +68,7 @@ public class Train extends BasicTrain {
         private final String lastSeenStation;
         private final String lastSeenTime;
         private List<Station> stationList;
+        private String progress;
 
         public TrainBuilder(String category, String number,
                             boolean isMoving, int delay,
@@ -79,6 +86,11 @@ public class Train extends BasicTrain {
 
         public TrainBuilder withStationList(List<Station> stationList) {
             this.stationList = stationList;
+            return this;
+        }
+
+        public TrainBuilder withProgress(String progress){
+            this.progress = progress;
             return this;
         }
 

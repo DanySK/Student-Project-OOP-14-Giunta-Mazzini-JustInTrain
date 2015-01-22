@@ -1,6 +1,7 @@
 package com.example.lisamazzini.train_app;
 
 import android.util.Log;
+import com.example.lisamazzini.train_app.Model.*;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -29,7 +30,12 @@ public class JsoupTrainDetails implements IScraper{
 	private String lastSeenStation;
 	private String lastSeenTime;
 	private Document doc;
-	
+
+    //          !!!!!!              TO DO           !!!! !!!
+    private String birthStation = "";
+    private String deathStation = "";
+	//          !!!!!!              TO DO               !!!!!
+
 	public JsoupTrainDetails(String trainNumber) {
 		this.trainNumber = trainNumber;
 		this.baseurl = "http://mobile.viaggiatreno.it/vt_pax_internet/mobile";
@@ -69,7 +75,7 @@ public class JsoupTrainDetails implements IScraper{
 		goToMainResultPage();
 		computeTrainStatus();
 
-        return new Train(this.trainCategory, this.trainNumber, this.condition, this.lastSeenStation, this.lastSeenTime, this.isMoving, this.delay);
+            return new Train(this.trainCategory, this.trainNumber, this.condition, this.lastSeenStation, this.lastSeenTime, this.isMoving, this.delay);
 	}
 	
 	/**

@@ -56,8 +56,6 @@ public class NotificationService extends Service {
 
         Log.d("OOOOOOOOOOOOOOOOOOOO", "On start command" + intent.getStringExtra("number"));
         spiceManager.start(this);
-       // ScrapingTask scraper = new ScrapingTask(this.number);
-       // scraper.execute();
         return START_STICKY;
     }
 
@@ -102,39 +100,5 @@ public class NotificationService extends Service {
             startForeground(1, not);
 
         }
-    }
-
-
-    private class ScrapingTask extends AsyncTask<Void, Void, Train> {
-
-        private final JsoupTrainDetails scraperTrain;
-        private Train train;
-        private String number;
-
-        protected ScrapingTask(String trainNumber){
-            Log.d("OOOOOOOOOOOOOOOOOOOO", "" + trainNumber);
-
-            this.number = trainNumber;
-            this.scraperTrain = new JsoupTrainDetails(this.number);
-        }
-
-        @Override
-        protected Train doInBackground(Void... params) {
-            try {
-                Log.d("OOOOOOOOOOOOOOOOOOOO", "doinbackground");
-
-                train = scraperTrain.computeResult();
-
-            } catch (IOException e) {
-            }
-            return train;
-        }
-
-        @Override
-        protected void onPostExecute(Train train){
-
-        }
-
-
     }
 }

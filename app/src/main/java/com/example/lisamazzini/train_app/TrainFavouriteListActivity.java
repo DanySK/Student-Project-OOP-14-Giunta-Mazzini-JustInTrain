@@ -147,35 +147,11 @@ public class TrainFavouriteListActivity extends ActionBarActivity {
 
         @Override
         public void onRequestSuccess(Train train) {
-            Log.d("--------------------------" , "sono qui nell'on request success");
+            Log.d("--------------------------", "sono qui nell'on request success");
             favTrain.add(train);
             adapter = new TrainAdapter(TrainFavouriteListActivity.this, favTrain);
             list.setAdapter(adapter);
 
-        }
-    }
-
-
-    private class ScrapingTask extends AsyncTask<Void, Void, Train> {
-
-        //This class has a scraper for the train details
-        private final JsoupTrainDetails scraperTrain;
-         protected ScrapingTask(String trainNumber){
-            this.scraperTrain = new JsoupTrainDetails(trainNumber);
-        }
-
-        @Override
-        protected Train doInBackground(Void... params) {
-            try {
-                train = scraperTrain.computeResult();
-            } catch (IOException e) {
-            }
-            return train;
-        }
-
-        @Override
-        protected void onPostExecute(Train train){
-            //After the execution of the task, the ListView is updated with the result.
         }
     }
 }

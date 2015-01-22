@@ -29,15 +29,14 @@ public class TrainAndStationsRequest extends SpiceRequest<Train> {
             try {
                 scraperJourney.computeResult();
                 train = new Train(train, scraperJourney.getStationList());
-                progress = scraperJourney.getProgress();
+               // DA SISTEMARE L'ANDAMENTO DEL TRENO
+               // progress = scraperJourney.getProgress();
 
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-        } catch (IOException e) {
-    }
-    return train;
+        return train;
 
         }
-    }
 }
+
