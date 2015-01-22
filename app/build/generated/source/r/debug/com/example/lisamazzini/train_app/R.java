@@ -1299,9 +1299,7 @@ containing a value of this type.
         public static final int abc_textfield_search_activated_mtrl_alpha=0x7f020030;
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f020031;
         public static final int abc_textfield_search_material=0x7f020032;
-        public static final int exit=0x7f020033;
-        public static final int ic_launcher=0x7f020034;
-        public static final int refresh=0x7f020035;
+        public static final int ic_launcher=0x7f020033;
     }
     public static final class id {
         public static final int action_bar=0x7f080031;
@@ -1455,25 +1453,27 @@ containing a value of this type.
         public static final int abc_search_dropdown_item_icons_2line=0x7f030014;
         public static final int abc_search_view=0x7f030015;
         public static final int abc_simple_dropdown_hint=0x7f030016;
-        public static final int activity_favourite_list=0x7f030017;
-        public static final int activity_favourites_list=0x7f030018;
-        public static final int activity_journey_list=0x7f030019;
-        public static final int activity_journey_listw_robospice=0x7f03001a;
-        public static final int activity_journey_results=0x7f03001b;
-        public static final int activity_journey_serach=0x7f03001c;
-        public static final int activity_main=0x7f03001d;
-        public static final int activity_station_list=0x7f03001e;
-        public static final int custom_adapter_layout=0x7f03001f;
-        public static final int layout_notification=0x7f030020;
-        public static final int row_layout=0x7f030021;
-        public static final int support_simple_spinner_dropdown_item=0x7f030022;
-        public static final int train_adapter_layout=0x7f030023;
+        public static final int activity_favourite_journey_list=0x7f030017;
+        public static final int activity_favourite_list=0x7f030018;
+        public static final int activity_favourites_list=0x7f030019;
+        public static final int activity_journey_list=0x7f03001a;
+        public static final int activity_journey_listw_robospice=0x7f03001b;
+        public static final int activity_journey_results=0x7f03001c;
+        public static final int activity_journey_serach=0x7f03001d;
+        public static final int activity_main=0x7f03001e;
+        public static final int activity_station_list=0x7f03001f;
+        public static final int custom_adapter_layout=0x7f030020;
+        public static final int layout_notification=0x7f030021;
+        public static final int row_layout=0x7f030022;
+        public static final int support_simple_spinner_dropdown_item=0x7f030023;
+        public static final int train_adapter_layout=0x7f030024;
     }
     public static final class menu {
         public static final int menu_fav_train=0x7f0c0000;
-        public static final int menu_journey_listw_robospice=0x7f0c0001;
-        public static final int menu_journey_results=0x7f0c0002;
-        public static final int menu_main=0x7f0c0003;
+        public static final int menu_favourite_journey_list=0x7f0c0001;
+        public static final int menu_journey_listw_robospice=0x7f0c0002;
+        public static final int menu_journey_results=0x7f0c0003;
+        public static final int menu_main=0x7f0c0004;
     }
     public static final class string {
         public static final int abc_action_bar_home_description=0x7f0a0000;
@@ -1495,8 +1495,9 @@ containing a value of this type.
         public static final int action_settings=0x7f0a0010;
         public static final int app_name=0x7f0a0011;
         public static final int hello_world=0x7f0a0012;
-        public static final int title_activity_journey_listw_robospice=0x7f0a0013;
-        public static final int title_activity_journey_results=0x7f0a0014;
+        public static final int title_activity_favourite_journey_list=0x7f0a0013;
+        public static final int title_activity_journey_listw_robospice=0x7f0a0014;
+        public static final int title_activity_journey_results=0x7f0a0015;
     }
     public static final class style {
         /**  Customize your theme here. 

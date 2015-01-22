@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.lisamazzini.train_app.Controller.JourneyListWrapper;
+import com.example.lisamazzini.train_app.Controller.JourneyRequest;
 import com.example.lisamazzini.train_app.Controller.JourneyResultsController;
 import com.example.lisamazzini.train_app.JourneyListwRobospiceActivity;
 import com.example.lisamazzini.train_app.ListJourney;
@@ -44,11 +46,11 @@ public class JourneyResultsActivity extends ActionBarActivity {
 
     private void makeRequests() {
         for (int i = 0; i < Constants.N_TIME_SLOT; i++) {
-            spiceManager.execute(journeyController.iterateTimeSlots(), new JsoupPlannedJourneyRequestListener());
+            spiceManager.execute(journeyController.iterateTimeSlots(), new JourneyResultsRequestListener());
         }
     }
 
-    private class JsoupPlannedJourneyRequestListener implements RequestListener<ListJourney> {
+    private class JourneyResultsRequestListener implements RequestListener<JourneyListWrapper> {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
             Toast.makeText(JourneyResultsActivity.this,
@@ -57,7 +59,7 @@ public class JourneyResultsActivity extends ActionBarActivity {
         }
 
         @Override
-        public void onRequestSuccess(ListJourney journeys) {
+        public void onRequestSuccess(JourneyListWrapper journeys) {
             //  TODO prendi journeys e riempici la lista
         }
     }

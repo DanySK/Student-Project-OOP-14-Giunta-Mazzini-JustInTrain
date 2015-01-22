@@ -57,6 +57,17 @@ public class JourneyResultsParser {
         this.year = year;
     }
 
+    public static void main(String[] args) {
+        JourneyResultsParser j = new JourneyResultsParser("pesaro", "cesena", 3, 3, "22", "01", "2015");
+        try {
+            j.computeResult();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void computeResult() throws IOException, ParseException {
         goToMainResultPage();
     }
@@ -72,14 +83,23 @@ public class JourneyResultsParser {
         Map<String, String> cookies = response.cookies();
         this.allResultsDoc = response.parse();
         if (!checkForErrors(this.allResultsDoc)) {
-            iterateAllResults(cookies);
+            System.out.println("documento parsato");
+//            iterateAllResults(cookies);
         } else {
+            System.out.println("documento non parsato causa errore");
+            String e = getErrorString(this.allResultsDoc);
+            if (e.equals("localita' non trovata...")) {
 
+            }
         }
     }
 
     private boolean checkForErrors(Document doc) {
         return doc.title().equals("Ricerca Programma Orario");
+    }
+
+    private String getErrorString(Document doc) {
+        return doc.select("span.errore").text();
     }
 
 
@@ -182,10 +202,10 @@ public class JourneyResultsParser {
         DateTime departureDateTime;
         arrivalDateTime = new DateTime(simpleDateFormat.parse(this.arrivalTime));
         departureDateTime = new DateTime(simpleDateFormat.parse(this.departureTime));
-        int m = Minutes.minutesBetween(arrivalDateTime, departureDateTime).getMinutes();
-        int minutes = m % 60;
-        int hours = (m - minutes) / 60;
-        this.duration = "" +
+        int intervalMinutes = Minutes.minutesBetween(arrivalDateTime, departureDateTime).getMinutes();
+        int minutes = intervalMinutes % 60;
+        int hours = (intervalMinutes - minutes) / 60;
+        this.duration = String.format("%02d:%02d", hours, minutes);
     }
 
 
