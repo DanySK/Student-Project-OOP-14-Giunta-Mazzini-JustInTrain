@@ -4,6 +4,7 @@ import com.example.lisamazzini.train_app.Exceptions.FieldNotBuiltException;
 
 public class JourneyTrain extends BasicTrain {
 
+    private final int journeyID;
     private final String duration;
     private final String departureStation;
     private final String arrivalStation;
@@ -11,6 +12,10 @@ public class JourneyTrain extends BasicTrain {
     private final String arrivalTime;
     private final String departurePlatform;
     private final String arrivalPlatform;
+
+    public int getJourneyID() {
+        return journeyID;
+    }
 
     public String getDuration() {
         return duration;
@@ -48,6 +53,7 @@ public class JourneyTrain extends BasicTrain {
 
     private JourneyTrain(JourneyTrainBuilder builder) {
         super(builder.category, builder.number, builder.delay);
+        this.journeyID = builder.journeyID;
         this.duration = builder.duration;
         this.departureStation = builder.departureStation;
         this.arrivalStation = builder.arrivalStation;
@@ -61,6 +67,7 @@ public class JourneyTrain extends BasicTrain {
         private final String category; // fai enum
         private final String number;
         private final int delay;
+        private final int journeyID;
         private final String duration;
         private final String departureStation;
         private final String arrivalStation;
@@ -70,12 +77,13 @@ public class JourneyTrain extends BasicTrain {
         private String arrivalPlatform;
 
         public JourneyTrainBuilder(String category, String number,
-                                   int delay, String duration,
+                                   int delay, int journeyID, String duration,
                                    String departureStation, String arrivalStation,
                                    String departureTime, String arrivalTime) {
             this.category = category;
             this.number = number;
             this.delay = delay;
+            this.journeyID = journeyID;
             this.duration = duration;
             this.departureStation = departureStation;
             this.arrivalStation = arrivalStation;

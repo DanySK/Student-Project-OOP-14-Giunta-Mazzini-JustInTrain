@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_journey_listw_robospice">JourneyListwRobospiceActivity</string>
     <string name="title_activity_journey_results">JourneyResultsActivity</string>
+    <string name="title_activity_favourite_journey_list">FavouriteJourneyList</string>
 
 </resources>

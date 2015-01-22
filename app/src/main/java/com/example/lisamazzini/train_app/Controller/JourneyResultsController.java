@@ -4,6 +4,7 @@ import com.example.lisamazzini.train_app.Journey;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.JsoupPlannedJourney;
 import com.example.lisamazzini.train_app.JsoupPlannedJourneyRequest;
+import com.example.lisamazzini.train_app.Model.TimeSlots;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class JourneyResultsController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         for (int i = 0; i < listOfJourneyList.size(); i++) {
             listOfJourneyList.add(new LinkedList<Journey>());
         }
@@ -39,9 +41,10 @@ public class JourneyResultsController {
         this.arrival = arrival;
     }
 
-    public JsoupPlannedJourneyRequest iterateTimeSlots() {
-        JsoupPlannedJourneyRequest request = new JsoupPlannedJourneyRequest(this.timeSlotSelector.value(), new JsoupPlannedJourney(),
-                                                                            this.currentTimeSlot, this.departure, this.arrival);
+    public JourneyRequest iterateTimeSlots() {
+        JourneyRequest request = new JourneyRequest(new JsoupPlannedJourney(),
+                                                    this.timeSlotSelector.value(), this.currentTimeSlot,
+                                                    this.departure, this.arrival);
         timeSlotSelector.increment();
         return request;
     }
@@ -49,19 +52,19 @@ public class JourneyResultsController {
 
     private int setCurrentTimeSlot() throws ParseException {
         // dicotomic search on timeslots
-        if (TimeSlots.NOW.isMinorThan(TimeSlots.AFTERNOON)) {               // before 13:00
+        if (TimeSlots.NOW.isMinorThan(TimeSlots.AFTERNOON)) {                       // before 13:00
             if (TimeSlots.NOW.isMinorThan(TimeSlots.MORNING)) {
-                return this.currentTimeSlot = TimeSlots.EARLY_MORNING.getIndex();  // before 6:00
+                return this.currentTimeSlot = TimeSlots.EARLY_MORNING.getIndex();   // before 6:00
             } else {
-                return this.currentTimeSlot = TimeSlots.MORNING.getIndex();        // after 6:00
+                return this.currentTimeSlot = TimeSlots.MORNING.getIndex();         // after 6:00
             }
-        } else {                                                            // after or at 13:00
+        } else {                                                                    // after or at 13:00
             if (TimeSlots.NOW.isMinorThan(TimeSlots.EVENING)) {
-                return this.currentTimeSlot = TimeSlots.AFTERNOON.getIndex();      // before 18:00
+                return this.currentTimeSlot = TimeSlots.AFTERNOON.getIndex();       // before 18:00
             } else if (!TimeSlots.NOW.isMinorThan(TimeSlots.NIGHT)) {
-                return this.currentTimeSlot = TimeSlots.NIGHT.getIndex();          // after 22:00
+                return this.currentTimeSlot = TimeSlots.NIGHT.getIndex();           // after 22:00
             } else {
-                return this.currentTimeSlot = TimeSlots.EVENING.getIndex();        // between 18:00 and 22:00
+                return this.currentTimeSlot = TimeSlots.EVENING.getIndex();         // between 18:00 and 22:00
             }
         }
     }
@@ -91,5 +94,5 @@ public class JourneyResultsController {
     }
 }
 
-//  TODO adder fai controller separato con strategy
+
 

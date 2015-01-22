@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Controller;
+package com.example.lisamazzini.train_app.Model;
 
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
