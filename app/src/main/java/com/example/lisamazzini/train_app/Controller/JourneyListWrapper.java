@@ -4,6 +4,6 @@ import com.example.lisamazzini.train_app.Model.JourneyTrain;
 
 import java.util.ArrayList;
 
-public class JourneyListAdapter extends ArrayList<JourneyTrain> {
+public class JourneyListWrapper extends ArrayList<JourneyTrain> {
 
 }
