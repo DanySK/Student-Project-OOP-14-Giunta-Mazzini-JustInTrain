@@ -166,6 +166,7 @@ public class JourneyListwRobospiceActivity extends ActionBarActivity {
         Date afternoon = time.parse("18:00");
         Date evening = time.parse("22:00");
         Date lateNight = time.parse("23:59");
+        DateTime d = new DateTime(earlyNight);
         Date actualTime = time.parse(time.format(Calendar.getInstance().getTime()));
         if (isBetween(new DateTime(earlyNight), new DateTime(earlyMorning), new DateTime(actualTime))) {
             this.timeSlot = 1;

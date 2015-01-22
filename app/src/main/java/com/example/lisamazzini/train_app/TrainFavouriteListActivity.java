@@ -18,6 +18,11 @@ import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.UncachedSpiceService;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.listener.RequestListener;
+
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,6 +37,22 @@ public class TrainFavouriteListActivity extends ActionBarActivity {
     private Train train;
     private TrainFavouriteAdder fava;
     private TrainAdapter adapter;
+    private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
+
+
+    // definisci questi metodi
+    @Override
+    protected void onStart() {
+        spiceManager.start(this);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        spiceManager.shouldStop();
+        super.onStop();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +75,11 @@ public class TrainFavouriteListActivity extends ActionBarActivity {
         Map<String, String> map = (Map<String, String>) fava.getFavourites();
 
         //For each train start a AsyncTask to get the details
+
         for (String s : map.values()) {
-            ScrapingTask scrapingTask = new ScrapingTask(s);
-            scrapingTask.execute();
+            Log.d("--------------------------" , "sono qui nell'on create");
+            TrainRequest request = new TrainRequest(s);
+            spiceManager.execute(request, new TrainRequestListener());
         }
 
         //When the user click on one item of the list, it starts a new StationListActivity with the
@@ -114,6 +137,24 @@ public class TrainFavouriteListActivity extends ActionBarActivity {
         }
     }
 
+    private class TrainRequestListener implements RequestListener<Train> {
+        @Override
+        public void onRequestFailure(SpiceException spiceException) {
+            Toast.makeText(TrainFavouriteListActivity.this,
+                    "Error: " + spiceException.getMessage(), Toast.LENGTH_SHORT)
+                    .show();
+        }
+
+        @Override
+        public void onRequestSuccess(Train train) {
+            Log.d("--------------------------" , "sono qui nell'on request success");
+            favTrain.add(train);
+            adapter = new TrainAdapter(TrainFavouriteListActivity.this, favTrain);
+            list.setAdapter(adapter);
+
+        }
+    }
+
 
     private class ScrapingTask extends AsyncTask<Void, Void, Train> {
 
@@ -135,9 +176,6 @@ public class TrainFavouriteListActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(Train train){
             //After the execution of the task, the ListView is updated with the result.
-            favTrain.add(train);
-            adapter = new TrainAdapter(TrainFavouriteListActivity.this, favTrain);
-            list.setAdapter(adapter);
         }
     }
 }
