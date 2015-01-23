@@ -1,8 +1,10 @@
 package com.example.lisamazzini.train_app.GUI;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -23,21 +25,29 @@ import com.octo.android.robospice.request.listener.RequestListener;
  *
  */
 
-public class JourneyResultsActivity extends ActionBarActivity {
+public class JourneyResultsActivity extends Activity {
 
     private final JourneyResultsController journeyController = new JourneyResultsController("departureString", "arrivalString");
     private final SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter recyclerAdapter;
+    private RecyclerView.LayoutManager recyclerLayoutManager;
+
     private String departure;
     private String arrival;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey_results);
-        //  TODO adapter, listview o quel che è
-
         Intent intent = getIntent();
         departure = intent.getStringExtra("journeyDeparture");
         arrival = intent.getStringExtra("journeyArrival");
+
+
+
+        //  TODO adapter, listview o quel che è
+
 
         //  TODO listener per salvare i preferiti con favouriteController
 

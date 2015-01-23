@@ -7,7 +7,7 @@ import android.view.MenuItem;
 
 import com.example.lisamazzini.train_app.R;
 
-public class FavouriteJourneyList extends ActionBarActivity {
+public class FavouriteJourneyListActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

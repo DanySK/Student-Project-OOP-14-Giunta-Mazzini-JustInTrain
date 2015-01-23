@@ -40,7 +40,7 @@
             android:label="@string/title_activity_journey_results" >
         </activity>
         <activity
-            android:name=".GUI.FavouriteJourneyList"
+            android:name=".GUI.FavouriteJourneyListActivity"
             android:label="@string/title_activity_favourite_journey_list" >
         </activity>
     </application>
