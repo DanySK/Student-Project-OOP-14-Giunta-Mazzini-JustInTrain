@@ -3,6 +3,7 @@ package com.example.lisamazzini.train_app.GUI;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,6 +41,11 @@ public class JourneyResultsActivity extends Activity {
         Intent intent = getIntent();
         departure = intent.getStringExtra("journeyDeparture");
         arrival = intent.getStringExtra("journeyArrival");
+
+        recyclerView = (RecyclerView)findViewById(R.id.cardList);
+        recyclerLayoutManager = new LinearLayoutManager(this);
+
+        recyclerView.setLayoutManager(recyclerLayoutManager);
 
 
 

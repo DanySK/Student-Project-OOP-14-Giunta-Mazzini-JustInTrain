@@ -4,10 +4,10 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/tvSetTrainCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CAT"
-        android:id="@+id/tvSetTrainCategory"
         android:layout_marginTop="10dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -17,108 +17,108 @@
         android:textSize="15dp" />
 
     <TextView
+        android:id="@+id/tvTrainNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Num:"
-        android:id="@+id/tvTrainNumber"
         android:layout_alignBottom="@+id/tvSetTrainCategory"
         android:layout_toRightOf="@+id/tvSetTrainCategory"
         android:layout_toEndOf="@+id/tvSetTrainCategory"
         android:layout_marginLeft="10dp" />
 
     <TextView
+        android:id="@+id/tvSetTrainNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="none"
-        android:id="@+id/tvSetTrainNumber"
         android:layout_alignTop="@+id/tvTrainNumber"
         android:layout_toRightOf="@+id/tvTrainNumber"
         android:layout_toEndOf="@+id/tvTrainNumber"
         android:layout_marginLeft="5dp" />
 
     <TextView
+        android:id="@+id/tvDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dur:"
-        android:id="@+id/tvDuration"
         android:layout_alignTop="@+id/tvSetTrainNumber"
         android:layout_toRightOf="@+id/tvSetTrainNumber"
         android:layout_toEndOf="@+id/tvSetTrainNumber"
         android:layout_marginLeft="10dp" />
 
     <TextView
+        android:id="@+id/tvSetDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="dur"
-        android:id="@+id/tvSetDuration"
         android:layout_alignBottom="@+id/tvSetTrainCategory"
         android:layout_toRightOf="@+id/tvDuration"
         android:layout_toEndOf="@+id/tvDuration"
         android:layout_marginLeft="5dp" />
 
     <TextView
+        android:id="@+id/tvDeparture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Partenza"
-        android:id="@+id/tvDeparture"
         android:layout_below="@+id/tvSetTrainCategory"
         android:layout_alignLeft="@+id/tvSetTrainCategory"
         android:layout_alignStart="@+id/tvSetTrainCategory"
         android:layout_marginTop="10dp" />
 
     <TextView
+        android:id="@+id/tvSetDeparture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="station"
-        android:id="@+id/tvSetDeparture"
         android:layout_below="@+id/tvDeparture"
         android:layout_alignLeft="@+id/tvDeparture"
         android:layout_alignStart="@+id/tvDeparture"
         android:layout_marginTop="5dp" />
 
     <TextView
+        android:id="@+id/tvSetDepartureTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="hh:mm"
-        android:id="@+id/tvSetDepartureTime"
         android:layout_alignTop="@+id/tvDeparture"
         android:layout_toRightOf="@+id/tvDeparture"
         android:layout_toEndOf="@+id/tvDeparture"
         android:paddingLeft="10dp" />
 
     <TextView
+        android:id="@+id/tvArrival"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Arrivo"
-        android:id="@+id/tvArrival"
         android:layout_alignTop="@+id/tvDeparture"
         android:layout_alignRight="@+id/tvSetDuration"
         android:layout_alignEnd="@+id/tvSetDuration" />
 
     <TextView
+        android:id="@+id/tvSetArrival"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="station"
-        android:id="@+id/tvSetArrival"
         android:layout_alignTop="@+id/tvSetDeparture"
         android:layout_alignLeft="@+id/tvArrival"
         android:layout_alignStart="@+id/tvArrival" />
 
     <TextView
+        android:id="@+id/tvSetArrivalTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="hh:mm"
-        android:id="@+id/tvSetArrivalTime"
         android:layout_alignTop="@+id/tvArrival"
         android:layout_toRightOf="@+id/tvArrival"
         android:layout_toEndOf="@+id/tvArrival"
         android:layout_marginLeft="10dp" />
 
     <TextView
+        android:id="@+id/tvSetDelay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="DEL"
-        android:id="@+id/tvSetDelay"
         android:textSize="30dp"
         android:layout_below="@+id/tvSetTrainCategory"
         android:layout_toRightOf="@+id/tvSetArrivalTime"
