@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app;
+package com.example.lisamazzini.train_app.Older;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 
 import com.example.lisamazzini.train_app.Model.Station;
+import com.example.lisamazzini.train_app.R;
 
 import java.util.List;
 

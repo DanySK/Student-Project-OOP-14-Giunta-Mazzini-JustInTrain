@@ -1,10 +1,8 @@
-package com.example.lisamazzini.train_app;
+package com.example.lisamazzini.train_app.Older;
 
 import android.util.Log;
-import com.example.lisamazzini.train_app.Model.*;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import org.jsoup.*;
 import org.jsoup.Connection.Method;

@@ -1,9 +1,8 @@
 package com.example.lisamazzini.train_app.Controller;
 
-import com.example.lisamazzini.train_app.Journey;
+import com.example.lisamazzini.train_app.Older.Journey;
 import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.JsoupPlannedJourney;
-import com.example.lisamazzini.train_app.JsoupPlannedJourneyRequest;
+import com.example.lisamazzini.train_app.Older.JsoupPlannedJourney;
 import com.example.lisamazzini.train_app.Model.TimeSlots;
 
 import java.util.List;

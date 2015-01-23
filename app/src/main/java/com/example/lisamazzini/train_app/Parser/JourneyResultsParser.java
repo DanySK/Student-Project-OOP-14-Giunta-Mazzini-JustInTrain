@@ -1,6 +1,6 @@
 package com.example.lisamazzini.train_app.Parser;
 
-import com.example.lisamazzini.train_app.JsoupTrainDetails;
+import com.example.lisamazzini.train_app.Older.JsoupTrainDetails;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.JourneyTrain;
 

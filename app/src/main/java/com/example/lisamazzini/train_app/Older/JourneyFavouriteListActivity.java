@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app;
+package com.example.lisamazzini.train_app.Older;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -15,6 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.lisamazzini.train_app.R;
 
 import java.util.LinkedList;
 import java.util.List;

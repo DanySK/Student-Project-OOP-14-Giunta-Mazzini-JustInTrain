@@ -1,10 +1,9 @@
-package com.example.lisamazzini.train_app;
+package com.example.lisamazzini.train_app.Older;
 
 import android.util.Log;
 
 import com.octo.android.robospice.request.SpiceRequest;
 
-import java.io.IOException;
 import java.text.ParseException;
 
 /**

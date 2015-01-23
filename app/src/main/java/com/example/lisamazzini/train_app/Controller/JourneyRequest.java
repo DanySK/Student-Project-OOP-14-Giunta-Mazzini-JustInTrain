@@ -1,6 +1,6 @@
 package com.example.lisamazzini.train_app.Controller;
 
-import com.example.lisamazzini.train_app.JsoupPlannedJourney;
+import com.example.lisamazzini.train_app.Older.JsoupPlannedJourney;
 import com.octo.android.robospice.request.SpiceRequest;
 
 public class JourneyRequest extends SpiceRequest<JourneyListWrapper>{

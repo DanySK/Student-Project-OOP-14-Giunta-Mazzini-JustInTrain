@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app;
+package com.example.lisamazzini.train_app.Older;
 
 
 import android.content.Context;
@@ -7,7 +7,10 @@ import android.content.Context;
         import android.view.ViewGroup;
         import android.widget.BaseAdapter;
         import android.widget.TextView;
-        import java.util.LinkedList;
+
+import com.example.lisamazzini.train_app.R;
+
+import java.util.LinkedList;
         import java.util.List;
 
 /**

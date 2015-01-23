@@ -1,6 +1,6 @@
 package com.example.lisamazzini.train_app.Controller;
 
-import com.example.lisamazzini.train_app.TrainAndStationsRequest;
+import com.example.lisamazzini.train_app.Older.TrainAndStationsRequest;
 
 /**
  * Created by lisamazzini on 22/01/15.

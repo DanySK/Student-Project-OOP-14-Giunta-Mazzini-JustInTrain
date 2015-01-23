@@ -3,9 +3,7 @@ package com.example.lisamazzini.train_app.Controller;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.example.lisamazzini.train_app.GUI.StationListActivity;
-import com.example.lisamazzini.train_app.TrainFavouriteAdder;
-import com.example.lisamazzini.train_app.TrainFavouriteListActivity;
+import com.example.lisamazzini.train_app.Older.TrainFavouriteAdder;
 
 import java.util.Map;
 
