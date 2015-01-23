@@ -21,6 +21,8 @@ public class Constants {
     public final static String LATE = "ritardo";
     public final static String IN_ADVANCE = "anticipo";
     public final static String IS_MOVING = "viaggia";
+    public static final String ALREADY_VISITED = "giaeffettuate";
+    public static final String NOT_VISITED_YET = "corpocentrale";
 
 
 }
