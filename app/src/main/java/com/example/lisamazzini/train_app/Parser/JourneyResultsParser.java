@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Controller;
+package com.example.lisamazzini.train_app.Parser;
 
 import com.example.lisamazzini.train_app.JsoupTrainDetails;
 import com.example.lisamazzini.train_app.Model.Constants;

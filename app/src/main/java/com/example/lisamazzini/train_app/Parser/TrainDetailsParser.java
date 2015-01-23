@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app;
+package com.example.lisamazzini.train_app.Parser;
 
 import com.example.lisamazzini.train_app.Exceptions.DeletedTrainException;
 import com.example.lisamazzini.train_app.Exceptions.DoubleTrainNumberException;
@@ -29,17 +29,11 @@ public class TrainDetailsParser {
     private String lastSeenTime;
     private Document doc;
 
-    private String birthStation = "";
-    private String deathStation = "";
+    private String birthStation;
+    private String deathStation;
 
     public TrainDetailsParser(String trainNumber) {
         this.trainNumber = trainNumber;
-        this.trainCategory = "";
-        this.delay = 0;
-        this.condition = "";
-        this.isMoving = false;
-        this.lastSeenStation = "";
-        this.lastSeenTime = "";
     }
 
     /**
