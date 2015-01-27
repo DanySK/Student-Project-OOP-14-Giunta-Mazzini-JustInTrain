@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Older;
+package com.example.lisamazzini.train_app.Controller.Favourites;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,7 +11,7 @@ import java.util.Map;
 
 //SINGLETON
 
-public class TrainFavouriteAdder implements IFavouriteAdder{
+public class TrainFavouriteAdder {
 
     //Name of the file in which the favourites will be saved
     public final static String TRAIN_PREF_FILE = "TrainPref";
@@ -64,7 +64,7 @@ public class TrainFavouriteAdder implements IFavouriteAdder{
      * This method removes a train from the favourite
      * @param
      */
-    @Override
+
     public void removeFavourite(String ... data) {
 
         editor.remove(data[0]);

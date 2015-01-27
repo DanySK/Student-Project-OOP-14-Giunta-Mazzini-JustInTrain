@@ -1,7 +1,6 @@
 package com.example.lisamazzini.train_app.Parser;
 
 import com.example.lisamazzini.train_app.Controller.JourneyListWrapper;
-import com.example.lisamazzini.train_app.Older.JsoupTrainDetails;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.JourneyTrain;
 
@@ -220,10 +219,10 @@ public class JourneyResultsParser {
 
     private void computeDelay() throws IOException {
         // TODO cambia con parser refrattorizzato
-        JsoupTrainDetails j = new JsoupTrainDetails(this.trainNumber);
-        j.computeResult();
-        this.category = j.getTrainCategory();
-        this.delay = j.getDelay();
+//        JsoupTrainDetails j = new JsoupTrainDetails(this.trainNumber);
+//        j.computeResult();
+//        this.category = j.getTrainCategory();
+//        this.delay = j.getDelay();
     }
 
 

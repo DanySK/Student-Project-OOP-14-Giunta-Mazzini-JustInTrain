@@ -1,6 +1,6 @@
 package com.example.lisamazzini.train_app.Controller;
 
-import com.example.lisamazzini.train_app.Older.TrainRequest;
+import com.example.lisamazzini.train_app.Controller.TrainRequest;
 
 import java.util.*;
 

@@ -2,8 +2,8 @@ package com.example.lisamazzini.train_app.Controller;
 
 import android.util.Log;
 
-import com.example.lisamazzini.train_app.Older.Journey;
 import com.example.lisamazzini.train_app.Model.Constants;
+import com.example.lisamazzini.train_app.Model.JourneyTrain;
 import com.example.lisamazzini.train_app.Model.TimeSlots;
 import com.example.lisamazzini.train_app.Parser.JourneyResultsParser;
 
@@ -27,8 +27,8 @@ public class JourneyResultsController {
     private int currentTimeSlot;
     private final String departure;
     private final String arrival;
-    private final List<Journey> journeyList = new LinkedList<>();
-    private final List<List<Journey>> listOfJourneyList = new ArrayList<>(Constants.N_TIME_SLOT);
+    private final List<JourneyTrain> journeyList = new LinkedList<>();
+    private final List<List<JourneyTrain>> listOfJourneyList = new ArrayList<>(Constants.N_TIME_SLOT);
 
 
     public JourneyResultsController(String departure, String arrival) {
@@ -46,7 +46,7 @@ public class JourneyResultsController {
 
 
         for (int i = 0; i < listOfJourneyList.size(); i++) {
-            listOfJourneyList.add(new LinkedList<Journey>());
+            listOfJourneyList.add(new LinkedList<JourneyTrain>());
         }
         this.departure = departure;
         this.arrival = arrival;

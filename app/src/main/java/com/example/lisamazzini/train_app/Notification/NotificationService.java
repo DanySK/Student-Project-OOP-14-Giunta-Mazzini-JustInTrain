@@ -9,10 +9,9 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.lisamazzini.train_app.Older.ButtonListener;
+import com.example.lisamazzini.train_app.Controller.TrainRequest;
 import com.example.lisamazzini.train_app.R;
-import com.example.lisamazzini.train_app.Older.Train;
-import com.example.lisamazzini.train_app.Older.TrainRequest;
+import com.example.lisamazzini.train_app.Model.Train;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 import com.octo.android.robospice.persistence.exception.SpiceException;

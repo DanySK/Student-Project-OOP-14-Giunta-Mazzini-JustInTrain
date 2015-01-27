@@ -2,7 +2,6 @@ package com.example.lisamazzini.train_app.Controller;
 
 import android.util.Log;
 
-import com.example.lisamazzini.train_app.Older.JsoupPlannedJourney;
 import com.example.lisamazzini.train_app.Parser.JourneyResultsParser;
 import com.octo.android.robospice.request.SpiceRequest;
 
