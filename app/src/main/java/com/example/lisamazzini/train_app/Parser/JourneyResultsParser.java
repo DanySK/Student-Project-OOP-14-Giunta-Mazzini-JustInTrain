@@ -1,5 +1,6 @@
 package com.example.lisamazzini.train_app.Parser;
 
+import com.example.lisamazzini.train_app.Controller.JourneyListWrapper;
 import com.example.lisamazzini.train_app.Older.JsoupTrainDetails;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.JourneyTrain;
@@ -16,6 +17,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +44,7 @@ public class JourneyResultsParser {
     private String duration;
     private String departureTime;
     private String arrivalTime;
-    private List<JourneyTrain> journeyTrainsList;
+    private ArrayList<JourneyTrain> journeyTrainsList = new ArrayList<>();
 
 
     public JourneyResultsParser(String departureStation, String arrivalStation,
@@ -57,19 +59,20 @@ public class JourneyResultsParser {
         this.year = year;
     }
 
-    public static void main(String[] args) {
-        JourneyResultsParser j = new JourneyResultsParser("asdf", "asdf", 3, 3, "22", "01", "2015");
-        try {
-            j.computeResult();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void main(String[] args) {
+//        JourneyResultsParser j = new JourneyResultsParser("asdf", "asdf", 3, 3, "22", "01", "2015");
+//        try {
+//            j.computeResult();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    public void computeResult() throws IOException, ParseException {
+    public JourneyListWrapper computeResult() throws IOException, ParseException {
         goToMainResultPage();
+        return new JourneyListWrapper(this.journeyTrainsList, this.timeSlotSelector);
     }
 
     private void goToMainResultPage() throws IOException, ParseException {
@@ -83,8 +86,7 @@ public class JourneyResultsParser {
         Map<String, String> cookies = response.cookies();
         this.allResultsDoc = response.parse();
         if (!checkForErrors(this.allResultsDoc)) {
-            System.out.println("documento parsato");
-//            iterateAllResults(cookies);
+            iterateAllResults(cookies);
         } else {
             String e = getErrorString(this.allResultsDoc);
             System.out.println(e);
@@ -191,13 +193,14 @@ public class JourneyResultsParser {
                 computeDuration();
                 computeDelay();
 
+                System.out.println(toString());
+
                 this.journeyTrainsList.add(new JourneyTrain.JourneyTrainBuilder(
                                             this.category, this.trainNumber,
                                             this.delay, this.journeyID, this.duration,
-                                            this.departureStation, this.arrivalStation,
+                                            departureExchange, arrivalExchange,
                                             this.departureTime, this.arrivalTime)
                                             .build());
-
             }
         }
     }
@@ -208,7 +211,7 @@ public class JourneyResultsParser {
         DateTime departureDateTime;
         arrivalDateTime = new DateTime(simpleDateFormat.parse(this.arrivalTime));
         departureDateTime = new DateTime(simpleDateFormat.parse(this.departureTime));
-        int intervalMinutes = Minutes.minutesBetween(arrivalDateTime, departureDateTime).getMinutes();
+        int intervalMinutes = Minutes.minutesBetween(arrivalDateTime, departureDateTime).getMinutes() * (-1);
         int minutes = intervalMinutes % 60;
         int hours = (intervalMinutes - minutes) / 60;
         this.duration = String.format("%02d:%02d", hours, minutes);
@@ -221,5 +224,17 @@ public class JourneyResultsParser {
         j.computeResult();
         this.category = j.getTrainCategory();
         this.delay = j.getDelay();
+    }
+
+
+    @Override
+    public String toString() {
+        return "JourneyResultsParser{" +
+                "arrivalTime='" + arrivalTime + '\'' +
+                ", departureTime='" + departureTime + '\'' +
+                ", duration='" + duration + '\'' +
+                ", journeyID=" + journeyID +
+                ", delay=" + delay +
+                ", trainNumber='" + trainNumber + '\'';
     }
 }

@@ -1,9 +1,14 @@
 package com.example.lisamazzini.train_app.Controller;
 
+import android.util.Log;
+
 import com.example.lisamazzini.train_app.Older.Journey;
 import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Older.JsoupPlannedJourney;
 import com.example.lisamazzini.train_app.Model.TimeSlots;
+import com.example.lisamazzini.train_app.Parser.JourneyResultsParser;
+
+import org.joda.time.Minutes;
+import org.joda.time.Period;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -28,10 +33,17 @@ public class JourneyResultsController {
 
     public JourneyResultsController(String departure, String arrival) {
         try {
-            this.timeSlotSelector = new CyclicCounter(setCurrentTimeSlot(), Constants.N_TIME_SLOT);
+            this.timeSlotSelector = new CyclicCounter(setCurrentTimeSlot());
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+
+        // TEST metto il current al primo radio buton
+//        this.timeSlotSelector = new CyclicCounter(3);
+//        this.currentTimeSlot = 3;
+
+
 
         for (int i = 0; i < listOfJourneyList.size(); i++) {
             listOfJourneyList.add(new LinkedList<Journey>());
@@ -41,9 +53,8 @@ public class JourneyResultsController {
     }
 
     public JourneyRequest iterateTimeSlots() {
-        JourneyRequest request = new JourneyRequest(new JsoupPlannedJourney(),
-                                                    this.timeSlotSelector.value(), this.currentTimeSlot,
-                                                    this.departure, this.arrival);
+        Log.d("cazzi", "TIMESLOTSELECONT = " + this.timeSlotSelector.value());
+        JourneyRequest request = new JourneyRequest(new JourneyResultsParser(this.departure, this.arrival, this.timeSlotSelector.value(), this.currentTimeSlot, "24", "01", "2015"));
         timeSlotSelector.increment();
         return request;
     }
@@ -51,16 +62,16 @@ public class JourneyResultsController {
 
     private int setCurrentTimeSlot() throws ParseException {
         // dicotomic search on timeslots
-        if (TimeSlots.NOW.isMinorThan(TimeSlots.AFTERNOON)) {                       // before 13:00
-            if (TimeSlots.NOW.isMinorThan(TimeSlots.MORNING)) {
+        if (nowIsMinorThan(TimeSlots.AFTERNOON)) {                       // before 13:00
+            if (nowIsMinorThan(TimeSlots.MORNING)) {
                 return this.currentTimeSlot = TimeSlots.EARLY_MORNING.getIndex();   // before 6:00
             } else {
                 return this.currentTimeSlot = TimeSlots.MORNING.getIndex();         // after 6:00
             }
         } else {                                                                    // after or at 13:00
-            if (TimeSlots.NOW.isMinorThan(TimeSlots.EVENING)) {
+            if (nowIsMinorThan(TimeSlots.EVENING)) {
                 return this.currentTimeSlot = TimeSlots.AFTERNOON.getIndex();       // before 18:00
-            } else if (!TimeSlots.NOW.isMinorThan(TimeSlots.NIGHT)) {
+            } else if (!nowIsMinorThan(TimeSlots.NIGHT)) {
                 return this.currentTimeSlot = TimeSlots.NIGHT.getIndex();           // after 22:00
             } else {
                 return this.currentTimeSlot = TimeSlots.EVENING.getIndex();         // between 18:00 and 22:00
@@ -68,17 +79,26 @@ public class JourneyResultsController {
         }
     }
 
+    private boolean nowIsMinorThan(TimeSlots other) {
+        return Minutes.minutesBetween(TimeSlots.NOW.getDateTime(), other.getDateTime()).getMinutes() > 0;
+    }
+
+    // TODO è provvisorio, poi non servirà perchè qui ci sarà un metodo che lo fa al posto dell'activity
+    public int getCurrentTimeSlot() {
+        return this.currentTimeSlot;
+    }
+
     private class CyclicCounter {
         private int counter;
         private final int max;
 
-        public CyclicCounter(int startValue,int max) {
+        public CyclicCounter(int startValue) {
             this.counter = startValue;
-            this.max = max;
+            this.max = startValue;
         }
 
         public void increment() {
-            if (this.counter == this.max) {
+            if (this.counter == Constants.N_TIME_SLOT) {
                 this.counter = this.max - 1;
             } else if (this.counter < this.max) {
                 this.counter--;

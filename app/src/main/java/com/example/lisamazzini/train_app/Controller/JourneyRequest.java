@@ -1,31 +1,26 @@
 package com.example.lisamazzini.train_app.Controller;
 
+import android.util.Log;
+
 import com.example.lisamazzini.train_app.Older.JsoupPlannedJourney;
+import com.example.lisamazzini.train_app.Parser.JourneyResultsParser;
 import com.octo.android.robospice.request.SpiceRequest;
 
 public class JourneyRequest extends SpiceRequest<JourneyListWrapper>{
 
-    private final JsoupPlannedJourney journey;
-    private final int timeSlotSelector;
-    private final int currentTimeSlot;
-    private final String departure;
-    private final String arrival;
+    private final JourneyResultsParser journeyResults;
 
 
-    public JourneyRequest(JsoupPlannedJourney journey,
-                          int timeSlotSelector, int currentTimeSlot,
-                          String departure, String arrival) {
+    public JourneyRequest(JourneyResultsParser journeyResults) {
         super(JourneyListWrapper.class);
-        this.journey = journey;
-        this.timeSlotSelector = timeSlotSelector;
-        this.currentTimeSlot = currentTimeSlot;
-        this.departure = departure;
-        this.arrival = arrival;
+        this.journeyResults = journeyResults;
     }
 
     @Override
     public JourneyListWrapper loadDataFromNetwork() throws Exception {
+        Log.d("cazzi", "loaddatafromnetwork");
+        return journeyResults.computeResult();
+
         //  TODO fai richiesta a JsoupJourney;
-        return null;
     }
 }

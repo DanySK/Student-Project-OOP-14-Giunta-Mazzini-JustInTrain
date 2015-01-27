@@ -1,7 +1,10 @@
 package com.example.lisamazzini.train_app.Model;
 
+import android.util.Log;
+
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
+import org.joda.time.Period;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,7 +26,7 @@ public enum TimeSlots {
     EVENING(4, "18:00", new DateTime()),
     NIGHT(5, "22:00", new DateTime()),
     LATE_NIGHT(6, "23:59", new DateTime()),
-    NOW(0, new SimpleDateFormat().format(Calendar.getInstance().getTime()), new DateTime());
+    NOW(0, new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime()), new DateTime());
 
 
     private int index;
@@ -34,7 +37,7 @@ public enum TimeSlots {
         try {
             this.index = index;
             this.dateTimeString = dateTimeString;
-            dateTime = new DateTime(new SimpleDateFormat("HH:mm").parse(this.dateTimeString));
+            this.dateTime = new DateTime(new SimpleDateFormat("HH:mm").parse(this.dateTimeString));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -49,10 +52,7 @@ public enum TimeSlots {
     }
 
     public DateTime getDateTime() {
-        return dateTime;
+        return this.dateTime;
     }
 
-    public boolean isMinorThan (TimeSlots other) {
-        return Minutes.minutesBetween(this.getDateTime(), TimeSlots.NOW.getDateTime()).getMinutes() < 0;
-    }
 }
