@@ -48,7 +48,7 @@ public class TrainAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.train_adapter_layout, parent, false);
+            convertView = inflater.inflate(R.layout.train_adapter, parent, false);
             holder = new ViewHolder();
             holder.trainCategory = (TextView)convertView.findViewById(R.id.trainCat);
             holder.trainNumber = (TextView)convertView.findViewById(R.id.trainNum);

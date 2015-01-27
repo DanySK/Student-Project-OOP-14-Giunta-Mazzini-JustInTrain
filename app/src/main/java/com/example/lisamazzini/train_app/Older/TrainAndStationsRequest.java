@@ -2,6 +2,9 @@ package com.example.lisamazzini.train_app.Older;
 
 import android.util.Log;
 
+import com.example.lisamazzini.train_app.Model.Train;
+import com.example.lisamazzini.train_app.Parser.StationListParser;
+import com.example.lisamazzini.train_app.Parser.TrainDetailsParser;
 import com.octo.android.robospice.request.SpiceRequest;
 
 import java.text.ParseException;
@@ -12,6 +15,7 @@ import java.text.ParseException;
 public class TrainAndStationsRequest extends SpiceRequest<Train> {
 
         private final String searchQuery;
+        private Train.TrainBuilder builder;
 
         public TrainAndStationsRequest(String searchQuery){
             super(Train.class);
@@ -21,15 +25,17 @@ public class TrainAndStationsRequest extends SpiceRequest<Train> {
         @Override
         public Train loadDataFromNetwork() throws Exception {
             Log.d("--------------------------", "sono qui nel loaddata");
-            final JsoupTrainDetails scraperTrain = new JsoupTrainDetails(this.searchQuery);
-            JsoupJourneyDetails scraperJourney = new JsoupJourneyDetails(this.searchQuery);
+            final TrainDetailsParser scraperTrain = new TrainDetailsParser(this.searchQuery);
+            StationListParser scraperJourney = new StationListParser(this.searchQuery);
 
             Train train = scraperTrain.computeResult();
+
             try {
                 scraperJourney.computeResult();
-                train = new Train(train, scraperJourney.getStationList());
-               // DA SISTEMARE L'ANDAMENTO DEL TRENO
-               // progress = scraperJourney.getProgress();
+                Train.TrainBuilder builder = new Train.TrainBuilder(train.getCategory(), train.getNumber(), train.isMoving(), train.getDelay(), train.getBirthStation(),
+                        train.getDeathStation(), train.getLastSeenStation(), train.getLastSeenTime());
+                train = builder.withStationList(scraperJourney.getStationList()).withProgress(scraperJourney.getProgress()).build();
+
 
             } catch (ParseException e) {
                 e.printStackTrace();

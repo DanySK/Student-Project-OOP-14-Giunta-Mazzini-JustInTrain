@@ -22,11 +22,9 @@
         android:layout_height="wrap_content"
         android:text="Num:"
         android:id="@+id/trainNum"
-        android:layout_marginLeft="26dp"
-        android:layout_above="@+id/timelastseen"
-        android:layout_toRightOf="@+id/condition"
-        android:layout_toEndOf="@+id/condition"
-        android:layout_marginStart="26dp" />
+        android:layout_alignTop="@+id/trainCat"
+        android:layout_toRightOf="@+id/lastseen"
+        android:layout_toEndOf="@+id/lastseen" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,21 +54,9 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="hh:mm"
         android:id="@+id/timelastseen"
-        android:layout_above="@+id/condition"
-        android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp"
+        android:layout_alignTop="@+id/lastseen"
         android:layout_toRightOf="@+id/trainNum"
         android:layout_toEndOf="@+id/trainNum" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="condition"
-        android:id="@+id/condition"
-        android:layout_below="@+id/lastseen"
-        android:layout_alignLeft="@+id/lastseen"
-        android:layout_alignStart="@+id/lastseen" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -81,6 +67,19 @@
         android:layout_below="@+id/timelastseen"
         android:layout_alignLeft="@+id/timelastseen"
         android:layout_alignStart="@+id/timelastseen" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="..."
+        android:id="@+id/options"
+        android:layout_alignTop="@+id/delay"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="26dp"
+        android:layout_marginEnd="26dp"
+        android:layout_alignBottom="@+id/delay" />
 
 </RelativeLayout>
           

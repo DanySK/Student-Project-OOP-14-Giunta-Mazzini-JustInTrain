@@ -2,6 +2,8 @@ package com.example.lisamazzini.train_app.Older;
 
 import android.util.Log;
 
+import com.example.lisamazzini.train_app.Model.Train;
+import com.example.lisamazzini.train_app.Parser.TrainDetailsParser;
 import com.octo.android.robospice.request.SpiceRequest;
 
 /**
@@ -19,7 +21,7 @@ public class TrainRequest extends SpiceRequest<Train> {
     @Override
     public Train loadDataFromNetwork() throws Exception {
         Log.d("--------------------------", "sono qui nel loaddata");
-        final JsoupTrainDetails scraperTrain = new JsoupTrainDetails(this.searchQuery);
+        final TrainDetailsParser scraperTrain = new TrainDetailsParser(this.searchQuery);
         Train train = scraperTrain.computeResult();
         return train;
 

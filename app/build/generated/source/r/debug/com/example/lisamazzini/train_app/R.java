@@ -1299,7 +1299,9 @@ containing a value of this type.
         public static final int abc_textfield_search_activated_mtrl_alpha=0x7f020030;
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f020031;
         public static final int abc_textfield_search_material=0x7f020032;
-        public static final int ic_launcher=0x7f020033;
+        public static final int exit=0x7f020033;
+        public static final int ic_launcher=0x7f020034;
+        public static final int refresh=0x7f020035;
     }
     public static final class id {
         public static final int action_bar=0x7f080031;
@@ -1317,6 +1319,7 @@ containing a value of this type.
         public static final int action_mode_close_button=0x7f080020;
         public static final int action_settings=0x7f08007b;
         public static final int activity_chooser_view_content=0x7f080021;
+        public static final int add_favourite=0x7f080056;
         public static final int always=0x7f080016;
         public static final int beginning=0x7f080013;
         public static final int btnAddToFavourites=0x7f080043;
@@ -1334,17 +1337,16 @@ containing a value of this type.
         public static final int default_activity_button=0x7f080024;
         public static final int delay=0x7f08005f;
         public static final int delete=0x7f080078;
-        public static final int details=0x7f080057;
         public static final int dialog=0x7f08001b;
         public static final int disableHome=0x7f08000c;
         public static final int dropdown=0x7f08001c;
         public static final int edit_query=0x7f080033;
         public static final int end=0x7f080014;
         public static final int expArr=0x7f08005c;
+        public static final int expPlat=0x7f08005d;
         public static final int expand_activities_button=0x7f080022;
         public static final int expanded_menu=0x7f080028;
         public static final int favList=0x7f080040;
-        public static final int favourite=0x7f080058;
         public static final int fuckinlayout=0x7f080060;
         public static final int home=0x7f080004;
         public static final int homeAsUp=0x7f08000d;
@@ -1370,12 +1372,11 @@ containing a value of this type.
         public static final int ntTime=0x7f080064;
         public static final int pin=0x7f080079;
         public static final int planArr=0x7f08005b;
-        public static final int platf1=0x7f08005d;
-        public static final int platf2=0x7f08005e;
         public static final int progress_circular=0x7f080005;
         public static final int progress_horizontal=0x7f080006;
-        public static final int prova=0x7f080056;
         public static final int radio=0x7f08002b;
+        public static final int recycler=0x7f080057;
+        public static final int schPlat=0x7f08005e;
         public static final int search_badge=0x7f080035;
         public static final int search_bar=0x7f080034;
         public static final int search_button=0x7f080036;
@@ -1406,6 +1407,7 @@ containing a value of this type.
         public static final int title=0x7f080027;
         public static final int trainCat=0x7f080072;
         public static final int trainNum=0x7f080073;
+        public static final int train_details_text=0x7f080058;
         public static final int tvArrival=0x7f080046;
         public static final int tvDeparture=0x7f080045;
         public static final int tvDuration=0x7f08006b;
@@ -1455,7 +1457,7 @@ containing a value of this type.
         public static final int abc_search_view=0x7f030015;
         public static final int abc_simple_dropdown_hint=0x7f030016;
         public static final int activity_favourite_journey_list=0x7f030017;
-        public static final int activity_favourite_list=0x7f030018;
+        public static final int activity_favourite_train_list =0x7f030018;
         public static final int activity_favourites_list=0x7f030019;
         public static final int activity_journey_list=0x7f03001a;
         public static final int activity_journey_listw_robospice=0x7f03001b;
@@ -1463,11 +1465,11 @@ containing a value of this type.
         public static final int activity_journey_serach=0x7f03001d;
         public static final int activity_main=0x7f03001e;
         public static final int activity_station_list=0x7f03001f;
-        public static final int custom_adapter_layout=0x7f030020;
+        public static final int station_adapter =0x7f030020;
         public static final int layout_notification=0x7f030021;
         public static final int row_layout=0x7f030022;
         public static final int support_simple_spinner_dropdown_item=0x7f030023;
-        public static final int train_adapter_layout=0x7f030024;
+        public static final int train_adapter =0x7f030024;
     }
     public static final class menu {
         public static final int menu_fav_train=0x7f0c0000;

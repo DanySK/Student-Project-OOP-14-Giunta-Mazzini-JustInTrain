@@ -46,14 +46,14 @@ public class StationAdapter extends BaseAdapter{
         ViewHolder holder;
         if(convertView == null){
 
-            convertView = layoutInf.inflate(R.layout.custom_adapter_layout, parent, false);
+            convertView = layoutInf.inflate(R.layout.station_adapter, parent, false);
             holder = new ViewHolder();
             holder.stationName = (TextView)convertView.findViewById(R.id.statName);
             holder.visited = (TextView)convertView.findViewById(R.id.visited);
             holder.scheduledArrival = (TextView)convertView.findViewById(R.id.planArr);
             holder.expectedArrival = (TextView)convertView.findViewById(R.id.expArr);
-            holder.scheduledPlatform = (TextView)convertView.findViewById(R.id.platf1);
-            holder.expectedPlatform = (TextView)convertView.findViewById(R.id.platf2);
+            holder.scheduledPlatform = (TextView)convertView.findViewById(R.id.expPlat);
+            holder.expectedPlatform = (TextView)convertView.findViewById(R.id.schPlat);
             holder.timeDifference = (TextView)convertView.findViewById(R.id.delay);
             convertView.setTag(holder);
         }else {

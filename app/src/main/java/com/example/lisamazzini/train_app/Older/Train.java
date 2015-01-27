@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Older;
+/*package com.example.lisamazzini.train_app.Older;
 
 import com.example.lisamazzini.train_app.Model.Station;
 
@@ -78,4 +78,4 @@ public class Train {
     public void pin(){
         this.pinned = true;
     }
-}
+}*/

@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Binario1"
-        android:id="@+id/platf1"
+        android:id="@+id/expPlat"
         android:layout_below="@+id/planArr"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -57,10 +57,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Binario2"
-        android:id="@+id/platf2"
+        android:id="@+id/schPlat"
         android:layout_below="@+id/expArr"
-        android:layout_toRightOf="@+id/platf1"
-        android:layout_toEndOf="@+id/platf1" />
+        android:layout_toRightOf="@+id/expPlat"
+        android:layout_toEndOf="@+id/expPlat" />
 
     <TextView
         android:layout_width="wrap_content"

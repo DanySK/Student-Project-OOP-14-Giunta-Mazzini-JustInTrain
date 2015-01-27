@@ -54,7 +54,15 @@ public class StationListParser {
         goToMainDetailPage();
         computeStation(Constants.ALREADY_VISITED);
         computeStation(Constants.NOT_VISITED_YET);
+    }
 
+
+    public List<Station> getStationList(){
+        return this.stationList;
+    }
+
+    public String getProgress(){
+        return this.convertProgress(computeProgress());
     }
 
 

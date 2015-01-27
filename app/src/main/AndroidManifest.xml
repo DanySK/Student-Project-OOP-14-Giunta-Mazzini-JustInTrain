@@ -39,6 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".GUI.StationListActivity"/>
         <activity
             android:name=".GUI.FavouriteJourneyListActivity"
             android:label="@string/title_activity_favourite_journey_list" >

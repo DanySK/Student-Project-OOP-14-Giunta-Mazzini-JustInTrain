@@ -53,7 +53,7 @@ public class TrainFavouriteListActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favourite_list);
+        setContentView(R.layout.activity_favourite_train_list);
 
         this.list = (ListView) findViewById(R.id.favList);
         this.title = (TextView) findViewById(R.id.textView2);

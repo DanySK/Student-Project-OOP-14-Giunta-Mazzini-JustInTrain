@@ -182,6 +182,14 @@ public class TrainDetailsParser {
         return title.equals("Cerca Treno (per numero)");
     }
 
+    /**
+     *  This method checks what has gone wrong with the search, in fact it throws an exception which can be:
+     *
+     * @throws DoubleTrainNumberException, if there is more than one train with the same number
+     * @throws InvalidTrainNumberException, if there's no train with this number
+     * @throws DeletedTrainException, if the train was deleted
+     */
+
     private void solveIt() throws DoubleTrainNumberException, InvalidTrainNumberException, DeletedTrainException {
         Elements elem = doc.select("span");
         if(elem.isEmpty()){
@@ -208,6 +216,15 @@ public class TrainDetailsParser {
                 throw new DeletedTrainException();
             }
         }
+    }
+
+
+    public int getDelay() {
+        return this.delay;
+    }
+
+    public String getTrainCategory() {
+        return this.trainCategory;
     }
 
 

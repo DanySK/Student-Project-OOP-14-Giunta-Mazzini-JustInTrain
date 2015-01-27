@@ -46,10 +46,9 @@ public class StationListActivity extends ActionBarActivity {
         setContentView(R.layout.activity_station_list);
         //Initialize all the views
         this.list = (ListView) findViewById(R.id.listView);
-        this.trainDetails = (TextView) findViewById(R.id.details);
+        this.trainDetails = (TextView) findViewById(R.id.train_details_text);
         this.trainNumber = getIntent().getStringExtra("trainNumber");
-        this.fav = (Button) findViewById(R.id.favourite);
-        this.prova = (TextView) findViewById(R.id.prova);
+        this.fav = (Button) findViewById(R.id.add_favourite);
         //Get an instance of the TrainFavouriteAdder
         favAdder = TrainFavouriteAdder.getInstance();
         favAdder.setContext(StationListActivity.this);
