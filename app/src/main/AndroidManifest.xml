@@ -11,15 +11,8 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name=".Older.MainActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity android:name=".Older.StationListActivity" />
+
         <!-- <activity android:name=".JourneyListActivity" /> -->
-        <activity android:name=".Older.JourneyListwRobospiceActivity" />
-        <activity android:name=".Older.TrainFavouriteListActivity" />
-        <activity android:name=".Older.JourneyFavouriteListActivity" />
 
         <service
             android:name="com.octo.android.robospice.UncachedSpiceService"
