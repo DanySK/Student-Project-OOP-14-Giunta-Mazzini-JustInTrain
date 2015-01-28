@@ -207,12 +207,10 @@ public class TrainDetailsParser {
             System.out.println("a");
             if(text.equals("numero treno non valido")){
                 System.out.println("b");
-
                 throw new InvalidTrainNumberException();
             }
             if(text.equals("Treno Cancellato")){
                 System.out.println("c");
-
                 throw new DeletedTrainException();
             }
         }

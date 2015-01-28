@@ -1,6 +1,9 @@
 package com.example.lisamazzini.train_app.Parser;
 
 import com.example.lisamazzini.train_app.Controller.JourneyListWrapper;
+import com.example.lisamazzini.train_app.Exceptions.DeletedTrainException;
+import com.example.lisamazzini.train_app.Exceptions.DoubleTrainNumberException;
+import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.JourneyTrain;
 
@@ -192,8 +195,6 @@ public class JourneyResultsParser {
                 computeDuration();
                 computeDelay();
 
-                System.out.println(toString());
-
                 this.journeyTrainsList.add(new JourneyTrain.JourneyTrainBuilder(
                                             this.category, this.trainNumber,
                                             this.delay, this.journeyID, this.duration,
@@ -219,6 +220,18 @@ public class JourneyResultsParser {
 
     private void computeDelay() throws IOException {
         // TODO cambia con parser refrattorizzato
+        TrainDetailsParser parser = new TrainDetailsParser(this.trainNumber);
+        try {
+            parser.computeResult();
+        } catch (InvalidTrainNumberException e) {
+            e.printStackTrace();
+        } catch (DeletedTrainException e) {
+            e.printStackTrace();
+        } catch (DoubleTrainNumberException e) {
+            e.printStackTrace();
+        }
+        this.category = parser.getTrainCategory();
+        this.delay = parser.getDelay();
 //        JsoupTrainDetails j = new JsoupTrainDetails(this.trainNumber);
 //        j.computeResult();
 //        this.category = j.getTrainCategory();
