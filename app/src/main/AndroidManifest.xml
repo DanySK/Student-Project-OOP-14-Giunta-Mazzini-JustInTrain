@@ -17,11 +17,6 @@
         <service
             android:name="com.octo.android.robospice.UncachedSpiceService"
             android:exported="false" />
-        <service
-            android:name=".Older.NotificationService"
-            android:enabled="true" />
-
-        <receiver android:name=".Older.ButtonListener" />
 
         <activity
             android:name=".GUI.JourneyResultsActivity"

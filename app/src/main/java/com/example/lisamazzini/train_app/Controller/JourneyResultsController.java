@@ -28,7 +28,7 @@ public class JourneyResultsController {
     private final String departure;
     private final String arrival;
     private final List<JourneyTrain> journeyList = new LinkedList<>();
-    private final List<List<JourneyTrain>> listOfJourneyList = new ArrayList<>(Constants.N_TIME_SLOT);
+    private final List<List<JourneyTrain>> listOfJourneyList = new ArrayList<>();
 
 
     public JourneyResultsController(String departure, String arrival) {
@@ -38,14 +38,7 @@ public class JourneyResultsController {
             e.printStackTrace();
         }
 
-
-        // TEST metto il current al primo radio buton
-//        this.timeSlotSelector = new CyclicCounter(3);
-//        this.currentTimeSlot = 3;
-
-
-
-        for (int i = 0; i < listOfJourneyList.size(); i++) {
+        for (int i = 0; i < Constants.N_TIME_SLOT; i++) {
             listOfJourneyList.add(new LinkedList<JourneyTrain>());
         }
         this.departure = departure;
@@ -53,7 +46,6 @@ public class JourneyResultsController {
     }
 
     public JourneyRequest iterateTimeSlots() {
-        Log.d("cazzi", "TIMESLOTSELECONT = " + this.timeSlotSelector.value());
         JourneyRequest request = new JourneyRequest(new JourneyResultsParser(this.departure, this.arrival, this.timeSlotSelector.value(), this.currentTimeSlot, "24", "01", "2015"));
         timeSlotSelector.increment();
         return request;
@@ -83,9 +75,25 @@ public class JourneyResultsController {
         return Minutes.minutesBetween(TimeSlots.NOW.getDateTime(), other.getDateTime()).getMinutes() > 0;
     }
 
-    // TODO è provvisorio, poi non servirà perchè qui ci sarà un metodo che lo fa al posto dell'activity
-    public int getCurrentTimeSlot() {
-        return this.currentTimeSlot;
+    public boolean newDataIsPresent(int size) {
+        return size != 0;
+    }
+
+    public List<JourneyTrain> refillJourneyList(List<JourneyTrain> flatJourneyTrainList, List<JourneyTrain> journeys, int timeSlot) {
+        listOfJourneyList.add(timeSlot, new LinkedList<JourneyTrain>(journeys));
+        flatJourneyTrainList.clear();
+        for (List<JourneyTrain> l : listOfJourneyList) {
+            flatJourneyTrainList.addAll(l);
+        }
+        return flatJourneyTrainList;
+    }
+
+    public boolean newDataisInsertedBefore(JourneyListWrapper journeys) {
+        return this.currentTimeSlot > journeys.getTimeSlot()+1;
+    }
+
+    public JourneyTrain getFirstTakeableTrain(JourneyListWrapper journeys) {
+        return this.currentTimeSlot == journeys.getTimeSlot()+1 ? journeys.getList().get(0) : null;
     }
 
     private class CyclicCounter {

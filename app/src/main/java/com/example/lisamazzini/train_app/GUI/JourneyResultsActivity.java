@@ -87,49 +87,23 @@ public class JourneyResultsActivity extends Activity {
 
         @Override
         public void onRequestSuccess(final JourneyListWrapper journeys) {
-            // TODO fa fare quel che si può al controller
-            if (journeys.getList().size() != 0) {
-                Log.d("cazzi", "||||||||||||||||||||||||||||||||||||||||||||||||||||  " + journeys.getTimeSlot());
-                for (JourneyTrain j : journeys.getList()) {
-                    Log.d("cazzi", j.getDepartureTime());
-                }
-                journeyTrains.add(journeys.getTimeSlot(), new LinkedList<>(journeys.getList()));
-
-                flatJourneyTrainsList.clear();
-                for (List<JourneyTrain> l : journeyTrains) {
-                    flatJourneyTrainsList.addAll(l);
-                }
-
-                // TODO fai che quando è nel tuo stesso timeslot controlli ogni treno con il primo buono da prendere e si posizioni su quello
+            if (journeyController.newDataIsPresent(journeys.getList().size())) {
+                flatJourneyTrainsList = journeyController.refillJourneyList(flatJourneyTrainsList, journeys.getList(), journeys.getTimeSlot());
                 int pos = manager.findFirstCompletelyVisibleItemPosition();
-                Log.d("cazzi", "posizione del primo visibile " + pos);
-
                 journeyResultsAdapter.notifyDataSetChanged();
 
-                if (journeyController.getCurrentTimeSlot() == journeys.getTimeSlot()+1) {
-                    train = journeys.getList().get(0);
-                }
+                train = journeyController.getFirstTakeableTrain(journeys);
 
-                // fai in modo che alla prima aggiunta e finchè non si scrolla rimanga sul primo treno buono, altrimenti stia dove si trova
                 if (train != null) {
+//                // TODO fai che quando è nel tuo stesso timeslot controlli ogni treno con il primo buono da prendere e si posizioni su quello
                     manager.scrollToPositionWithOffset(flatJourneyTrainsList.indexOf(train), 0);
-                    Log.d("cazzi", "scrollo al turno del primo treno da prendere");
                     train = null;
                 } else {
-                    if (journeyController.getCurrentTimeSlot() > journeys.getTimeSlot()+1) {
+                    if (journeyController.newDataisInsertedBefore(journeys)) {
                         manager.scrollToPositionWithOffset(pos + journeys.getList().size(), 0);
-                        Log.d("cazzi", "scrollo dopo aver aggiunto in testa " + pos + journeys.getList().size());
                     } else {
                         manager.scrollToPositionWithOffset(pos, 0);
-                        Log.d("cazzi", "scrollo dopo aver aggiunto in coda " + pos);
                     }
-
-//                    recyclerView.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            recyclerView.scrollToPosition(flatJourneyTrainsList.indexOf(tempTrain));
-//                        }
-//                    });
                 }
             }
         }
@@ -143,18 +117,11 @@ public class JourneyResultsActivity extends Activity {
         super.onStart();
     }
 
-//    @Override
-//    protected void onResume() {
-//        spiceManager.start(this);
-//        super.onResume();
-//    }
-
     @Override
     protected void onStop() {
         spiceManager.shouldStop();
         super.onStop();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
