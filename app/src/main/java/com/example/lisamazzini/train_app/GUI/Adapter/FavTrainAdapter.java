@@ -39,7 +39,7 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
     }
 
     @Override
-    public void onBindViewHolder(Holder holder, int position) {
+    public void onBindViewHolder(Holder holder, final int position) {
         final Train train = list.get(position);
 
         holder.trainCategory.setText(train.getCategory());
@@ -66,20 +66,14 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
                         switch (item.getItemId()){
                             case R.id.delete:
                                 favCtrl.removeFavourite(train.getNumber());
-                                return true;
-                            case R.id.pin:
-                                intent.putExtra("number", train.getNumber());
-                                view.getContext().startService(intent);
-                                return true;
-                            case R.id.unpin:
-                                view.getContext().stopService(intent);
+                                notifyItemRemoved(position);
+                               // notifyDataSetChanged();
                                 return true;
                             default:
                                 return false;
                         }
                     }
                 });
-
                 popupMenu.show();
             }
         });

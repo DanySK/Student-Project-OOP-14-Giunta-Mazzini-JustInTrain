@@ -1,6 +1,9 @@
 package com.example.lisamazzini.train_app.GUI;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +19,7 @@ import com.example.lisamazzini.train_app.Controller.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.StationListController;
 import com.example.lisamazzini.train_app.Exceptions.DoubleTrainNumberException;
 import com.example.lisamazzini.train_app.Exceptions.FieldNotBuiltException;
+import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
 import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Model.Train;
@@ -54,7 +59,6 @@ public class StationListActivity extends Activity{
         this.stationList.setHasFixedSize(true);
         this.stationList.setItemAnimator(new DefaultItemAnimator());
 
-
         this.trainNumber = getIntent().getStringExtra("trainNumber");
         this.listController = new StationListController(this.trainNumber);
         this.favController = new FavouriteTrainController(this);
@@ -88,6 +92,24 @@ public class StationListActivity extends Activity{
 
         @Override
         public void onRequestFailure(SpiceException spiceException) {
+            if(spiceException.getCause() instanceof DoubleTrainNumberException){
+               // PopupMenu popupMenu = new PopupMenu(StationListActivity.this,  );
+
+
+            } else if(spiceException.getCause() instanceof InvalidTrainNumberException){
+                Log.d("BUHUUU", "sono triste-----------------------------------");
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(StationListActivity.this);
+                dialogBuilder.setTitle("Numero treno non valido!")
+                                .setMessage("Il numero inserito non corrisponde a nessun cazzo di treno")
+                                .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(StationListActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }).show();
+
+            }
             Toast.makeText(StationListActivity.this,
                     "Error: " + spiceException.getMessage(), Toast.LENGTH_SHORT)
                     .show();

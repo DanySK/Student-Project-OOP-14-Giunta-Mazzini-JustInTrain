@@ -20,6 +20,7 @@ public class TrainRequest extends SpiceRequest<Train> {
     private final String searchQuery;
 
     public TrainRequest(String searchQuery){
+
         super(Train.class);
         this.searchQuery = searchQuery;
     }

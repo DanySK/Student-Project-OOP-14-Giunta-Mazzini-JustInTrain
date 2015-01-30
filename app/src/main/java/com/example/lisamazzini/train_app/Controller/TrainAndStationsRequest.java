@@ -32,11 +32,15 @@ public class TrainAndStationsRequest extends SpiceRequest<Train> {
             final TrainDetailsParser scraperTrain = new TrainDetailsParser(this.searchQuery);
             StationListParser scraperJourney = new StationListParser(this.searchQuery);
 
-            Train train = scraperTrain.computeResult();
+            Train train = null;
+
+            train = scraperTrain.computeResult();
             scraperJourney.computeResult();
             Train.TrainBuilder builder = new Train.TrainBuilder(train.getCategory(), train.getNumber(), train.isMoving(), train.getDelay(), train.getBirthStation(),
                  train.getDeathStation(), train.getLastSeenStation(), train.getLastSeenTime());
             train = builder.withStationList(scraperJourney.getStationList()).withProgress(scraperJourney.getProgress()).build();
+
+
 
             return train;
         }

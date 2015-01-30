@@ -49,7 +49,6 @@ public class JourneyResultsController {
     }
 
     public JourneyRequest iterateTimeSlots() {
-        Log.d("cazzi", "TIMESLOT " + timeSlotSelector.value());
         JourneyRequest request = new JourneyRequest(new JourneyResultsParser(this.departure, this.arrival, this.timeSlotSelector.value(), this.currentTimeSlot, "24", "01", "2015"));
         timeSlotSelector.increment();
         return request;
@@ -96,7 +95,6 @@ public class JourneyResultsController {
             }
         }
         return flatJourneyTrainList;
-
     }
 
     public boolean newDataisInsertedBefore(JourneyListWrapper journeys) {
@@ -107,11 +105,9 @@ public class JourneyResultsController {
         return this.currentTimeSlot == journeys.getTimeSlot()+1 ? journeys.getList().get(0) : null;
     }
 
-
-
-
     private class CyclicCounter {
         private int counter;
+        private int previous;
         private final int max;
 
         public CyclicCounter(int startValue) {
@@ -120,6 +116,7 @@ public class JourneyResultsController {
         }
 
         public void increment() {
+            this.previous = counter;
             if (this.counter == Constants.N_TIME_SLOT) {
                 this.counter = this.max - 1;
             } else if (this.counter < this.max) {
@@ -131,6 +128,10 @@ public class JourneyResultsController {
 
         public int value() {
             return this.counter;
+        }
+
+        public int getPrevious() {
+            return this.previous;
         }
     }
 }

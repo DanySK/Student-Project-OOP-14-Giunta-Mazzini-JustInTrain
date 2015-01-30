@@ -58,15 +58,10 @@ public class FavouriteTrainListActivity extends Activity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_train_list);
-        // registerForContextMenu(this.list);
         Intent i = getIntent();
 
         favController = new FavouriteTrainController(getApplicationContext());
         listController = new FavouriteTrainListController(favController.getMap());
-
-        favController.addFavourite("608");
-        favController.addFavourite("2129");
-
 
         this.favListView = (RecyclerView)findViewById(R.id.recycler);
         this.favListView.setLayoutManager(new LinearLayoutManager(this));
@@ -80,44 +75,6 @@ public class FavouriteTrainListActivity extends Activity{
 
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_fav_train, menu);
-
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        //AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-
-        //Train prova = (Train)list.getItemAtPosition(info.position);
-
-
-        Intent intent = new Intent(FavouriteTrainListActivity.this, NotificationService.class);
-
-        switch (item.getItemId()) {
-            case R.id.delete:
-                //NUOVO//
-
-                //favController.removeFavourite(prova.getNumber);
-
-                //VECCHIO//
-
-                //fava.removeFavourite(prova.getNumber());
-                Toast.makeText(FavouriteTrainListActivity.this, "Rimosso dai preferiti", Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.pin:
-                //intent.putExtra("number", prova.getNumber());
-                startService(intent);
-                return true;
-            case R.id.unpin:
-                stopService(intent);
-            default:
-                return super.onContextItemSelected(item);
-        }
-    }
 
     private class TrainRequestListener implements RequestListener<Train> {
         @Override
@@ -131,8 +88,6 @@ public class FavouriteTrainListActivity extends Activity{
         public void onRequestSuccess(Train train) {
           favList.add(train);
           favListView.setAdapter(new FavTrainAdapter(favList));
-           // adapter = new TrainAdapter(FavouriteTrainActivity.this, favTrain);
-           // list.setAdapter(adapter);
 
         }
     }
