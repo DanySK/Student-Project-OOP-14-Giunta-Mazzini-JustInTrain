@@ -76,7 +76,8 @@ public class JourneyResultsController {
     }
 
     public boolean newDataIsPresent(int size) {
-        return size != 0;
+        return (this.listOfJourneyList.get(currentTimeSlot).size() > 0 || )
+                && size != 0;
     }
 
     public List<JourneyTrain> refillJourneyList(List<JourneyTrain> flatJourneyTrainList, List<JourneyTrain> journeys, int timeSlot) {
@@ -98,6 +99,7 @@ public class JourneyResultsController {
 
     private class CyclicCounter {
         private int counter;
+        private int previous;
         private final int max;
 
         public CyclicCounter(int startValue) {
@@ -106,6 +108,7 @@ public class JourneyResultsController {
         }
 
         public void increment() {
+            this.previous = counter;
             if (this.counter == Constants.N_TIME_SLOT) {
                 this.counter = this.max - 1;
             } else if (this.counter < this.max) {
@@ -117,6 +120,10 @@ public class JourneyResultsController {
 
         public int value() {
             return this.counter;
+        }
+
+        public int getPrevious() {
+            return this.previous;
         }
     }
 }
