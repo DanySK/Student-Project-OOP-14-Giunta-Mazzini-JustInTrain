@@ -67,6 +67,7 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
                             case R.id.delete:
                                 favCtrl.removeFavourite(train.getNumber());
                                 notifyItemRemoved(position);
+
                                // notifyDataSetChanged();
                                 return true;
                             default:

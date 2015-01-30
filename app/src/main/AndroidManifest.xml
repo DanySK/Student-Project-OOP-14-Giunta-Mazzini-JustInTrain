@@ -36,8 +36,7 @@
             android:name=".GUI.FavouriteTrainListActivity">
         </activity>
         <activity
-            android:name=".GUI.MainActivity"
-            android:label="@string/title_activity_main" >
+            android:name=".GUI.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
