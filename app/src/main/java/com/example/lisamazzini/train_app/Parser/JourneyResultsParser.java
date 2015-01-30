@@ -6,6 +6,7 @@ import com.example.lisamazzini.train_app.Exceptions.DoubleTrainNumberException;
 import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.JourneyTrain;
+import com.example.lisamazzini.train_app.Model.Train;
 
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
@@ -218,11 +219,13 @@ public class JourneyResultsParser {
     }
 
 
-    private void computeDelay() throws IOException {
+    private void computeDelay() throws IOException, ParseException {
         // TODO cambia con parser refrattorizzato
         TrainDetailsParser parser = new TrainDetailsParser(this.trainNumber);
         try {
-            parser.computeResult();
+            Train train = parser.computeResult(this.arrivalStation);
+            this.delay = train.getDelay();
+            this.category = train.getCategory();
         } catch (InvalidTrainNumberException e) {
             e.printStackTrace();
         } catch (DeletedTrainException e) {
@@ -230,8 +233,6 @@ public class JourneyResultsParser {
         } catch (DoubleTrainNumberException e) {
             e.printStackTrace();
         }
-        this.category = parser.getTrainCategory();
-        this.delay = parser.getDelay();
 //        JsoupTrainDetails j = new JsoupTrainDetails(this.trainNumber);
 //        j.computeResult();
 //        this.category = j.getTrainCategory();

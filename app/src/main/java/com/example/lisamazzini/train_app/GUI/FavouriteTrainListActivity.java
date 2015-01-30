@@ -32,8 +32,11 @@ import java.util.List;
 public class FavouriteTrainListActivity extends Activity{
 
     private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
-    private FavouriteTrainController favController = new FavouriteTrainController(FavouriteTrainListActivity.this);
-    private FavouriteTrainListController listController = new FavouriteTrainListController(favController.getMap());
+    //private FavouriteTrainController favController = new FavouriteTrainController(getApplicationContext());
+    //private FavouriteTrainListController listController = new FavouriteTrainListController(favController.getMap());
+
+    private FavouriteTrainController favController;
+    private FavouriteTrainListController listController;
     private RecyclerView favListView;
     private List<Train> favList = new LinkedList<>();
 
@@ -56,6 +59,13 @@ public class FavouriteTrainListActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_train_list);
         // registerForContextMenu(this.list);
+
+        favController = new FavouriteTrainController(getApplicationContext());
+        listController = new FavouriteTrainListController(favController.getMap());
+
+        favController.addFavourite("608");
+        favController.addFavourite("2129");
+
 
         this.favListView = (RecyclerView)findViewById(R.id.recycler);
         this.favListView.setLayoutManager(new LinearLayoutManager(this));

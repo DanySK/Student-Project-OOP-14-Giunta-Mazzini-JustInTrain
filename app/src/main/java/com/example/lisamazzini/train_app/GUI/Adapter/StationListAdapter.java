@@ -64,7 +64,7 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
             visited = (TextView) itemView.findViewById(R.id.visited);
             expectedArrival = (TextView) itemView.findViewById(R.id.expArr);
             scheduledArrival = (TextView) itemView.findViewById(R.id.planArr);
-            timeDifference = (TextView) itemView.findViewById(R.id.delay);
+            timeDifference = (TextView) itemView.findViewById(R.id.delaaay);
             expectedPlatform = (TextView) itemView.findViewById(R.id.expPlat);
             scheduledPlatform = (TextView) itemView.findViewById(R.id.schPlat);
         }

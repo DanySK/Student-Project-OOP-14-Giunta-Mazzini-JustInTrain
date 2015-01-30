@@ -11,7 +11,7 @@ import java.util.Map;
 
 //SINGLETON
 
-public class TrainFavouriteAdder {
+public class FavouriteTrainAdder {
 
     //Name of the file in which the favourites will be saved
     public final static String TRAIN_PREF_FILE = "TrainPref";
@@ -19,12 +19,12 @@ public class TrainFavouriteAdder {
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
     //The singleton instance
-    private static TrainFavouriteAdder adder;
+    private static FavouriteTrainAdder adder;
 
-    public static TrainFavouriteAdder getInstance(){
-        synchronized (TrainFavouriteAdder.class){
+    public static FavouriteTrainAdder getInstance(){
+        synchronized (FavouriteTrainAdder.class){
             if(adder == null){
-                adder = new TrainFavouriteAdder();
+                adder = new FavouriteTrainAdder();
             }
             return adder;
         }
@@ -32,7 +32,7 @@ public class TrainFavouriteAdder {
 
     public void setContext(Context context){
         //??????
-        sharedPref = context.getSharedPreferences(TrainFavouriteAdder.TRAIN_PREF_FILE, Context.MODE_APPEND);
+        sharedPref = context.getSharedPreferences(FavouriteTrainAdder.TRAIN_PREF_FILE, Context.MODE_APPEND);
         editor = sharedPref.edit();
     }
 

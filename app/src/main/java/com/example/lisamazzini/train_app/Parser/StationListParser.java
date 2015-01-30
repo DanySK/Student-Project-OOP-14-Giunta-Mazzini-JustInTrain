@@ -49,6 +49,7 @@ public class StationListParser {
      *
      * @throws java.text.ParseException
      * @throws java.io.IOException
+     *
      */
     public void computeResult() throws ParseException, IOException {
         goToMainDetailPage();
@@ -56,6 +57,14 @@ public class StationListParser {
         computeStation(Constants.NOT_VISITED_YET);
     }
 
+    public boolean hasStation(String stationName){
+        for(Station s : stationList){
+            if(s.getName().equals(stationName)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public List<Station> getStationList(){
         return this.stationList;

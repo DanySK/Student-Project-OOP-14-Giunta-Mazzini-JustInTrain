@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.Controller.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.StationListController;
+import com.example.lisamazzini.train_app.Exceptions.DoubleTrainNumberException;
 import com.example.lisamazzini.train_app.Exceptions.FieldNotBuiltException;
 import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.R;
@@ -54,19 +56,19 @@ public class StationListActivity extends Activity{
 
 
         this.trainNumber = getIntent().getStringExtra("trainNumber");
-        this.listController = new StationListController("608");
+        this.listController = new StationListController("2121");
         this.favController = new FavouriteTrainController(this);
 
         this.bFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                favController.addFavourite("608");
+                favController.addFavourite(trainNumber);
                 Toast.makeText(StationListActivity.this, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show();
 
             }
         });
 
-        spiceManager.execute(listController.getRequest(), new TrainAndStationsRequestListener());
+            spiceManager.execute(listController.getRequest(), new TrainAndStationsRequestListener());
     }
 
     @Override
@@ -86,6 +88,7 @@ public class StationListActivity extends Activity{
 
         @Override
         public void onRequestFailure(SpiceException spiceException) {
+            Log.d("BOIA DE", "-------------------- cosa" + spiceException.());
             Toast.makeText(StationListActivity.this,
                     "Error: " + spiceException.getMessage(), Toast.LENGTH_SHORT)
                     .show();

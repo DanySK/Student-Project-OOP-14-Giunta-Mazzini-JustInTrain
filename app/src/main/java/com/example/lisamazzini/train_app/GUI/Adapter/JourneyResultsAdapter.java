@@ -43,7 +43,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         journeyViewHolder.departureTime.setText(journeyTrain.getDepartureTime());
         journeyViewHolder.arrivalStation.setText(journeyTrain.getArrivalStation());
         journeyViewHolder.arrivalTime.setText(journeyTrain.getArrivalTime());
-//        journeyViewHolder.delay.setText(journeyTrain.getDelay());
+        journeyViewHolder.delay.setText("" + journeyTrain.getDelay());
 
     }
 
@@ -62,7 +62,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         protected TextView departureTime;
         protected TextView arrivalStation;
         protected TextView arrivalTime;
-//        protected TextView delay;
+        protected TextView delay;
 
 
 
@@ -76,7 +76,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
             departureTime = (TextView) v.findViewById(R.id.tvSetDepartureTime);
             arrivalStation = (TextView) v.findViewById(R.id.tvSetArrival);
             arrivalTime = (TextView) v.findViewById(R.id.tvSetArrivalTime);
-//            delay = (TextView) v.findViewById(R.id.tvSetDelay);
+            delay = (TextView) v.findViewById(R.id.tvSetDelay);
             // qui prendo i riferimenti alla view con findviewbyid
         }
 

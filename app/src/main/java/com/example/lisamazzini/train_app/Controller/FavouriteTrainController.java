@@ -3,7 +3,7 @@ package com.example.lisamazzini.train_app.Controller;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.example.lisamazzini.train_app.Controller.Favourites.TrainFavouriteAdder;
+import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainAdder;
 
 import java.util.Map;
 
@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class FavouriteTrainController {
 
-    private TrainFavouriteAdder favouriteAdder = TrainFavouriteAdder.getInstance();
+    private FavouriteTrainAdder favouriteAdder = FavouriteTrainAdder.getInstance();
     private final Context context;
 
     public FavouriteTrainController(Context context){

@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="RIT"
-        android:id="@+id/delay"
+        android:id="@+id/delaaay"
         android:layout_below="@+id/visited"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

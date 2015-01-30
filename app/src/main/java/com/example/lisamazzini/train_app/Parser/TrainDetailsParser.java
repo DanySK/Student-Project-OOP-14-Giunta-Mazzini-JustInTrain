@@ -3,6 +3,7 @@ package com.example.lisamazzini.train_app.Parser;
 import com.example.lisamazzini.train_app.Exceptions.DeletedTrainException;
 import com.example.lisamazzini.train_app.Exceptions.DoubleTrainNumberException;
 import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
+import com.example.lisamazzini.train_app.Model.Station;
 import com.example.lisamazzini.train_app.Model.Train;
 import com.example.lisamazzini.train_app.Model.Constants;
 
@@ -13,7 +14,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by lisamazzini on 22/01/15.
@@ -31,17 +34,65 @@ public class TrainDetailsParser {
 
     private String birthStation;
     private String deathStation;
+    private String[] optionsDoubleTrain;
+    private String[] optionsCodes;
 
     public TrainDetailsParser(String trainNumber) {
         this.trainNumber = trainNumber;
     }
 
+
+    /**
+     *
+     * This method is only for the JourneyResultsActivity, if there is more than one train with the same number, it accepts as input a
+     * station, and searches it in the station list, and parse the result for the right train.
+     *
+     * @param station
+     * @return Train, the right one
+     * @throws DeletedTrainException
+     * @throws InvalidTrainNumberException
+     * @throws IOException
+     * @throws ParseException
+     * @throws DoubleTrainNumberException
+     */
+    public Train computeResult(String station) throws DeletedTrainException, InvalidTrainNumberException, IOException, ParseException, DoubleTrainNumberException {
+        //this.culo = station;
+        String code = "";
+        try {
+            return computeResult();
+        } catch (DoubleTrainNumberException e) {
+            StationListParser[] parsers = new StationListParser[optionsDoubleTrain.length];
+            for(int i = 0 ; i < optionsDoubleTrain.length ; i++){
+                parsers[i] = new StationListParser(optionsDoubleTrain[i].split("")[0]);
+            }
+
+            for(int i = 0 ; i < parsers.length ; i++) {
+                if (parsers[i].hasStation(station)) {
+                    code = optionsCodes[i];
+                    break;
+                }
+            }
+        }
+        Connection.Response response = Jsoup.connect(Constants.BASE_URL + Constants.EXT_URL + Constants.ACTION_NUMBER)
+                .data("numeroTreno", this.trainNumber, "origine", code)
+                .method(Connection.Method.POST)
+                .execute();
+        this.doc = response.parse();
+        computeTrainDetails();
+        computeCondition();
+        computeBaDStation();
+        return new com.example.lisamazzini.train_app.Model.Train.TrainBuilder(this.trainCategory, this.trainNumber,
+                this.isMoving, this.delay, this.birthStation, this.deathStation, this.lastSeenStation, this.lastSeenTime)
+                .build();
+
+    }
     /**
      * This is the only public method and it starts all the computation
      *
      * @return the train parsed from the site
      */
-    public Train computeResult() throws IOException, InvalidTrainNumberException, DeletedTrainException, DoubleTrainNumberException {
+
+    public Train computeResult() throws IOException, InvalidTrainNumberException, DeletedTrainException, DoubleTrainNumberException, ParseException {
         goToMainResultPage();
         computeTrainDetails();
         computeCondition();
@@ -83,7 +134,7 @@ public class TrainDetailsParser {
      * @throws InvalidTrainNumberException, if there's no train with the number
      * @throws DeletedTrainException, if the train was deleted
      */
-    private void computeTrainDetails() throws DoubleTrainNumberException, InvalidTrainNumberException, DeletedTrainException {
+    private void computeTrainDetails() throws DoubleTrainNumberException, InvalidTrainNumberException, DeletedTrainException, IOException, ParseException {
 
         String title = doc.select("title").first().ownText();
 
@@ -165,6 +216,7 @@ public class TrainDetailsParser {
         if (isMoving == true) {
             for (int i = 11; i < conditionArray.length - 3; i++) {
                 //TODO use concat?
+                this.lastSeenStation = "";
                 this.lastSeenStation = this.lastSeenStation.concat(conditionArray[i].concat(" "));
             }
             this.lastSeenTime = conditionArray[conditionArray.length - 1];
@@ -190,18 +242,28 @@ public class TrainDetailsParser {
      * @throws DeletedTrainException, if the train was deleted
      */
 
-    private void solveIt() throws DoubleTrainNumberException, InvalidTrainNumberException, DeletedTrainException {
+    private void solveIt() throws DoubleTrainNumberException, InvalidTrainNumberException, DeletedTrainException, IOException, ParseException {
         Elements elem = doc.select("span");
         if(elem.isEmpty()){
             Elements options = doc.select("option");
             String[] stations = new String[options.size()];
+            optionsCodes = new String[options.size()];
             int i = 0;
+
             for(Element e : options){
                 stations[i] = e.ownText();
                 i++;
             }
+
+            i = 0;
+            for(Element e : options) {
+                optionsCodes[i] = e.val().split(";")[1];
+            }
+
+            this.optionsDoubleTrain = stations;
             System.out.println( "stat" + Arrays.toString(stations));
             throw new DoubleTrainNumberException("" + Arrays.toString(stations));
+
         }else{
             String text = elem.first().ownText();
             System.out.println("a");
@@ -224,6 +286,9 @@ public class TrainDetailsParser {
     public String getTrainCategory() {
         return this.trainCategory;
     }
+
+
+
 
 
 

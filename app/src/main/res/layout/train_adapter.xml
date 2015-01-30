@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="DEL"
-        android:id="@+id/delay"
+        android:id="@+id/delaaay"
         android:textSize="30dp"
         android:layout_alignTop="@+id/trainNum"
         android:layout_toRightOf="@+id/moving"
@@ -74,12 +74,12 @@
         android:layout_height="wrap_content"
         android:text="..."
         android:id="@+id/options"
-        android:layout_alignTop="@+id/delay"
+        android:layout_alignTop="@+id/delaaay"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="26dp"
         android:layout_marginEnd="26dp"
-        android:layout_alignBottom="@+id/delay" />
+        android:layout_alignBottom="@+id/delaaay" />
 
 </RelativeLayout>
           
