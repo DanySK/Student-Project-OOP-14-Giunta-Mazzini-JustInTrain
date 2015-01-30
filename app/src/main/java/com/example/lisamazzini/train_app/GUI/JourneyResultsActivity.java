@@ -90,7 +90,7 @@ public class JourneyResultsActivity extends Activity {
 
         @Override
         public void onRequestSuccess(final JourneyListWrapper journeys) {
-            if (journeyController.newDataIsPresent(journeys.getList().size())) {
+            if (journeyController.newDataIsPresent(journeys.getList())) {
                 flatJourneyTrainsList = journeyController.refillJourneyList(flatJourneyTrainsList, journeys.getList(), journeys.getTimeSlot());
                 int pos = manager.findFirstCompletelyVisibleItemPosition();
                 journeyResultsAdapter.notifyDataSetChanged();
