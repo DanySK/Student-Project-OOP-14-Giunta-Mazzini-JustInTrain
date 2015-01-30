@@ -35,7 +35,7 @@ import java.util.List;
 
 public class JourneyResultsActivity extends Activity {
 
-    private final JourneyResultsController journeyController = new JourneyResultsController("cesena", "pesaro");
+    private JourneyResultsController journeyController;
     private final SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
 
      private JourneyTrain train = null;
@@ -52,9 +52,12 @@ public class JourneyResultsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey_results);
-//        Intent intent = getIntent();
-//        departure = intent.getStringExtra("journeyDeparture");
-//        arrival = intent.getStringExtra("journeyArrival");
+
+        Intent intent = getIntent();
+        departure = intent.getStringExtra("journeyDeparture");
+        arrival = intent.getStringExtra("journeyArrival");
+
+        journeyController = new JourneyResultsController(departure, arrival);
 
         for (int i = 0; i < 5; i++) {
             journeyTrains.add(new LinkedList<JourneyTrain>());

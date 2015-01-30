@@ -21,16 +21,25 @@
         <activity
             android:name=".GUI.JourneyResultsActivity"
             android:label="@string/title_activity_journey_results" >
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity android:name=".GUI.StationListActivity" />
+        <activity
+            android:name=".GUI.FavouriteJourneyListActivity"
+            android:label="@string/title_activity_favourite_journey_list" >
+        </activity>
+        <activity
+            android:name=".GUI.MainActivity"
+            android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".GUI.StationListActivity"/>
-        <activity
-            android:name=".GUI.FavouriteJourneyListActivity"
-            android:label="@string/title_activity_favourite_journey_list" >
         </activity>
     </application>
 

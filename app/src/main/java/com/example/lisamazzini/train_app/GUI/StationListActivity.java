@@ -56,7 +56,7 @@ public class StationListActivity extends Activity{
 
 
         this.trainNumber = getIntent().getStringExtra("trainNumber");
-        this.listController = new StationListController("2121");
+        this.listController = new StationListController(this.trainNumber);
         this.favController = new FavouriteTrainController(this);
 
         this.bFavourite.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +88,6 @@ public class StationListActivity extends Activity{
 
         @Override
         public void onRequestFailure(SpiceException spiceException) {
-            Log.d("BOIA DE", "-------------------- cosa" + spiceException.());
             Toast.makeText(StationListActivity.this,
                     "Error: " + spiceException.getMessage(), Toast.LENGTH_SHORT)
                     .show();
@@ -102,7 +101,6 @@ public class StationListActivity extends Activity{
             } catch (FieldNotBuiltException e) {
                 e.printStackTrace();
             }
-
         }
     }
 }
