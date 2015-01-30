@@ -17,14 +17,17 @@ import java.text.ParseException;
 
 /**
  * Controller class for JourneyResultsActivity.
- * Contains methods which select the current timeslot and make requests
- * to the parser.
+ * Contains methods which
+ * select the current timeslot,
+ * make requests to the parser,
+ * helps getting data and refilling the listview dataset.
  */
 
 public class JourneyResultsController {
 
     private CyclicCounter timeSlotSelector;
     private int currentTimeSlot;
+    private boolean parsedCurrentTimeSlot;
     private final String departure;
     private final String arrival;
     private final List<JourneyTrain> journeyList = new LinkedList<>();
@@ -46,6 +49,7 @@ public class JourneyResultsController {
     }
 
     public JourneyRequest iterateTimeSlots() {
+        Log.d("cazzi", "TIMESLOT " + timeSlotSelector.value());
         JourneyRequest request = new JourneyRequest(new JourneyResultsParser(this.departure, this.arrival, this.timeSlotSelector.value(), this.currentTimeSlot, "24", "01", "2015"));
         timeSlotSelector.increment();
         return request;
@@ -75,18 +79,24 @@ public class JourneyResultsController {
         return Minutes.minutesBetween(TimeSlots.NOW.getDateTime(), other.getDateTime()).getMinutes() > 0;
     }
 
-    public boolean newDataIsPresent(int size) {
-        return (this.listOfJourneyList.get(currentTimeSlot).size() > 0 || )
-                && size != 0;
+    public boolean newDataIsPresent(List<JourneyTrain> list) {
+        return list.size() > 0;
     }
 
     public List<JourneyTrain> refillJourneyList(List<JourneyTrain> flatJourneyTrainList, List<JourneyTrain> journeys, int timeSlot) {
-        listOfJourneyList.add(timeSlot, new LinkedList<JourneyTrain>(journeys));
-        flatJourneyTrainList.clear();
-        for (List<JourneyTrain> l : listOfJourneyList) {
-            flatJourneyTrainList.addAll(l);
+        listOfJourneyList.get(timeSlot).addAll(journeys);
+        if (timeSlot == currentTimeSlot-1) {
+            parsedCurrentTimeSlot = true;
+        }
+
+        if (parsedCurrentTimeSlot) {
+            flatJourneyTrainList.clear();
+            for (List<JourneyTrain> l : listOfJourneyList) {
+                flatJourneyTrainList.addAll(l);
+            }
         }
         return flatJourneyTrainList;
+
     }
 
     public boolean newDataisInsertedBefore(JourneyListWrapper journeys) {
@@ -97,9 +107,11 @@ public class JourneyResultsController {
         return this.currentTimeSlot == journeys.getTimeSlot()+1 ? journeys.getList().get(0) : null;
     }
 
+
+
+
     private class CyclicCounter {
         private int counter;
-        private int previous;
         private final int max;
 
         public CyclicCounter(int startValue) {
@@ -108,7 +120,6 @@ public class JourneyResultsController {
         }
 
         public void increment() {
-            this.previous = counter;
             if (this.counter == Constants.N_TIME_SLOT) {
                 this.counter = this.max - 1;
             } else if (this.counter < this.max) {
@@ -120,10 +131,6 @@ public class JourneyResultsController {
 
         public int value() {
             return this.counter;
-        }
-
-        public int getPrevious() {
-            return this.previous;
         }
     }
 }
