@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 
 import com.example.lisamazzini.train_app.Model.Constants;
 
+import java.util.Map;
+import java.util.Set;
+
 public class FavouriteJourneyAdder {
 
     private final static FavouriteJourneyAdder ADDER = new FavouriteJourneyAdder();
@@ -30,10 +33,9 @@ public class FavouriteJourneyAdder {
 
         editor.apply();
     }
+    public Map<String, ?> getFavourites() {
 
-    public void getFavourites() {
-
-//        return sharedPref.getAll();
+        return sharedPref.getAll();
     }
 
     private void check() {

@@ -105,27 +105,36 @@ public class NavigationDrawerFragment extends Fragment {
         final EditText arrival = (EditText)drawerView.findViewById(R.id.arrival);
         Button btn1 = (Button) drawerView.findViewById(R.id.btnTrainNumber);
         Button btn2 = (Button) drawerView.findViewById(R.id.btnJourney);
-            btn1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (trainNumber.length() > 0) {
-                        Intent i = new Intent(getActivity(), StationListActivity.class);
-                        i.putExtra("trainNumber", trainNumber.getText().toString());
-                        startActivity(i);
-                    }
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (trainNumber.length() > 0) {
+                    Intent i = new Intent(getActivity(), StationListActivity.class);
+                    i.putExtra("trainNumber", trainNumber.getText().toString());
+                    startActivity(i);
                 }
-            });
-            btn2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (departure.length() > 0 && arrival.length() > 0) {
-                        Intent i = new Intent(getActivity(), JourneyResultsActivity.class);
-                        i.putExtra("journeyDeparture", departure.getText().toString());
-                        i.putExtra("journeyArrival", arrival.getText().toString());
-                        startActivity(i);
                     }
+    });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (departure.length() > 0 && arrival.length() > 0) {
+                    Intent i = new Intent(getActivity(), JourneyResultsActivity.class);
+                    i.putExtra("journeyDeparture", departure.getText().toString());
+                    i.putExtra("journeyArrival", arrival.getText().toString());
+                    startActivity(i);
                 }
-            });
+            }
+        });
+
+        Button btn3 = (Button) drawerView.findViewById(R.id.btnPrefTrains);
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), FavouriteTrainListActivity.class);
+                startActivity(i);
+            }
+        });
 
 
 //        mDrawerListView = (ListView) inflater.inflate(

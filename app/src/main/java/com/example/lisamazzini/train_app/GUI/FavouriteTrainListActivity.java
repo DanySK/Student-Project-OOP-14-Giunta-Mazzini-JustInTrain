@@ -59,6 +59,7 @@ public class FavouriteTrainListActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_train_list);
         // registerForContextMenu(this.list);
+        Intent i = getIntent();
 
         favController = new FavouriteTrainController(getApplicationContext());
         listController = new FavouriteTrainListController(favController.getMap());
