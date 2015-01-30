@@ -1,15 +1,12 @@
 package com.example.lisamazzini.train_app.GUI;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,9 +14,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import android.widget.ListView;
+import android.widget.SpinnerAdapter;
 
+import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyAdder;
 import com.example.lisamazzini.train_app.R;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -34,6 +39,31 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+//    private JourneyResultsController journeyController;
+//    private final SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
+//
+//    private JourneyTrain train = null;
+//    private RecyclerView recyclerView;
+//    private LinearLayoutManager manager;
+//    private JourneyResultsAdapter journeyResultsAdapter;
+//    List<JourneyTrain> flatJourneyTrainsList = new LinkedList<>();
+//    private List<List<JourneyTrain>> journeyTrains = new ArrayList<>(Constants.N_TIME_SLOT);
+
+    List<String> list = new LinkedList<>();
+    FavouriteJourneyAdder adder = new FavouriteJourneyAdder();
+    ArrayAdapter aAdpt;
+    ListView lv;
+    SpinnerAdapter spinnerAdapter;
+
+
+    private android.app.ActionBar actionBar;
+    private ArrayList<String> list2;
+    ActionBar.OnNavigationListener navigationListener;
+
+
+    private String departure;
+    private String arrival;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +73,63 @@ public class MainActivity extends ActionBarActivity
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
+        adder.setContext(MainActivity.this);
+        lv = (ListView) findViewById(R.id.favListView);
+        aAdpt = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, list);
+
+
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+
+        Map<String, Set<String>> map = (Map<String, Set<String>>) adder.getFavourites();
+        List<String> lstr = new LinkedList<>();
+        for (String str : map.keySet()) {
+            for (String s : map.get(str)) {
+                lstr.add(s);
+            }
+            list.add(lstr.get(0) + "_" + lstr.get(1));
+            lstr.removeAll(lstr);
+        }
+
+        lv.setAdapter(aAdpt);
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -75,10 +156,24 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void restoreActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+        ActionBar action = getSupportActionBar();
+
+        spinnerAdapter = ArrayAdapter.createFromResource(MainActivity.this, R.array.action_list, android.R.layout.simple_spinner_dropdown_item);
+        navigationListener = new ActionBar.OnNavigationListener() {
+            String[] strings = getResources().getStringArray(R.array.action_list);
+            @Override
+            public boolean onNavigationItemSelected(int i, long l) {
+                Log.d("cazzi", "hai premuto " + i + " " + strings[i]);
+                return true;
+            }
+        };
+        action.setDisplayShowTitleEnabled(false);
+        action.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_LIST);
+        action.setListNavigationCallbacks(spinnerAdapter, navigationListener);
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+//        actionBar.setDisplayShowTitleEnabled(true);
+//        actionBar.setTitle(mTitle);
     }
 
 
@@ -90,6 +185,7 @@ public class MainActivity extends ActionBarActivity
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.main, menu);
             restoreActionBar();
+
             return true;
         }
         return super.onCreateOptionsMenu(menu);
@@ -109,6 +205,7 @@ public class MainActivity extends ActionBarActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
     /**
      * A placeholder fragment containing a simple view.
