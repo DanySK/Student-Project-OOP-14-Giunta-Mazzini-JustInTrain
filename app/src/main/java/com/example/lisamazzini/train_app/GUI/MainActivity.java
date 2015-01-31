@@ -50,14 +50,11 @@ public class MainActivity extends ActionBarActivity
 //    private List<List<JourneyTrain>> journeyTrains = new ArrayList<>(Constants.N_TIME_SLOT);
 
     List<String> list = new LinkedList<>();
-    FavouriteJourneyAdder adder = new FavouriteJourneyAdder();
+    FavouriteJourneyAdder adder = FavouriteJourneyAdder.getInstance();
     ArrayAdapter aAdpt;
     ListView lv;
+
     SpinnerAdapter spinnerAdapter;
-
-
-    private android.app.ActionBar actionBar;
-    private ArrayList<String> list2;
     ActionBar.OnNavigationListener navigationListener;
 
 
@@ -77,8 +74,6 @@ public class MainActivity extends ActionBarActivity
         lv = (ListView) findViewById(R.id.favListView);
         aAdpt = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, list);
 
-
-
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
@@ -94,41 +89,8 @@ public class MainActivity extends ActionBarActivity
             list.add(lstr.get(0) + "_" + lstr.get(1));
             lstr.removeAll(lstr);
         }
-
         lv.setAdapter(aAdpt);
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @Override
@@ -156,6 +118,18 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void restoreActionBar() {
+        ArrayList<String> journeys = new ArrayList<String>(FavouriteJourneyAdder.getInstance().getFavourites().keySet());
+        for (String s : journeys) {
+            String[] splitted = s.split("_");
+            String finalString = "";
+            for (String s1 : splitted) {
+                finalString.concat(s1).concat(" ");
+            }
+            finalString = finalString.substring(0, finalString.length()-2);
+            journeys.add(journeys.indexOf(s), finalString);
+        }
+//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>();
+
         ActionBar action = getSupportActionBar();
 
         spinnerAdapter = ArrayAdapter.createFromResource(MainActivity.this, R.array.action_list, android.R.layout.simple_spinner_dropdown_item);

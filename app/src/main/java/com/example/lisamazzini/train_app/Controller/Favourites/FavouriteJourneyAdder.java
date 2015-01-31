@@ -19,23 +19,35 @@ public class FavouriteJourneyAdder {
         return ADDER;
     }
 
+    private FavouriteJourneyAdder() {}
+
     public void setContext(Context context) {
         sharedPref = context.getSharedPreferences(Constants.JOURNEY_PREF_FILE, Context.MODE_APPEND);
         editor = sharedPref.edit();
     }
 
-    public void addFavourite() {
-
+    public void addFavourite(String... stations) {
+        check();
+        editor.putString(buildKey(stations), "");
         editor.apply();
     }
 
-    public void removeFavourite() {
-
+    public void removeFavourite(String... data) {
+        check();
+        editor.remove(buildKey(data));
         editor.apply();
     }
     public Map<String, ?> getFavourites() {
-
+        check();
         return sharedPref.getAll();
+    }
+
+    private String buildKey(String... strings) {
+        String finalString = "";
+        for (String s : strings) {
+            finalString.concat(s).concat("_");
+        }
+        return finalString;
     }
 
     private void check() {
