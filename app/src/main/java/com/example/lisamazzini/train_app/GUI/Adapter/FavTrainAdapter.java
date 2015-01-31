@@ -54,8 +54,8 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
             @Override
             public void onClick(View v) {
 
-                Log.d("oooooooooooooooooo----------------", "Son qua!");
-                PopupMenu popupMenu = provo new PopupMenu(v.getContext(), v);
+                Log.d("ooooooooooooooo---------------", "Son qua!");
+                PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
                 popupMenu.getMenuInflater().inflate(R.menu.menu_fav_train, popupMenu.getMenu());
                 final Intent intent = new Intent(v.getContext(), NotificationService.class);
                 final View view = v;
