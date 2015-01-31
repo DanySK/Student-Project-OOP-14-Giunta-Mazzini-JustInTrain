@@ -16,6 +16,7 @@ import com.example.lisamazzini.train_app.Model.Train;
 import com.example.lisamazzini.train_app.Notification.NotificationService;
 import com.example.lisamazzini.train_app.R;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -55,19 +56,28 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
 
                 Log.d("oooooooooooooooooo----------------", "Son qua!");
                 PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
-                final FavouriteTrainController favCtrl = new FavouriteTrainController(v.getContext());
                 popupMenu.getMenuInflater().inflate(R.menu.menu_fav_train, popupMenu.getMenu());
                 final Intent intent = new Intent(v.getContext(), NotificationService.class);
                 final View view = v;
 
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    FavouriteTrainController favCtrl = new FavouriteTrainController(view.getContext());
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.delete:
+                                Log.d("---------CULO------------", "Prima di rimuovere ce ne sono  " + getItemCount() + "elem n' " + position);
                                 favCtrl.removeFavourite(train.getNumber());
+                                if(position == 0 && getItemCount() == 1){
+                                    list = new LinkedList<Train>();
+                                }else {
+                                    list.remove(position);
+                                }
+                                Log.d("----------CULO-----------", "Dopo aver rimosso e prima di notify "+ getItemCount());
                                 notifyItemRemoved(position);
-                               // notifyDataSetChanged();
+                                notifyDataSetChanged();
+                                Log.d("--------CULO-------------", "Dopo notify " + getItemCount());
+
                                 return true;
                             default:
                                 return false;
