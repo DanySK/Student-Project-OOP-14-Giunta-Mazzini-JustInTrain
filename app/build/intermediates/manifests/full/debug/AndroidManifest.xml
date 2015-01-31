@@ -17,38 +17,43 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <!-- <activity android:name=".JourneyListActivity" /> -->
+
+        <service
+            android:name="com.octo.android.robospice.UncachedSpiceService"
+            android:exported="false" />
+
         <activity
-            android:name="com.example.lisamazzini.train_app.MainActivity"
-            android:label="@string/app_name" >
+            android:name="com.example.lisamazzini.train_app.GUI.JourneyResultsActivity"
+            android:label="@string/title_activity_journey_results" >
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name="com.example.lisamazzini.train_app.GUI.StationListActivity" />
+        <activity
+            android:name="com.example.lisamazzini.train_app.GUI.FavouriteJourneyListActivity"
+            android:label="@string/title_activity_favourite_journey_list" >
+        </activity>
+        <activity android:name="com.example.lisamazzini.train_app.GUI.FavouriteTrainListActivity" >
+        </activity>
+        <activity
+            android:name="com.example.lisamazzini.train_app.GUI.MainActivity"
+            android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.lisamazzini.train_app.StationListActivity" />
-        <!-- <activity android:name=".JourneyListActivity" /> -->
-        <activity android:name="com.example.lisamazzini.train_app.JourneyListwRobospiceActivity" />
-        <activity android:name="com.example.lisamazzini.train_app.TrainFavouriteListActivity" />
-        <activity android:name="com.example.lisamazzini.train_app.JourneyFavouriteListActivity" />
-
-        <service
-            android:name="com.octo.android.robospice.UncachedSpiceService"
-            android:exported="false" />
-        <service
-            android:name="com.example.lisamazzini.train_app.NotificationService"
-            android:enabled="true" />
-
-        <receiver android:name="com.example.lisamazzini.train_app.ButtonListener" />
-
         <activity
-            android:name="com.example.lisamazzini.train_app.GUI.JourneyResultsActivity"
-            android:label="@string/title_activity_journey_results" >
-        </activity>
-        <activity
-            android:name="com.example.lisamazzini.train_app.GUI.FavouriteJourneyList"
-            android:label="@string/title_activity_favourite_journey_list" >
-        </activity>
+            android:name="android.support.v7.widget.TestActivity"
+            android:label="RecyclerViewTestActivity" />
     </application>
 
 </manifest>
