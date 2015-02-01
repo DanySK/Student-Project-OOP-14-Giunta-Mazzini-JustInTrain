@@ -19,8 +19,11 @@ public class FavouriteJourneyController {
     }
 
     public void setAsFavourite(String departure, String arrival) {
-
         favouriteJourneyAdder.addFavourite(departure, arrival);
+    }
+
+    public void removeAll() {
+        favouriteJourneyAdder.removeFavourites();
     }
 
     public List<String> getFavourites() {

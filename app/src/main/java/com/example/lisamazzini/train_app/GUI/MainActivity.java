@@ -88,6 +88,7 @@ public class MainActivity extends ActionBarActivity
 
         favouriteJourneyController = new FavouriteJourneyController(MainActivity.this);
 
+
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
