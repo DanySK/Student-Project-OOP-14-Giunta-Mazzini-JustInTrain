@@ -87,6 +87,10 @@ public class MainActivity extends ActionBarActivity
         mTitle = getTitle();
 
         favouriteJourneyController = new FavouriteJourneyController(MainActivity.this);
+        favouriteJourneyController.removeAll();
+        favouriteJourneyController.setAsFavourite("Pesaro", "Cesena");
+        favouriteJourneyController.setAsFavourite("Bologna", "Cesena");
+        favouriteJourneyController.setAsFavourite("Venezia", "Bologna");
 
 
         // Set up the drawer.
@@ -160,6 +164,7 @@ public class MainActivity extends ActionBarActivity
         for (String s : journeys) {
             String[] splitted = s.split("_");
             String departure = splitted[0];
+            Log.d("--------------", departure);
             String arrival = splitted[1];
             realJourneys.add(new LinkedList<String>(Arrays.asList(departure, arrival)));
             String finalString = "";

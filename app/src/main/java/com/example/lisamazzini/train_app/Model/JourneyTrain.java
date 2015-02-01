@@ -23,6 +23,7 @@ public class JourneyTrain extends BasicTrain {
     private final String departurePlatform;
     private final String arrivalPlatform;
 
+
     public int getJourneyID() {
         return journeyID;
     }

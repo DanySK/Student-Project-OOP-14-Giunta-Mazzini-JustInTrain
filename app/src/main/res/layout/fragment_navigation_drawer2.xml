@@ -6,14 +6,17 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/trainNumber"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/trainNumber" />
 
     <Button
         android:id="@+id/btnTrainNumber"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Cerca" />
 
     <EditText
         android:id="@+id/departure"
@@ -28,11 +31,13 @@
     <Button
         android:id="@+id/btnJourney"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Cerca" />
 
     <Button
         android:id="@+id/btnPrefTrains"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Treni preferiti" />
 
 </LinearLayout>

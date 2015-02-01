@@ -1,5 +1,7 @@
 package com.example.lisamazzini.train_app.Parser;
 
+import android.util.Log;
+
 import com.example.lisamazzini.train_app.Exceptions.DeletedTrainException;
 import com.example.lisamazzini.train_app.Exceptions.DoubleTrainNumberException;
 import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
@@ -113,7 +115,7 @@ public class TrainDetailsParser {
                                             .method(Connection.Method.POST)
                                             .execute();
         this.doc = response.parse();
-        //System.out.println(this.doc.html());
+        //Log.d("ooo", this.doc.html());
     }
 
     /**

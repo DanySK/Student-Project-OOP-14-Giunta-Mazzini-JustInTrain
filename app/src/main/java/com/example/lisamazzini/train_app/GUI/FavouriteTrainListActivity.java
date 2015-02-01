@@ -60,6 +60,8 @@ public class FavouriteTrainListActivity extends Activity{
         setContentView(R.layout.activity_favourite_train_list);
         Intent i = getIntent();
 
+
+
         favController = new FavouriteTrainController(getApplicationContext());
         listController = new FavouriteTrainListController(favController.getMap());
 

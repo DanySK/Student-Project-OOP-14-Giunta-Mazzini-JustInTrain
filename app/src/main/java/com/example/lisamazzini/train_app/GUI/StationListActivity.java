@@ -72,6 +72,8 @@ public class StationListActivity extends Activity{
             }
         });
 
+        this.bFavourite.setVisibility(View.INVISIBLE);
+
             spiceManager.execute(listController.getRequest(), new TrainAndStationsRequestListener());
     }
 
@@ -120,6 +122,8 @@ public class StationListActivity extends Activity{
             tData.setText("Treno: " + train.getCategory() + train.getNumber() + "\nRitardo: " + train.getDelay());
             try {
                 stationList.setAdapter(new StationListAdapter(train.getStationList()));
+                bFavourite.setVisibility(View.VISIBLE);
+
             } catch (FieldNotBuiltException e) {
                 e.printStackTrace();
             }

@@ -1,5 +1,7 @@
 package com.example.lisamazzini.train_app.Parser;
 
+import android.util.Log;
+
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Station;
 
@@ -143,7 +145,7 @@ public class StationListParser {
                     this.scheduledTime, this.timeDifference, this.scheduledPlatform,
                     this.expectedPlatform, this.visited));
 
-            System.out.println(stationList.get(stationList.size() - 1).toString());
+            //System.out.println(stationList.get(stationList.size() - 1).toString());
         }
     }
 

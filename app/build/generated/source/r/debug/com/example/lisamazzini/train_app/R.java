@@ -1304,8 +1304,10 @@ containing a value of this type.
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f020031;
         public static final int abc_textfield_search_material=0x7f020032;
         public static final int drawer_shadow=0x7f020033;
-        public static final int ic_drawer=0x7f020034;
-        public static final int ic_launcher=0x7f020035;
+        public static final int exit=0x7f020034;
+        public static final int ic_drawer=0x7f020035;
+        public static final int ic_launcher=0x7f020036;
+        public static final int refresh=0x7f020037;
     }
     public static final class id {
         public static final int action_bar=0x7f0a0031;
@@ -1316,13 +1318,13 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f0a001f;
         public static final int action_bar_title=0x7f0a001e;
         public static final int action_context_bar=0x7f0a0032;
-        public static final int action_example=0x7f0a0085;
+        public static final int action_example=0x7f0a0086;
         public static final int action_menu_divider=0x7f0a0002;
         public static final int action_menu_presenter=0x7f0a0003;
         public static final int action_mode_bar=0x7f0a002e;
         public static final int action_mode_bar_stub=0x7f0a002d;
         public static final int action_mode_close_button=0x7f0a0020;
-        public static final int action_settings=0x7f0a0084;
+        public static final int action_settings=0x7f0a0085;
         public static final int activity_chooser_view_content=0x7f0a0021;
         public static final int add_favourite=0x7f0a005a;
         public static final int always=0x7f0a0016;
@@ -1332,6 +1334,7 @@ containing a value of this type.
         public static final int btnFavourites=0x7f0a004a;
         public static final int btnJourney=0x7f0a0063;
         public static final int btnJourneyFavs=0x7f0a0052;
+        public static final int btnOpt=0x7f0a0077;
         public static final int btnPrefTrains=0x7f0a0064;
         public static final int btnSearch=0x7f0a0049;
         public static final int btnSearchJourney=0x7f0a004f;
@@ -1345,8 +1348,8 @@ containing a value of this type.
         public static final int container=0x7f0a0057;
         public static final int decor_content_parent=0x7f0a002f;
         public static final int default_activity_button=0x7f0a0024;
-        public static final int delaaay=0x7f0a007d;
-        public static final int delete=0x7f0a0086;
+        public static final int delaaay=0x7f0a007e;
+        public static final int delete=0x7f0a0089;
         public static final int departure=0x7f0a0061;
         public static final int dialog=0x7f0a001b;
         public static final int disableHome=0x7f0a000c;
@@ -1354,8 +1357,8 @@ containing a value of this type.
         public static final int dropdown=0x7f0a001c;
         public static final int edit_query=0x7f0a0033;
         public static final int end=0x7f0a0014;
-        public static final int expArr=0x7f0a007a;
-        public static final int expPlat=0x7f0a007b;
+        public static final int expArr=0x7f0a007b;
+        public static final int expPlat=0x7f0a007c;
         public static final int expand_activities_button=0x7f0a0022;
         public static final int expanded_menu=0x7f0a0028;
         public static final int fuckinlayout=0x7f0a0065;
@@ -1369,13 +1372,13 @@ containing a value of this type.
         public static final int insertNumber=0x7f0a004c;
         public static final int journeyResultsFragment=0x7f0a0058;
         public static final int journey_list=0x7f0a0042;
-        public static final int lastseen=0x7f0a0080;
+        public static final int lastseen=0x7f0a0081;
         public static final int linear=0x7f0a005e;
         public static final int listMode=0x7f0a0009;
         public static final int listView=0x7f0a0041;
         public static final int list_item=0x7f0a0025;
         public static final int middle=0x7f0a0015;
-        public static final int moving=0x7f0a0081;
+        public static final int moving=0x7f0a0082;
         public static final int navigation_drawer=0x7f0a0059;
         public static final int never=0x7f0a0019;
         public static final int none=0x7f0a000e;
@@ -1384,13 +1387,14 @@ containing a value of this type.
         public static final int ntNumber=0x7f0a0067;
         public static final int ntStation=0x7f0a006a;
         public static final int ntTime=0x7f0a0069;
-        public static final int options=0x7f0a0083;
-        public static final int planArr=0x7f0a0079;
+        public static final int options=0x7f0a0084;
+        public static final int pin=0x7f0a0087;
+        public static final int planArr=0x7f0a007a;
         public static final int progress_circular=0x7f0a0005;
         public static final int progress_horizontal=0x7f0a0006;
         public static final int radio=0x7f0a002b;
         public static final int recycler=0x7f0a0040;
-        public static final int schPlat=0x7f0a007c;
+        public static final int schPlat=0x7f0a007d;
         public static final int search_badge=0x7f0a0035;
         public static final int search_bar=0x7f0a0034;
         public static final int search_button=0x7f0a0036;
@@ -1407,7 +1411,7 @@ containing a value of this type.
         public static final int showHome=0x7f0a0010;
         public static final int showTitle=0x7f0a0011;
         public static final int split_action_bar=0x7f0a0007;
-        public static final int statName=0x7f0a0077;
+        public static final int statName=0x7f0a0078;
         public static final int submit_area=0x7f0a003c;
         public static final int tabMode=0x7f0a000b;
         public static final int textView=0x7f0a004b;
@@ -1418,10 +1422,10 @@ containing a value of this type.
         public static final int textView6=0x7f0a0066;
         public static final int textView7=0x7f0a006c;
         public static final int textView8=0x7f0a006b;
-        public static final int timelastseen=0x7f0a0082;
+        public static final int timelastseen=0x7f0a0083;
         public static final int title=0x7f0a0027;
-        public static final int trainCat=0x7f0a007e;
-        public static final int trainNum=0x7f0a007f;
+        public static final int trainCat=0x7f0a007f;
+        public static final int trainNum=0x7f0a0080;
         public static final int trainNumber=0x7f0a005f;
         public static final int train_details_text=0x7f0a005b;
         public static final int tvArrival=0x7f0a0046;
@@ -1438,9 +1442,10 @@ containing a value of this type.
         public static final int tvSetTrainCategory=0x7f0a006d;
         public static final int tvSetTrainNumber=0x7f0a006f;
         public static final int tvTrainNumber=0x7f0a006e;
+        public static final int unpin=0x7f0a0088;
         public static final int up=0x7f0a0008;
         public static final int useLogo=0x7f0a0012;
-        public static final int visited=0x7f0a0078;
+        public static final int visited=0x7f0a0079;
         public static final int withText=0x7f0a001a;
         public static final int wrap_content=0x7f0a001d;
     }
@@ -1494,11 +1499,12 @@ containing a value of this type.
     public static final class menu {
         public static final int global=0x7f0e0000;
         public static final int main=0x7f0e0001;
-        public static final int menu_fav_train=0x7f0e0002;
-        public static final int menu_favourite_journey_list=0x7f0e0003;
-        public static final int menu_journey_listw_robospice=0x7f0e0004;
-        public static final int menu_journey_results=0x7f0e0005;
-        public static final int menu_main=0x7f0e0006;
+        public static final int menu_fav_journey=0x7f0e0002;
+        public static final int menu_fav_train=0x7f0e0003;
+        public static final int menu_favourite_journey_list=0x7f0e0004;
+        public static final int menu_journey_listw_robospice=0x7f0e0005;
+        public static final int menu_journey_results=0x7f0e0006;
+        public static final int menu_main=0x7f0e0007;
     }
     public static final class string {
         public static final int abc_action_bar_home_description=0x7f0c0000;

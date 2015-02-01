@@ -1,17 +1,25 @@
 package com.example.lisamazzini.train_app.GUI.Adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.example.lisamazzini.train_app.Controller.FavouriteTrainController;
 import com.example.lisamazzini.train_app.GUI.StationListActivity;
 import com.example.lisamazzini.train_app.Model.JourneyTrain;
+import com.example.lisamazzini.train_app.Model.Train;
+import com.example.lisamazzini.train_app.Notification.NotificationService;
 import com.example.lisamazzini.train_app.R;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAdapter.JourneyViewHolder>{
@@ -22,7 +30,6 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         this.journeyList = list;
     }
 
-    private int pos;
 
     //chiamato quando viene instanziato il viewHolder
     @Override
@@ -31,11 +38,10 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         return new JourneyViewHolder(itemView);
     }
 
-
     //chiamato quando si collegano i dati al viewholder
     @Override
     public void onBindViewHolder(JourneyViewHolder journeyViewHolder, int position) {
-        JourneyTrain journeyTrain = journeyList.get(position);
+        final JourneyTrain journeyTrain = journeyList.get(position);
         journeyViewHolder.category.setText(journeyTrain.getCategory());
         journeyViewHolder.number.setText(journeyTrain.getNumber());
         journeyViewHolder.duration.setText(journeyTrain.getDuration());
@@ -44,6 +50,37 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         journeyViewHolder.arrivalStation.setText(journeyTrain.getArrivalStation());
         journeyViewHolder.arrivalTime.setText(journeyTrain.getArrivalTime());
         journeyViewHolder.delay.setText("" + journeyTrain.getDelay());
+        journeyViewHolder.menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
+                popupMenu.getMenuInflater().inflate(R.menu.menu_fav_journey, popupMenu.getMenu());
+                final Intent intent = new Intent(v.getContext(), NotificationService.class);
+                final Context ctx = v.getContext();
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.pin:
+                                Log.d("----OHI--", "Son qui");
+                                intent.putExtra("number", journeyTrain.getNumber());
+                                intent.putExtra("time", journeyTrain.getArrivalTime());
+                                ctx.startService(intent);
+                                return true;
+                            case R.id.unpin:
+                                ctx.startService(intent);
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+
+                popupMenu.show();
+
+            }
+        });
 
     }
 
@@ -63,6 +100,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         protected TextView arrivalStation;
         protected TextView arrivalTime;
         protected TextView delay;
+        protected Button menu;
 
 
 
@@ -77,17 +115,15 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
             arrivalStation = (TextView) v.findViewById(R.id.tvSetArrival);
             arrivalTime = (TextView) v.findViewById(R.id.tvSetArrivalTime);
             delay = (TextView) v.findViewById(R.id.tvSetDelay);
-            // qui prendo i riferimenti alla view con findviewbyid
+            menu = (Button)v.findViewById(R.id.btnOpt);
         }
 
         @Override
         public void onClick(View v) {
             Intent i = new Intent(v.getContext(), StationListActivity.class);
             i.putExtra("trainNumber", this.number.getText().toString());
-            i.putExtra("departureSTation", this.departureStation.getText().toString());
+            i.putExtra("departureStation", this.departureStation.getText().toString());
             v.getContext().startActivity(i);
-
-
         }
     }
 
