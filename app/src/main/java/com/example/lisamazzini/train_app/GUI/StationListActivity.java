@@ -15,8 +15,10 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lisamazzini.train_app.Controller.DoubleTrainRequest;
 import com.example.lisamazzini.train_app.Controller.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.StationListController;
+import com.example.lisamazzini.train_app.Controller.TrainRequest;
 import com.example.lisamazzini.train_app.Exceptions.DoubleTrainNumberException;
 import com.example.lisamazzini.train_app.Exceptions.FieldNotBuiltException;
 import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
@@ -29,6 +31,8 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 import org.w3c.dom.Text;
+
+import java.util.Arrays;
 
 /**
  * Created by lisamazzini on 22/01/15.
@@ -93,14 +97,23 @@ public class StationListActivity extends Activity{
     private class TrainAndStationsRequestListener implements RequestListener<Train> {
 
         @Override
-        public void onRequestFailure(SpiceException spiceException) {
+        public void onRequestFailure(final SpiceException spiceException) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(StationListActivity.this);
             if(spiceException.getCause() instanceof DoubleTrainNumberException){
-               // PopupMenu popupMenu = new PopupMenu(StationListActivity.this,  );
-
-
+                String stations = spiceException.getCause().getMessage();
+                String[] data = stations.split("---");
+                String[] stationsArr = data[0].split(",");
+                final String[] codesArr = data[1].split(",");
+                Log.d("BUHUUU", Arrays.toString(codesArr) + "-----------------------------------");
+                dialogBuilder.setTitle("Scegliere il treno desiderato")
+                            .setSingleChoiceItems(stationsArr, -1, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    spiceManager.execute(new DoubleTrainRequest(trainNumber, codesArr[which]), new TrainAndStationsRequestListener());
+                                }
+                            });
+                dialogBuilder.show();
             } else if(spiceException.getCause() instanceof InvalidTrainNumberException){
-                Log.d("BUHUUU", "sono triste-----------------------------------");
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(StationListActivity.this);
                 dialogBuilder.setTitle("Numero treno non valido!")
                                 .setMessage("Il numero inserito non corrisponde a nessun cazzo di treno")
                                 .setNeutralButton("Ok", new DialogInterface.OnClickListener() {

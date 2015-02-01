@@ -17,18 +17,18 @@ import java.text.ParseException;
  */
 public class TrainRequest extends SpiceRequest<Train> {
 
-    private final String searchQuery;
+    private final String searchNumber;
 
     public TrainRequest(String searchQuery){
 
         super(Train.class);
-        this.searchQuery = searchQuery;
+        this.searchNumber = searchQuery;
     }
 
     @Override
     public Train loadDataFromNetwork() throws DeletedTrainException, DoubleTrainNumberException, InvalidTrainNumberException, ParseException, IOException {
         Log.d("--------------------------", "sono qui nel loaddata");
-        final TrainDetailsParser scraperTrain = new TrainDetailsParser(this.searchQuery);
+        final TrainDetailsParser scraperTrain = new TrainDetailsParser(this.searchNumber);
         Train train = scraperTrain.computeResult();
         return train;
     }
