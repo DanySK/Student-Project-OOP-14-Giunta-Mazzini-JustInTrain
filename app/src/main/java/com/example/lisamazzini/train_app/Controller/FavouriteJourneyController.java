@@ -5,21 +5,25 @@ import android.content.Context;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyAdder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FavouriteJourneyController {
 
     private final FavouriteJourneyAdder favouriteJourneyAdder = FavouriteJourneyAdder.getInstance();
     private final Context context;
-    private final String departure;
-    private final String arrival;
 
-    public FavouriteJourneyController(Context context, String departure, String arrival) {
+    public FavouriteJourneyController(Context context) {
         this.context = context;
-        this.departure = departure;
-        this.arrival = arrival;
+        favouriteJourneyAdder.setContext(this.context);
     }
 
-    public void setAsFavourite() {
-        favouriteJourneyAdder.setContext(context);
-        favouriteJourneyAdder.addFavourite();
+    public void setAsFavourite(String departure, String arrival) {
+
+        favouriteJourneyAdder.addFavourite(departure, arrival);
+    }
+
+    public List<String> getFavourites() {
+        return new ArrayList<String>(favouriteJourneyAdder.getFavourites().keySet());
     }
 }

@@ -28,6 +28,7 @@ public class FavouriteJourneyAdder {
 
     public void addFavourite(String... stations) {
         check();
+
         editor.putString(buildKey(stations), "");
         editor.apply();
     }
@@ -45,9 +46,17 @@ public class FavouriteJourneyAdder {
     private String buildKey(String... strings) {
         String finalString = "";
         for (String s : strings) {
-            finalString.concat(s).concat("_");
+            finalString = finalString.concat(s).concat("_");
         }
         return finalString;
+    }
+
+    public void removeFavourites() {
+        check();
+        for (String s : this.getFavourites().keySet()) {
+            editor.remove(s);
+        }
+        editor.apply();
     }
 
     private void check() {
