@@ -7,9 +7,6 @@ import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainAdd
 
 import java.util.Map;
 
-/**
- * Created by lisamazzini on 22/01/15.
- */
 public class FavouriteTrainController {
 
     private FavouriteTrainAdder favouriteAdder = FavouriteTrainAdder.getInstance();
@@ -34,5 +31,4 @@ public class FavouriteTrainController {
     public Map<String, String> getMap(){
         return (Map <String, String>) favouriteAdder.getFavourites();
     }
-
 }

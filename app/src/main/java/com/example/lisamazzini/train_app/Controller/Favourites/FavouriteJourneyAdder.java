@@ -64,5 +64,4 @@ public class FavouriteJourneyAdder {
             throw new UnsupportedOperationException("Set your context first");
         }
     }
-
 }

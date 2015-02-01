@@ -30,7 +30,6 @@ public class JourneyResultsController {
     private boolean parsedCurrentTimeSlot;
     private final String departure;
     private final String arrival;
-    private final List<JourneyTrain> journeyList = new LinkedList<>();
     private final List<List<JourneyTrain>> listOfJourneyList = new ArrayList<>();
 
 
@@ -56,8 +55,7 @@ public class JourneyResultsController {
 
 
     private int setCurrentTimeSlot() throws ParseException {
-        // dicotomic search on timeslots
-        if (nowIsMinorThan(TimeSlots.AFTERNOON)) {                       // before 13:00
+        if (nowIsMinorThan(TimeSlots.AFTERNOON)) {                                  // before 13:00
             if (nowIsMinorThan(TimeSlots.MORNING)) {
                 return this.currentTimeSlot = TimeSlots.EARLY_MORNING.getIndex();   // before 6:00
             } else {
@@ -107,7 +105,6 @@ public class JourneyResultsController {
 
     private class CyclicCounter {
         private int counter;
-        private int previous;
         private final int max;
 
         public CyclicCounter(int startValue) {
@@ -116,7 +113,6 @@ public class JourneyResultsController {
         }
 
         public void increment() {
-            this.previous = counter;
             if (this.counter == Constants.N_TIME_SLOT) {
                 this.counter = this.max - 1;
             } else if (this.counter < this.max) {
@@ -128,10 +124,6 @@ public class JourneyResultsController {
 
         public int value() {
             return this.counter;
-        }
-
-        public int getPrevious() {
-            return this.previous;
         }
     }
 }

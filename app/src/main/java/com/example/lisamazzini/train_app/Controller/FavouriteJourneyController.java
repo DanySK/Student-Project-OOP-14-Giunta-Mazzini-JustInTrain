@@ -11,11 +11,9 @@ import java.util.List;
 public class FavouriteJourneyController {
 
     private final FavouriteJourneyAdder favouriteJourneyAdder = FavouriteJourneyAdder.getInstance();
-    private final Context context;
 
     public FavouriteJourneyController(Context context) {
-        this.context = context;
-        favouriteJourneyAdder.setContext(this.context);
+        favouriteJourneyAdder.setContext(context);
     }
 
     public void setAsFavourite(String departure, String arrival) {
