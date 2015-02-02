@@ -29,10 +29,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- *
- */
-
 public class JourneyResultsActivity extends Activity {
 
     private JourneyResultsController journeyController;

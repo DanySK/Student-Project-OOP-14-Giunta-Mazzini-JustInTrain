@@ -135,7 +135,7 @@ public class MainActivity extends ActionBarActivity
             //            String[] strings = getResources().getStringArray(R.array.action_list);
             @Override
             public boolean onNavigationItemSelected(int i, long l) {
-               // fragment.makeRequests(realJourneys.get(i).get(0), realJourneys.get(i).get(1));
+                fragment.makeRequests(realJourneys.get(i).get(0), realJourneys.get(i).get(1));
                 Log.d("cazzi", "hai premuto " + i + " " + finalJourneys.get(i));
                 return true;
             }
