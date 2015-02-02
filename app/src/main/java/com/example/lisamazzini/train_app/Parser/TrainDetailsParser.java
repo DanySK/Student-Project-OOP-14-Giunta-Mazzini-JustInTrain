@@ -98,18 +98,32 @@ public class TrainDetailsParser {
      */
 
     public Train computeChoiceResult(String code) throws IOException, DeletedTrainException, InvalidTrainNumberException, ParseException, DoubleTrainNumberException {
-        Connection.Response response = Jsoup.connect(Constants.BASE_URL + Constants.EXT_URL + Constants.ACTION_NUMBER)
-                .data("numeroTreno", this.trainNumber, "origine", code)
-                .method(Connection.Method.POST)
-                .execute();
-        Log.d("son qui", "-------------------------------------");
-        this.doc = response.parse();
-        computeTrainDetails();
-        computeCondition();
-        computeBaDStation();
-        return new com.example.lisamazzini.train_app.Model.Train.TrainBuilder(this.trainCategory, this.trainNumber,
-                this.isMoving, this.delay, this.birthStation, this.deathStation, this.lastSeenStation, this.lastSeenTime)
-                .build();
+        try {
+            return computeResult();
+        }catch (DoubleTrainNumberException e ){
+
+            Log.d("fanculo a tutti", "" + this.trainNumber);
+
+            Connection.Response response = Jsoup.connect(Constants.BASE_URL + Constants.EXT_URL + Constants.ACTION_NUMBER)
+                    .data("numeroTreno", this.trainNumber, "origine", code)
+                    .method(Connection.Method.POST)
+                    .execute();
+
+            Log.d("son qui", "----------computechoice---------------------------");
+
+            this.doc = response.parse();
+
+            Log.d("HTML", "" + this.doc.html());
+
+
+            computeTrainDetails();
+            computeCondition();
+            computeBaDStation();
+
+            return new com.example.lisamazzini.train_app.Model.Train.TrainBuilder(this.trainCategory, this.trainNumber,
+                    this.isMoving, this.delay, this.birthStation, this.deathStation, this.lastSeenStation, this.lastSeenTime)
+                    .build();
+        }
     }
 
 
@@ -273,7 +287,6 @@ public class TrainDetailsParser {
         Elements elem = doc.select("span");
         if(elem.isEmpty()){
             Elements options = doc.select("option");
-            Log.d("HTML", this.doc.html());
             String[] stations = new String[options.size()];
             optionsCodes = new String[options.size()];
             int i = 0;
@@ -287,6 +300,7 @@ public class TrainDetailsParser {
             i = 0;
             for(Element e : options) {
                 optionsCodes[i] = e.val().split(";")[1];
+                i++;
             }
 
             this.optionsDoubleTrain = stations;
@@ -314,10 +328,5 @@ public class TrainDetailsParser {
     public String getTrainCategory() {
         return this.trainCategory;
     }
-
-
-
-
-
 
 }

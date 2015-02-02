@@ -34,7 +34,8 @@
         android:layout_alignTop="@+id/tvTrainNumber"
         android:layout_toRightOf="@+id/tvTrainNumber"
         android:layout_toEndOf="@+id/tvTrainNumber"
-        android:layout_marginLeft="5dp" />
+        android:layout_marginLeft="5dp"
+        android:textStyle="bold|italic" />
 
     <TextView
         android:id="@+id/tvDuration"

@@ -54,12 +54,14 @@ public class NotificationService extends Service {
         am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 
         intentRefresh.putExtra("number", this.number);
+        intentRefresh.putExtra("time", this.time);
+
         Intent intentClose = new Intent(this, ButtonListener.class);
         intentClose.setAction("Elimina");
 
         pIntentRefresh = PendingIntent.getBroadcast(this, 1, intentRefresh, PendingIntent.FLAG_UPDATE_CURRENT);
         pIntentClose = PendingIntent.getBroadcast(this, 1, intentClose, PendingIntent.FLAG_UPDATE_CURRENT);
-        pIntentAutorefresh = PendingIntent.getService(this, 1, intentRefresh, PendingIntent.FLAG_UPDATE_CURRENT);
+        pIntentAutorefresh = PendingIntent.getBroadcast(this, 1, intentRefresh, PendingIntent.FLAG_UPDATE_CURRENT);
 
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);

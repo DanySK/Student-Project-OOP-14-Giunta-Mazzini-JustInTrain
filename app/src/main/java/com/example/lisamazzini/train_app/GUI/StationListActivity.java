@@ -99,20 +99,27 @@ public class StationListActivity extends Activity{
         @Override
         public void onRequestFailure(final SpiceException spiceException) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(StationListActivity.this);
+
             if(spiceException.getCause() instanceof DoubleTrainNumberException){
                 String stations = spiceException.getCause().getMessage();
                 String[] data = stations.split("---");
-                String[] stationsArr = data[0].split(",");
-                final String[] codesArr = data[1].split(",");
-                Log.d("BUHUUU", Arrays.toString(codesArr) + "-----------------------------------");
+
+                final String[] stationsArr = data[0].substring(1, data[0].length() - 1).split(",");
+                final String[] codesArr = data[1].substring(1, data[1].length() - 1).split(","); //tolgo le parentesi [ ]
+
+                Log.d("BUHUUU", Arrays.toString(codesArr) + "cosa cosa cosa cosa" + stations);
+
                 dialogBuilder.setTitle("Scegliere il treno desiderato")
                             .setSingleChoiceItems(stationsArr, -1, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    spiceManager.execute(new DoubleTrainRequest(trainNumber, codesArr[which]), new TrainAndStationsRequestListener());
+                                    Log.d("am che cosa sei ", "" + which + codesArr[which]);
+                                    spiceManager.execute(new DoubleTrainRequest(trainNumber, stationsArr[which]), new TrainAndStationsRequestListener());
                                 }
                             });
+
                 dialogBuilder.show();
+
             } else if(spiceException.getCause() instanceof InvalidTrainNumberException){
                 dialogBuilder.setTitle("Numero treno non valido!")
                                 .setMessage("Il numero inserito non corrisponde a nessun cazzo di treno")

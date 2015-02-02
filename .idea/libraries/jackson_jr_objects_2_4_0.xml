@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="jackson-jr-objects-2.4.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.jr/jackson-jr-objects/2.4.0/17d85aae16564df15d87899a23a3966d7ca509e5/jackson-jr-objects-2.4.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.jr/jackson-jr-objects/2.4.0/7f94b640bfe29d6f2b66526415e78d98701bf086/jackson-jr-objects-2.4.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

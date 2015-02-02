@@ -17,6 +17,7 @@ public class ButtonListener extends BroadcastReceiver {
         if(intent.getAction().equals("Aggiorna")){
             Log.d("--------------------------------", "" + intent.getStringExtra("number"));
             i.putExtra("number", intent.getStringExtra("number"));
+            i.putExtra("time", intent.getStringExtra("time"));
             context.startService(i);
         }
 
