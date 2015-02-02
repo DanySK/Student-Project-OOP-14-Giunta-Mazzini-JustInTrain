@@ -1,14 +1,11 @@
 package com.example.lisamazzini.train_app.Controller;
 
-import android.util.Log;
-
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.JourneyTrain;
 import com.example.lisamazzini.train_app.Model.TimeSlots;
-import com.example.lisamazzini.train_app.Parser.JourneyResultsParser;
+import com.example.lisamazzini.train_app.Parser.OldParsers.JourneyResultsParser;
 
 import org.joda.time.Minutes;
-import org.joda.time.Period;
 
 import java.util.List;
 import java.util.ArrayList;

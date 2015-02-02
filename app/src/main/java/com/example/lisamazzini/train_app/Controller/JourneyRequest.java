@@ -1,6 +1,6 @@
 package com.example.lisamazzini.train_app.Controller;
 
-import com.example.lisamazzini.train_app.Parser.JourneyResultsParser;
+import com.example.lisamazzini.train_app.Parser.OldParsers.JourneyResultsParser;
 import com.octo.android.robospice.request.SpiceRequest;
 
 public class JourneyRequest extends SpiceRequest<JourneyListWrapper>{

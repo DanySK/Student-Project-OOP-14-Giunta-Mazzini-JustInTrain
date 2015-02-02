@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Parser;
+package com.example.lisamazzini.train_app.Parser.NewJourneyParser;
 
 import java.util.HashMap;
 import java.util.Map;

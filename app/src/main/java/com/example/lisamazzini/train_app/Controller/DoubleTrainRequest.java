@@ -1,9 +1,7 @@
 package com.example.lisamazzini.train_app.Controller;
 
-import android.util.Log;
-
 import com.example.lisamazzini.train_app.Model.Train;
-import com.example.lisamazzini.train_app.Parser.TrainDetailsParser;
+import com.example.lisamazzini.train_app.Parser.OldParsers.TrainDetailsParser;
 import com.octo.android.robospice.request.SpiceRequest;
 
 public class DoubleTrainRequest extends SpiceRequest<Train> {

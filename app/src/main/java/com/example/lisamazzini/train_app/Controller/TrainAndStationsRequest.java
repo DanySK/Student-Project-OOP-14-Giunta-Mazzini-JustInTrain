@@ -1,13 +1,11 @@
 package com.example.lisamazzini.train_app.Controller;
 
-import android.util.Log;
-
 import com.example.lisamazzini.train_app.Exceptions.DeletedTrainException;
 import com.example.lisamazzini.train_app.Exceptions.DoubleTrainNumberException;
 import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
 import com.example.lisamazzini.train_app.Model.Train;
-import com.example.lisamazzini.train_app.Parser.StationListParser;
-import com.example.lisamazzini.train_app.Parser.TrainDetailsParser;
+import com.example.lisamazzini.train_app.Parser.OldParsers.StationListParser;
+import com.example.lisamazzini.train_app.Parser.OldParsers.TrainDetailsParser;
 import com.octo.android.robospice.request.SpiceRequest;
 
 import java.io.IOException;

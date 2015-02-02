@@ -1,13 +1,13 @@
-package com.example.lisamazzini.train_app.Parser;
+package com.example.lisamazzini.train_app.Parser.OldParsers;
 
 import android.util.Log;
 
 import com.example.lisamazzini.train_app.Exceptions.DeletedTrainException;
 import com.example.lisamazzini.train_app.Exceptions.DoubleTrainNumberException;
 import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
-import com.example.lisamazzini.train_app.Model.Station;
 import com.example.lisamazzini.train_app.Model.Train;
 import com.example.lisamazzini.train_app.Model.Constants;
+import com.example.lisamazzini.train_app.Parser.OldParsers.StationListParser;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -18,7 +18,6 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by lisamazzini on 22/01/15.

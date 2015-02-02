@@ -1,5 +1,6 @@
-package com.example.lisamazzini.train_app.Parser;
+package com.example.lisamazzini.train_app.Parser.NewJourneyParser;
 
+import com.example.lisamazzini.train_app.Parser.NewJourneyParser.API;
 import com.squareup.okhttp.OkHttpClient;
 
 import retrofit.RestAdapter;
