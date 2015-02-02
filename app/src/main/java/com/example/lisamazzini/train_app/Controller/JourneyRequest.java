@@ -1,14 +1,17 @@
 package com.example.lisamazzini.train_app.Controller;
 
+import com.example.lisamazzini.train_app.Parser.NewJourneyParser.API;
 import com.example.lisamazzini.train_app.Parser.OldParsers.JourneyResultsParser;
+import com.octo.android.robospice.request.retrofit.RetrofitSpiceRequest;
 import com.octo.android.robospice.request.SpiceRequest;
 
-public class JourneyRequest extends SpiceRequest<JourneyListWrapper>{
+//public class JourneyRequest extends SpiceRequest<JourneyListWrapper>{
+public class JourneyRequest extends RetrofitSpiceRequest<JourneyListWrapper, API> {
 
     private final JourneyResultsParser journeyResults;
 
     public JourneyRequest(JourneyResultsParser journeyResults) {
-        super(JourneyListWrapper.class);
+        super(JourneyListWrapper.class, API.class);
         this.journeyResults = journeyResults;
     }
 

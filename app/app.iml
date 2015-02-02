@@ -91,6 +91,7 @@
     <orderEntry type="library" exported="" name="joda-time-1.6" level="project" />
     <orderEntry type="library" exported="" name="commons-lang3-3.3.2" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
+    <orderEntry type="library" exported="" name="robospice-retrofit-1.4.13" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="robospice-cache-1.4.13" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
