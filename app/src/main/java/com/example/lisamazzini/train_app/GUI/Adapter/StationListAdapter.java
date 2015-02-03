@@ -32,11 +32,11 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
     public void onBindViewHolder(RecyclerViewHolder viewHolder, int i) {
         viewHolder.stationName.setText(list.get(i).getStazione());
         viewHolder.visited.setText("  " + list.get(i).getId());
-        viewHolder.expectedArrival.setText("" + list.get(i).getArrivoReale());
-        viewHolder.scheduledArrival.setText("" + list.get(i).getArrivoTeorico());
+        viewHolder.expectedArrival.setText(Utilities.fromMsToTime(list.get(i).getEffettiva()));
+        viewHolder.scheduledArrival.setText(Utilities.fromMsToTime(list.get(i).getProgrammata()));
         viewHolder.timeDifference.setText("" + list.get(i).getRitardo());
-        viewHolder.expectedPlatform.setText("" + list.get(i).getPartenzaReale());
-        viewHolder.scheduledPlatform.setText("" + list.get(i).getPartenzaTeorica());
+        viewHolder.expectedPlatform.setText(list.get(i).getBinarioEffettivoPartenzaDescrizione());
+        viewHolder.scheduledPlatform.setText(list.get(i).getBinarioProgrammatoPartenzaDescrizione());
     }
 
     @Override

@@ -25,9 +25,9 @@ public class Fermate {
     private Long ritardoPartenza;
     private Long ritardoArrivo;
     private Long progressivo;
-    private Object binarioEffettivoArrivoDescrizione;
-    private Object binarioProgrammatoArrivoDescrizione;
-    private Object binarioEffettivoPartenzaDescrizione;
+    private String binarioEffettivoArrivoDescrizione;
+    private String binarioProgrammatoArrivoDescrizione;
+    private String binarioEffettivoPartenzaDescrizione;
     private String binarioProgrammatoPartenzaDescrizione;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -258,42 +258,42 @@ public class Fermate {
     /**
      * @return The binarioEffettivoArrivoDescrizione
      */
-    public Object getBinarioEffettivoArrivoDescrizione() {
+    public String getBinarioEffettivoArrivoDescrizione() {
         return binarioEffettivoArrivoDescrizione;
     }
 
     /**
      * @param binarioEffettivoArrivoDescrizione The binarioEffettivoArrivoDescrizione
      */
-    public void setBinarioEffettivoArrivoDescrizione(Object binarioEffettivoArrivoDescrizione) {
+    public void setBinarioEffettivoArrivoDescrizione(String binarioEffettivoArrivoDescrizione) {
         this.binarioEffettivoArrivoDescrizione = binarioEffettivoArrivoDescrizione;
     }
 
     /**
      * @return The binarioProgrammatoArrivoDescrizione
      */
-    public Object getBinarioProgrammatoArrivoDescrizione() {
+    public String getBinarioProgrammatoArrivoDescrizione() {
         return binarioProgrammatoArrivoDescrizione;
     }
 
     /**
      * @param binarioProgrammatoArrivoDescrizione The binarioProgrammatoArrivoDescrizione
      */
-    public void setBinarioProgrammatoArrivoDescrizione(Object binarioProgrammatoArrivoDescrizione) {
+    public void setBinarioProgrammatoArrivoDescrizione(String binarioProgrammatoArrivoDescrizione) {
         this.binarioProgrammatoArrivoDescrizione = binarioProgrammatoArrivoDescrizione;
     }
 
     /**
      * @return The binarioEffettivoPartenzaDescrizione
      */
-    public Object getBinarioEffettivoPartenzaDescrizione() {
+    public String getBinarioEffettivoPartenzaDescrizione() {
         return binarioEffettivoPartenzaDescrizione;
     }
 
     /**
      * @param binarioEffettivoPartenzaDescrizione The binarioEffettivoPartenzaDescrizione
      */
-    public void setBinarioEffettivoPartenzaDescrizione(Object binarioEffettivoPartenzaDescrizione) {
+    public void setBinarioEffettivoPartenzaDescrizione(String binarioEffettivoPartenzaDescrizione) {
         this.binarioEffettivoPartenzaDescrizione = binarioEffettivoPartenzaDescrizione;
     }
 

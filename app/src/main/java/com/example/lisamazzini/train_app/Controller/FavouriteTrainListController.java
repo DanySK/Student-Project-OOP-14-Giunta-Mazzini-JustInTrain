@@ -1,5 +1,7 @@
 package com.example.lisamazzini.train_app.Controller;
 
+import com.example.lisamazzini.train_app.Model.Constants;
+
 import java.util.*;
 
 /**
@@ -17,12 +19,13 @@ public class FavouriteTrainListController {
         return this.iterator.hasNext();
     }
 
-    public String getFavourite(){
+    private String getFavourite(){
         return iterator.next();
     }
 
-    //public TrainDataRequest getRequest(){
-       // return new TrainRequest(this.iterator.next());
-    //}
+    public TrainRequest getRequest(){
+        String[] favData = getFavourite().split(Constants.SEPARATOR);
+        return new TrainRequest(favData[0], favData[1]);
+    }
 
 }

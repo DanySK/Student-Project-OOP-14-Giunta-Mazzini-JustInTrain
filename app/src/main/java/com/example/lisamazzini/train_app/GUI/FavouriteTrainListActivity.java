@@ -42,8 +42,6 @@ import retrofit.client.Response;
 public class FavouriteTrainListActivity extends Activity{
 
     private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
-    //private FavouriteTrainController favController = new FavouriteTrainController(getApplicationContext());
-    //private FavouriteTrainListController listController = new FavouriteTrainListController(favController.getMap());
 
     private FavouriteTrainController favController;
     private FavouriteTrainListController listController;
@@ -65,7 +63,6 @@ public class FavouriteTrainListActivity extends Activity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_train_list);
 
@@ -79,9 +76,7 @@ public class FavouriteTrainListActivity extends Activity{
 
 
         while(listController.hasAnotherFavourite()) {
-            String[] favouriteData = listController.getFavourite().split(Constants.SEPARATOR);
-            TrainRequest request = new TrainRequest(favouriteData);
-            spiceManager.execute(request, new TrainRequestListener());
+            spiceManager.execute(listController.getRequest(), new TrainRequestListener());
         }
     }
 

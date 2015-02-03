@@ -84,9 +84,8 @@ public class StationListActivity extends Activity{
 
         this.bFavourite.setVisibility(View.INVISIBLE);
 
-        TrainDataRequest req = new TrainDataRequest(this.trainNumber);
 
-        spiceManager.execute(req, new TrainAndStationsRequestListener());
+        spiceManager.execute(listController.getNumberRequest(), new TrainAndStationsRequestListener());
     }
 
     @Override
@@ -105,7 +104,6 @@ public class StationListActivity extends Activity{
     private class TrainAndStationsRequestListener implements RequestListener<String> {
 
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(StationListActivity.this);
-        AlertDialog ad = dialogBuilder.create();
 
         //If there's no internet connection
         @Override
@@ -145,33 +143,25 @@ public class StationListActivity extends Activity{
             }else {
                 //I used Constants.SEPARATOR to divide the result in case there are more train with the same number
                 String[] datas = data.split(Constants.SEPARATOR);
-
                 //Only one train
                 if(datas.length == 1){
                     // I take the second part of the string, and divide it in 2; example 608 - S11145 -> [608,S11145]
-                    datas = datas[0].split("\\|")[1].split("-");
+                    datas = listController.computeData(datas[0]);
                     trainDetails = datas;
-                    TrainRequest req1 = new TrainRequest(datas);
-                    spiceManager.execute(req1, new AnotherListener());
+                    listController.setCode(datas[1]);
+                    spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
                 //There's more than one train with the same number
                 }else{
 
                     //Here I take the data of the first train
-                    final String[] firstChoiceData = new String[3];
-                    firstChoiceData[0] = datas[0].split("\\|")[1].split("-")[0];    //numero
-                    firstChoiceData[1] = datas[0].split("\\|")[1].split("-")[1];    //codice
-                    firstChoiceData[2] = datas[0].split("\\|")[0].split("-")[1];    //nome
+                    final String[] firstChoiceData = listController.computeData(datas[0]);
 
                     //Here I take the data of the second train
-                    final String[] secondChoiceData = new String[3];
-                    secondChoiceData[0] = datas[1].split("\\|")[1].split("-")[0];   //numero
-                    secondChoiceData[1] = datas[1].split("\\|")[1].split("-")[1];   //codice
-                    secondChoiceData[2] = datas[1].split("\\|")[0].split("-")[1];   //nome
+                    final String[] secondChoiceData = listController.computeData(datas[1]);
+
 
                     //Here I create the options that will be showed to the user
-                    String[] choices = new String[2];
-                    choices[0] = "Treno " + firstChoiceData[0] + " in partenza da " + firstChoiceData[2];
-                    choices[1] = "Treno " + secondChoiceData[0] + " in partenza da " + secondChoiceData[2];
+                    String[] choices = listController.computeChoices(firstChoiceData, secondChoiceData);
 
                     dialogBuilder.setSingleChoiceItems(choices, -1, new DialogInterface.OnClickListener() {
                         @Override
@@ -181,15 +171,15 @@ public class StationListActivity extends Activity{
                                 case 0:
                                     Log.d("Cosa", Arrays.toString(firstChoiceData));
                                     trainDetails = firstChoiceData;
-                                    TrainRequest req = new TrainRequest(firstChoiceData);
-                                    spiceManager.execute(req, new AnotherListener());
+                                    listController.setCode(firstChoiceData[1]);
+                                    spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
                                     dialog.dismiss();
                                     break;
                                 case 1:
                                     Log.d("Cosa2", Arrays.toString(secondChoiceData));
                                     trainDetails = secondChoiceData;
-                                    TrainRequest req2 = new TrainRequest(secondChoiceData);
-                                    spiceManager.execute(req2, new AnotherListener());
+                                    listController.setCode(secondChoiceData[1]);
+                                    spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
                                     dialog.dismiss();
                                     break;
                             }
@@ -226,7 +216,6 @@ public class StationListActivity extends Activity{
             tData.setText(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
             stationList.setAdapter(new StationListAdapter(trainResponse.getFermate()));
             bFavourite.setVisibility(View.VISIBLE);
-            System.out.println(trainResponse.getNumeroTreno().toString());
         }
     }
 

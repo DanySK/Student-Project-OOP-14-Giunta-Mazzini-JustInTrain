@@ -19,6 +19,8 @@ import com.example.lisamazzini.train_app.Model.Train;
 import com.example.lisamazzini.train_app.Notification.NotificationService;
 import com.example.lisamazzini.train_app.Parser.NewTrain;
 import com.example.lisamazzini.train_app.R;
+import com.example.lisamazzini.train_app.Utilities;
+import com.squareup.okhttp.internal.Util;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -32,7 +34,7 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
 
     List<NewTrain> list;
 
-    public FavTrainAdapter(List<NewTrain> list){
+    public FavTrainAdapter(List<NewTrain> list, ){
         this.list = list;
     }
 
@@ -48,10 +50,10 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
         final NewTrain train = list.get(position);
 
         holder.trainCategory.setText(train.getCategoria());
-        holder.trainNumber.setText(Long.toString(train.getNumeroTreno()));
-        holder.delay.setText(Long.toString(train.getRitardo()));
+        holder.trainNumber.setText("" + train.getNumeroTreno());
+        holder.delay.setText("" + train.getRitardo());
         holder.lastSeenStation.setText(train.getStazioneUltimoRilevamento());
-        holder.lastSeemTime.setText(Long.toString(train.getOraUltimoRilevamento()));
+        holder.lastSeemTime.setText(Utilities.fromMsToTime(train.getOraUltimoRilevamento()));
 
         holder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +111,7 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
 
         public Holder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             menu =(Button) itemView.findViewById(R.id.options);
             trainCategory = (TextView) itemView.findViewById(R.id.trainCat);
             trainNumber = (TextView) itemView.findViewById(R.id.trainNum);

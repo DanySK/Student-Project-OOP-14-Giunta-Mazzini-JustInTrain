@@ -17,16 +17,18 @@ import retrofit.client.Response;
 
 public class TrainRequest extends SpiceRequest<NewTrain> {
 
-    String[] datas;
+    private final String code;
+    private final String number;
 
-    public TrainRequest(String[] datas){
+    public TrainRequest(String number, String code){
         super(NewTrain.class);
-        this.datas = datas;
+        this.code = code;
+        this.number = number;
     }
 
     @Override
     public NewTrain loadDataFromNetwork() throws Exception {
-        return RestClientTrain.get().getTrain(datas[0],datas[1]);
+        return RestClientTrain.get().getTrain(this.number,this.code);
     }
 
 }

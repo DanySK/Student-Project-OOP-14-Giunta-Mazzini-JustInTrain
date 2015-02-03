@@ -12,8 +12,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.Controller.TrainDataRequest;
+import com.example.lisamazzini.train_app.Controller.TrainRequest;
+import com.example.lisamazzini.train_app.Parser.NewTrain;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Model.Train;
+import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 import com.octo.android.robospice.persistence.exception.SpiceException;
@@ -25,7 +28,7 @@ public class NotificationService extends Service {
 
     private String number;
     private String time;
-    private Train currentStateTrain;
+    private NewTrain currentStateTrain;
 //    private RemoteViews view;
     private PendingIntent pIntentRefresh;
     private PendingIntent pIntentClose;
@@ -69,7 +72,7 @@ public class NotificationService extends Service {
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pIntentAutorefresh);
 
         spiceManager = new SpiceManager(UncachedSpiceService.class);
-        TrainDataRequest request = new TrainDataRequest(this.number);
+       // TrainRequest request = new TrainRequest(this.number);
         //spiceManager.execute(request, new TrainRequestListener());
 
 
@@ -88,7 +91,7 @@ public class NotificationService extends Service {
     }
 
 
-    private class TrainRequestListener implements RequestListener<Train> {
+    private class TrainRequestListener implements RequestListener<NewTrain> {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
             Toast.makeText(NotificationService.this,
@@ -97,7 +100,7 @@ public class NotificationService extends Service {
         }
 
         @Override
-        public void onRequestSuccess(Train train) {
+        public void onRequestSuccess(NewTrain train) {
             currentStateTrain = train;
 
             //view.setTextViewText(R.id.ntNumber, currentStateTrain.getNumber());
@@ -108,17 +111,17 @@ public class NotificationService extends Service {
             Log.d("OOOOOOOOOOOOOOOOOOOO", "On post execute");
             Notification not;
 
-            if(currentStateTrain.isMoving()) {
+            if(!currentStateTrain.getNonPartito()) {
                 not = builder//.setContent(view)
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setOngoing(true)
                         .addAction(R.drawable.ic_launcher, "Aggiorna", pIntentRefresh)
                         .addAction(R.drawable.ic_launcher, "Elimina", pIntentClose)
                         .setStyle(new NotificationCompat.InboxStyle()
-                                .setBigContentTitle("Treno" + currentStateTrain.getNumber())
-                                .addLine("Ritardo " + currentStateTrain.getDelay())
-                                .addLine("Ultimo avvistamento" + currentStateTrain.getLastSeenStation())
-                                .addLine("Ore " + currentStateTrain.getLastSeenTime()))
+                                .setBigContentTitle("Treno" + currentStateTrain.getNumeroTreno())
+                                .addLine("Ritardo " + currentStateTrain.getRitardo())
+                                .addLine("Ultimo avvistamento" + currentStateTrain.getStazioneUltimoRilevamento())
+                                .addLine("Ore " + Utilities.fromMsToTime(currentStateTrain.getOraUltimoRilevamento())))
                         .build();
             }else{
                 not = builder.setSmallIcon(R.drawable.ic_launcher)
@@ -126,7 +129,7 @@ public class NotificationService extends Service {
                                         .addAction(R.drawable.ic_launcher, "Aggiorna", pIntentRefresh)
                                         .addAction(R.drawable.ic_launcher, "Elimina", pIntentClose)
                                         .setStyle(new NotificationCompat.InboxStyle()
-                                                .setBigContentTitle("Treno " + currentStateTrain.getNumber())
+                                                .setBigContentTitle("Treno " + currentStateTrain.getNumeroTreno())
                                                 .addLine("Arrivato o non ancora partito"))
                                         .build();
 

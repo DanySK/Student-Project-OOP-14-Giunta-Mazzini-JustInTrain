@@ -12,7 +12,7 @@ package com.example.lisamazzini.train_app.Parser;
 
 
 
-public class NewTrain {
+public class NewTrain{
 
     private String tipoTreno;
     private String orientamento;
