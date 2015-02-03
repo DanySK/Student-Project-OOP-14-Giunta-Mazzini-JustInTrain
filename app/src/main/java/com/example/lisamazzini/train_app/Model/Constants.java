@@ -25,5 +25,7 @@ public class Constants {
     public static final String ALREADY_VISITED = "giaeffettuate";
     public static final String NOT_VISITED_YET = "corpocentrale";
 
+    public final static String SEPARATOR = "%";
+
 
 }

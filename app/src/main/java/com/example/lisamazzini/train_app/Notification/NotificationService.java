@@ -11,7 +11,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.lisamazzini.train_app.Controller.TrainRequest;
+import com.example.lisamazzini.train_app.Controller.TrainDataRequest;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Model.Train;
 import com.octo.android.robospice.SpiceManager;
@@ -69,8 +69,8 @@ public class NotificationService extends Service {
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pIntentAutorefresh);
 
         spiceManager = new SpiceManager(UncachedSpiceService.class);
-        TrainRequest request = new TrainRequest(this.number);
-        spiceManager.execute(request, new TrainRequestListener());
+        TrainDataRequest request = new TrainDataRequest(this.number);
+        //spiceManager.execute(request, new TrainRequestListener());
 
 
 

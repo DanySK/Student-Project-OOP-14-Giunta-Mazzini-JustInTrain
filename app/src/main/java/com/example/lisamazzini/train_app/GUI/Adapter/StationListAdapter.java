@@ -6,6 +6,7 @@ import android.widget.*;
 
 import com.example.lisamazzini.train_app.Model.Station;
 import com.example.lisamazzini.train_app.*;
+import com.example.lisamazzini.train_app.Parser.Fermate;
 
 import java.util.List;
 
@@ -14,9 +15,9 @@ import java.util.List;
  */
 public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter.RecyclerViewHolder>{
 
-    List<Station> list;
+    List<Fermate> list;
 
-    public StationListAdapter(List<Station> list){
+    public StationListAdapter(List<Fermate> list){
         this.list = list;
     }
 
@@ -29,13 +30,13 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder viewHolder, int i) {
-        viewHolder.stationName.setText(list.get(i).getName());
-        viewHolder.visited.setText("" + list.get(i).isVisited());
-        viewHolder.expectedArrival.setText(list.get(i).getExpectedArrival());
-        viewHolder.scheduledArrival.setText(list.get(i).getScheduledArrival());
-        viewHolder.timeDifference.setText("" + list.get(i).getTimeDifference());
-        viewHolder.expectedPlatform.setText(list.get(i).getExpectedPlatform());
-        viewHolder.scheduledPlatform.setText(list.get(i).getScheduledPlatform());
+        viewHolder.stationName.setText(list.get(i).getStazione());
+        viewHolder.visited.setText("  " + list.get(i).getId());
+        viewHolder.expectedArrival.setText("" + list.get(i).getArrivoReale());
+        viewHolder.scheduledArrival.setText("" + list.get(i).getArrivoTeorico());
+        viewHolder.timeDifference.setText("" + list.get(i).getRitardo());
+        viewHolder.expectedPlatform.setText("" + list.get(i).getPartenzaReale());
+        viewHolder.scheduledPlatform.setText("" + list.get(i).getPartenzaTeorica());
     }
 
     @Override
@@ -43,7 +44,7 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
         return list.size();
     }
 
-    public void updateList(List<Station> data) {
+    public void updateList(List<Fermate> data) {
         list = data;
         notifyDataSetChanged();
     }

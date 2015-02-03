@@ -1,7 +1,5 @@
 package com.example.lisamazzini.train_app.Controller;
 
-import com.example.lisamazzini.train_app.Controller.TrainRequest;
-
 import java.util.*;
 
 /**
@@ -19,8 +17,8 @@ public class FavouriteTrainListController {
         return this.iterator.hasNext();
     }
 
-    public TrainRequest getRequest(){
-        return new TrainRequest(this.iterator.next());
+    public TrainDataRequest getRequest(){
+        return new TrainDataRequest(this.iterator.next());
     }
 
 }
