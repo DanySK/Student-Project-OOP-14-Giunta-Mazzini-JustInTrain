@@ -58,7 +58,6 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
         holder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Log.d("ooooooooooooooo---------------", "Son qua!");
                 PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
                 popupMenu.getMenuInflater().inflate(R.menu.menu_fav_train, popupMenu.getMenu());
@@ -66,18 +65,19 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
 
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     FavouriteTrainController favCtrl = new FavouriteTrainController(view.getContext());
+
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()){
+                        switch (item.getItemId()) {
                             case R.id.delete:
                                 Log.d("---------CULO------------", "Prima di rimuovere ce ne sono  " + getItemCount() + "elem n' " + position);
                                 favCtrl.removeFavourite(train.getNumeroTreno() + Constants.SEPARATOR + train.getIdOrigine());
-                                if(position == 0 && getItemCount() == 1){
+                                if (position == 0 && getItemCount() == 1) {
                                     list = new LinkedList<>();
-                                }else {
+                                } else {
                                     list.remove(position);
                                 }
-                                Log.d("----------CULO-----------", "Dopo aver rimosso e prima di notify "+ getItemCount());
+                                Log.d("----------CULO-----------", "Dopo aver rimosso e prima di notify " + getItemCount());
                                 notifyItemRemoved(position);
                                 notifyDataSetChanged();
                                 Log.d("--------CULO-------------", "Dopo notify " + getItemCount());
@@ -91,7 +91,6 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
                 popupMenu.show();
             }
         });
-
     }
 
     @Override
