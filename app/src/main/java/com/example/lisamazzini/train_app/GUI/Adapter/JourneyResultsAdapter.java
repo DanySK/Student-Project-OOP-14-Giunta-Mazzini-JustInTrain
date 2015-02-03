@@ -3,30 +3,25 @@ package com.example.lisamazzini.train_app.GUI.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.example.lisamazzini.train_app.Controller.FavouriteTrainController;
 import com.example.lisamazzini.train_app.GUI.StationListActivity;
-import com.example.lisamazzini.train_app.Model.JourneyTrain;
-import com.example.lisamazzini.train_app.Model.Train;
+import com.example.lisamazzini.train_app.Model.Tragitto.Soluzioni;
 import com.example.lisamazzini.train_app.Notification.NotificationService;
 import com.example.lisamazzini.train_app.R;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAdapter.JourneyViewHolder>{
 
-    private final List<JourneyTrain> journeyList;
+    private final List<Soluzioni> journeyList;
 
-    public JourneyResultsAdapter(List<JourneyTrain> list) {
+    public JourneyResultsAdapter(List<Soluzioni> list) {
         this.journeyList = list;
     }
 
@@ -41,15 +36,15 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
     //chiamato quando si collegano i dati al viewholder
     @Override
     public void onBindViewHolder(JourneyViewHolder journeyViewHolder, int position) {
-        final JourneyTrain journeyTrain = journeyList.get(position);
-        journeyViewHolder.category.setText(journeyTrain.getCategory());
-        journeyViewHolder.number.setText(journeyTrain.getNumber());
-        journeyViewHolder.duration.setText(journeyTrain.getDuration());
-        journeyViewHolder.departureStation.setText(journeyTrain.getDepartureStation());
-        journeyViewHolder.departureTime.setText(journeyTrain.getDepartureTime());
-        journeyViewHolder.arrivalStation.setText(journeyTrain.getArrivalStation());
-        journeyViewHolder.arrivalTime.setText(journeyTrain.getArrivalTime());
-        journeyViewHolder.delay.setText("" + journeyTrain.getDelay());
+        final Soluzioni journeyTrain = journeyList.get(position);
+        journeyViewHolder.category.setText(journeyTrain.getVehicles().get(0).getCategoriaDescrizione());
+        journeyViewHolder.number.setText(journeyTrain.getVehicles().get(0).getCategoria());
+        journeyViewHolder.duration.setText(journeyTrain.getDurata());
+        journeyViewHolder.departureStation.setText(journeyTrain.getVehicles().get(0).getOrigine());
+        journeyViewHolder.departureTime.setText(journeyTrain.getVehicles().get(0).getOrarioPartenza());
+        journeyViewHolder.arrivalStation.setText(journeyTrain.getVehicles().get(0).getDestinazione());
+        journeyViewHolder.arrivalTime.setText(journeyTrain.getVehicles().get(0).getOrarioArrivo());
+//        journeyViewHolder.delay.setText("" + journeyTrain.);
         journeyViewHolder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,26 +53,26 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
                 final Intent intent = new Intent(v.getContext(), NotificationService.class);
                 final Context ctx = v.getContext();
 
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()){
-                            case R.id.pin:
-                                Log.d("----OHI--", "Son qui");
-                                intent.putExtra("number", journeyTrain.getNumber());
-                                intent.putExtra("time", journeyTrain.getArrivalTime());
-                                ctx.startService(intent);
-                                return true;
-                            case R.id.unpin:
-                                ctx.startService(intent);
-                                return true;
-                            default:
-                                return false;
-                        }
-                    }
-                });
-
-                popupMenu.show();
+//                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                    @Override
+//                    public boolean onMenuItemClick(MenuItem item) {
+//                        switch (item.getItemId()){
+//                            case R.id.pin:
+//                                Log.d("----OHI--", "Son qui");
+//                                intent.putExtra("number", journeyTrain.getNumber());
+//                                intent.putExtra("time", journeyTrain.getArrivalTime());
+//                                ctx.startService(intent);
+//                                return true;
+//                            case R.id.unpin:
+//                                ctx.startService(intent);
+//                                return true;
+//                            default:
+//                                return false;
+//                        }
+//                    }
+//                });
+//
+//                popupMenu.show();
 
             }
         });
@@ -99,7 +94,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         protected TextView departureTime;
         protected TextView arrivalStation;
         protected TextView arrivalTime;
-        protected TextView delay;
+//        protected TextView delay;
         protected Button menu;
 
 
@@ -114,7 +109,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
             departureTime = (TextView) v.findViewById(R.id.tvSetDepartureTime);
             arrivalStation = (TextView) v.findViewById(R.id.tvSetArrival);
             arrivalTime = (TextView) v.findViewById(R.id.tvSetArrivalTime);
-            delay = (TextView) v.findViewById(R.id.tvSetDelay);
+//            delay = (TextView) v.findViewById(R.id.tvSetDelay);
             menu = (Button)v.findViewById(R.id.btnOpt);
         }
 

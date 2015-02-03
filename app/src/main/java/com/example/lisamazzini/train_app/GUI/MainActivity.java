@@ -19,30 +19,28 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
-import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.Controller.FavouriteJourneyController;
-import com.example.lisamazzini.train_app.Controller.JourneyListWrapper;
-import com.example.lisamazzini.train_app.Controller.JourneyResultsController;
+import com.example.lisamazzini.train_app.Controller.JourneyResultsController2;
 import com.example.lisamazzini.train_app.GUI.Adapter.JourneyResultsAdapter;
-import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Model.JourneyTrain;
+import com.example.lisamazzini.train_app.Model.Tragitto.Soluzioni;
+import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
+import com.example.lisamazzini.train_app.Network.JourneyRestClient;
 import com.example.lisamazzini.train_app.R;
-import com.octo.android.robospice.SpiceManager;
-import com.octo.android.robospice.UncachedSpiceService;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
-    private CharSequence mTitle;
 
 
     ArrayList<String> journeys;
@@ -55,19 +53,13 @@ public class MainActivity extends ActionBarActivity
     ActionBar.OnNavigationListener navigationListener;
     JourneyResultsFragment2 fragment;
 
-    private String departure;
-    private String arrival;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
 
         favouriteJourneyController = new FavouriteJourneyController(MainActivity.this);
 
@@ -90,7 +82,6 @@ public class MainActivity extends ActionBarActivity
                 .replace(R.id.container, PlaceholderFragment.newInstance())
                 .commit();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -130,24 +121,16 @@ public class MainActivity extends ActionBarActivity
         spinnerAdapter = arrayAdapter;
 
         ActionBar action = getSupportActionBar();
-//        spinnerAdapter = ArrayAdapter.createFromResource(MainActivity.this, R.array.action_list, android.R.layout.simple_spinner_dropdown_item);
         navigationListener = new ActionBar.OnNavigationListener() {
-            //            String[] strings = getResources().getStringArray(R.array.action_list);
             @Override
             public boolean onNavigationItemSelected(int i, long l) {
-                fragment.makeRequests(realJourneys.get(i).get(0), realJourneys.get(i).get(1));
-                Log.d("cazzi", "hai premuto " + i + " " + finalJourneys.get(i));
+                fragment.makeRequests();
                 return true;
             }
         };
         action.setDisplayShowTitleEnabled(false);
         action.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_LIST);
         action.setListNavigationCallbacks(spinnerAdapter, navigationListener);
-
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-//        actionBar.setDisplayShowTitleEnabled(true);
-//        actionBar.setTitle(mTitle);
     }
 
 
@@ -175,18 +158,12 @@ public class MainActivity extends ActionBarActivity
 
     public static class JourneyResultsFragment2 extends Fragment {
 
-        private JourneyResultsController journeyController;
-        private final SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
 
-        private JourneyTrain train = null;
-        private RecyclerView recyclerView;
+
+        private Soluzioni train = null;
         private LinearLayoutManager manager;
         private JourneyResultsAdapter journeyResultsAdapter;
-        List<JourneyTrain> flatJourneyTrainsList = new LinkedList<>();
-        private List<List<JourneyTrain>> journeyTrains = new ArrayList<>(Constants.N_TIME_SLOT);
-
-        private String departure;
-        private String arrival;
+        private List<Soluzioni> flatJourneyTrainsList = new LinkedList<>();
 
         public static JourneyResultsFragment2 newInstance() {
             return new JourneyResultsFragment2();
@@ -199,68 +176,36 @@ public class MainActivity extends ActionBarActivity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+
             View layoutInflater = inflater.inflate(R.layout.fragment_journey_results, container, false);
-            for (int i = 0; i < 5; i++) {
-                journeyTrains.add(new LinkedList<JourneyTrain>());
-            }
-            recyclerView = (RecyclerView)layoutInflater.findViewById(R.id.cardListFragment);
-            this.journeyResultsAdapter = new JourneyResultsAdapter(this.flatJourneyTrainsList);
+            RecyclerView recyclerView = (RecyclerView)layoutInflater.findViewById(R.id.cardListFragment);
+
             this.manager = new LinearLayoutManager(getActivity());
-            recyclerView.setAdapter(journeyResultsAdapter);
+            this.journeyResultsAdapter = new JourneyResultsAdapter(this.flatJourneyTrainsList);
+
             recyclerView.setLayoutManager(manager);
+            recyclerView.setAdapter(journeyResultsAdapter);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
+
             return layoutInflater;
         }
 
-        public void makeRequests(String departure, String arrival) {
-            journeyController = new JourneyResultsController(departure, arrival);
-            for (int i = 0; i < Constants.N_TIME_SLOT; i++) {
-                spiceManager.execute(journeyController.iterateTimeSlots(), new JourneyResultsRequestListener());
-            }
-        }
-
-        private class JourneyResultsRequestListener implements RequestListener<JourneyListWrapper> {
-            @Override
-            public void onRequestFailure(SpiceException spiceException) {
-                Toast.makeText(getActivity(),
-                        "Error: " + spiceException.getMessage(), Toast.LENGTH_SHORT)
-                        .show();
-            }
-
-            @Override
-            public void onRequestSuccess(final JourneyListWrapper journeys) {
-                if (journeyController.newDataIsPresent(journeys.getList())) {
-                    flatJourneyTrainsList = journeyController.refillJourneyList(flatJourneyTrainsList, journeys.getList(), journeys.getTimeSlot());
-                    int pos = manager.findFirstCompletelyVisibleItemPosition();
-                    journeyResultsAdapter.notifyDataSetChanged();
-
-                    train = journeyController.getFirstTakeableTrain(journeys);
-
-                    if (train != null) {
-                        manager.scrollToPositionWithOffset(flatJourneyTrainsList.indexOf(train), 0);
-                        train = null;
-                    } else {
-                        if (journeyController.newDataisInsertedBefore(journeys)) {
-                            manager.scrollToPositionWithOffset(pos + journeys.getList().size(), 0);
-                        } else {
-                            manager.scrollToPositionWithOffset(pos, 0);
-                        }
-                    }
+        public void makeRequests() {
+            final JourneyResultsController2 journeyController = new JourneyResultsController2("7104", "5066", "2015-02-01", "00:00:00");
+            JourneyRestClient.get().getJourneys("7104", "5066", "2015-02-01T00:00:00", new Callback<Tragitto>() {
+                @Override
+                public void success(Tragitto journeys, Response response) {
+                        flatJourneyTrainsList = journeyController.refillJourneyList(flatJourneyTrainsList, journeys.getSoluzioni());
+                        journeyResultsAdapter.notifyDataSetChanged();
                 }
-            }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    System.out.println("erore");
+                }
+            });
         }
 
-        @Override
-        public void onStart() {
-            spiceManager.start(getActivity());
-            super.onStart();
-        }
-
-        @Override
-        public void onStop() {
-            spiceManager.shouldStop();
-            super.onStop();
-        }
 
         @Override
         public void onAttach(Activity activity) {
