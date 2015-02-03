@@ -1,65 +1,56 @@
 package com.example.lisamazzini.train_app.GUI;
 
+import android.util.Log;
+import android.view.View;
+import android.os.Bundle;
+import android.view.Menu;
 import android.app.Activity;
+import android.view.MenuItem;
+import android.widget.Spinner;
+import android.view.ViewGroup;
+import android.view.LayoutInflater;
+import android.widget.ArrayAdapter;
+import android.widget.SpinnerAdapter;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.FragmentManager;
-import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.DefaultItemAnimator;
 
-import com.example.lisamazzini.train_app.Controller.FavouriteJourneyController;
-import com.example.lisamazzini.train_app.Controller.JourneyDataRequest;
-import com.example.lisamazzini.train_app.Controller.JourneyRequest;
-import com.example.lisamazzini.train_app.Controller.JourneyResultsController2;
-import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
-import com.example.lisamazzini.train_app.GUI.Adapter.JourneyResultsAdapter;
-import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
-import com.example.lisamazzini.train_app.Model.Tragitto.Soluzioni;
-import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
-import com.example.lisamazzini.train_app.Model.Train;
 import com.example.lisamazzini.train_app.R;
+import com.example.lisamazzini.train_app.Model.Constants;
+import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
+import com.example.lisamazzini.train_app.Controller.JourneyRequest;
+import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
+import com.example.lisamazzini.train_app.Controller.JourneyDataRequest;
+import com.example.lisamazzini.train_app.GUI.Adapter.JourneyResultsAdapter;
+import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
+import com.example.lisamazzini.train_app.Controller.JourneyResultsController2;
+import com.example.lisamazzini.train_app.Controller.FavouriteJourneyController;
+
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
-
     ArrayList<String> journeys;
-    ArrayAdapter<String> arrayAdapter;
 
-
-    FavouriteJourneyController favouriteJourneyController;
-    Spinner spinner;
     SpinnerAdapter spinnerAdapter;
-    ActionBar.OnNavigationListener navigationListener;
     JourneyResultsFragment2 fragment;
+    FavouriteJourneyController favouriteJourneyController;
+    ActionBar.OnNavigationListener navigationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +61,9 @@ public class MainActivity extends ActionBarActivity
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
         favouriteJourneyController = new FavouriteJourneyController(MainActivity.this);
+        favouriteJourneyController.removeAll();
+        favouriteJourneyController.setAsFavourite("pesaro", "7104", "cesena", "5066");
+        favouriteJourneyController.setAsFavourite("pesaro", "7104", "lecce", "11145");
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
@@ -112,27 +106,23 @@ public class MainActivity extends ActionBarActivity
 
     public void restoreActionBar() {
         journeys = new ArrayList<String>(favouriteJourneyController.getFavourites());
-        final ArrayList<String> finalJourneys = new ArrayList<String>();
-        final List<List<String>> realJourneys = new LinkedList<>();
-        for (String s : journeys) {
-            String[] splitted = s.split("_");
-            String departure = splitted[0];
-            String arrival = splitted[1];
-            realJourneys.add(new LinkedList<String>(Arrays.asList(departure, arrival)));
-            String finalString = "";
-            for (String s1 : splitted) {
-                finalString = finalString.concat(s1).concat(" ");
-            }
-            finalJourneys.add(finalString);
+        final List<List<String>> finalJourneys = new ArrayList<List<String>>();
+        for (int i = 0; i < 2; i++) {
+            finalJourneys.add(new ArrayList<String>());
         }
-        arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, finalJourneys);
-        spinnerAdapter = arrayAdapter;
+        for (String s : journeys) {
+            String[] splitted = s.split(Constants.SEPARATOR);
+            finalJourneys.get(0).add(splitted[0] + " " + splitted[2]);
+            finalJourneys.get(1).add(splitted[1] + Constants.SEPARATOR + splitted[3]);
+        }
+        spinnerAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, finalJourneys.get(0));
 
         ActionBar action = getSupportActionBar();
         navigationListener = new ActionBar.OnNavigationListener() {
             @Override
-            public boolean onNavigationItemSelected(int i, long l) {
-                fragment.makeRequests();
+            public boolean onNavigationItemSelected(int position, long l) {
+                String[] IDs = finalJourneys.get(1).get(position).split(Constants.SEPARATOR);
+                fragment.makeRequestsWithIDs(IDs[0], IDs[1]);
                 return true;
             }
         };
@@ -173,9 +163,9 @@ public class MainActivity extends ActionBarActivity
         JourneyResultsController2 controller;
         private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
 
-        private String departureStation = "pesaro";
+        private String departureStation;
         private String departureID;
-        private String arrivalStation = "cesenasdf";
+        private String arrivalStation;
         private String arrivalID;
 
         public static JourneyResultsFragment2 newInstance() {
@@ -200,13 +190,21 @@ public class MainActivity extends ActionBarActivity
             recyclerView.setAdapter(journeyResultsAdapter);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
 
+            controller = new JourneyResultsController2("pesaro", "pesaro", "asdf", "adsf");
+
             return layoutInflater;
         }
 
-        public void makeRequests() {
-            spiceManager.execute(new JourneyDataRequest(departureStation), new DepartureDataRequestListenter());
-            controller = new JourneyResultsController2("7104", "5066", "2015-02-02", "00:00:00");
+        public void makeRequestsWithStations(String departureStation, String arrivalStation) {
+            this.departureStation = departureStation;
+            this.arrivalStation = arrivalStation;
+            spiceManager.execute(new JourneyDataRequest(this.departureStation), new DepartureDataRequestListenter());
+        }
 
+        public void makeRequestsWithIDs(String departureID, String arrivalID) {
+            this.departureID = departureID;
+            this.arrivalID = arrivalID;
+            spiceManager.execute(new JourneyRequest(departureID, arrivalID), new JourneyRequestListener());
         }
 
         private class DepartureDataRequestListenter implements RequestListener<String> {

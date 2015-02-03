@@ -16,8 +16,8 @@ public class FavouriteJourneyController {
         favouriteJourneyAdder.setContext(context);
     }
 
-    public void setAsFavourite(String departure, String arrival) {
-        favouriteJourneyAdder.addFavourite(departure, arrival);
+    public void setAsFavourite(String departureStation, String departureID, String arrivalStation, String arrivalID) {
+        favouriteJourneyAdder.addFavourite(departureStation, departureID, arrivalStation, arrivalID);
     }
 
     public void removeAll() {

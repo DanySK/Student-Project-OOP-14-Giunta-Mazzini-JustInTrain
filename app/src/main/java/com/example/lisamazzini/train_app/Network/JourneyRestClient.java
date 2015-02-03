@@ -9,7 +9,7 @@ import retrofit.client.OkClient;
 public class JourneyRestClient {
 
     private static JourneyAPI REST_CLIENT;
-    private static String ROOT = "http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno";
+    private static String ROOT = "http://193.138.161.135/viaggiatrenomobile/resteasy/viaggiatreno";
 
     static {
         setupRestClient();

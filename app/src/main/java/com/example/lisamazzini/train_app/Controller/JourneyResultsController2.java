@@ -6,15 +6,9 @@ import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.Soluzioni;
 import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
 import com.example.lisamazzini.train_app.Model.Tragitto.Vehicle;
-import com.example.lisamazzini.train_app.Network.JourneyRestClient;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 public class JourneyResultsController2 {
 
@@ -23,7 +17,6 @@ public class JourneyResultsController2 {
     private final String date;
     private final String time;
     private List<PlainSolution> plainSolutions = new LinkedList<>();
-    Tragitto tragitto;
 
 
     public JourneyResultsController2(String departure, String arrival, String date, String time) {
@@ -66,6 +59,7 @@ public class JourneyResultsController2 {
     }
 
     public void buildPlainSolutions(Tragitto tragitto) {
+        plainSolutions.clear();
         for (Soluzioni sol : tragitto.getSoluzioni()) {
             for (Vehicle vehicle : sol.getVehicles()) {
                 plainSolutions.add(new PlainSolution(vehicle.getCategoriaDescrizione(), vehicle.getNumeroTreno(),
@@ -80,5 +74,4 @@ public class JourneyResultsController2 {
         Log.d("cazzi", " get " + plainSolutions.size());
         return this.plainSolutions;
     }
-
 }

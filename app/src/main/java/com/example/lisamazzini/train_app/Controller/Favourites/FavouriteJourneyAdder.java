@@ -3,6 +3,7 @@ package com.example.lisamazzini.train_app.Controller.Favourites;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.lisamazzini.train_app.Model.Constants;
 
@@ -28,7 +29,6 @@ public class FavouriteJourneyAdder {
 
     public void addFavourite(String... stations) {
         check();
-
         editor.putString(buildKey(stations), "");
         editor.apply();
     }
@@ -46,7 +46,8 @@ public class FavouriteJourneyAdder {
     private String buildKey(String... strings) {
         String finalString = "";
         for (String s : strings) {
-            finalString = finalString.concat(s).concat("_");
+            finalString = finalString.concat(s).concat(Constants.SEPARATOR);
+            Log.d("cazzi", finalString);
         }
         return finalString;
     }
