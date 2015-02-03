@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.lisamazzini.train_app.Controller.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.StationListController;
 import com.example.lisamazzini.train_app.Controller.TrainDataRequest;
+import com.example.lisamazzini.train_app.Controller.TrainRequest;
 import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Parser.Fermate;
@@ -27,6 +28,8 @@ import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
+
+import org.jsoup.Connection;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -58,8 +61,6 @@ public class StationListActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station_list);
         overridePendingTransition(R.transition.pull_in_right, R.transition.pull_out_left);
-
-
 
         this.bFavourite = (Button)findViewById(R.id.add_favourite);
         this.tData = (TextView)findViewById(R.id.train_details_text);
@@ -143,41 +144,27 @@ public class StationListActivity extends Activity{
             //The train number is correct
             }else {
                 //I used Constants.SEPARATOR to divide the result in case there are more train with the same number
-                String []datas = data.split(Constants.SEPARATOR);
+                String[] datas = data.split(Constants.SEPARATOR);
 
                 //Only one train
                 if(datas.length == 1){
                     // I take the second part of the string, and divide it in 2; example 608 - S11145 -> [608,S11145]
                     datas = datas[0].split("\\|")[1].split("-");
                     trainDetails = datas;
-                    RestClientTrain.get().getTrain(datas[0], datas[1], (new Callback<NewTrain>() {
-                        @Override
-                        public void success(NewTrain trainResponse, Response response) {
-                            tData.setText(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
-                            stationList.setAdapter(new StationListAdapter(trainResponse.getFermate()));
-                            bFavourite.setVisibility(View.VISIBLE);
-                            System.out.println(trainResponse.getNumeroTreno().toString());
-
-                        }
-
-                        @Override
-                        public void failure(RetrofitError error) {
-                            System.out.println("errore" + error.getMessage());
-                        }
-                    }));
-
+                    TrainRequest req1 = new TrainRequest(datas);
+                    spiceManager.execute(req1, new AnotherListener());
                 //There's more than one train with the same number
                 }else{
 
                     //Here I take the data of the first train
                     final String[] firstChoiceData = new String[3];
-                    firstChoiceData[0] = datas[0].split("\\|")[0].split("-")[0];    //numero
+                    firstChoiceData[0] = datas[0].split("\\|")[1].split("-")[0];    //numero
                     firstChoiceData[1] = datas[0].split("\\|")[1].split("-")[1];    //codice
                     firstChoiceData[2] = datas[0].split("\\|")[0].split("-")[1];    //nome
 
                     //Here I take the data of the second train
                     final String[] secondChoiceData = new String[3];
-                    secondChoiceData[0] = datas[1].split("\\|")[0].split("-")[0];   //numero
+                    secondChoiceData[0] = datas[1].split("\\|")[1].split("-")[0];   //numero
                     secondChoiceData[1] = datas[1].split("\\|")[1].split("-")[1];   //codice
                     secondChoiceData[2] = datas[1].split("\\|")[0].split("-")[1];   //nome
 
@@ -192,40 +179,18 @@ public class StationListActivity extends Activity{
 
                             switch (which){
                                 case 0:
-                                    RestClientTrain.get().getTrain(firstChoiceData[0], firstChoiceData[1], (new Callback<NewTrain>() {
-                                        @Override
-                                        public void success(NewTrain trainResponse, Response response) {
-                                            tData.setText(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
-                                            trainDetails = firstChoiceData;
-                                            stationList.setAdapter(new StationListAdapter(trainResponse.getFermate()));
-                                            bFavourite.setVisibility(View.VISIBLE);
-                                            System.out.println(trainResponse.getNumeroTreno().toString());
-                                        }
-
-                                        @Override
-                                        public void failure(RetrofitError error) {
-                                            System.out.println("errore" + error.getMessage());
-                                        }
-                                    }));
-                                    ad.dismiss();
+                                    Log.d("Cosa", Arrays.toString(firstChoiceData));
+                                    trainDetails = firstChoiceData;
+                                    TrainRequest req = new TrainRequest(firstChoiceData);
+                                    spiceManager.execute(req, new AnotherListener());
+                                    dialog.dismiss();
                                     break;
                                 case 1:
-                                    RestClientTrain.get().getTrain(secondChoiceData[0], secondChoiceData[1], (new Callback<NewTrain>() {
-                                        @Override
-                                        public void success(NewTrain trainResponse, Response response) {
-                                            trainDetails = secondChoiceData;
-
-                                            tData.setText(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
-                                            stationList.setAdapter(new StationListAdapter(trainResponse.getFermate()));
-                                            bFavourite.setVisibility(View.VISIBLE);
-                                            System.out.println(trainResponse.getNumeroTreno().toString());
-                                        }
-                                        @Override
-                                        public void failure(RetrofitError error) {
-                                            System.out.println("errore" + error.getMessage());
-                                        }
-                                    }));
-                                    ad.dismiss();
+                                    Log.d("Cosa2", Arrays.toString(secondChoiceData));
+                                    trainDetails = secondChoiceData;
+                                    TrainRequest req2 = new TrainRequest(secondChoiceData);
+                                    spiceManager.execute(req2, new AnotherListener());
+                                    dialog.dismiss();
                                     break;
                             }
                         }
@@ -234,6 +199,37 @@ public class StationListActivity extends Activity{
             }
         }
     }
+
+    private class AnotherListener implements RequestListener<NewTrain>{
+
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(StationListActivity.this);
+        @Override
+        public void onRequestFailure(SpiceException spiceException) {
+            dialogBuilder.setTitle("Problemi di connessione")
+                    .setMessage("Controllare la propria connessione internet, patacca")
+                    .setNeutralButton("Ok" , new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(StationListActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                    }).show();
+
+            Toast.makeText(StationListActivity.this,
+                    "Error: " + spiceException.getMessage(), Toast.LENGTH_SHORT)
+                    .show();
+        }
+
+
+        @Override
+        public void onRequestSuccess(NewTrain trainResponse) {
+            tData.setText(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
+            stationList.setAdapter(new StationListAdapter(trainResponse.getFermate()));
+            bFavourite.setVisibility(View.VISIBLE);
+            System.out.println(trainResponse.getNumeroTreno().toString());
+        }
+    }
+
 }
 
 

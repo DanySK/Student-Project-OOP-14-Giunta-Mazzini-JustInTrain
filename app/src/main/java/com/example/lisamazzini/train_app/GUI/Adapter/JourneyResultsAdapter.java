@@ -98,8 +98,6 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         //        protected TextView delay;
         protected Button menu;
 
-
-
         public JourneyViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);

@@ -12,6 +12,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.example.lisamazzini.train_app.Controller.FavouriteTrainController;
+import com.example.lisamazzini.train_app.GUI.FavouriteTrainListActivity;
+import com.example.lisamazzini.train_app.GUI.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Train;
 import com.example.lisamazzini.train_app.Notification.NotificationService;
@@ -95,7 +97,7 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
         return list.size();
     }
 
-    public static class Holder extends RecyclerView.ViewHolder {
+    public static class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView trainCategory;
         TextView trainNumber;
@@ -114,7 +116,16 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
             lastSeenStation = (TextView) itemView.findViewById(R.id.lastseen);
             lastSeemTime = (TextView) itemView.findViewById(R.id.timelastseen);
             isMoving = (TextView) itemView.findViewById(R.id.moving);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(v.getContext(), StationListActivity.class);
+            i.putExtra("trainNumber", this.trainNumber.getText().toString());
+            v.getContext().startActivity(i);
         }
     }
-
 }
+
+

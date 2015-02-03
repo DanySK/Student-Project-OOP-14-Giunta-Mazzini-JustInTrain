@@ -13,6 +13,6 @@ import retrofit.http.*;
 public interface InterfacciaAPI {
 
     @GET("/andamentoTreno/{codice}/{numero}")
-    void getTrain(@Path("numero") String numero, @Path("codice") String codice, Callback<NewTrain> cb);
+    NewTrain getTrain(@Path("numero") String numero, @Path("codice") String codice);
 
 }
