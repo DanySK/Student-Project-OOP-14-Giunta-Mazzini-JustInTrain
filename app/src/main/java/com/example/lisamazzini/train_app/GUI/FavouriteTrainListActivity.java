@@ -71,8 +71,8 @@ public class FavouriteTrainListActivity extends Activity{
 
 
         favController = new FavouriteTrainController(getApplicationContext());
-        this.favController.addFavourite("608" + Constants.SEPARATOR + "S11145");
-        this.favController.addFavourite("2129" + Constants.SEPARATOR + "S05000");
+        //this.favController.addFavourite("608" + Constants.SEPARATOR + "S11145");
+        //this.favController.addFavourite("2129" + Constants.SEPARATOR + "S05000");
         listController = new FavouriteTrainListController(favController.getMap());
 
         this.favListView = (RecyclerView)findViewById(R.id.recycler);
