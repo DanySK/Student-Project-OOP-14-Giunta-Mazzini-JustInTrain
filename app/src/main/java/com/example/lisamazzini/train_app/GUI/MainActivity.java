@@ -21,8 +21,10 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
 import com.example.lisamazzini.train_app.Controller.FavouriteJourneyController;
+import com.example.lisamazzini.train_app.Controller.JourneyDataRequest;
 import com.example.lisamazzini.train_app.Controller.JourneyRequest;
 import com.example.lisamazzini.train_app.Controller.JourneyResultsController2;
+import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
 import com.example.lisamazzini.train_app.GUI.Adapter.JourneyResultsAdapter;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.Soluzioni;
@@ -171,6 +173,11 @@ public class MainActivity extends ActionBarActivity
         JourneyResultsController2 controller;
         private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
 
+        private String departureStation = "pesaro";
+        private String departureID;
+        private String arrivalStation = "cesenasdf";
+        private String arrivalID;
+
         public static JourneyResultsFragment2 newInstance() {
             return new JourneyResultsFragment2();
         }
@@ -196,33 +203,49 @@ public class MainActivity extends ActionBarActivity
             return layoutInflater;
         }
 
-//        public void makeRequests() {
-//            JourneyRestClient.get().getJourneys("7104", "5066", "2015-02-01T00:00:00", new Callback<Tragitto>() {
-//                @Override
-//                public void success(Tragitto journeys, Response response) {
-//                    journeyResultsAdapter = new JourneyResultsAdapter(journeys.getSoluzioni());
-//                    recyclerView.setAdapter(journeyResultsAdapter);
-//                }
-//
-//                @Override
-//                public void failure(RetrofitError error) {
-//                    Log.d("cazzi", "" + error.getMessage());
-//                }
-//            });
-//        }
-
         public void makeRequests() {
-            JourneyRequest req = new JourneyRequest();
-            spiceManager.execute(req, new JourneyRequestListener());
+            spiceManager.execute(new JourneyDataRequest(departureStation), new DepartureDataRequestListenter());
             controller = new JourneyResultsController2("7104", "5066", "2015-02-02", "00:00:00");
+
         }
 
+        private class DepartureDataRequestListenter implements RequestListener<String> {
+
+            @Override
+            public void onRequestFailure(SpiceException spiceException) {
+                if (spiceException.getCause() instanceof InvalidStationException) {
+                    Log.d("cazzi", "sbagliata partenza");
+                }
+            }
+
+            @Override
+            public void onRequestSuccess(String s) {
+                departureID = s.split("\\|S")[1];
+                spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
+            }
+        }
+
+        private class ArrivalDataRequestListener implements RequestListener<String> {
+
+            @Override
+            public void onRequestFailure(SpiceException spiceException) {
+                if (spiceException.getCause() instanceof InvalidStationException) {
+                    Log.d("cazzi", "sbagliata arrivo");
+                }
+            }
+
+            @Override
+            public void onRequestSuccess(String s) {
+                arrivalID = s.split("\\|S")[1];
+                spiceManager.execute(new JourneyRequest(departureID, arrivalID), new JourneyRequestListener());
+            }
+        }
 
         private class JourneyRequestListener implements RequestListener<Tragitto> {
 
             @Override
             public void onRequestFailure(SpiceException spiceException) {
-
+                Log.d("cazzi", "altro errore");
             }
 
             @Override
