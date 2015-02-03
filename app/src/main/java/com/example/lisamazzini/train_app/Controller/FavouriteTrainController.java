@@ -28,6 +28,11 @@ public class FavouriteTrainController {
 
     }
 
+    public void removeAll(){
+        favouriteAdder.removeAll();
+        Toast.makeText(context,  "Rimosso tutti preferiti", Toast.LENGTH_SHORT).show();
+
+    }
     public Map<String, String> getMap(){
         return (Map <String, String>) favouriteAdder.getFavourites();
     }

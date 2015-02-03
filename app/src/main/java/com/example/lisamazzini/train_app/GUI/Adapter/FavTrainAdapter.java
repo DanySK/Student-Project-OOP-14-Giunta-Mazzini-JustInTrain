@@ -12,8 +12,10 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.example.lisamazzini.train_app.Controller.FavouriteTrainController;
+import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Train;
 import com.example.lisamazzini.train_app.Notification.NotificationService;
+import com.example.lisamazzini.train_app.Parser.NewTrain;
 import com.example.lisamazzini.train_app.R;
 
 import java.util.LinkedList;
@@ -26,9 +28,9 @@ import java.util.List;
  */
 public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder> {
 
-    List<Train> list;
+    List<NewTrain> list;
 
-    public FavTrainAdapter(List<Train> list){
+    public FavTrainAdapter(List<NewTrain> list){
         this.list = list;
     }
 
@@ -41,14 +43,13 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
 
     @Override
     public void onBindViewHolder(Holder holder, final int position) {
-        final Train train = list.get(position);
+        final NewTrain train = list.get(position);
 
-        holder.trainCategory.setText(train.getCategory());
-        holder.trainNumber.setText(train.getNumber());
-        holder.delay.setText(Integer.toString(train.getDelay()));
-        holder.lastSeenStation.setText(train.getLastSeenStation());
-        holder.lastSeemTime.setText(train.getLastSeenTime());
-        holder.isMoving.setText("" + train.isMoving());
+        holder.trainCategory.setText(train.getCategoria());
+        holder.trainNumber.setText(Long.toString(train.getNumeroTreno()));
+        holder.delay.setText(Long.toString(train.getRitardo()));
+        holder.lastSeenStation.setText(train.getStazioneUltimoRilevamento());
+        holder.lastSeemTime.setText(Long.toString(train.getOraUltimoRilevamento()));
 
         holder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,9 +67,9 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
                         switch (item.getItemId()){
                             case R.id.delete:
                                 Log.d("---------CULO------------", "Prima di rimuovere ce ne sono  " + getItemCount() + "elem n' " + position);
-                                favCtrl.removeFavourite(train.getNumber());
+                                favCtrl.removeFavourite(train.getNumeroTreno() + Constants.SEPARATOR + train.getIdOrigine());
                                 if(position == 0 && getItemCount() == 1){
-                                    list = new LinkedList<Train>();
+                                    list = new LinkedList<>();
                                 }else {
                                     list.remove(position);
                                 }

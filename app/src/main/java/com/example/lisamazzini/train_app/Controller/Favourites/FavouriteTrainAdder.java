@@ -43,6 +43,15 @@ public class FavouriteTrainAdder {
         return sharedPref.getAll();
     }
 
+    public void removeAll(){
+        check();
+        for (String s : this.getFavourites().keySet()) {
+            editor.remove(s);
+        }
+        editor.apply();
+    }
+
+
     private void check(){
         if(sharedPref == null){
             throw new UnsupportedOperationException("You must setContext before using the adder");

@@ -17,8 +17,12 @@ public class FavouriteTrainListController {
         return this.iterator.hasNext();
     }
 
-    public TrainDataRequest getRequest(){
-        return new TrainDataRequest(this.iterator.next());
+    public String getFavourite(){
+        return iterator.next();
     }
+
+    //public TrainDataRequest getRequest(){
+       // return new TrainRequest(this.iterator.next());
+    //}
 
 }

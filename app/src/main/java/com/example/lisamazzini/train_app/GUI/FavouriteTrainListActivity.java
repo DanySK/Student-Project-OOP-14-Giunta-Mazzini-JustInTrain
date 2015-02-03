@@ -16,8 +16,12 @@ import com.example.lisamazzini.train_app.*;
 import com.example.lisamazzini.train_app.Controller.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.FavouriteTrainListController;
 import com.example.lisamazzini.train_app.GUI.Adapter.FavTrainAdapter;
+import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
+import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Train;
 import com.example.lisamazzini.train_app.Notification.NotificationService;
+import com.example.lisamazzini.train_app.Parser.NewTrain;
+import com.example.lisamazzini.train_app.Parser.RestClientTrain;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 import com.octo.android.robospice.persistence.exception.SpiceException;
@@ -25,6 +29,10 @@ import com.octo.android.robospice.request.listener.RequestListener;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by lisamazzini on 22/01/15.
@@ -38,7 +46,7 @@ public class FavouriteTrainListActivity extends Activity{
     private FavouriteTrainController favController;
     private FavouriteTrainListController listController;
     private RecyclerView favListView;
-    private List<Train> favList = new LinkedList<>();
+    private List<NewTrain> favList = new LinkedList<>();
 
     @Override
     protected void onStart() {
@@ -63,6 +71,8 @@ public class FavouriteTrainListActivity extends Activity{
 
 
         favController = new FavouriteTrainController(getApplicationContext());
+        this.favController.addFavourite("608" + Constants.SEPARATOR + "S11145");
+        this.favController.addFavourite("2129" + Constants.SEPARATOR + "S05000");
         listController = new FavouriteTrainListController(favController.getMap());
 
         this.favListView = (RecyclerView)findViewById(R.id.recycler);
@@ -71,14 +81,30 @@ public class FavouriteTrainListActivity extends Activity{
         this.favListView.setItemAnimator(new DefaultItemAnimator());
 
 
-        while(listController.hasAnotherFavourite()){
+        /*while(listController.hasAnotherFavourite()){
             spiceManager.execute(listController.getRequest(), new TrainRequestListener());
+        }*/
+
+        while(listController.hasAnotherFavourite()){
+            String[] favouriteData = listController.getFavourite().split(Constants.SEPARATOR);
+            RestClientTrain.get().getTrain(favouriteData[0], favouriteData[1], (new Callback<NewTrain>() {
+                @Override
+                public void success(NewTrain trainResponse, Response response) {
+                    favList.add(trainResponse);
+                    favListView.setAdapter(new FavTrainAdapter(favList));
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    System.out.println("errore" + error.getMessage());
+                }
+            }));
         }
 
     }
 
 
-    private class TrainRequestListener implements RequestListener<Train> {
+    /*private class TrainRequestListener implements RequestListener<NewTrain> {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
             Toast.makeText(FavouriteTrainListActivity.this,
@@ -89,8 +115,7 @@ public class FavouriteTrainListActivity extends Activity{
         @Override
         public void onRequestSuccess(Train train) {
           favList.add(train);
-          favListView.setAdapter(new FavTrainAdapter(favList));
 
         }
-    }
+    }*/
 }

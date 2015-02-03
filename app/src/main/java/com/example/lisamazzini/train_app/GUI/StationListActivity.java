@@ -104,6 +104,7 @@ public class StationListActivity extends Activity{
     private class TrainAndStationsRequestListener implements RequestListener<String> {
 
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(StationListActivity.this);
+        AlertDialog ad = dialogBuilder.create();
 
         //If there's no internet connection
         @Override
@@ -152,7 +153,6 @@ public class StationListActivity extends Activity{
                     RestClientTrain.get().getTrain(datas[0], datas[1], (new Callback<NewTrain>() {
                         @Override
                         public void success(NewTrain trainResponse, Response response) {
-
                             tData.setText(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
                             stationList.setAdapter(new StationListAdapter(trainResponse.getFermate()));
                             bFavourite.setVisibility(View.VISIBLE);
@@ -183,8 +183,8 @@ public class StationListActivity extends Activity{
 
                     //Here I create the options that will be showed to the user
                     String[] choices = new String[2];
-                    choices[0] = "Treno " + firstChoiceData[0] + " in partenza da " + firstChoiceData[1];
-                    choices[1] = "Treno " + secondChoiceData[0] + " in partenza da " + secondChoiceData[1];
+                    choices[0] = "Treno " + firstChoiceData[0] + " in partenza da " + firstChoiceData[2];
+                    choices[1] = "Treno " + secondChoiceData[0] + " in partenza da " + secondChoiceData[2];
 
                     dialogBuilder.setSingleChoiceItems(choices, -1, new DialogInterface.OnClickListener() {
                         @Override
@@ -195,8 +195,8 @@ public class StationListActivity extends Activity{
                                     RestClientTrain.get().getTrain(firstChoiceData[0], firstChoiceData[1], (new Callback<NewTrain>() {
                                         @Override
                                         public void success(NewTrain trainResponse, Response response) {
-                                            trainDetails = firstChoiceData;
                                             tData.setText(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
+                                            trainDetails = firstChoiceData;
                                             stationList.setAdapter(new StationListAdapter(trainResponse.getFermate()));
                                             bFavourite.setVisibility(View.VISIBLE);
                                             System.out.println(trainResponse.getNumeroTreno().toString());
@@ -207,24 +207,25 @@ public class StationListActivity extends Activity{
                                             System.out.println("errore" + error.getMessage());
                                         }
                                     }));
-
+                                    ad.dismiss();
                                     break;
                                 case 1:
                                     RestClientTrain.get().getTrain(secondChoiceData[0], secondChoiceData[1], (new Callback<NewTrain>() {
                                         @Override
                                         public void success(NewTrain trainResponse, Response response) {
                                             trainDetails = secondChoiceData;
+
                                             tData.setText(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
                                             stationList.setAdapter(new StationListAdapter(trainResponse.getFermate()));
                                             bFavourite.setVisibility(View.VISIBLE);
                                             System.out.println(trainResponse.getNumeroTreno().toString());
-
                                         }
                                         @Override
                                         public void failure(RetrofitError error) {
                                             System.out.println("errore" + error.getMessage());
                                         }
                                     }));
+                                    ad.dismiss();
                                     break;
                             }
                         }
