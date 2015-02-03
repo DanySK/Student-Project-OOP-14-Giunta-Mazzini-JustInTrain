@@ -11,6 +11,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.example.lisamazzini.train_app.GUI.StationListActivity;
+import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.Soluzioni;
 import com.example.lisamazzini.train_app.Notification.NotificationService;
 import com.example.lisamazzini.train_app.R;
@@ -19,9 +20,9 @@ import java.util.List;
 
 public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAdapter.JourneyViewHolder>{
 
-    private final List<Soluzioni> journeyList;
+    private final List<PlainSolution> journeyList;
 
-    public JourneyResultsAdapter(List<Soluzioni> list) {
+    public JourneyResultsAdapter(List<PlainSolution> list) {
         this.journeyList = list;
     }
 
@@ -36,14 +37,14 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
     //chiamato quando si collegano i dati al viewholder
     @Override
     public void onBindViewHolder(JourneyViewHolder journeyViewHolder, int position) {
-        final Soluzioni journeyTrain = journeyList.get(position);
-        journeyViewHolder.category.setText(journeyTrain.getVehicles().get(0).getCategoriaDescrizione());
-        journeyViewHolder.number.setText(journeyTrain.getVehicles().get(0).getCategoria());
+        final PlainSolution journeyTrain = journeyList.get(position);
+        journeyViewHolder.category.setText(journeyTrain.getCategoria());
+        journeyViewHolder.number.setText(journeyTrain.getNumeroTreno());
         journeyViewHolder.duration.setText(journeyTrain.getDurata());
-        journeyViewHolder.departureStation.setText(journeyTrain.getVehicles().get(0).getOrigine());
-        journeyViewHolder.departureTime.setText(journeyTrain.getVehicles().get(0).getOrarioPartenza());
-        journeyViewHolder.arrivalStation.setText(journeyTrain.getVehicles().get(0).getDestinazione());
-        journeyViewHolder.arrivalTime.setText(journeyTrain.getVehicles().get(0).getOrarioArrivo());
+        journeyViewHolder.departureStation.setText(journeyTrain.getOrigine());
+        journeyViewHolder.departureTime.setText(journeyTrain.getOrarioPartenza());
+        journeyViewHolder.arrivalStation.setText(journeyTrain.getDestinazione());
+        journeyViewHolder.arrivalTime.setText(journeyTrain.getOrarioArrivo());
 //        journeyViewHolder.delay.setText("" + journeyTrain.);
         journeyViewHolder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +95,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         protected TextView departureTime;
         protected TextView arrivalStation;
         protected TextView arrivalTime;
-//        protected TextView delay;
+        //        protected TextView delay;
         protected Button menu;
 
 

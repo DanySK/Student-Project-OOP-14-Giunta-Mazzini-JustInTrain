@@ -12,15 +12,6 @@ public class Tragitto {
     private String destinazione;
     private Object errore;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-    private int timeSlot;
-
-    public void setTimeSlot(int timeSlot) {
-        this.timeSlot = timeSlot;
-    }
-
-    public int getTimeSlot() {
-        return this.timeSlot;
-    }
 
     public List<Soluzioni> getSoluzioni() {
         return soluzioni;

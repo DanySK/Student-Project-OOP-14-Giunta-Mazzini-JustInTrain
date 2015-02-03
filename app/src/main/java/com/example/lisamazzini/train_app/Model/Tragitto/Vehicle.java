@@ -8,7 +8,9 @@ public class Vehicle {
     private String origine;
     private String destinazione;
     private String orarioPartenza;
+    private String oraPartenza;
     private String orarioArrivo;
+    private String oraArrivo;
     private String categoria;
     private String categoriaDescrizione;
     private String numeroTreno;
@@ -39,12 +41,30 @@ public class Vehicle {
         this.orarioPartenza = orarioPartenza;
     }
 
+    public String getOraPartenza() {
+        setOraPartenza();
+        return oraPartenza;
+    }
+
+    public void setOraPartenza() {
+        this.oraPartenza = getOrarioPartenza().substring(11, 16);
+    }
+
     public String getOrarioArrivo() {
         return orarioArrivo;
     }
 
     public void setOrarioArrivo(String orarioArrivo) {
         this.orarioArrivo = orarioArrivo;
+    }
+
+    public String getOraArrivo() {
+        setOraArrivo();
+        return oraArrivo;
+    }
+
+    public void setOraArrivo() {
+        this.oraArrivo = getOrarioArrivo().substring(11, 16);
     }
 
     public String getCategoria() {
