@@ -21,6 +21,7 @@ public class DoubleTrainService extends Service {
 
     private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
     private String trainNumber;
+    private String depStation;
     private String depStationCode;
 
     private String firstTrainData[];
@@ -29,9 +30,8 @@ public class DoubleTrainService extends Service {
 
     public int onStartCommand (Intent intent, int flags, int startId){
         trainNumber = intent.getStringExtra("trainNumber");
-        depStationCode = intent.getStringExtra("depStation");
-
-        spiceManager.execute(new TrainDataRequest(trainNumber), new CoseListener());
+        depStation = intent.getStringExtra("depStation");
+        spiceManager.execute(new JourneyDataRequest(this.depStationCode), new DepartureDataRequestListenter());
 
 
         spiceManager.start(this);
@@ -50,6 +50,20 @@ public class DoubleTrainService extends Service {
         stopForeground(true);
         spiceManager.shouldStop();
         super.onDestroy();
+    }
+
+    private class DepartureDataRequestListenter implements RequestListener<String> {
+
+        @Override
+        public void onRequestFailure(SpiceException spiceException) {
+        }
+
+        @Override
+        public void onRequestSuccess(String s) {
+            depStationCode = s.split("\\|S")[1];
+            spiceManager.execute(new TrainDataRequest(trainNumber), new CoseListener());
+
+        }
     }
 
     private class CoseListener implements RequestListener<String>{
