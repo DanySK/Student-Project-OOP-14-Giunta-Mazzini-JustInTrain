@@ -9,18 +9,18 @@ import android.os.Parcelable;
 public class NotificationPack implements Parcelable {
 
     private final String number;
-    private final String originCode;
-    private final String depStationCode;
+    private final String IDorigine;
+    private final String IDpartenza;
     private final String depTime;
-    private final String arrStationCode;
+    private final String IDarrivo;
     private final String arrTime;
 
     private NotificationPack(Parcel in) {
         this.number = in.readString();
-        this.originCode = in.readString();
-        this.depStationCode = in.readString();
+        this.IDorigine = in.readString();
+        this.IDpartenza = in.readString();
         this.depTime = in.readString();
-        this.arrStationCode = in.readString();
+        this.IDarrivo = in.readString();
         this.arrTime = in.readString();
     }
 
@@ -47,28 +47,28 @@ public class NotificationPack implements Parcelable {
         return number;
     }
 
-    public String getDepStationCode() {
-        return depStationCode;
+    public String getIDpartenza() {
+        return IDpartenza;
     }
 
     public String getDepTime() {
         return depTime;
     }
 
-    public String getArrStationCode() {
-        return arrStationCode;
+    public String getIDarrivo() {
+        return IDarrivo;
     }
 
 
-    public String getOriginCode() {
-        return originCode;
+    public String getIDorigine() {
+        return IDorigine;
     }
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(number);
-        dest.writeString(depStationCode);
+        dest.writeString(IDpartenza);
         dest.writeString(depTime);
-        dest.writeString(arrStationCode);
+        dest.writeString(IDarrivo);
         dest.writeString(arrTime);
     }
 }

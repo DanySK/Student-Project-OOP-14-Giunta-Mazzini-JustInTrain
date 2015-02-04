@@ -277,6 +277,7 @@ public class MainActivity extends ActionBarActivity
                 journeyResultsAdapter = new JourneyResultsAdapter(controller.getPlainSolutions());
                 recyclerView.setAdapter(journeyResultsAdapter);
                 for (PlainSolution p : plainSolutions) {
+                    Log.d("cosa sta succedendo", "" + p.getNumeroTreno());
                      spiceManager.execute(new TrainDataRequest(p.getNumeroTreno()), new CoseListener());
                 }
             }
@@ -339,8 +340,8 @@ public class MainActivity extends ActionBarActivity
             public void onRequestSuccess(NewTrain train) {
                 for (PlainSolution p : plainSolutions) {
                     p.setDelay(train.getRitardo());
-                    p.setIDpartenza(departureID);
-                    p.setIDarrivo(arrivalID);
+                    p.setIDpartenza("S" + departureID);
+                    p.setIDarrivo("S" + arrivalID);
                     p.setIDorigine(train.getIdOrigine());
                 }
                 journeyResultsAdapter.notifyDataSetChanged();
@@ -359,11 +360,11 @@ public class MainActivity extends ActionBarActivity
                 Log.d("Fin qui", "ci siamo? seconda richiesta");
 
                 for (Fermate f : train.getFermate()) {
-                    if (f.getId().equals(departureID)) {
+                    if (f.getId().equals("S" + departureID)) {
                         for (PlainSolution p : plainSolutions) {
                             p.setDelay(train.getRitardo());
-                            p.setIDpartenza(departureID);
-                            p.setIDarrivo(arrivalID);
+                            p.setIDpartenza("S" + departureID);
+                            p.setIDarrivo("S" + arrivalID);
                             p.setIDorigine(train.getIdOrigine());
                         }
                         journeyResultsAdapter.notifyDataSetChanged();
@@ -386,11 +387,11 @@ public class MainActivity extends ActionBarActivity
                 Log.d("Fin qui", "ci siamo? terza richiesta");
 
                 for(Fermate f : train.getFermate()){
-                    if(f.getId().equals(departureID)){
+                    if(f.getId().equals("S" + departureID)){
                         for (PlainSolution p : plainSolutions) {
                             p.setDelay(train.getRitardo());
-                            p.setIDpartenza(departureID);
-                            p.setIDarrivo(arrivalID);
+                            p.setIDpartenza("S" + departureID);
+                            p.setIDarrivo("S" + arrivalID);
                             p.setIDorigine(train.getIdOrigine());
                         }
                         journeyResultsAdapter.notifyDataSetChanged();
