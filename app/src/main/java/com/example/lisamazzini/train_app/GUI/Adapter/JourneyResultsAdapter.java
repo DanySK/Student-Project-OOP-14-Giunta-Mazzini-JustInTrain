@@ -112,13 +112,13 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         public JourneyViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
-            category = (TextView)v.findViewById(R.id.tvSetTrainCategory);
-            number = (TextView) v.findViewById(R.id.tvSetTrainNumber);
-            duration = (TextView) v.findViewById(R.id.tvSetDuration);
-            departureStation = (TextView) v.findViewById(R.id.tvSetDeparture);
-            departureTime = (TextView) v.findViewById(R.id.tvSetDepartureTime);
-            arrivalStation = (TextView) v.findViewById(R.id.tvSetArrival);
-            arrivalTime = (TextView) v.findViewById(R.id.tvSetArrivalTime);
+            category = (TextView)v.findViewById(R.id.trainCategory);
+            number = (TextView) v.findViewById(R.id.trainNumber);
+            duration = (TextView) v.findViewById(R.id.duration);
+            departureStation = (TextView) v.findViewById(R.id.departureStation);
+            departureTime = (TextView) v.findViewById(R.id.departureTime);
+            arrivalStation = (TextView) v.findViewById(R.id.arrivalStation);
+            arrivalTime = (TextView) v.findViewById(R.id.arrivalTime);
 //            delay = (TextView) v.findViewById(R.id.tvSetDelay);
             menu = (Button)v.findViewById(R.id.btnOpt);
         }
