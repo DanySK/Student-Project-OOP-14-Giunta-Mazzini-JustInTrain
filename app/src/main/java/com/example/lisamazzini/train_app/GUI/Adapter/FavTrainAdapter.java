@@ -34,7 +34,7 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
 
     List<NewTrain> list;
 
-    public FavTrainAdapter(List<NewTrain> list, ){
+    public FavTrainAdapter(List<NewTrain> list){
         this.list = list;
     }
 
@@ -53,7 +53,8 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
         holder.trainNumber.setText("" + train.getNumeroTreno());
         holder.delay.setText("" + train.getRitardo());
         holder.lastSeenStation.setText(train.getStazioneUltimoRilevamento());
-        holder.lastSeemTime.setText(Utilities.fromMsToTime(train.getOraUltimoRilevamento()));
+        holder.lastSeemTime.setText(train.getCompOraUltimoRilevamento());
+        holder.stationCode.setText(train.getIdOrigine());
 
         holder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,9 +107,11 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
         TextView lastSeenStation;
         TextView lastSeemTime;
         TextView isMoving;
+        TextView stationCode;
         Button menu;
 
         public Holder(View itemView) {
+
             super(itemView);
             itemView.setOnClickListener(this);
             menu =(Button) itemView.findViewById(R.id.options);
@@ -118,12 +121,14 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
             lastSeenStation = (TextView) itemView.findViewById(R.id.lastseen);
             lastSeemTime = (TextView) itemView.findViewById(R.id.timelastseen);
             isMoving = (TextView) itemView.findViewById(R.id.moving);
-
+            stationCode = (TextView)itemView.findViewById(R.id.statCodeInvisible);
+            stationCode.setVisibility(View.INVISIBLE);
         }
 
         @Override
         public void onClick(View v) {
             Intent i = new Intent(v.getContext(), StationListActivity.class);
+            i.putExtra("stationCode", this.stationCode.getText().toString());
             i.putExtra("trainNumber", this.trainNumber.getText().toString());
             v.getContext().startActivity(i);
         }

@@ -55,6 +55,8 @@ public class StationListActivity extends Activity{
 
     private String[] trainDetails;
     private String trainNumber;
+    private String stationCode;
+    private boolean search = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,7 @@ public class StationListActivity extends Activity{
         this.stationList.setItemAnimator(new DefaultItemAnimator());
 
         this.trainNumber = getIntent().getStringExtra("trainNumber");
+        this.stationCode = getIntent().getStringExtra("stationCode");
         this.listController = new StationListController(this.trainNumber);
         this.favController = new FavouriteTrainController(this);
 
@@ -84,8 +87,12 @@ public class StationListActivity extends Activity{
 
         this.bFavourite.setVisibility(View.INVISIBLE);
 
-
-        spiceManager.execute(listController.getNumberRequest(), new TrainAndStationsRequestListener());
+        if(this.stationCode == null) {
+            spiceManager.execute(listController.getNumberRequest(), new TrainAndStationsRequestListener());
+        }else{
+            listController.setCode(this.stationCode);
+            spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
+        }
     }
 
     @Override
@@ -159,32 +166,39 @@ public class StationListActivity extends Activity{
                     //Here I take the data of the second train
                     final String[] secondChoiceData = listController.computeData(datas[1]);
 
+                    String depStation = getIntent().getStringExtra("depStation");
+                    if(depStation == null) {
 
-                    //Here I create the options that will be showed to the user
-                    String[] choices = listController.computeChoices(firstChoiceData, secondChoiceData);
+                        //Here I create the options that will be showed to the user
+                        String[] choices = listController.computeChoices(firstChoiceData, secondChoiceData);
 
-                    dialogBuilder.setSingleChoiceItems(choices, -1, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                        dialogBuilder.setSingleChoiceItems(choices, -1, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                            switch (which){
-                                case 0:
-                                    Log.d("Cosa", Arrays.toString(firstChoiceData));
-                                    trainDetails = firstChoiceData;
-                                    listController.setCode(firstChoiceData[1]);
-                                    spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
-                                    dialog.dismiss();
-                                    break;
-                                case 1:
-                                    Log.d("Cosa2", Arrays.toString(secondChoiceData));
-                                    trainDetails = secondChoiceData;
-                                    listController.setCode(secondChoiceData[1]);
-                                    spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
-                                    dialog.dismiss();
-                                    break;
+                                switch (which) {
+                                    case 0:
+                                        Log.d("Cosa", Arrays.toString(firstChoiceData));
+                                        trainDetails = firstChoiceData;
+                                        listController.setCode(firstChoiceData[1]);
+                                        spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
+                                        dialog.dismiss();
+                                        break;
+                                    case 1:
+                                        Log.d("Cosa2", Arrays.toString(secondChoiceData));
+                                        trainDetails = secondChoiceData;
+                                        listController.setCode(secondChoiceData[1]);
+                                        spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
+                                        dialog.dismiss();
+                                        break;
+                                }
                             }
-                        }
-                    }).show();
+                        }).show();
+                    }else{
+                        search = true;
+                        listController.setCode(firstChoiceData[1]);
+                        spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
+                    }
                 }
             }
         }
@@ -213,9 +227,40 @@ public class StationListActivity extends Activity{
 
         @Override
         public void onRequestSuccess(NewTrain trainResponse) {
-            tData.setText(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
-            stationList.setAdapter(new StationListAdapter(trainResponse.getFermate()));
-            bFavourite.setVisibility(View.VISIBLE);
+            if(!search) {
+                tData.setText(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
+                stationList.setAdapter(new StationListAdapter(trainResponse.getFermate()));
+                bFavourite.setVisibility(View.VISIBLE);
+            }else{
+
+            }
+        }
+    }
+
+    private class AnotherAnotherListener implements RequestListener<NewTrain>{
+
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(StationListActivity.this);
+
+        @Override
+        public void onRequestFailure(SpiceException spiceException) {
+            dialogBuilder.setTitle("Problemi di connessione")
+                    .setMessage("Controllare la propria connessione internet, patacca")
+                    .setNeutralButton("Ok" , new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(StationListActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                    }).show();
+
+            Toast.makeText(StationListActivity.this,
+                    "Error: " + spiceException.getMessage(), Toast.LENGTH_SHORT)
+                    .show();
+        }
+
+        @Override
+        public void onRequestSuccess(NewTrain newTrain) {
+
         }
     }
 

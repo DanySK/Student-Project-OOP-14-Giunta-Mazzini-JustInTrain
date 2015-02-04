@@ -14,16 +14,11 @@ package com.example.lisamazzini.train_app.Parser;
 
 public class NewTrain{
 
-    private String tipoTreno;
-    private String orientamento;
-    private Long codiceCliente;
     private Object fermateSoppresse;
-    private Object dataPartenza;
     private List<Fermate> fermate = new ArrayList<Fermate>();
     private Object anormalita;
     private Object provvedimenti;
     private Object segnalazioni;
-    private Long oraUltimoRilevamento;
     private String stazioneUltimoRilevamento;
     private String idDestinazione;
     private String idOrigine;
@@ -32,27 +27,14 @@ public class NewTrain{
     private List<String> descOrientamento = new ArrayList<String>();
     private String compOraUltimoRilevamento;
     private Object motivoRitardoPrevalente;
-    private String descrizioneVCO;
     private Long numeroTreno;
     private String categoria;
-    private Object categoriaDescrizione;
     private String origine;
-    private Object codOrigine;
     private String destinazione;
     private Object codDestinazione;
-    private Object origineEstera;
-    private Object destinazioneEstera;
-    private Object oraPartenzaEstera;
-    private Object oraArrivoEstera;
-    private Long tratta;
-    private Long regione;
     private String origineZero;
-    private String destinazioneZero;
-    private Long orarioPartenzaZero;
     private Long orarioArrivoZero;
     private Boolean circolante;
-    private String subTitle;
-    private String esisteCorsaZero;
     private Boolean inStazione;
     private Boolean haCambiNumero;
     private Boolean nonPartito;
@@ -66,7 +48,6 @@ public class NewTrain{
     private Object corrispondenze;
     private List<Object> servizi = new ArrayList<Object>();
     private Long ritardo;
-    private String tipoProdotto;
     private String compOrarioPartenzaZeroEffettivo;
     private String compOrarioArrivoZeroEffettivo;
     private String compOrarioPartenzaZero;
@@ -75,8 +56,6 @@ public class NewTrain{
     private String compOrarioPartenza;
     private List<String> compOrientamento = new ArrayList<String>();
     private String compTipologiaTreno;
-    private String compClassRitardoTxt;
-    private String compClassRitardoLine;
     private List<String> compRitardo = new ArrayList<String>();
     private List<String> compRitardoAndamento = new ArrayList<String>();
     private List<String> compInStazionePartenza = new ArrayList<String>();
@@ -84,60 +63,7 @@ public class NewTrain{
     private String compDurata;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    /**
-     *
-     * @return
-     * The tipoTreno
-     */
-    public String getTipoTreno() {
-        return tipoTreno;
-    }
 
-    /**
-     *
-     * @param tipoTreno
-     * The tipoTreno
-     */
-    public void setTipoTreno(String tipoTreno) {
-        this.tipoTreno = tipoTreno;
-    }
-
-
-    /**
-     *
-     * @return
-     * The orientamento
-     */
-    public String getOrientamento() {
-        return orientamento;
-    }
-
-    /**
-     *
-     * @param orientamento
-     * The orientamento
-     */
-    public void setOrientamento(String orientamento) {
-        this.orientamento = orientamento;
-    }
-
-    /**
-     *
-     * @return
-     * The codiceCliente
-     */
-    public Long getCodiceCliente() {
-        return codiceCliente;
-    }
-
-    /**
-     *
-     * @param codiceCliente
-     * The codiceCliente
-     */
-    public void setCodiceCliente(Long codiceCliente) {
-        this.codiceCliente = codiceCliente;
-    }
 
     /**
      *
@@ -157,23 +83,6 @@ public class NewTrain{
         this.fermateSoppresse = fermateSoppresse;
     }
 
-    /**
-     *
-     * @return
-     * The dataPartenza
-     */
-    public Object getDataPartenza() {
-        return dataPartenza;
-    }
-
-    /**
-     *
-     * @param dataPartenza
-     * The dataPartenza
-     */
-    public void setDataPartenza(Object dataPartenza) {
-        this.dataPartenza = dataPartenza;
-    }
 
     /**
      *
@@ -247,23 +156,6 @@ public class NewTrain{
         this.segnalazioni = segnalazioni;
     }
 
-    /**
-     *
-     * @return
-     * The oraUltimoRilevamento
-     */
-    public Long getOraUltimoRilevamento() {
-        return oraUltimoRilevamento;
-    }
-
-    /**
-     *
-     * @param oraUltimoRilevamento
-     * The oraUltimoRilevamento
-     */
-    public void setOraUltimoRilevamento(Long oraUltimoRilevamento) {
-        this.oraUltimoRilevamento = oraUltimoRilevamento;
-    }
 
     /**
      *
@@ -409,23 +301,7 @@ public class NewTrain{
         this.motivoRitardoPrevalente = motivoRitardoPrevalente;
     }
 
-    /**
-     *
-     * @return
-     * The descrizioneVCO
-     */
-    public String getDescrizioneVCO() {
-        return descrizioneVCO;
-    }
 
-    /**
-     *
-     * @param descrizioneVCO
-     * The descrizioneVCO
-     */
-    public void setDescrizioneVCO(String descrizioneVCO) {
-        this.descrizioneVCO = descrizioneVCO;
-    }
 
     /**
      *
@@ -463,23 +339,7 @@ public class NewTrain{
         this.categoria = categoria;
     }
 
-    /**
-     *
-     * @return
-     * The categoriaDescrizione
-     */
-    public Object getCategoriaDescrizione() {
-        return categoriaDescrizione;
-    }
 
-    /**
-     *
-     * @param categoriaDescrizione
-     * The categoriaDescrizione
-     */
-    public void setCategoriaDescrizione(Object categoriaDescrizione) {
-        this.categoriaDescrizione = categoriaDescrizione;
-    }
 
     /**
      *
@@ -499,23 +359,7 @@ public class NewTrain{
         this.origine = origine;
     }
 
-    /**
-     *
-     * @return
-     * The codOrigine
-     */
-    public Object getCodOrigine() {
-        return codOrigine;
-    }
 
-    /**
-     *
-     * @param codOrigine
-     * The codOrigine
-     */
-    public void setCodOrigine(Object codOrigine) {
-        this.codOrigine = codOrigine;
-    }
 
     /**
      *
@@ -553,113 +397,6 @@ public class NewTrain{
         this.codDestinazione = codDestinazione;
     }
 
-    /**
-     *
-     * @return
-     * The origineEstera
-     */
-    public Object getOrigineEstera() {
-        return origineEstera;
-    }
-
-    /**
-     *
-     * @param origineEstera
-     * The origineEstera
-     */
-    public void setOrigineEstera(Object origineEstera) {
-        this.origineEstera = origineEstera;
-    }
-
-    /**
-     *
-     * @return
-     * The destinazioneEstera
-     */
-    public Object getDestinazioneEstera() {
-        return destinazioneEstera;
-    }
-
-    /**
-     *
-     * @param destinazioneEstera
-     * The destinazioneEstera
-     */
-    public void setDestinazioneEstera(Object destinazioneEstera) {
-        this.destinazioneEstera = destinazioneEstera;
-    }
-
-    /**
-     *
-     * @return
-     * The oraPartenzaEstera
-     */
-    public Object getOraPartenzaEstera() {
-        return oraPartenzaEstera;
-    }
-
-    /**
-     *
-     * @param oraPartenzaEstera
-     * The oraPartenzaEstera
-     */
-    public void setOraPartenzaEstera(Object oraPartenzaEstera) {
-        this.oraPartenzaEstera = oraPartenzaEstera;
-    }
-
-    /**
-     *
-     * @return
-     * The oraArrivoEstera
-     */
-    public Object getOraArrivoEstera() {
-        return oraArrivoEstera;
-    }
-
-    /**
-     *
-     * @param oraArrivoEstera
-     * The oraArrivoEstera
-     */
-    public void setOraArrivoEstera(Object oraArrivoEstera) {
-        this.oraArrivoEstera = oraArrivoEstera;
-    }
-
-    /**
-     *
-     * @return
-     * The tratta
-     */
-    public Long getTratta() {
-        return tratta;
-    }
-
-    /**
-     *
-     * @param tratta
-     * The tratta
-     */
-    public void setTratta(Long tratta) {
-        this.tratta = tratta;
-    }
-
-    /**
-     *
-     * @return
-     * The regione
-     */
-    public Long getRegione() {
-        return regione;
-    }
-
-    /**
-     *
-     * @param regione
-     * The regione
-     */
-    public void setRegione(Long regione) {
-        this.regione = regione;
-    }
 
     /**
      *
@@ -684,36 +421,7 @@ public class NewTrain{
      * @return
      * The destinazioneZero
      */
-    public String getDestinazioneZero() {
-        return destinazioneZero;
-    }
 
-    /**
-     *
-     * @param destinazioneZero
-     * The destinazioneZero
-     */
-    public void setDestinazioneZero(String destinazioneZero) {
-        this.destinazioneZero = destinazioneZero;
-    }
-
-    /**
-     *
-     * @return
-     * The orarioPartenzaZero
-     */
-    public Long getOrarioPartenzaZero() {
-        return orarioPartenzaZero;
-    }
-
-    /**
-     *
-     * @param orarioPartenzaZero
-     * The orarioPartenzaZero
-     */
-    public void setOrarioPartenzaZero(Long orarioPartenzaZero) {
-        this.orarioPartenzaZero = orarioPartenzaZero;
-    }
 
     /**
      *
@@ -751,41 +459,6 @@ public class NewTrain{
         this.circolante = circolante;
     }
 
-    /**
-     *
-     * @return
-     * The subTitle
-     */
-    public String getSubTitle() {
-        return subTitle;
-    }
-
-    /**
-     *
-     * @param subTitle
-     * The subTitle
-     */
-    public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle;
-    }
-
-    /**
-     *
-     * @return
-     * The esisteCorsaZero
-     */
-    public String getEsisteCorsaZero() {
-        return esisteCorsaZero;
-    }
-
-    /**
-     *
-     * @param esisteCorsaZero
-     * The esisteCorsaZero
-     */
-    public void setEsisteCorsaZero(String esisteCorsaZero) {
-        this.esisteCorsaZero = esisteCorsaZero;
-    }
 
     /**
      *
@@ -1021,23 +694,6 @@ public class NewTrain{
         this.ritardo = ritardo;
     }
 
-    /**
-     *
-     * @return
-     * The tipoProdotto
-     */
-    public String getTipoProdotto() {
-        return tipoProdotto;
-    }
-
-    /**
-     *
-     * @param tipoProdotto
-     * The tipoProdotto
-     */
-    public void setTipoProdotto(String tipoProdotto) {
-        this.tipoProdotto = tipoProdotto;
-    }
 
     /**
      *
@@ -1181,42 +837,6 @@ public class NewTrain{
      */
     public void setCompTipologiaTreno(String compTipologiaTreno) {
         this.compTipologiaTreno = compTipologiaTreno;
-    }
-
-    /**
-     *
-     * @return
-     * The compClassRitardoTxt
-     */
-    public String getCompClassRitardoTxt() {
-        return compClassRitardoTxt;
-    }
-
-    /**
-     *
-     * @param compClassRitardoTxt
-     * The compClassRitardoTxt
-     */
-    public void setCompClassRitardoTxt(String compClassRitardoTxt) {
-        this.compClassRitardoTxt = compClassRitardoTxt;
-    }
-
-    /**
-     *
-     * @return
-     * The compClassRitardoLine
-     */
-    public String getCompClassRitardoLine() {
-        return compClassRitardoLine;
-    }
-
-    /**
-     *
-     * @param compClassRitardoLine
-     * The compClassRitardoLine
-     */
-    public void setCompClassRitardoLine(String compClassRitardoLine) {
-        this.compClassRitardoLine = compClassRitardoLine;
     }
 
     /**

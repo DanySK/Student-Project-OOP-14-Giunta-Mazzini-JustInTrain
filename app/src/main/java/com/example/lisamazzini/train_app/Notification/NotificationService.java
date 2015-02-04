@@ -121,7 +121,7 @@ public class NotificationService extends Service {
                                 .setBigContentTitle("Treno" + currentStateTrain.getNumeroTreno())
                                 .addLine("Ritardo " + currentStateTrain.getRitardo())
                                 .addLine("Ultimo avvistamento" + currentStateTrain.getStazioneUltimoRilevamento())
-                                .addLine("Ore " + Utilities.fromMsToTime(currentStateTrain.getOraUltimoRilevamento())))
+                                .addLine("Ore " + currentStateTrain.getCompOraUltimoRilevamento()))
                         .build();
             }else{
                 not = builder.setSmallIcon(R.drawable.ic_launcher)

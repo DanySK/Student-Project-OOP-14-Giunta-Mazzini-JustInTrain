@@ -1,5 +1,7 @@
 package com.example.lisamazzini.train_app.Controller;
 
+import com.example.lisamazzini.train_app.Utilities;
+
 public class StationListController {
 
     private final String trainNumber;
@@ -22,11 +24,7 @@ public class StationListController {
     }
 
     public String[] computeData(String data){
-        final String[] result = new String[3];
-        result[0] = data.split("\\|")[1].split("-")[0];    //numero
-        result[1] = data.split("\\|")[1].split("-")[1];    //codice
-        result[2] = data.split("\\|")[0].split("-")[1];    //nome
-        return result;
+        return Utilities.splitString(data);
     }
 
     public String[] computeChoices(String[] first, String[] second){

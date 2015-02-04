@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.example.lisamazzini.train_app.Controller.DoubleTrainService;
+import com.example.lisamazzini.train_app.Exceptions.DoubleTrainNumberException;
 import com.example.lisamazzini.train_app.GUI.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.Soluzioni;
@@ -114,10 +116,10 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
 
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(v.getContext(), StationListActivity.class);
+            Intent i = new Intent(v.getContext(), DoubleTrainService.class);
             i.putExtra("trainNumber", this.number.getText().toString());
             i.putExtra("departureStation", this.departureStation.getText().toString());
-            v.getContext().startActivity(i);
+            v.getContext().startService(i);
         }
     }
 

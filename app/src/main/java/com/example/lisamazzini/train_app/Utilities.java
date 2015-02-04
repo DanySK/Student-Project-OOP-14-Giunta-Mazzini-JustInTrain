@@ -20,4 +20,12 @@ public class Utilities {
         return hour + ":" + minutes;
 
     }
+
+    public static String[] splitString(String data){
+        final String[] result = new String[3];
+        result[0] = data.split("\\|")[1].split("-")[0];    //numero
+        result[1] = data.split("\\|")[1].split("-")[1];    //codice
+        result[2] = data.split("\\|")[0].split("-")[1];    //nome
+        return result;
+    }
 }
