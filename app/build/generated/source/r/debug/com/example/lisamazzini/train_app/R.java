@@ -1304,8 +1304,10 @@ containing a value of this type.
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f020031;
         public static final int abc_textfield_search_material=0x7f020032;
         public static final int drawer_shadow=0x7f020033;
-        public static final int ic_drawer=0x7f020034;
-        public static final int ic_launcher=0x7f020035;
+        public static final int exit=0x7f020034;
+        public static final int ic_drawer=0x7f020035;
+        public static final int ic_launcher=0x7f020036;
+        public static final int refresh=0x7f020037;
     }
     public static final class id {
         public static final int action_bar=0x7f0a0031;
@@ -1316,13 +1318,13 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f0a001f;
         public static final int action_bar_title=0x7f0a001e;
         public static final int action_context_bar=0x7f0a0032;
-        public static final int action_example=0x7f0a0086;
+        public static final int action_example=0x7f0a0085;
         public static final int action_menu_divider=0x7f0a0002;
         public static final int action_menu_presenter=0x7f0a0003;
         public static final int action_mode_bar=0x7f0a002e;
         public static final int action_mode_bar_stub=0x7f0a002d;
         public static final int action_mode_close_button=0x7f0a0020;
-        public static final int action_settings=0x7f0a0085;
+        public static final int action_settings=0x7f0a0084;
         public static final int activity_chooser_view_content=0x7f0a0021;
         public static final int add_favourite=0x7f0a005a;
         public static final int always=0x7f0a0016;
@@ -1347,7 +1349,7 @@ containing a value of this type.
         public static final int decor_content_parent=0x7f0a002f;
         public static final int default_activity_button=0x7f0a0024;
         public static final int delaaay=0x7f0a007d;
-        public static final int delete=0x7f0a0089;
+        public static final int delete=0x7f0a0088;
         public static final int departure=0x7f0a0060;
         public static final int dialog=0x7f0a001b;
         public static final int disableHome=0x7f0a000c;
@@ -1386,7 +1388,7 @@ containing a value of this type.
         public static final int ntStation=0x7f0a0069;
         public static final int ntTime=0x7f0a0068;
         public static final int options=0x7f0a0083;
-        public static final int pin=0x7f0a0087;
+        public static final int pin=0x7f0a0086;
         public static final int planArr=0x7f0a0079;
         public static final int progress_circular=0x7f0a0005;
         public static final int progress_horizontal=0x7f0a0006;
@@ -1408,7 +1410,6 @@ containing a value of this type.
         public static final int showHome=0x7f0a0010;
         public static final int showTitle=0x7f0a0011;
         public static final int split_action_bar=0x7f0a0007;
-        public static final int statCodeInvisible=0x7f0a0084;
         public static final int statName=0x7f0a0077;
         public static final int submit_area=0x7f0a003c;
         public static final int tabMode=0x7f0a000b;
@@ -1440,7 +1441,7 @@ containing a value of this type.
         public static final int tvSetTrainCategory=0x7f0a006c;
         public static final int tvSetTrainNumber=0x7f0a006e;
         public static final int tvTrainNumber=0x7f0a006d;
-        public static final int unpin=0x7f0a0088;
+        public static final int unpin=0x7f0a0087;
         public static final int up=0x7f0a0008;
         public static final int useLogo=0x7f0a0012;
         public static final int visited=0x7f0a0078;

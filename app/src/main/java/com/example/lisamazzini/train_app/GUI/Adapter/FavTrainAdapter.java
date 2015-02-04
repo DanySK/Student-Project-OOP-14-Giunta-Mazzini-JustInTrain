@@ -54,7 +54,7 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
         holder.delay.setText("" + train.getRitardo());
         holder.lastSeenStation.setText(train.getStazioneUltimoRilevamento());
         holder.lastSeemTime.setText(train.getCompOraUltimoRilevamento());
-        holder.stationCode.setText(train.getIdOrigine());
+        holder.stationCode = train.getIdOrigine();
 
         holder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +107,7 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
         TextView lastSeenStation;
         TextView lastSeemTime;
         TextView isMoving;
-        TextView stationCode;
+        String stationCode;
         Button menu;
 
         public Holder(View itemView) {
@@ -121,14 +121,12 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
             lastSeenStation = (TextView) itemView.findViewById(R.id.lastseen);
             lastSeemTime = (TextView) itemView.findViewById(R.id.timelastseen);
             isMoving = (TextView) itemView.findViewById(R.id.moving);
-            stationCode = (TextView)itemView.findViewById(R.id.statCodeInvisible);
-            stationCode.setVisibility(View.INVISIBLE);
         }
 
         @Override
         public void onClick(View v) {
             Intent i = new Intent(v.getContext(), StationListActivity.class);
-            i.putExtra("stationCode", this.stationCode.getText().toString());
+            i.putExtra("stationCode", this.stationCode);
             i.putExtra("trainNumber", this.trainNumber.getText().toString());
             v.getContext().startActivity(i);
         }

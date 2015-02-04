@@ -3,6 +3,7 @@ package com.example.lisamazzini.train_app.Controller;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.example.lisamazzini.train_app.GUI.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Constants;
@@ -29,10 +30,11 @@ public class DoubleTrainService extends Service {
 
 
     public int onStartCommand (Intent intent, int flags, int startId){
+        Log.d("Service", "started");
         trainNumber = intent.getStringExtra("trainNumber");
         depStation = intent.getStringExtra("depStation");
-        spiceManager.execute(new JourneyDataRequest(this.depStationCode), new DepartureDataRequestListenter());
 
+        spiceManager.execute(new JourneyDataRequest(this.depStationCode), new DepartureDataRequestListenter());
 
         spiceManager.start(this);
         return START_STICKY;
@@ -75,6 +77,7 @@ public class DoubleTrainService extends Service {
 
         @Override
         public void onRequestSuccess(String s) {
+            Log.d("Fin qui", "ci siamo? prima richiesta");
             String[] data = s.split(Constants.SEPARATOR);
             if(data.length == 1){
                 String[] values = Utilities.splitString(data[0]);
@@ -89,8 +92,6 @@ public class DoubleTrainService extends Service {
                 secondTrainData = Utilities.splitString(data[1]);
 
                 spiceManager.execute(new TrainRequest(firstTrainData[0], firstTrainData[1]), new AltreCoseListener());
-
-
             }
         }
     }
@@ -104,6 +105,8 @@ public class DoubleTrainService extends Service {
 
         @Override
         public void onRequestSuccess(NewTrain newTrain) {
+            Log.d("Fin qui", "ci siamo? seconda richiesta");
+
             for(Fermate f : newTrain.getFermate()){
                 if(f.getId().equals(depStationCode)){
                     Intent i = new Intent(DoubleTrainService.this, StationListActivity.class);
@@ -127,6 +130,8 @@ public class DoubleTrainService extends Service {
 
         @Override
         public void onRequestSuccess(NewTrain newTrain) {
+            Log.d("Fin qui", "ci siamo? terza richiesta");
+
             for(Fermate f : newTrain.getFermate()){
                 if(f.getId().equals(depStationCode)){
                     Intent i = new Intent(DoubleTrainService.this, StationListActivity.class);
