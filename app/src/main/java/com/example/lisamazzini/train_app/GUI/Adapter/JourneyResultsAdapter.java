@@ -2,8 +2,11 @@ package com.example.lisamazzini.train_app.GUI.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcel;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -11,6 +14,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.example.lisamazzini.train_app.Controller.DoubleTrainService;
+import com.example.lisamazzini.train_app.Controller.NotificationPack;
 import com.example.lisamazzini.train_app.Exceptions.DoubleTrainNumberException;
 import com.example.lisamazzini.train_app.GUI.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
@@ -56,26 +60,31 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
                 final Intent intent = new Intent(v.getContext(), NotificationService.class);
                 final Context ctx = v.getContext();
 
-//                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                    @Override
-//                    public boolean onMenuItemClick(MenuItem item) {
-//                        switch (item.getItemId()){
-//                            case R.id.pin:
-//                                Log.d("----OHI--", "Son qui");
-//                                intent.putExtra("number", journeyTrain.getNumber());
-//                                intent.putExtra("time", journeyTrain.getArrivalTime());
-//                                ctx.startService(intent);
-//                                return true;
-//                            case R.id.unpin:
-//                                ctx.startService(intent);
-//                                return true;
-//                            default:
-//                                return false;
-//                        }
-//                    }
-//                });
-//
-//                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.pin:
+                                Log.d("----OHI--", "Son qui");
+                                Parcel p = Parcel.obtain();
+                                p.writeString(journeyTrain.getNumeroTreno());
+                                p.writeString(journeyTrain.getOrigine());
+                                p.writeString(journeyTrain.getOrarioPartenza());
+                                p.writeString(journeyTrain.getDestinazione());
+                                p.writeString(journeyTrain.getOrarioArrivo());
+                                intent.putExtra("information", NotificationPack.CREATOR.createFromParcel(p));
+                                ctx.startService(intent);
+                                return true;
+                            case R.id.unpin:
+                                ctx.stopService(intent);
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+
+                popupMenu.show();
 
             }
         });
