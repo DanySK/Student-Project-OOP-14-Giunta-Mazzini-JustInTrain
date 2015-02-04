@@ -9,6 +9,11 @@ public class PlainSolution {
     private String destinazione;
     private String orarioArrivo;
     private String durata;
+    private String delay;
+    private String IDorigine;
+    private String IDpartenza;
+    private String IDarrivo;
+
 
     public PlainSolution(String categoria, String numeroTreno, String origine, String orarioPartenza, String destinazione, String orarioArrivo, String durata) {
         this.categoria = categoria;
@@ -46,5 +51,37 @@ public class PlainSolution {
 
     public String getDurata() {
         return durata;
+    }
+
+    public void setDelay (Long delay) {
+        this.delay = delay.toString();
+    }
+
+    public String getDelay() {
+        return this.delay;
+    }
+
+    public String getIDorigine() {
+        return IDorigine;
+    }
+
+    public void setIDorigine(String IDorigine) {
+        this.IDorigine = IDorigine;
+    }
+
+    public String getIDpartenza() {
+        return IDpartenza;
+    }
+
+    public void setIDpartenza(String IDpartenza) {
+        this.IDpartenza = IDpartenza;
+    }
+
+    public String getIDarrivo() {
+        return IDarrivo;
+    }
+
+    public void setIDarrivo(String IDarrivo) {
+        this.IDarrivo = IDarrivo;
     }
 }

@@ -1,5 +1,8 @@
 package com.example.lisamazzini.train_app.GUI;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.os.Bundle;
@@ -18,7 +21,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.widget.Toast;
 
+import com.example.lisamazzini.train_app.Controller.TrainDataRequest;
+import com.example.lisamazzini.train_app.Controller.TrainRequest;
+import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
+import com.example.lisamazzini.train_app.Model.Tragitto.Soluzioni;
+import com.example.lisamazzini.train_app.Model.Tragitto.Vehicle;
+import com.example.lisamazzini.train_app.Parser.Fermate;
+import com.example.lisamazzini.train_app.Parser.NewTrain;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
@@ -30,6 +41,7 @@ import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
 import com.example.lisamazzini.train_app.Controller.JourneyResultsController2;
 import com.example.lisamazzini.train_app.Controller.FavouriteJourneyController;
 
+import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 import com.octo.android.robospice.persistence.exception.SpiceException;
@@ -161,11 +173,14 @@ public class MainActivity extends ActionBarActivity
         private List<PlainSolution> flatJourneyTrainsList = new LinkedList<>();
         JourneyResultsController2 controller;
         private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
-
+        List<PlainSolution> plainSolutions = new LinkedList<>();
         private String departureStation;
         private String departureID;
         private String arrivalStation;
         private String arrivalID;
+
+        String[] firstTrainData = new String[]{};
+        String[] secondTrainData = new String[]{};
 
         public static JourneyResultsFragment2 newInstance() {
             return new JourneyResultsFragment2();
@@ -247,9 +262,141 @@ public class MainActivity extends ActionBarActivity
 
             @Override
             public void onRequestSuccess(Tragitto tragitto) {
-                controller.buildPlainSolutions(tragitto);
+//                controller.buildPlainSolutions(tragitto);
+                plainSolutions.clear();
+                for (Soluzioni sol : tragitto.getSoluzioni()) {
+
+                    for (Vehicle vehicle : sol.getVehicles()) {
+                        plainSolutions.add(new PlainSolution(vehicle.getCategoriaDescrizione(), vehicle.getNumeroTreno(),
+                                vehicle.getOrigine(), vehicle.getOraPartenza(), vehicle.getDestinazione(), vehicle.getOraArrivo(),
+                                sol.getDurata()));
+                    }
+                }
+
+
                 journeyResultsAdapter = new JourneyResultsAdapter(controller.getPlainSolutions());
                 recyclerView.setAdapter(journeyResultsAdapter);
+                for (PlainSolution p : plainSolutions) {
+                     spiceManager.execute(new TrainDataRequest(p.getNumeroTreno()), new CoseListener());
+                }
+            }
+
+        }
+
+//        private class DepartureDataRequestListenter implements RequestListener<String> {
+//
+//            @Override
+//            public void onRequestFailure(SpiceException spiceException) {
+//            }
+//
+//            @Override
+//            public void onRequestSuccess(String s) {
+//                depStationCode = s.split("\\|")[1];
+//                spiceManager.execute(new TrainDataRequest(trainNumber), new CoseListener());
+//
+//            }
+//        }
+
+        private class CoseListener implements RequestListener<String>{
+
+            @Override
+            public void onRequestFailure(SpiceException spiceException) {
+
+            }
+
+            @Override
+            public void onRequestSuccess(String s) {
+                Log.d("Fin qui", "ci siamo? prima richiesta");
+                String[] data = s.split(Constants.SEPARATOR);
+                if(data.length == 1){
+                    String[] values = Utilities.splitString(data[0]);
+//                    Intent i = new Intent(DoubleTrainService.this, StationListActivity.class);
+//                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    i.putExtra("trainNumber", values[0]);
+//                    i.putExtra("stationCode", values[1]);
+//                    startActivity(i);
+//                    onDestroy();
+                    spiceManager.execute(new TrainRequest(values[0], values[1]), new AnotherListener());
+                }
+                else{
+                    firstTrainData = Utilities.splitString(data[0]);
+                    secondTrainData = Utilities.splitString(data[1]);
+
+                    spiceManager.execute(new TrainRequest(firstTrainData[0], firstTrainData[1]), new AltreCoseListener());
+                }
+            }
+        }
+
+        private class AnotherListener implements RequestListener<NewTrain>{
+
+            @Override
+            public void onRequestFailure(SpiceException spiceException) {
+
+            }
+
+
+            @Override
+            public void onRequestSuccess(NewTrain train) {
+                for (PlainSolution p : plainSolutions) {
+                    p.setDelay(train.getRitardo());
+                    p.setIDpartenza(departureID);
+                    p.setIDarrivo(arrivalID);
+                    p.setIDorigine(train.getIdOrigine());
+                }
+                journeyResultsAdapter.notifyDataSetChanged();
+            }
+        }
+
+        private class AltreCoseListener implements RequestListener<NewTrain> {
+
+            @Override
+            public void onRequestFailure(SpiceException spiceException) {
+
+            }
+
+            @Override
+            public void onRequestSuccess(NewTrain train) {
+                Log.d("Fin qui", "ci siamo? seconda richiesta");
+
+                for (Fermate f : train.getFermate()) {
+                    if (f.getId().equals(departureID)) {
+                        for (PlainSolution p : plainSolutions) {
+                            p.setDelay(train.getRitardo());
+                            p.setIDpartenza(departureID);
+                            p.setIDarrivo(arrivalID);
+                            p.setIDorigine(train.getIdOrigine());
+                        }
+                        journeyResultsAdapter.notifyDataSetChanged();
+                        return;
+                    }
+                    spiceManager.execute(new TrainRequest(secondTrainData[0], secondTrainData[1]), new AncoraAltreCoseListener());
+                }
+            }
+        }
+
+        private class AncoraAltreCoseListener implements RequestListener<NewTrain>{
+
+            @Override
+            public void onRequestFailure(SpiceException spiceException) {
+
+            }
+
+            @Override
+            public void onRequestSuccess(NewTrain train) {
+                Log.d("Fin qui", "ci siamo? terza richiesta");
+
+                for(Fermate f : train.getFermate()){
+                    if(f.getId().equals(departureID)){
+                        for (PlainSolution p : plainSolutions) {
+                            p.setDelay(train.getRitardo());
+                            p.setIDpartenza(departureID);
+                            p.setIDarrivo(arrivalID);
+                            p.setIDorigine(train.getIdOrigine());
+                        }
+                        journeyResultsAdapter.notifyDataSetChanged();
+                        return;
+                    }
+                }
             }
         }
 
