@@ -34,12 +34,10 @@ public class DoubleTrainService extends Service {
         trainNumber = intent.getStringExtra("trainNumber");
         depStation = intent.getStringExtra("depStation");
 
-        spiceManager.execute(new JourneyDataRequest(this.depStationCode), new DepartureDataRequestListenter());
+        spiceManager.execute(new JourneyDataRequest(this.depStation), new DepartureDataRequestListenter());
 
         spiceManager.start(this);
         return START_STICKY;
-
-
     }
 
     @Override
@@ -62,7 +60,7 @@ public class DoubleTrainService extends Service {
 
         @Override
         public void onRequestSuccess(String s) {
-            depStationCode = s.split("\\|S")[1];
+            depStationCode = s.split("\\|")[1];
             spiceManager.execute(new TrainDataRequest(trainNumber), new CoseListener());
 
         }
@@ -82,6 +80,7 @@ public class DoubleTrainService extends Service {
             if(data.length == 1){
                 String[] values = Utilities.splitString(data[0]);
                 Intent i = new Intent(DoubleTrainService.this, StationListActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.putExtra("trainNumber", values[0]);
                 i.putExtra("stationCode", values[1]);
                 startActivity(i);
@@ -110,7 +109,8 @@ public class DoubleTrainService extends Service {
             for(Fermate f : newTrain.getFermate()){
                 if(f.getId().equals(depStationCode)){
                     Intent i = new Intent(DoubleTrainService.this, StationListActivity.class);
-                    i.putExtra("trainNumber", newTrain.getNumeroTreno());
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.putExtra("trainNumber", newTrain.getNumeroTreno().toString());
                     i.putExtra("stationCode", newTrain.getIdOrigine());
                     startActivity(i);
                     onDestroy();
@@ -135,7 +135,8 @@ public class DoubleTrainService extends Service {
             for(Fermate f : newTrain.getFermate()){
                 if(f.getId().equals(depStationCode)){
                     Intent i = new Intent(DoubleTrainService.this, StationListActivity.class);
-                    i.putExtra("trainNumber", newTrain.getNumeroTreno());
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.putExtra("trainNumber", newTrain.getNumeroTreno().toString());
                     i.putExtra("stationCode", newTrain.getIdOrigine());
                     startActivity(i);
                     onDestroy();
