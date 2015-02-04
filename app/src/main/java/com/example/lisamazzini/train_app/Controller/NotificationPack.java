@@ -4,8 +4,15 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
+ *
+ * This is a "pack" of information that the NotificationService needs to update the Notification;
+ * Instead of a large number of intents, we created this Parcelable that can be passed as a single
+ * object through a intent.
+ *
  * Created by lisamazzini on 04/02/15.
  */
+
+
 public class NotificationPack implements Parcelable {
 
     private final String number;

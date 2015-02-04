@@ -24,17 +24,14 @@ import java.util.Calendar;
 public class NotificationService extends Service {
 
     private NotificationPack information;
-    private String depStationCode;
-    private NewTrain currentStateTrain;
-    private String firstTrainData[];
-    private String secondTrainData[];
-//    private RemoteViews view;
+    //This is the intent to refresh the Notification, that will start the service again
     private PendingIntent pIntentRefresh;
+    //This is the intent to stop the service
     private PendingIntent pIntentClose;
+    //This will be the intent to refresh automatically the service, one day
     private PendingIntent pIntentAutorefresh;
     private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
     private AlarmManager am;
-    private Calendar calendar = Calendar.getInstance();
 
 
     @Override
@@ -47,17 +44,15 @@ public class NotificationService extends Service {
     @Override
     public int onStartCommand (Intent intent, int flags, int startId){
 
-        Intent intentRefresh = new Intent(this, ButtonListener.class);
-        intentRefresh.setAction("Aggiorna");
-
+        // Here I have all the information needed for the Notification (see more @NotificationPack)
         information = intent.getExtras().getParcelable("information");
 
-//        Integer hour = Integer.parseInt(this.time.split(":")[0]);
-//        Integer minute = Integer.parseInt(this.time.split(":")[1]) - 15;
-//        am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-
+        //Here I set the data for the refresh intent (so the data will be the same)
+        Intent intentRefresh = new Intent(this, ButtonListener.class);
+        intentRefresh.setAction("Aggiorna");
         intentRefresh.putExtra("information" , information);
 
+        //Here I set the close intent, just adding the action.
         Intent intentClose = new Intent(this, ButtonListener.class);
         intentClose.setAction("Elimina");
 
@@ -65,22 +60,25 @@ public class NotificationService extends Service {
         pIntentClose = PendingIntent.getBroadcast(this, 1, intentClose, PendingIntent.FLAG_UPDATE_CURRENT);
         pIntentAutorefresh = PendingIntent.getBroadcast(this, 1, intentRefresh, PendingIntent.FLAG_UPDATE_CURRENT);
 
+//        Integer hour = Integer.parseInt(this.time.split(":")[0]);
+//        Integer minute = Integer.parseInt(this.time.split(":")[1]) - 15;
+//        am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+
+
+
+
 //        calendar.set(Calendar.HOUR_OF_DAY, hour);
 //        calendar.set(Calendar.MINUTE, minute);
 //        calendar.set(Calendar.SECOND, 0);
 //        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pIntentAutorefresh);
 
         spiceManager = new SpiceManager(UncachedSpiceService.class);
+
+        //
         spiceManager.execute(new TrainRequest(information.getNumber(), information.getIDorigine()), new ResultListener());
         // TrainRequest request = new TrainRequest(this.number);
         //spiceManager.execute(request, new TrainRequestListener());
 
-
-
-        //  view = new RemoteViews(getPackageName(), R.layout.layout_notification);
-
-
-        Log.d("OOOOOOOOOOOOOOOOOOOO", "On start command" + intent.getStringExtra("number"));
         spiceManager.start(this);
         return START_STICKY;
     }
@@ -101,30 +99,31 @@ public class NotificationService extends Service {
 
         @Override
         public void onRequestSuccess(NewTrain train) {
-            currentStateTrain = train;
+
             NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
-            Log.d("OOOOOOOOOOOOOOOOOOOO", "On post execute");
             Notification not;
 
-            if(!currentStateTrain.getNonPartito()) {
+            //If the train is not departed yet the notification will show the data
+            if(!train.getNonPartito()) {
                 not = builder//.setContent(view)
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setOngoing(true)
                         .addAction(R.drawable.ic_launcher, "Aggiorna", pIntentRefresh)
                         .addAction(R.drawable.ic_launcher, "Elimina", pIntentClose)
                         .setStyle(new NotificationCompat.InboxStyle()
-                                .setBigContentTitle("Treno" + currentStateTrain.getNumeroTreno())
-                                .addLine("Ritardo " + currentStateTrain.getRitardo())
-                                .addLine("Ultimo avvistamento" + currentStateTrain.getStazioneUltimoRilevamento())
-                                .addLine("Ore " + currentStateTrain.getCompOraUltimoRilevamento()))
+                                .setBigContentTitle("Treno" + train.getNumeroTreno())
+                                .addLine("Ritardo " + train.getRitardo())
+                                .addLine("Ultimo avvistamento" + train.getStazioneUltimoRilevamento())
+                                .addLine("Ore " + train.getCompOraUltimoRilevamento()))
                         .build();
+            //Else, the notification is empty
             }else{
                 not = builder.setSmallIcon(R.drawable.ic_launcher)
                                         .setOngoing(true)
                                         .addAction(R.drawable.ic_launcher, "Aggiorna", pIntentRefresh)
                                         .addAction(R.drawable.ic_launcher, "Elimina", pIntentClose)
                                         .setStyle(new NotificationCompat.InboxStyle()
-                                                .setBigContentTitle("Treno " + currentStateTrain.getNumeroTreno())
+                                                .setBigContentTitle("Treno " + train.getNumeroTreno())
                                                 .addLine("Arrivato o non ancora partito"))
                                         .build();
 

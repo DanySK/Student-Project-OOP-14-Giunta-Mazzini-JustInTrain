@@ -175,14 +175,12 @@ public class StationListActivity extends Activity{
 
                                 switch (which) {
                                     case 0:
-                                        Log.d("Cosa", Arrays.toString(firstChoiceData));
                                         trainDetails = firstChoiceData;
                                         listController.setCode(firstChoiceData[1]);
                                         spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
                                         dialog.dismiss();
                                         break;
                                     case 1:
-                                        Log.d("Cosa2", Arrays.toString(secondChoiceData));
                                         trainDetails = secondChoiceData;
                                         listController.setCode(secondChoiceData[1]);
                                         spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
@@ -220,9 +218,9 @@ public class StationListActivity extends Activity{
         @Override
         public void onRequestSuccess(NewTrain trainResponse) {
 
-                tData.setText(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
-                stationList.setAdapter(new StationListAdapter(trainResponse.getFermate()));
-                bFavourite.setVisibility(View.VISIBLE);
+            tData.setText(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
+            stationList.setAdapter(new StationListAdapter(trainResponse.getFermate()));
+            bFavourite.setVisibility(View.VISIBLE);
 
         }
     }

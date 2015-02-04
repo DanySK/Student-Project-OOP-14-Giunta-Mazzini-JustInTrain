@@ -1,8 +1,6 @@
 package com.example.lisamazzini.train_app.GUI;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
+
 import android.util.Log;
 import android.view.View;
 import android.os.Bundle;
@@ -21,11 +19,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.widget.Toast;
-
 import com.example.lisamazzini.train_app.Controller.TrainDataRequest;
 import com.example.lisamazzini.train_app.Controller.TrainRequest;
-import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.Model.Tragitto.Soluzioni;
 import com.example.lisamazzini.train_app.Model.Tragitto.Vehicle;
 import com.example.lisamazzini.train_app.Parser.Fermate;
