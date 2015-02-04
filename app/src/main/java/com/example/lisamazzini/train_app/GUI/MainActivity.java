@@ -170,7 +170,6 @@ public class MainActivity extends ActionBarActivity
         private RecyclerView recyclerView;
         private LinearLayoutManager manager;
         private JourneyResultsAdapter journeyResultsAdapter;
-        private List<PlainSolution> flatJourneyTrainsList = new LinkedList<>();
         JourneyResultsController2 controller;
         private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
         List<PlainSolution> plainSolutions = new LinkedList<>();
@@ -179,8 +178,6 @@ public class MainActivity extends ActionBarActivity
         private String arrivalStation;
         private String arrivalID;
 
-        String[] firstTrainData = new String[]{};
-        String[] secondTrainData = new String[]{};
 
         public static JourneyResultsFragment2 newInstance() {
             return new JourneyResultsFragment2();
@@ -198,7 +195,8 @@ public class MainActivity extends ActionBarActivity
             recyclerView = (RecyclerView)layoutInflater.findViewById(R.id.cardListFragment);
 
             this.manager = new LinearLayoutManager(getActivity());
-            this.journeyResultsAdapter = new JourneyResultsAdapter(this.flatJourneyTrainsList);
+//            this.journeyResultsAdapter = new JourneyResultsAdapter(this.flatJourneyTrainsList);
+            this.journeyResultsAdapter = new JourneyResultsAdapter(this.plainSolutions);
 
             recyclerView.setLayoutManager(manager);
             recyclerView.setAdapter(journeyResultsAdapter);
@@ -221,6 +219,8 @@ public class MainActivity extends ActionBarActivity
             spiceManager.execute(new JourneyRequest(departureID, arrivalID), new JourneyRequestListener());
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////
+
         private class DepartureDataRequestListenter implements RequestListener<String> {
 
             @Override
@@ -236,6 +236,8 @@ public class MainActivity extends ActionBarActivity
                 spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
             }
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////
 
         private class ArrivalDataRequestListener implements RequestListener<String> {
 
@@ -253,6 +255,8 @@ public class MainActivity extends ActionBarActivity
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////
+
         private class JourneyRequestListener implements RequestListener<Tragitto> {
 
             @Override
@@ -262,144 +266,14 @@ public class MainActivity extends ActionBarActivity
 
             @Override
             public void onRequestSuccess(Tragitto tragitto) {
-//                controller.buildPlainSolutions(tragitto);
-                plainSolutions.clear();
-                for (Soluzioni sol : tragitto.getSoluzioni()) {
-
-                    for (Vehicle vehicle : sol.getVehicles()) {
-                        plainSolutions.add(new PlainSolution(vehicle.getCategoriaDescrizione(), vehicle.getNumeroTreno(),
-                                vehicle.getOrigine(), vehicle.getOraPartenza(), vehicle.getDestinazione(), vehicle.getOraArrivo(),
-                                sol.getDurata()));
-                    }
-                }
-
-
+                controller.buildPlainSolutions(tragitto);
                 journeyResultsAdapter = new JourneyResultsAdapter(controller.getPlainSolutions());
-                recyclerView.setAdapter(journeyResultsAdapter);
-                for (PlainSolution p : plainSolutions) {
-                    Log.d("cosa sta succedendo", "" + p.getNumeroTreno());
-                     spiceManager.execute(new TrainDataRequest(p.getNumeroTreno()), new CoseListener());
-                }
-            }
-
-        }
-
-//        private class DepartureDataRequestListenter implements RequestListener<String> {
-//
-//            @Override
-//            public void onRequestFailure(SpiceException spiceException) {
-//            }
-//
-//            @Override
-//            public void onRequestSuccess(String s) {
-//                depStationCode = s.split("\\|")[1];
-//                spiceManager.execute(new TrainDataRequest(trainNumber), new CoseListener());
-//
-//            }
-//        }
-
-        private class CoseListener implements RequestListener<String>{
-
-            @Override
-            public void onRequestFailure(SpiceException spiceException) {
-
-            }
-
-            @Override
-            public void onRequestSuccess(String s) {
-                Log.d("Fin qui", "ci siamo? prima richiesta");
-                String[] data = s.split(Constants.SEPARATOR);
-                if(data.length == 1){
-                    String[] values = Utilities.splitString(data[0]);
-//                    Intent i = new Intent(DoubleTrainService.this, StationListActivity.class);
-//                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    i.putExtra("trainNumber", values[0]);
-//                    i.putExtra("stationCode", values[1]);
-//                    startActivity(i);
-//                    onDestroy();
-                    spiceManager.execute(new TrainRequest(values[0], values[1]), new AnotherListener());
-                }
-                else{
-                    firstTrainData = Utilities.splitString(data[0]);
-                    secondTrainData = Utilities.splitString(data[1]);
-
-                    spiceManager.execute(new TrainRequest(firstTrainData[0], firstTrainData[1]), new AltreCoseListener());
-                }
+                  recyclerView.setAdapter(journeyResultsAdapter);
+                  journeyResultsAdapter.notifyDataSetChanged();
             }
         }
 
-        private class AnotherListener implements RequestListener<NewTrain>{
 
-            @Override
-            public void onRequestFailure(SpiceException spiceException) {
-
-            }
-
-
-            @Override
-            public void onRequestSuccess(NewTrain train) {
-                for (PlainSolution p : plainSolutions) {
-                    p.setDelay(train.getRitardo());
-                    p.setIDpartenza("S" + departureID);
-                    p.setIDarrivo("S" + arrivalID);
-                    p.setIDorigine(train.getIdOrigine());
-                }
-                journeyResultsAdapter.notifyDataSetChanged();
-            }
-        }
-
-        private class AltreCoseListener implements RequestListener<NewTrain> {
-
-            @Override
-            public void onRequestFailure(SpiceException spiceException) {
-
-            }
-
-            @Override
-            public void onRequestSuccess(NewTrain train) {
-                Log.d("Fin qui", "ci siamo? seconda richiesta");
-
-                for (Fermate f : train.getFermate()) {
-                    if (f.getId().equals("S" + departureID)) {
-                        for (PlainSolution p : plainSolutions) {
-                            p.setDelay(train.getRitardo());
-                            p.setIDpartenza("S" + departureID);
-                            p.setIDarrivo("S" + arrivalID);
-                            p.setIDorigine(train.getIdOrigine());
-                        }
-                        journeyResultsAdapter.notifyDataSetChanged();
-                        return;
-                    }
-                    spiceManager.execute(new TrainRequest(secondTrainData[0], secondTrainData[1]), new AncoraAltreCoseListener());
-                }
-            }
-        }
-
-        private class AncoraAltreCoseListener implements RequestListener<NewTrain>{
-
-            @Override
-            public void onRequestFailure(SpiceException spiceException) {
-
-            }
-
-            @Override
-            public void onRequestSuccess(NewTrain train) {
-                Log.d("Fin qui", "ci siamo? terza richiesta");
-
-                for(Fermate f : train.getFermate()){
-                    if(f.getId().equals("S" + departureID)){
-                        for (PlainSolution p : plainSolutions) {
-                            p.setDelay(train.getRitardo());
-                            p.setIDpartenza("S" + departureID);
-                            p.setIDarrivo("S" + arrivalID);
-                            p.setIDorigine(train.getIdOrigine());
-                        }
-                        journeyResultsAdapter.notifyDataSetChanged();
-                        return;
-                    }
-                }
-            }
-        }
 
         @Override
         public void onAttach(Activity activity) {

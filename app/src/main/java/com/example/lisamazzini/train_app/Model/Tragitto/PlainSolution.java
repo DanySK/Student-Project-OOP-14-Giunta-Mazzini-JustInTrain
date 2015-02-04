@@ -9,10 +9,10 @@ public class PlainSolution {
     private String destinazione;
     private String orarioArrivo;
     private String durata;
-    private String delay;
-    private String IDorigine;
-    private String IDpartenza;
-    private String IDarrivo;
+    private String delay = "";
+    private String IDorigine = "";
+    private String IDpartenza = "";
+    private String IDarrivo = "";
 
 
     public PlainSolution(String categoria, String numeroTreno, String origine, String orarioPartenza, String destinazione, String orarioArrivo, String durata) {

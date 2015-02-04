@@ -51,7 +51,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         journeyViewHolder.departureTime.setText(journeyTrain.getOrarioPartenza());
         journeyViewHolder.arrivalStation.setText(journeyTrain.getDestinazione());
         journeyViewHolder.arrivalTime.setText(journeyTrain.getOrarioArrivo());
-//        journeyViewHolder.delay.setText("" + journeyTrain.);
+        journeyViewHolder.delay.setText(journeyTrain.getDelay());
         journeyViewHolder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +106,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         protected TextView departureTime;
         protected TextView arrivalStation;
         protected TextView arrivalTime;
-        //        protected TextView delay;
+        protected TextView delay;
         protected Button menu;
 
         public JourneyViewHolder(View v) {
@@ -119,7 +119,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
             departureTime = (TextView) v.findViewById(R.id.departureTime);
             arrivalStation = (TextView) v.findViewById(R.id.arrivalStation);
             arrivalTime = (TextView) v.findViewById(R.id.arrivalTime);
-//            delay = (TextView) v.findViewById(R.id.tvSetDelay);
+            delay = (TextView) v.findViewById(R.id.delay);
             menu = (Button)v.findViewById(R.id.btnOpt);
         }
 
