@@ -4,12 +4,14 @@ import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.NotificationPack;
 import com.example.lisamazzini.train_app.Controller.TrainRequest;
 import com.example.lisamazzini.train_app.Parser.NewTrain;
@@ -89,12 +91,11 @@ public class NotificationService extends Service {
     }
 
 
-    private class ResultListener implements RequestListener<NewTrain> {
+    private class ResultListener extends AbstractListener<NewTrain> {
+
         @Override
-        public void onRequestFailure(SpiceException spiceException) {
-            Toast.makeText(NotificationService.this,
-                    "Error: " + spiceException.getMessage(), Toast.LENGTH_SHORT)
-                    .show();
+        public Context getContext() {
+            return NotificationService.this;
         }
 
         @Override

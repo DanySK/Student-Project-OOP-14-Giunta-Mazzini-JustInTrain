@@ -1,19 +1,15 @@
-package com.example.lisamazzini.train_app.Parser;
+package com.example.lisamazzini.train_app.Network;
 
 import com.squareup.okhttp.OkHttpClient;
 
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 
-/**
- * Created by lisamazzini on 02/02/15.
- */
 public class RestClientTrain {
 
 
         private static InterfacciaAPI REST_CLIENT_LISA;
-        private static String ROOT =
-                "http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno";
+        private static String ROOT = "http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno";
 
         static {
             setupRestClientLisa();

@@ -1,14 +1,13 @@
 package com.example.lisamazzini.train_app.GUI;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,30 +15,16 @@ import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
+import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.StationListController;
-import com.example.lisamazzini.train_app.Controller.TrainDataRequest;
-import com.example.lisamazzini.train_app.Controller.TrainRequest;
 import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Parser.Fermate;
 import com.example.lisamazzini.train_app.Parser.NewTrain;
-import com.example.lisamazzini.train_app.Parser.RestClientTrain;
 import com.example.lisamazzini.train_app.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
-
-import org.jsoup.Connection;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.Arrays;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * Created by lisamazzini on 22/01/15.
@@ -108,29 +93,7 @@ public class StationListActivity extends Activity{
     }
 
 
-    private class TrainAndStationsRequestListener implements RequestListener<String> {
-
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(StationListActivity.this);
-
-        //If there's no internet connection
-        @Override
-        public void onRequestFailure(final SpiceException spiceException) {
-            dialogBuilder.setTitle("Problemi di connessione")
-                    .setMessage("Controllare la propria connessione internet, patacca")
-                    .setNeutralButton("Ok" , new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(StationListActivity.this, MainActivity.class);
-                            startActivity(intent);
-                        }
-                    }).show();
-
-            Toast.makeText(StationListActivity.this,
-                    "Error: " + spiceException.getMessage(), Toast.LENGTH_SHORT)
-                    .show();
-        }
-
-
+    private class TrainAndStationsRequestListener extends AbstractListener<String> {
         //If there's internet connection I get the train details in this form  '608 - LECCE|608-S11145'
         @Override
         public void onRequestSuccess(final String data) {
@@ -193,26 +156,18 @@ public class StationListActivity extends Activity{
                 }
             }
         }
+
+        @Override
+        public Context getContext() {
+            return StationListActivity.this;
+        }
     }
 
-    private class AnotherListener implements RequestListener<NewTrain>{
+    private class AnotherListener extends AbstractListener<NewTrain>{
 
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(StationListActivity.this);
         @Override
-        public void onRequestFailure(SpiceException spiceException) {
-            dialogBuilder.setTitle("Problemi di connessione")
-                    .setMessage("Controllare la propria connessione internet, patacca")
-                    .setNeutralButton("Ok" , new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(StationListActivity.this, MainActivity.class);
-                            startActivity(intent);
-                        }
-                    }).show();
-
-            Toast.makeText(StationListActivity.this,
-                    "Error: " + spiceException.getMessage(), Toast.LENGTH_SHORT)
-                    .show();
+        public Context getContext() {
+            return StationListActivity.this;
         }
 
 

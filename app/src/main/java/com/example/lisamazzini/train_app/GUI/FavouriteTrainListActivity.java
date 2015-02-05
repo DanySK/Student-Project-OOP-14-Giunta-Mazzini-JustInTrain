@@ -1,34 +1,21 @@
 package com.example.lisamazzini.train_app.GUI;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.example.lisamazzini.train_app.*;
+import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.FavouriteTrainListController;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
-import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
-import com.example.lisamazzini.train_app.Controller.TrainRequest;
 import com.example.lisamazzini.train_app.GUI.Adapter.FavTrainAdapter;
-import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
-import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Model.Train;
-import com.example.lisamazzini.train_app.Notification.NotificationService;
 import com.example.lisamazzini.train_app.Parser.NewTrain;
-import com.example.lisamazzini.train_app.Parser.RestClientTrain;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -37,6 +24,9 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+/**
+ * Created by lisamazzini on 22/01/15.
+ */
 public class FavouriteTrainListActivity extends Activity{
 
     private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
@@ -80,12 +70,11 @@ public class FavouriteTrainListActivity extends Activity{
     }
 
 
-    private class TrainRequestListener implements RequestListener<NewTrain> {
+    private class TrainRequestListener extends AbstractListener<NewTrain> {
+
         @Override
-        public void onRequestFailure(SpiceException spiceException) {
-            Toast.makeText(FavouriteTrainListActivity.this,
-                    "Error: " + spiceException.getMessage(), Toast.LENGTH_SHORT)
-                    .show();
+        public Context getContext() {
+            return FavouriteTrainListActivity.this;
         }
 
         @Override
