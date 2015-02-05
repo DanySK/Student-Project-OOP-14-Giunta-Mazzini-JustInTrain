@@ -20,7 +20,7 @@
 
         <service android:name=".Notification.NotificationService" android:exported="false"/>
 
-        <service android:name=".Controller.DoubleTrainService" android:exported="false"/>
+        <!--<service android:name=".Controller.DoubleTrainService" android:exported="false"/>-->
 
 
         <receiver android:name=".Notification.ButtonListener" android:exported="true"></receiver>

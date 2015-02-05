@@ -6,7 +6,7 @@ import com.example.lisamazzini.train_app.Model.Constants;
 
 public class FavouriteTrainController extends AbstractFavouriteController {
 
-    private static final FavouriteTrainController ADDER = new FavouriteTrainController();
+    private final static FavouriteTrainController ADDER = new FavouriteTrainController();
 
     private FavouriteTrainController() {}
 

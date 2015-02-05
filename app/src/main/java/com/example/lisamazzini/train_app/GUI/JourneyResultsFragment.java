@@ -58,8 +58,8 @@ public class JourneyResultsFragment extends Fragment {
         recyclerView = (RecyclerView)layoutInflater.findViewById(R.id.cardListFragment);
 
         this.manager = new LinearLayoutManager(getActivity());
-//            this.journeyResultsAdapter = new JourneyResultsAdapter(this.flatJourneyTrainsList);
         this.journeyResultsAdapter = new JourneyResultsAdapter(new LinkedList<PlainSolution>());
+        journeyResultsAdapter.notifyDataSetChanged();
 
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(journeyResultsAdapter);
@@ -152,10 +152,6 @@ public class JourneyResultsFragment extends Fragment {
             journeyResultsAdapter.notifyDataSetChanged();
         }
     }
-
-
-
-
 
     @Override
     public void onAttach(Activity activity) {

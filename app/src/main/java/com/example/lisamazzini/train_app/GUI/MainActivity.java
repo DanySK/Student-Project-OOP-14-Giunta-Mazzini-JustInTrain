@@ -1,5 +1,6 @@
 package com.example.lisamazzini.train_app.GUI;
 
+import android.util.Log;
 import android.view.View;
 import android.os.Bundle;
 import android.view.Menu;
@@ -106,6 +107,7 @@ public class MainActivity extends ActionBarActivity
             @Override
             public boolean onNavigationItemSelected(int position, long l) {
                 String[] IDs = finalJourneys.get(1).get(position).split(Constants.SEPARATOR);
+                Log.d("cazzi", "faccio richieste con " + IDs[0] + " " + IDs[1]);
                 fragment.makeRequestsWithIDs(IDs[0], IDs[1]);
                 return true;
             }

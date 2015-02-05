@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class FavouriteJourneyController extends AbstractFavouriteController{
 
-    private final static FavouriteJourneyController ADDER = new FavouriteJourneyController();
+    private static final FavouriteJourneyController ADDER = new FavouriteJourneyController();
 
     private FavouriteJourneyController() {}
 
