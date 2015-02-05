@@ -129,10 +129,10 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
 
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(v.getContext(), DoubleTrainService.class);
+            Intent i = new Intent(v.getContext(), StationListActivity.class);
             i.putExtra("trainNumber", this.number.getText().toString());
             i.putExtra("stationCode", this.stationCode);
-            v.getContext().startService(i);
+            v.getContext().startActivity(i);
         }
     }
 
