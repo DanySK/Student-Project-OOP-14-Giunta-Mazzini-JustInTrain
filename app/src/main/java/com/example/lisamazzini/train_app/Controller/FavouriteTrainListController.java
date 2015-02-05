@@ -4,9 +4,6 @@ import com.example.lisamazzini.train_app.Model.Constants;
 
 import java.util.*;
 
-/**
- * Created by lisamazzini on 22/01/15.
- */
 public class FavouriteTrainListController {
 
     private final Iterator<String> iterator;
@@ -23,9 +20,9 @@ public class FavouriteTrainListController {
         return iterator.next();
     }
 
-    public TrainRequest getRequest(){
+    public TrainRequest getRequest() {
         String[] favData = getFavourite().split(Constants.SEPARATOR);
         return new TrainRequest(favData[0], favData[1]);
-    }
 
+    }
 }

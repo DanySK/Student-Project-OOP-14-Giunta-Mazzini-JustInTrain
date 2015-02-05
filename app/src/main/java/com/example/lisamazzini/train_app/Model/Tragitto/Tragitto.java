@@ -52,25 +52,4 @@ public class Tragitto {
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
-
-    public class JourneyList extends ArrayList<Soluzioni> {
-
-        private ArrayList<Soluzioni> journeyTrain;
-        private int timeSlot;
-
-        public JourneyList(ArrayList<Soluzioni> list, int timeSlot) {
-            this.journeyTrain = list;
-            this.timeSlot = timeSlot;
-        }
-
-        public ArrayList<Soluzioni> getList() {
-            return this.journeyTrain;
-        }
-
-        public int getTimeSlot() {
-            return this.timeSlot-1;
-        }
-
-        // TODO va aggiunto il currentTimeSlot al tragitto
-    }
 }

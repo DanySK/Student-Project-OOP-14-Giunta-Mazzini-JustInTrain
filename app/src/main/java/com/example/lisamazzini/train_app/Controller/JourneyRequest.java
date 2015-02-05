@@ -18,8 +18,10 @@ public class JourneyRequest extends SpiceRequest<Tragitto> {
 
     @Override
     public Tragitto loadDataFromNetwork() throws Exception {
-        return JourneyRestClient.get().getJourneys(departureID, arrivalID, "2015-02-01T00:00:00");
+        Tragitto tragitto = JourneyRestClient.get().getJourneys(departureID, arrivalID, "2015-02-01T00:00:00");
 
+
+        return tragitto;
     }
 
 }

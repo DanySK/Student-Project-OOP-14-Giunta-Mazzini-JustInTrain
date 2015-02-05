@@ -26,38 +26,6 @@ public class JourneyResultsController2 {
         this.time = time;
     }
 
-    public void makeRequests() {
-//        final CountDownLatch latch = new CountDownLatch(1);
-//        Thread thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                tragitto = JourneyRestClient.get().getJourneys("7104", "5066", "2015-02-01T00:00:00");
-//                latch.countDown();
-//            }
-//        });
-//        thread.start();
-//        try {
-//            latch.await();
-//            buildPlainSolutions(tragitto);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-
-
-
-//        JourneyRestClient.get().getJourneys("7104", "5066", "2015-02-01T00:00:00", new Callback<Tragitto>() {
-//            @Override
-//            public void success(Tragitto journeys, Response response) {
-//                buildPlainSolutions(journeys);
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//                Log.d("cazzi", "" + error.getMessage());
-//            }
-//        });
-    }
-
     public void buildPlainSolutions(Tragitto tragitto) {
         plainSolutions.clear();
         for (Soluzioni sol : tragitto.getSoluzioni()) {
@@ -72,6 +40,7 @@ public class JourneyResultsController2 {
 
     public List<PlainSolution> getPlainSolutions() {
         Log.d("cazzi", " get " + plainSolutions.size());
-        return this.plainSolutions;
+
+        return this.plainSolutions.subList(0, 5);
     }
 }

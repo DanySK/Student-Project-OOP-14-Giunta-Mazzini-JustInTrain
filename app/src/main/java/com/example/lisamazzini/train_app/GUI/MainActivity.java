@@ -1,7 +1,5 @@
 package com.example.lisamazzini.train_app.GUI;
 
-
-import android.util.Log;
 import android.view.View;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,49 +12,29 @@ import android.widget.SpinnerAdapter;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.DefaultItemAnimator;
-import com.example.lisamazzini.train_app.Controller.TrainDataRequest;
-import com.example.lisamazzini.train_app.Controller.TrainRequest;
-import com.example.lisamazzini.train_app.Model.Tragitto.Soluzioni;
-import com.example.lisamazzini.train_app.Model.Tragitto.Vehicle;
-import com.example.lisamazzini.train_app.Parser.Fermate;
-import com.example.lisamazzini.train_app.Parser.NewTrain;
+
+import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
+import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
-import com.example.lisamazzini.train_app.Controller.JourneyRequest;
-import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
-import com.example.lisamazzini.train_app.Controller.JourneyDataRequest;
-import com.example.lisamazzini.train_app.GUI.Adapter.JourneyResultsAdapter;
-import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
-import com.example.lisamazzini.train_app.Controller.JourneyResultsController2;
-import com.example.lisamazzini.train_app.Controller.FavouriteJourneyController;
 
-import com.example.lisamazzini.train_app.Utilities;
-import com.octo.android.robospice.SpiceManager;
-import com.octo.android.robospice.UncachedSpiceService;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
-    ArrayList<String> journeys;
+    private ArrayList<String> journeys;
 
-    SpinnerAdapter spinnerAdapter;
-    JourneyResultsFragment2 fragment;
-    FavouriteJourneyController favouriteJourneyController;
-    ActionBar.OnNavigationListener navigationListener;
+    private SpinnerAdapter spinnerAdapter;
+    private JourneyResultsFragment fragment;
+    private IFavouriteController favouriteJourneyController = FavouriteJourneyController.getInstance();
+    private ActionBar.OnNavigationListener navigationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +44,10 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
-        favouriteJourneyController = new FavouriteJourneyController(MainActivity.this);
-        favouriteJourneyController.removeAll();
-        favouriteJourneyController.setAsFavourite("pesaro", "7104", "cesena", "5066");
-        favouriteJourneyController.setAsFavourite("pesaro", "7104", "lecce", "11145");
+        favouriteJourneyController.setContext(getApplicationContext());
+        favouriteJourneyController.removeFavourites();
+        favouriteJourneyController.addFavourite("pesaro", "7104", "cesena", "5066");
+        favouriteJourneyController.addFavourite("pesaro", "7104", "lecce", "11145");
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
@@ -77,8 +55,8 @@ public class MainActivity extends ActionBarActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, JourneyResultsFragment2.newInstance());
-        fragment = (JourneyResultsFragment2)getSupportFragmentManager().findFragmentById(R.id.journeyResultsFragment);
+        fragmentManager.beginTransaction().replace(R.id.container, JourneyResultsFragment.newInstance());
+        fragment = (JourneyResultsFragment)getSupportFragmentManager().findFragmentById(R.id.journeyResultsFragment);
     }
 
 
@@ -111,7 +89,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void restoreActionBar() {
-        journeys = new ArrayList<String>(favouriteJourneyController.getFavourites());
+        journeys = new ArrayList<String>(favouriteJourneyController.getFavouritesAsList());
         final List<List<String>> finalJourneys = new ArrayList<List<String>>();
         for (int i = 0; i < 2; i++) {
             finalJourneys.add(new ArrayList<String>());
@@ -157,135 +135,4 @@ public class MainActivity extends ActionBarActivity
             super.onAttach(activity);
         }
     }
-
-    ///////////////////////////////////////////////////////////////////////////
-
-    public static class JourneyResultsFragment2 extends Fragment {
-
-        private RecyclerView recyclerView;
-        private LinearLayoutManager manager;
-        private JourneyResultsAdapter journeyResultsAdapter;
-        JourneyResultsController2 controller;
-        private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
-        List<PlainSolution> plainSolutions = new LinkedList<>();
-        private String departureStation;
-        private String departureID;
-        private String arrivalStation;
-        private String arrivalID;
-
-
-        public static JourneyResultsFragment2 newInstance() {
-            return new JourneyResultsFragment2();
-        }
-
-        public JourneyResultsFragment2() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-            View layoutInflater = inflater.inflate(R.layout.fragment_journey_results, container, false);
-            recyclerView = (RecyclerView)layoutInflater.findViewById(R.id.cardListFragment);
-
-            this.manager = new LinearLayoutManager(getActivity());
-//            this.journeyResultsAdapter = new JourneyResultsAdapter(this.flatJourneyTrainsList);
-            this.journeyResultsAdapter = new JourneyResultsAdapter(this.plainSolutions);
-
-            recyclerView.setLayoutManager(manager);
-            recyclerView.setAdapter(journeyResultsAdapter);
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-            controller = new JourneyResultsController2("pesaro", "pesaro", "asdf", "adsf");
-
-            return layoutInflater;
-        }
-
-        public void makeRequestsWithStations(String departureStation, String arrivalStation) {
-            this.departureStation = departureStation;
-            this.arrivalStation = arrivalStation;
-            spiceManager.execute(new JourneyDataRequest(this.departureStation), new DepartureDataRequestListenter());
-        }
-
-        public void makeRequestsWithIDs(String departureID, String arrivalID) {
-            this.departureID = departureID;
-            this.arrivalID = arrivalID;
-            spiceManager.execute(new JourneyRequest(departureID, arrivalID), new JourneyRequestListener());
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////
-
-        private class DepartureDataRequestListenter implements RequestListener<String> {
-
-            @Override
-            public void onRequestFailure(SpiceException spiceException) {
-                if (spiceException.getCause() instanceof InvalidStationException) {
-                    Log.d("cazzi", "sbagliata partenza");
-                }
-            }
-
-            @Override
-            public void onRequestSuccess(String s) {
-                departureID = s.split("\\|S")[1];
-                spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
-            }
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////
-
-        private class ArrivalDataRequestListener implements RequestListener<String> {
-
-            @Override
-            public void onRequestFailure(SpiceException spiceException) {
-                if (spiceException.getCause() instanceof InvalidStationException) {
-                    Log.d("cazzi", "sbagliata arrivo");
-                }
-            }
-
-            @Override
-            public void onRequestSuccess(String s) {
-                arrivalID = s.split("\\|S")[1];
-                spiceManager.execute(new JourneyRequest(departureID, arrivalID), new JourneyRequestListener());
-            }
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////
-
-        private class JourneyRequestListener implements RequestListener<Tragitto> {
-
-            @Override
-            public void onRequestFailure(SpiceException spiceException) {
-                Log.d("cazzi", "altro errore");
-            }
-
-            @Override
-            public void onRequestSuccess(Tragitto tragitto) {
-                controller.buildPlainSolutions(tragitto);
-                journeyResultsAdapter = new JourneyResultsAdapter(controller.getPlainSolutions());
-                  recyclerView.setAdapter(journeyResultsAdapter);
-                  journeyResultsAdapter.notifyDataSetChanged();
-            }
-        }
-
-
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-        }
-
-        @Override
-        public void onStart() {
-            spiceManager.start(getActivity());
-            super.onStart();
-        }
-
-        @Override
-        public void onStop() {
-            spiceManager.shouldStop();
-            super.onStop();
-        }
-    }
-
 }

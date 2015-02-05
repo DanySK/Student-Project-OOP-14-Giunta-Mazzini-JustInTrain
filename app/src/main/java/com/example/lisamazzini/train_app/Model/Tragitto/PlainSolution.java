@@ -1,5 +1,7 @@
 package com.example.lisamazzini.train_app.Model.Tragitto;
 
+import java.util.LinkedList;
+
 public class PlainSolution {
 
     private String categoria;
@@ -84,4 +86,7 @@ public class PlainSolution {
     public void setIDarrivo(String IDarrivo) {
         this.IDarrivo = IDarrivo;
     }
+
+
+
 }

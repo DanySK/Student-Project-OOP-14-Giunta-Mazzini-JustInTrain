@@ -11,7 +11,8 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.example.lisamazzini.train_app.Controller.FavouriteTrainController;
+import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
+import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.GUI.FavouriteTrainListActivity;
 import com.example.lisamazzini.train_app.GUI.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Constants;
@@ -33,8 +34,10 @@ import java.util.List;
 public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder> {
 
     List<NewTrain> list;
+    private IFavouriteController favouriteController = FavouriteTrainController.getInstance();
 
     public FavTrainAdapter(List<NewTrain> list){
+
         this.list = list;
     }
 
@@ -63,26 +66,22 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
                 PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
                 popupMenu.getMenuInflater().inflate(R.menu.menu_fav_train, popupMenu.getMenu());
                 final View view = v;
+                favouriteController.setContext(v.getContext());
 
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    FavouriteTrainController favCtrl = new FavouriteTrainController(view.getContext());
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.delete:
-                                Log.d("---------CULO------------", "Prima di rimuovere ce ne sono  " + getItemCount() + "elem n' " + position);
-                                favCtrl.removeFavourite(train.getNumeroTreno() + Constants.SEPARATOR + train.getIdOrigine());
+                                favouriteController.removeFavourite(train.getNumeroTreno() + Constants.SEPARATOR + train.getIdOrigine());
                                 if (position == 0 && getItemCount() == 1) {
                                     list = new LinkedList<>();
                                 } else {
                                     list.remove(position);
                                 }
-                                Log.d("----------CULO-----------", "Dopo aver rimosso e prima di notify " + getItemCount());
                                 notifyItemRemoved(position);
                                 notifyDataSetChanged();
-                                Log.d("--------CULO-------------", "Dopo notify " + getItemCount());
-
                                 return true;
                             default:
                                 return false;

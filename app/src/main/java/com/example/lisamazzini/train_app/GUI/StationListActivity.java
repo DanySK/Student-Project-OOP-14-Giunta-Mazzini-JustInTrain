@@ -14,7 +14,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lisamazzini.train_app.Controller.FavouriteTrainController;
+import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
+import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.Controller.StationListController;
 import com.example.lisamazzini.train_app.Controller.TrainDataRequest;
 import com.example.lisamazzini.train_app.Controller.TrainRequest;
@@ -50,7 +51,7 @@ public class StationListActivity extends Activity{
     private TextView tData;
 
     private StationListController listController;
-    private FavouriteTrainController favController;
+    private IFavouriteController favController = FavouriteTrainController.getInstance();
     private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
 
     private String[] trainDetails;
@@ -74,7 +75,7 @@ public class StationListActivity extends Activity{
         this.trainNumber = getIntent().getStringExtra("trainNumber");
         this.stationCode = getIntent().getStringExtra("stationCode");
         this.listController = new StationListController(this.trainNumber);
-        this.favController = new FavouriteTrainController(this);
+        favController.setContext(getApplicationContext());
 
         this.bFavourite.setOnClickListener(new View.OnClickListener() {
             @Override

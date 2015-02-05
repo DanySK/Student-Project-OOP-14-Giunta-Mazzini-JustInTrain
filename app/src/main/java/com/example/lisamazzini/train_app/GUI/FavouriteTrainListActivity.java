@@ -14,8 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.*;
-import com.example.lisamazzini.train_app.Controller.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.FavouriteTrainListController;
+import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
+import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.Controller.TrainRequest;
 import com.example.lisamazzini.train_app.GUI.Adapter.FavTrainAdapter;
 import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
@@ -36,14 +37,11 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-/**
- * Created by lisamazzini on 22/01/15.
- */
 public class FavouriteTrainListActivity extends Activity{
 
     private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
 
-    private FavouriteTrainController favController;
+    private IFavouriteController favController = FavouriteTrainController.getInstance();
     private FavouriteTrainListController listController;
     private RecyclerView favListView;
     private List<NewTrain> favList = new LinkedList<>();
@@ -66,8 +64,9 @@ public class FavouriteTrainListActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_train_list);
 
-        favController = new FavouriteTrainController(getApplicationContext());
-        listController = new FavouriteTrainListController(favController.getMap());
+        favController = FavouriteTrainController.getInstance();
+        favController.setContext(getApplicationContext());
+        listController = new FavouriteTrainListController((java.util.Map<String, String>) favController.getFavouritesAsMap());
 
         this.favListView = (RecyclerView)findViewById(R.id.recycler);
         this.favListView.setLayoutManager(new LinearLayoutManager(this));
