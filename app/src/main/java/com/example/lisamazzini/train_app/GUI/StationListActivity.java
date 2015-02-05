@@ -65,7 +65,7 @@ public class StationListActivity extends Activity{
         this.bFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                favController.addFavourite(trainDetails[0] + Constants.SEPARATOR + trainDetails[1]);
+                favController.addFavourite(trainDetails[0], trainDetails[1]);
                 Toast.makeText(StationListActivity.this, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show();
             }
         });

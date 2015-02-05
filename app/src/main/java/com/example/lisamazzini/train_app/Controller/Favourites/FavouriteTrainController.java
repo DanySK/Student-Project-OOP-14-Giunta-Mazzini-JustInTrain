@@ -23,7 +23,6 @@ public class FavouriteTrainController extends AbstractFavouriteController {
 
     @Override
     protected String buildKey(String... strings) {
-        // TODO
-        return null;
+        return strings[0] + Constants.SEPARATOR + strings[1];
     }
 }

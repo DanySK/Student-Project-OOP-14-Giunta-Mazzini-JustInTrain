@@ -9,9 +9,9 @@ import com.example.lisamazzini.train_app.GUI.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolutionWrapper;
+import com.example.lisamazzini.train_app.Network.RestClientTrain;
 import com.example.lisamazzini.train_app.Parser.Fermate;
 import com.example.lisamazzini.train_app.Parser.NewTrain;
-import com.example.lisamazzini.train_app.Parser.RestClientTrain;
 import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.request.SpiceRequest;
 

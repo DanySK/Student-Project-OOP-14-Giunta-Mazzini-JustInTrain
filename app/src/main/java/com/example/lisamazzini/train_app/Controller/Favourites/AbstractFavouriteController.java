@@ -55,4 +55,5 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     }
 
     protected abstract String buildKey(String... strings);
+
 }

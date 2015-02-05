@@ -12,6 +12,7 @@ import com.example.lisamazzini.train_app.*;
 import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.FavouriteTrainListController;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
+import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.GUI.Adapter.FavTrainAdapter;
 import com.example.lisamazzini.train_app.Parser.NewTrain;
 import com.octo.android.robospice.SpiceManager;
