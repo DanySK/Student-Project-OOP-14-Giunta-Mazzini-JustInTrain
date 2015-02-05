@@ -52,6 +52,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         journeyViewHolder.arrivalStation.setText(journeyTrain.getDestinazione());
         journeyViewHolder.arrivalTime.setText(journeyTrain.getOrarioArrivo());
         journeyViewHolder.delay.setText(journeyTrain.getDelay());
+        journeyViewHolder.stationCode = journeyTrain.getIDorigine();
         journeyViewHolder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,6 +109,8 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         protected TextView arrivalTime;
         protected TextView delay;
         protected Button menu;
+        protected String stationCode;
+
 
         public JourneyViewHolder(View v) {
             super(v);
@@ -121,13 +124,14 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
             arrivalTime = (TextView) v.findViewById(R.id.arrivalTime);
             delay = (TextView) v.findViewById(R.id.delay);
             menu = (Button)v.findViewById(R.id.btnOpt);
+            stationCode = "";
         }
 
         @Override
         public void onClick(View v) {
             Intent i = new Intent(v.getContext(), DoubleTrainService.class);
             i.putExtra("trainNumber", this.number.getText().toString());
-            i.putExtra("depStation", this.departureStation.getText().toString());
+            i.putExtra("stationCode", this.stationCode);
             v.getContext().startService(i);
         }
     }
