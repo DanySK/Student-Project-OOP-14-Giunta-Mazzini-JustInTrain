@@ -3,7 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/linear"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#fff"
+    android:clickable="true"
     android:layout_height="match_parent">
+
+    <!-- android:clickable="true" è il comando della vita -->
 
     <EditText
         android:layout_width="match_parent"

@@ -9,11 +9,12 @@
 
 
     <!--questo è il mio custom theme yeee-->
-    <style name="AppTheme.Base" parent="Theme.AppCompat">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
         <!--<item name="colorPrimary">#f36c60</item>-->
         <!--<item name="colorPrimaryDark">#b0120a</item>-->
-        <!--<item name="android:windowNoTitle">true</item>-->
-        <!--<item name="windowActionBar">false</item>-->
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
 
 </resources>

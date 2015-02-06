@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
@@ -20,10 +21,10 @@ import com.example.lisamazzini.train_app.Model.Constants;
 import java.util.List;
 import java.util.ArrayList;
 
-public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
+    private Toolbar toolbar;
 
     private ArrayList<String> journeys;
 
@@ -37,13 +38,20 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
         favouriteJourneyController.setContext(getApplicationContext());
-        favouriteJourneyController.removeFavourites();
-        favouriteJourneyController.addFavourite("pesaro", "7104", "cesena", "5066");
-        favouriteJourneyController.addFavourite("pesaro", "7104", "lecce", "11145");
+//        favouriteJourneyController.removeFavourites();
+//        favouriteJourneyController.addFavourite("pesaro", "7104", "cesena", "5066");
+//        favouriteJourneyController.addFavourite("pesaro", "7104", "lecce", "11145");
 
 
         // Set up the drawer.
@@ -55,7 +63,6 @@ public class MainActivity extends ActionBarActivity
         fragmentManager.beginTransaction().replace(R.id.container, JourneyResultsFragment.newInstance());
         fragment = (JourneyResultsFragment)getSupportFragmentManager().findFragmentById(R.id.journeyResultsFragment);
     }
-
 
     @Override
          public void onNavigationDrawerItemSelected(int position) {
@@ -82,6 +89,8 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void restoreActionBar() {
+
+        // TODO da mettere nel controller
         journeys = new ArrayList<String>(favouriteJourneyController.getFavouritesAsList());
         final List<List<String>> finalJourneys = new ArrayList<List<String>>();
         for (int i = 0; i < 2; i++) {
@@ -92,7 +101,7 @@ public class MainActivity extends ActionBarActivity
             finalJourneys.get(0).add(splitted[0] + " " + splitted[2]);
             finalJourneys.get(1).add(splitted[1] + Constants.SEPARATOR + splitted[3]);
         }
-        spinnerAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, finalJourneys.get(0));
+        spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, finalJourneys.get(0));
 
         ActionBar action = getSupportActionBar();
         navigationListener = new ActionBar.OnNavigationListener() {
