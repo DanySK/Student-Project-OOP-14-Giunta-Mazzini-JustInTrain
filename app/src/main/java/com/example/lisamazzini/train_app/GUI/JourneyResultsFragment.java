@@ -150,7 +150,6 @@ public class JourneyResultsFragment extends Fragment {
         public void onRequestSuccess(PlainSolutionWrapper plainSolutions) {
             list.clear();
             list.addAll(plainSolutions.getList());
-            Log.d("cazzi", Arrays.toString(list.toArray()));
             journeyResultsAdapter.notifyDataSetChanged();
         }
     }

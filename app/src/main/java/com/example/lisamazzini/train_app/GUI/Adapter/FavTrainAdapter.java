@@ -62,7 +62,6 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
         holder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("ooooooooooooooo---------------", "Son qua!");
                 PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
                 popupMenu.getMenuInflater().inflate(R.menu.menu_fav_train, popupMenu.getMenu());
                 final View view = v;
@@ -74,7 +73,7 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.delete:
-                                favouriteController.removeFavourite(train.getNumeroTreno() + Constants.SEPARATOR + train.getIdOrigine());
+                                favouriteController.removeFavourite(train.getNumeroTreno().toString(), train.getIdOrigine());
                                 if (position == 0 && getItemCount() == 1) {
                                     list = new LinkedList<>();
                                 } else {

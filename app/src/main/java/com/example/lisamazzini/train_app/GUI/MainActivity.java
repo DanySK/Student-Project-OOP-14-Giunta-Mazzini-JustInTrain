@@ -17,6 +17,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
+import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Model.Constants;
@@ -49,6 +50,7 @@ public class MainActivity extends ActionBarActivity
         favouriteJourneyController.removeFavourites();
         favouriteJourneyController.addFavourite("pesaro", "7104", "cesena", "5066");
         favouriteJourneyController.addFavourite("pesaro", "7104", "lecce", "11145");
+
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
