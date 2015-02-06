@@ -26,6 +26,7 @@ import com.octo.android.robospice.UncachedSpiceService;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class JourneyResultsFragment extends Fragment {
     private JourneyResultsAdapter journeyResultsAdapter;
     JourneyResultsController2 controller;
     private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
+    private List<PlainSolution> list = new LinkedList<>();
     private String departureStation;
     private String departureID;
     private String arrivalStation;
@@ -58,7 +60,7 @@ public class JourneyResultsFragment extends Fragment {
         recyclerView = (RecyclerView)layoutInflater.findViewById(R.id.cardListFragment);
 
         this.manager = new LinearLayoutManager(getActivity());
-        this.journeyResultsAdapter = new JourneyResultsAdapter(new LinkedList<PlainSolution>());
+        this.journeyResultsAdapter = new JourneyResultsAdapter(list);
         journeyResultsAdapter.notifyDataSetChanged();
 
         recyclerView.setLayoutManager(manager);
@@ -130,8 +132,7 @@ public class JourneyResultsFragment extends Fragment {
         @Override
         public void onRequestSuccess(Tragitto tragitto) {
             controller.buildPlainSolutions(tragitto);
-            List<PlainSolution> plainSolutions = controller.getPlainSolutions();
-            spiceManager.execute(new JourneyTrainRequest(plainSolutions), new JourneyTrainRequestListener());
+            spiceManager.execute(new JourneyTrainRequest(controller.getPlainSolutions()), new JourneyTrainRequestListener());
 //            journeyResultsAdapter = new JourneyResultsAdapter(controller.getPlainSolutions());
 //            recyclerView.setAdapter(journeyResultsAdapter);
 //            journeyResultsAdapter.notifyDataSetChanged();
@@ -147,8 +148,9 @@ public class JourneyResultsFragment extends Fragment {
 
         @Override
         public void onRequestSuccess(PlainSolutionWrapper plainSolutions) {
-            journeyResultsAdapter = new JourneyResultsAdapter(plainSolutions.getList());
-            recyclerView.setAdapter(journeyResultsAdapter);
+            list.clear();
+            list.addAll(plainSolutions.getList());
+            Log.d("cazzi", Arrays.toString(list.toArray()));
             journeyResultsAdapter.notifyDataSetChanged();
         }
     }
