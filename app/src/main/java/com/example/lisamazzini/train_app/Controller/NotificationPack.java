@@ -3,6 +3,8 @@ package com.example.lisamazzini.train_app.Controller;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
+
 /**
  *
  * This is a "pack" of information that the NotificationService needs to update the Notification;
@@ -15,67 +17,69 @@ import android.os.Parcelable;
 
 public class NotificationPack implements Parcelable {
 
-    private final String number;
-    private final String IDorigine;
-    private final String IDpartenza;
-    private final String depTime;
-    private final String IDarrivo;
-    private final String arrTime;
+    private final PlainSolution plainSolution;
 
-    private NotificationPack(Parcel in) {
-        this.number = in.readString();
-        this.IDorigine = in.readString();
-        this.IDpartenza = in.readString();
-        this.depTime = in.readString();
-        this.IDarrivo = in.readString();
-        this.arrTime = in.readString();
+
+    public NotificationPack(PlainSolution plainSolution) {
+        this.plainSolution = plainSolution;
     }
 
+    public static Creator CREATOR = new Creator() {
+        @Override
+        public Object createFromParcel(Parcel source) {
+            return null;
+        }
+
+        @Override
+        public Object[] newArray(int size) {
+            return new Object[0];
+        }
+    };
+
+            
     @Override
     public int describeContents() {
         return 0;
     }
 
-    public static final Parcelable.Creator<NotificationPack> CREATOR = new Parcelable.Creator<NotificationPack>() {
-        public NotificationPack createFromParcel(Parcel in) {
-            return new NotificationPack(in);
-        }
-
-        public NotificationPack[] newArray(int size) {
-            return new NotificationPack[size];
-        }
-    };
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        return;
+    }
 
     public String getArrTime() {
-        return arrTime;
+        return this.plainSolution.getOrarioArrivo();
     }
 
     public String getNumber() {
-        return number;
+        return this.plainSolution.getNumeroTreno();
     }
 
     public String getIDpartenza() {
-        return IDpartenza;
+        return this.plainSolution.getIDpartenza();
     }
 
     public String getDepTime() {
-        return depTime;
+        return this.plainSolution.getOrarioPartenza();
     }
 
     public String getIDarrivo() {
-        return IDarrivo;
+        return this.plainSolution.getIDarrivo();
     }
 
 
     public String getIDorigine() {
-        return IDorigine;
+        return this.plainSolution.getIDorigine();
     }
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(number);
-        dest.writeString(IDpartenza);
-        dest.writeString(depTime);
-        dest.writeString(IDarrivo);
-        dest.writeString(arrTime);
+
+    public String getUltimoRilevamento(){
+        return this.getUltimoRilevamento();
     }
+
+    public String getOraUltimoRilevamento(){
+        return this.getOraUltimoRilevamento();
+    }
+
+
+
 }

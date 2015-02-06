@@ -1,7 +1,7 @@
 package com.example.lisamazzini.train_app.Achievement;
 
 import com.example.lisamazzini.train_app.Exceptions.AchievementException;
-import com.example.lisamazzini.train_app.Parser.NewTrain;
+import com.example.lisamazzini.train_app.Model.NewTrain;
 
 /**
  * Created by lisamazzini on 04/02/15.

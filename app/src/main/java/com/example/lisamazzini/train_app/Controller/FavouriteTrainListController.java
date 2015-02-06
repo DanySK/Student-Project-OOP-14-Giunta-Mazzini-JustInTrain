@@ -23,6 +23,5 @@ public class FavouriteTrainListController {
     public TrainRequest getRequest() {
         String[] favData = getFavourite().split(Constants.SEPARATOR);
         return new TrainRequest(favData[0], favData[1]);
-
     }
 }

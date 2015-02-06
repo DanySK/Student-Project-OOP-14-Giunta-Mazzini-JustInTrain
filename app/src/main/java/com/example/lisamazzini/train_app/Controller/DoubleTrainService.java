@@ -7,8 +7,8 @@ import android.util.Log;
 
 import com.example.lisamazzini.train_app.GUI.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Parser.Fermate;
-import com.example.lisamazzini.train_app.Parser.NewTrain;
+import com.example.lisamazzini.train_app.Model.Fermate;
+import com.example.lisamazzini.train_app.Model.NewTrain;
 import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;

@@ -2,7 +2,7 @@ package com.example.lisamazzini.train_app.Controller;
 
 import com.example.lisamazzini.train_app.Achievement.IAchievement;
 import com.example.lisamazzini.train_app.Exceptions.AchievementException;
-import com.example.lisamazzini.train_app.Parser.NewTrain;
+import com.example.lisamazzini.train_app.Model.NewTrain;
 
 import java.util.LinkedList;
 import java.util.List;

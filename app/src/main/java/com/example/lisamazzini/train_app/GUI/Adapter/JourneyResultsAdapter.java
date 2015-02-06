@@ -2,6 +2,7 @@ package com.example.lisamazzini.train_app.GUI.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcel;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -64,13 +65,12 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
                         switch (item.getItemId()){
                             case R.id.pin:
                                 Log.d("----OHI--", "Son qui");
-                                Parcel p = Parcel.obtain();
-                                p.writeString(journeyTrain.getNumeroTreno());
-                                p.writeString(journeyTrain.getOrigine());
-                                p.writeString(journeyTrain.getOrarioPartenza());
-                                p.writeString(journeyTrain.getDestinazione());
-                                p.writeString(journeyTrain.getOrarioArrivo());
-                                intent.putExtra("information", NotificationPack.CREATOR.createFromParcel(p));
+                                intent.putExtra("number", journeyTrain.getNumeroTreno());
+                                intent.putExtra("idOrigine", journeyTrain.getIDorigine());
+                                intent.putExtra("idPartenza", journeyTrain.getIDpartenza());
+                                intent.putExtra("idArrivo", journeyTrain.getIDarrivo());
+                                intent.putExtra("oraPartenza", journeyTrain.getOrarioPartenza());
+                                intent.putExtra("oraArrivo", journeyTrain.getOrarioArrivo());
                                 ctx.startService(intent);
                                 return true;
                             case R.id.unpin:
@@ -81,14 +81,10 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
                         }
                     }
                 });
-
                 popupMenu.show();
-
             }
         });
-
     }
-
     @Override
     public int getItemCount() {
         return journeyList.size();

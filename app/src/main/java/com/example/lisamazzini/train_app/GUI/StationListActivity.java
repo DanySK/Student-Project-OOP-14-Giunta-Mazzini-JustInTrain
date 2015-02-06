@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,12 +20,10 @@ import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.StationListController;
 import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Parser.NewTrain;
+import com.example.lisamazzini.train_app.Model.NewTrain;
 import com.example.lisamazzini.train_app.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
 
 /**
  * Created by lisamazzini on 22/01/15.
@@ -34,6 +33,7 @@ public class StationListActivity extends Activity{
     private RecyclerView stationList;
     private Button bFavourite;
     private TextView tData;
+    private TextView info;
 
     private StationListController listController;
     private IFavouriteController favController = FavouriteTrainController.getInstance();
@@ -51,6 +51,7 @@ public class StationListActivity extends Activity{
 
         this.bFavourite = (Button)findViewById(R.id.add_favourite);
         this.tData = (TextView)findViewById(R.id.train_details_text);
+        this.info = (TextView)findViewById(R.id.info);
 
         this.stationList = (RecyclerView)findViewById(R.id.recycler);
         this.stationList.setLayoutManager(new LinearLayoutManager(this));
@@ -66,7 +67,7 @@ public class StationListActivity extends Activity{
             @Override
             public void onClick(View v) {
 //                favController.addFavourite(trainDetails[0], trainDetails[1]);
-                favController.addFavourite(trainNumber, stationCode);
+                favController.addFavourite(trainDetails[0], trainDetails[1]);
                 Toast.makeText(StationListActivity.this, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show();
             }
         });
@@ -112,11 +113,13 @@ public class StationListActivity extends Activity{
                     .show();
             //The train number is correct
             }else {
+
                 //I used Constants.SEPARATOR to divide the result in case there are more train with the same number
                 String[] datas = data.split(Constants.SEPARATOR);
                 //Only one train
                 if(datas.length == 1){
                     // I take the second part of the string, and divide it in 2; example 608 - S11145 -> [608,S11145]
+
                     datas = listController.computeData(datas[0]);
                     trainDetails = datas;
                     listController.setCode(datas[1]);
@@ -157,7 +160,6 @@ public class StationListActivity extends Activity{
                 }
             }
         }
-
         @Override
         public Context getContext() {
             return StationListActivity.this;
@@ -165,24 +167,18 @@ public class StationListActivity extends Activity{
     }
 
     private class AnotherListener extends AbstractListener<NewTrain>{
-
         @Override
         public Context getContext() {
             return StationListActivity.this;
         }
 
-
         @Override
         public void onRequestSuccess(NewTrain trainResponse) {
-
             tData.setText(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
             stationList.setAdapter(new StationListAdapter(trainResponse.getFermate()));
             bFavourite.setVisibility(View.VISIBLE);
-
         }
     }
-
-
 }
 
 

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.GUI.MainActivity;
-import com.example.lisamazzini.train_app.Parser.NewTrain;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 

@@ -22,6 +22,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.example.lisamazzini.train_app.Controller.FavouriteTrainListController;
+import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
+import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.R;
 
 /**
@@ -92,7 +95,7 @@ public class NavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
 
-        View drawerView = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        final View drawerView = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 
         mDrawerListView = (LinearLayout) drawerView.findViewById(R.id.linear);
 
@@ -131,6 +134,17 @@ public class NavigationDrawerFragment extends Fragment {
                 startActivity(i);
             }
         });
+
+        final Button btn = (Button)drawerView.findViewById(R.id.elimina);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IFavouriteController fc = FavouriteTrainController.getInstance();
+                fc.setContext(drawerView.getContext());
+                fc.removeFavourites();
+            }
+        });
+
 
 
 //        mDrawerListView = (ListView) inflater.inflate(

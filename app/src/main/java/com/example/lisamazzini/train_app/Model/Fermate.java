@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Parser;
+package com.example.lisamazzini.train_app.Model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +25,8 @@ public class Fermate {
     private Long ritardoPartenza;
     private Long ritardoArrivo;
     private Long progressivo;
+    private String orientamento;
+    private Long actualFermataType;
     private String binarioEffettivoArrivoDescrizione;
     private String binarioProgrammatoArrivoDescrizione;
     private String binarioEffettivoPartenzaDescrizione;
@@ -59,6 +61,13 @@ public class Fermate {
         this.id = id;
     }
 
+    public Long getActualFermataType() {
+        return actualFermataType;
+    }
+
+    public void setActualFermataType(Long actualFermataType) {
+        this.actualFermataType = actualFermataType;
+    }
     /**
      * @return The listaCorrispondenze
      */
@@ -73,6 +82,13 @@ public class Fermate {
         this.listaCorrispondenze = listaCorrispondenze;
     }
 
+    public String getOrientamento() {
+        return orientamento;
+    }
+
+    public void setOrientamento(String orientamento) {
+        this.orientamento = orientamento;
+    }
     /**
      * @return The programmata
      */

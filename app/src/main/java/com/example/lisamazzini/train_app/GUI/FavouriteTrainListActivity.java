@@ -14,16 +14,12 @@ import com.example.lisamazzini.train_app.Controller.FavouriteTrainListController
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.GUI.Adapter.FavTrainAdapter;
-import com.example.lisamazzini.train_app.Parser.NewTrain;
+import com.example.lisamazzini.train_app.Model.NewTrain;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * Created by lisamazzini on 22/01/15.
@@ -59,11 +55,11 @@ public class FavouriteTrainListActivity extends Activity{
         favController.setContext(getApplicationContext());
         listController = new FavouriteTrainListController((java.util.Map<String, String>) favController.getFavouritesAsMap());
 
+
         this.favListView = (RecyclerView)findViewById(R.id.recycler);
         this.favListView.setLayoutManager(new LinearLayoutManager(this));
         this.favListView.setHasFixedSize(true);
         this.favListView.setItemAnimator(new DefaultItemAnimator());
-
 
         while(listController.hasAnotherFavourite()) {
             spiceManager.execute(listController.getRequest(), new TrainRequestListener());

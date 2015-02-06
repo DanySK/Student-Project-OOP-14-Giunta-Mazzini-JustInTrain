@@ -1,25 +1,17 @@
 package com.example.lisamazzini.train_app.Controller;
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.util.Log;
-
-import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
-import com.example.lisamazzini.train_app.GUI.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolutionWrapper;
 import com.example.lisamazzini.train_app.Network.RestClientTrain;
-import com.example.lisamazzini.train_app.Parser.Fermate;
-import com.example.lisamazzini.train_app.Parser.NewTrain;
+import com.example.lisamazzini.train_app.Model.Fermate;
+import com.example.lisamazzini.train_app.Model.NewTrain;
 import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.request.SpiceRequest;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.sql.Wrapper;
-import java.util.LinkedList;
 import java.util.List;
 
 public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {

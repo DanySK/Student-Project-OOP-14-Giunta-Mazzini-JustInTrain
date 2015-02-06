@@ -5,7 +5,7 @@ import android.view.*;
 import android.widget.*;
 
 import com.example.lisamazzini.train_app.*;
-import com.example.lisamazzini.train_app.Parser.Fermate;
+import com.example.lisamazzini.train_app.Model.Fermate;
 
 import java.util.List;
 
@@ -29,13 +29,26 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder viewHolder, int i) {
-        viewHolder.stationName.setText(list.get(i).getStazione());
-        viewHolder.visited.setText("  " + list.get(i).getId());
-        viewHolder.expectedArrival.setText(Utilities.fromMsToTime(list.get(i).getEffettiva()));
-        viewHolder.scheduledArrival.setText(Utilities.fromMsToTime(list.get(i).getProgrammata()));
-        viewHolder.timeDifference.setText("" + list.get(i).getRitardo());
-        viewHolder.expectedPlatform.setText(list.get(i).getBinarioEffettivoPartenzaDescrizione());
-        viewHolder.scheduledPlatform.setText(list.get(i).getBinarioProgrammatoPartenzaDescrizione());
+
+        Fermate f = list.get(i);
+
+        if(list.size() == 0){
+            viewHolder.info.setText("Treno soppresso!");
+        }else if(f.getOrientamento().equals("")){
+            viewHolder.stationName.setText(f.getStazione());
+            viewHolder.info.setText("Ci sono fermate cancellate!");
+            viewHolder.visited.setText("CANCELLATA");
+        }else if(f.getActualFermataType() == 2L){
+            viewHolder.visited.setText("Fermata Straordinaria");
+        }else{
+            viewHolder.stationName.setText(f.getStazione());
+            viewHolder.expectedArrival.setText(Utilities.fromMsToTime(f.getEffettiva()));
+            viewHolder.scheduledArrival.setText(Utilities.fromMsToTime(f.getProgrammata()));
+            viewHolder.timeDifference.setText("" + f.getRitardo());
+            viewHolder.expectedPlatform.setText(f.getBinarioEffettivoPartenzaDescrizione());
+            viewHolder.scheduledPlatform.setText(f.getBinarioProgrammatoPartenzaDescrizione());
+        }
+
     }
 
     @Override
@@ -57,6 +70,7 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
         TextView timeDifference;
         TextView expectedPlatform;
         TextView scheduledPlatform;
+        TextView info;
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
@@ -67,6 +81,7 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
             timeDifference = (TextView) itemView.findViewById(R.id.delaaay);
             expectedPlatform = (TextView) itemView.findViewById(R.id.expPlat);
             scheduledPlatform = (TextView) itemView.findViewById(R.id.schPlat);
+            info = (TextView)itemView.findViewById(R.id.info);
         }
     }
 

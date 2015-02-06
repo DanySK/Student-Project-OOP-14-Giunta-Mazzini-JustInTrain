@@ -18,6 +18,12 @@
         android:layout_height="wrap_content"
         android:text="Cerca" />
 
+    <Button
+        android:id="@+id/elimina"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Elimina" />
+
     <EditText
         android:id="@+id/departure"
         android:layout_width="match_parent"

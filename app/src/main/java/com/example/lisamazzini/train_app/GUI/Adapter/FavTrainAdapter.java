@@ -2,6 +2,7 @@ package com.example.lisamazzini.train_app.GUI.Adapter;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.GUI.StationListActivity;
-import com.example.lisamazzini.train_app.Parser.NewTrain;
+import com.example.lisamazzini.train_app.Model.NewTrain;
 import com.example.lisamazzini.train_app.R;
 
 import java.util.LinkedList;
@@ -43,13 +44,18 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
 
     @Override
     public void onBindViewHolder(Holder holder, final int position) {
-        final NewTrain train = list.get(position);
 
+        final NewTrain train = list.get(position);
         holder.trainCategory.setText(train.getCategoria());
         holder.trainNumber.setText("" + train.getNumeroTreno());
-        holder.delay.setText("" + train.getRitardo());
-        holder.lastSeenStation.setText(train.getStazioneUltimoRilevamento());
-        holder.lastSeemTime.setText(train.getCompOraUltimoRilevamento());
+
+        if(train.getFermate().size() == 0  || !train.getSubTitle().equals("")){
+            holder.extra.setText(train.getSubTitle());
+        }else{
+            holder.delay.setText("" + train.getRitardo());
+            holder.lastSeenStation.setText(train.getStazioneUltimoRilevamento());
+            holder.lastSeemTime.setText(train.getCompOraUltimoRilevamento());
+        }
         holder.stationCode = train.getIdOrigine();
 
         holder.menu.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +104,7 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
         TextView lastSeenStation;
         TextView lastSeemTime;
         TextView isMoving;
+        TextView extra;
         String stationCode;
         Button menu;
 
@@ -112,6 +119,7 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
             lastSeenStation = (TextView) itemView.findViewById(R.id.lastseen);
             lastSeemTime = (TextView) itemView.findViewById(R.id.timelastseen);
             isMoving = (TextView) itemView.findViewById(R.id.moving);
+            extra = (TextView) itemView.findViewById(R.id.extra);
         }
 
         @Override

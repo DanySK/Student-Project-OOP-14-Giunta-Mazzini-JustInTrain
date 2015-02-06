@@ -1,6 +1,6 @@
 package com.example.lisamazzini.train_app.Controller;
 
-import com.example.lisamazzini.train_app.Parser.NewTrain;
+import com.example.lisamazzini.train_app.Model.NewTrain;
 import com.example.lisamazzini.train_app.Network.RestClientTrain;
 import com.octo.android.robospice.request.SpiceRequest;
 /*

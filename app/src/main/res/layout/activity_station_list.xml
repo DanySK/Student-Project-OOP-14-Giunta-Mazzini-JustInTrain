@@ -33,4 +33,11 @@
         android:layout_alignTop="@+id/add_favourite"
         android:layout_toLeftOf="@+id/add_favourite"
         android:layout_toStartOf="@+id/add_favourite" />
+
+    <TextView
+        android:id="@+id/info"
+        android:layout_below="@id/add_favourite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>

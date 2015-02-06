@@ -9,23 +9,17 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.Controller.AbstractListener;
-import com.example.lisamazzini.train_app.Controller.NotificationPack;
 import com.example.lisamazzini.train_app.Controller.TrainRequest;
-import com.example.lisamazzini.train_app.Parser.NewTrain;
+import com.example.lisamazzini.train_app.Model.NewTrain;
 import com.example.lisamazzini.train_app.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
-
-import java.util.Calendar;
 
 public class NotificationService extends Service {
 
-    private NotificationPack information;
     //This is the intent to refresh the Notification, that will start the service again
     private PendingIntent pIntentRefresh;
     //This is the intent to stop the service
@@ -34,6 +28,13 @@ public class NotificationService extends Service {
     private PendingIntent pIntentAutorefresh;
     private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
     private AlarmManager am;
+
+    private String numeroTreno;
+    private String orarioPartenza;
+    private String orarioArrivo;
+    private String IDorigine;
+    private String IDpartenza;
+    private String IDarrivo;
 
 
     @Override
@@ -47,12 +48,20 @@ public class NotificationService extends Service {
     public int onStartCommand (Intent intent, int flags, int startId){
 
         // Here I have all the information needed for the Notification (see more @NotificationPack)
-        information = intent.getExtras().getParcelable("information");
+        this.numeroTreno = intent.getStringExtra("number");
+        this.IDorigine = intent.getStringExtra("idOrigine");
+        this.IDpartenza = intent.getStringExtra("idPartenza");
+        this.IDarrivo = intent.getStringExtra("idArrivo");
+        this.orarioArrivo = intent.getStringExtra("oraArrivo");
+        this.orarioPartenza = intent.getStringExtra("oraPartenza");
+
+
+
 
         //Here I set the data for the refresh intent (so the data will be the same)
         Intent intentRefresh = new Intent(this, ButtonListener.class);
         intentRefresh.setAction("Aggiorna");
-        intentRefresh.putExtra("information" , information);
+        intentRefresh = intent;
 
         //Here I set the close intent, just adding the action.
         Intent intentClose = new Intent(this, ButtonListener.class);
@@ -77,12 +86,14 @@ public class NotificationService extends Service {
         spiceManager = new SpiceManager(UncachedSpiceService.class);
 
         //
-        spiceManager.execute(new TrainRequest(information.getNumber(), information.getIDorigine()), new ResultListener());
+        spiceManager.execute(new TrainRequest(this.numeroTreno, this.IDorigine), new ResultListener());
         // TrainRequest request = new TrainRequest(this.number);
         //spiceManager.execute(request, new TrainRequestListener());
 
         spiceManager.start(this);
-        return START_STICKY;
+
+        // If the OS stops the service after running out of memory, the service will be started again with da same intent
+        return START_REDELIVER_INTENT;
     }
 
     @Override
@@ -99,13 +110,29 @@ public class NotificationService extends Service {
         }
 
         @Override
+        public void onRequestFailure(SpiceException spiceException){
+            Log.d("ERRORE", spiceException.getCause().getMessage());
+        }
+
+        @Override
         public void onRequestSuccess(NewTrain train) {
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
             Notification not;
 
             //If the train is not departed yet the notification will show the data
-            if(!train.getNonPartito()) {
+            if(train.getNonPartito()) {
+                not = builder.setSmallIcon(R.drawable.ic_launcher)
+                        .setOngoing(true)
+                        .addAction(R.drawable.ic_launcher, "Aggiorna", pIntentRefresh)
+                        .addAction(R.drawable.ic_launcher, "Elimina", pIntentClose)
+                        .setStyle(new NotificationCompat.InboxStyle()
+                                .setBigContentTitle("Treno " + train.getNumeroTreno())
+                                .addLine("Il treno non è ancora partito"))
+                        .build();
+
+            //Else, the notification is empty
+            }else if(train.getCircolante()){
                 not = builder//.setContent(view)
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setOngoing(true)
@@ -117,23 +144,18 @@ public class NotificationService extends Service {
                                 .addLine("Ultimo avvistamento" + train.getStazioneUltimoRilevamento())
                                 .addLine("Ore " + train.getCompOraUltimoRilevamento()))
                         .build();
-            //Else, the notification is empty
             }else{
                 not = builder.setSmallIcon(R.drawable.ic_launcher)
-                                        .setOngoing(true)
-                                        .addAction(R.drawable.ic_launcher, "Aggiorna", pIntentRefresh)
-                                        .addAction(R.drawable.ic_launcher, "Elimina", pIntentClose)
-                                        .setStyle(new NotificationCompat.InboxStyle()
-                                                .setBigContentTitle("Treno " + train.getNumeroTreno())
-                                                .addLine("Arrivato o non ancora partito"))
-                                        .build();
-
+                        .setOngoing(true)
+                        .addAction(R.drawable.ic_launcher, "Aggiorna", pIntentRefresh)
+                        .addAction(R.drawable.ic_launcher, "Elimina", pIntentClose)
+                        .setStyle(new NotificationCompat.InboxStyle()
+                                .setBigContentTitle("Treno " + train.getNumeroTreno())
+                                .addLine("Treno arrivato a destinazione"))
+                        .build();
             }
-
             not.priority = Notification.PRIORITY_MAX;
             startForeground(1, not);
-
         }
     }
-
 }

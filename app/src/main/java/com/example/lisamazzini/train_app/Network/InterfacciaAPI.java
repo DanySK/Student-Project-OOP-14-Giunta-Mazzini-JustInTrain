@@ -2,10 +2,8 @@ package com.example.lisamazzini.train_app.Network;
 
 
 
-import com.example.lisamazzini.train_app.Parser.NewTrain;
+import com.example.lisamazzini.train_app.Model.NewTrain;
 
-import retrofit.*;
-import retrofit.client.Response;
 import retrofit.http.*;
 
 

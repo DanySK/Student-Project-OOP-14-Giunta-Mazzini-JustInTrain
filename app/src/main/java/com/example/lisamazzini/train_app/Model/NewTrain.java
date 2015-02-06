@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Parser;
+package com.example.lisamazzini.train_app.Model;
 
 
     import java.util.ArrayList;
@@ -35,6 +35,9 @@ public class NewTrain{
     private String origineZero;
     private Long orarioArrivoZero;
     private Boolean circolante;
+    private String subTitle;
+
+
     private Boolean inStazione;
     private Boolean haCambiNumero;
     private Boolean nonPartito;
@@ -467,6 +470,15 @@ public class NewTrain{
      */
     public Boolean getInStazione() {
         return inStazione;
+    }
+
+
+    public String getSubTitle() {
+        return subTitle;
+    }
+
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
     }
 
     /**
