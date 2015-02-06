@@ -1,6 +1,43 @@
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:choiceMode="singleChoice"
-    android:divider="@android:color/transparent" android:dividerHeight="0dp"
-    android:background="#cccc"
-    tools:context="com.example.lisamazzini.train_app.GUI.NavigationDrawerFragment" />
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/trainNumber" />
+
+    <Button
+        android:id="@+id/btnTrainNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cerca" />
+
+    <EditText
+        android:id="@+id/departure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/arrival"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnJourney"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cerca" />
+
+    <Button
+        android:id="@+id/btnPrefTrains"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Treni preferiti" />
+
+</LinearLayout>

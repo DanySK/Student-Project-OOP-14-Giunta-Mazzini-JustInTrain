@@ -13,12 +13,9 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.example.lisamazzini.train_app.Controller.DoubleTrainService;
 import com.example.lisamazzini.train_app.Controller.NotificationPack;
-import com.example.lisamazzini.train_app.Exceptions.DoubleTrainNumberException;
 import com.example.lisamazzini.train_app.GUI.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
-import com.example.lisamazzini.train_app.Model.Tragitto.Soluzioni;
 import com.example.lisamazzini.train_app.Notification.NotificationService;
 import com.example.lisamazzini.train_app.R;
 
@@ -36,7 +33,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
     //chiamato quando viene instanziato il viewHolder
     @Override
     public JourneyViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
-        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_layout, viewGroup, false);
+        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_journey, viewGroup, false);
         return new JourneyViewHolder(itemView);
     }
 

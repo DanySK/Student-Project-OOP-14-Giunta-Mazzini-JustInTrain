@@ -2,7 +2,6 @@ package com.example.lisamazzini.train_app.GUI.Adapter;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,15 +12,9 @@ import android.widget.TextView;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
-import com.example.lisamazzini.train_app.GUI.FavouriteTrainListActivity;
 import com.example.lisamazzini.train_app.GUI.StationListActivity;
-import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Model.Train;
-import com.example.lisamazzini.train_app.Notification.NotificationService;
 import com.example.lisamazzini.train_app.Parser.NewTrain;
 import com.example.lisamazzini.train_app.R;
-import com.example.lisamazzini.train_app.Utilities;
-import com.squareup.okhttp.internal.Util;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -44,7 +37,7 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
     @Override
     public Holder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View itemView = inflater.inflate(R.layout.train_adapter, viewGroup, false);
+        View itemView = inflater.inflate(R.layout.view_favourite_train, viewGroup, false);
         return new Holder(itemView);
     }
 

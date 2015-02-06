@@ -18,13 +18,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.R;
 
@@ -96,7 +92,7 @@ public class NavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
 
-        View drawerView = inflater.inflate(R.layout.fragment_navigation_drawer2, container, false);
+        View drawerView = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 
         mDrawerListView = (LinearLayout) drawerView.findViewById(R.id.linear);
 

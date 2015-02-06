@@ -1,23 +1,17 @@
 package com.example.lisamazzini.train_app.GUI;
 
 import android.util.Log;
-import android.view.View;
 import android.os.Bundle;
 import android.view.Menu;
-import android.app.Activity;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
 import android.widget.ArrayAdapter;
 import android.widget.SpinnerAdapter;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
-import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Model.Constants;
@@ -41,7 +35,7 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_main);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -64,12 +58,8 @@ public class MainActivity extends ActionBarActivity
 
 
     @Override
-    public void onNavigationDrawerItemSelected(int position) {
+         public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance())
-                .commit();
     }
 
     @Override
@@ -117,26 +107,5 @@ public class MainActivity extends ActionBarActivity
         action.setDisplayShowTitleEnabled(false);
         action.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_LIST);
         action.setListNavigationCallbacks(spinnerAdapter, navigationListener);
-    }
-
-
-    public static class PlaceholderFragment extends Fragment {
-        public static PlaceholderFragment newInstance() {
-            return new PlaceholderFragment();
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_main, container, false);
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-        }
     }
 }

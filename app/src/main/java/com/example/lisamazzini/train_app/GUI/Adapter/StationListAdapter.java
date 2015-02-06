@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.*;
 import android.widget.*;
 
-import com.example.lisamazzini.train_app.Model.Station;
 import com.example.lisamazzini.train_app.*;
 import com.example.lisamazzini.train_app.Parser.Fermate;
 
@@ -24,7 +23,7 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View itemView = inflater.inflate(R.layout.station_adapter, viewGroup, false);
+        View itemView = inflater.inflate(R.layout.view_station, viewGroup, false);
         return new RecyclerViewHolder(itemView);
     }
 
