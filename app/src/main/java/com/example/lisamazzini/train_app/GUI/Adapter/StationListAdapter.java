@@ -1,6 +1,7 @@
 package com.example.lisamazzini.train_app.GUI.Adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
@@ -31,17 +32,13 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
     public void onBindViewHolder(RecyclerViewHolder viewHolder, int i) {
 
         Fermate f = list.get(i);
-
-        if(list.size() == 0){
-            viewHolder.info.setText("Treno soppresso!");
-        }else if(f.getOrientamento().equals("")){
-            viewHolder.stationName.setText(f.getStazione());
-            viewHolder.info.setText("Ci sono fermate cancellate!");
+        viewHolder.stationName.setText(f.getStazione());
+        if(f.getOrientamento() == (null)){
             viewHolder.visited.setText("CANCELLATA");
-        }else if(f.getActualFermataType() == 2L){
-            viewHolder.visited.setText("Fermata Straordinaria");
         }else{
-            viewHolder.stationName.setText(f.getStazione());
+            if(f.getActualFermataType() == 2L) {
+            viewHolder.visited.setText("Fermata Straordinaria");
+            }
             viewHolder.expectedArrival.setText(Utilities.fromMsToTime(f.getEffettiva()));
             viewHolder.scheduledArrival.setText(Utilities.fromMsToTime(f.getProgrammata()));
             viewHolder.timeDifference.setText("" + f.getRitardo());
@@ -70,7 +67,6 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
         TextView timeDifference;
         TextView expectedPlatform;
         TextView scheduledPlatform;
-        TextView info;
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
@@ -81,7 +77,6 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
             timeDifference = (TextView) itemView.findViewById(R.id.delaaay);
             expectedPlatform = (TextView) itemView.findViewById(R.id.expPlat);
             scheduledPlatform = (TextView) itemView.findViewById(R.id.schPlat);
-            info = (TextView)itemView.findViewById(R.id.info);
         }
     }
 

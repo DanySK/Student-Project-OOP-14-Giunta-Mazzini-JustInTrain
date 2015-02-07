@@ -46,7 +46,9 @@
 
     <TextView
         android:id="@+id/info"
-        android:layout_below="@id/add_favourite"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text=""
+        android:layout_below="@+id/train_details_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

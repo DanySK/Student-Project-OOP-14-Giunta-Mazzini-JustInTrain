@@ -3,6 +3,8 @@ package com.example.lisamazzini.train_app.Controller.Favourites;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,10 +18,15 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     public abstract void setContext(Context context);
 
     @Override
-    public void addFavourite(String... strings) {
+    public void addFavourite(String... strings) throws FavouriteException {
         check();
-        editor.putString(buildKey(strings), "");
-        editor.apply();
+        if(!alreadyFavourite(buildKey(strings))) {
+            editor.putString(buildKey(strings), "");
+            editor.apply();
+        }else{
+            throw new FavouriteException();
+        }
+
     }
 
     @Override
@@ -52,6 +59,10 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
         if (sharedPref == null) {
             throw new UnsupportedOperationException("Set your context first");
         }
+    }
+
+    private boolean alreadyFavourite(String string){
+        return getFavouritesAsMap().containsKey(string);
     }
 
     protected abstract String buildKey(String... strings);

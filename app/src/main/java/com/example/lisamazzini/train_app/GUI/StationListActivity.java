@@ -18,6 +18,7 @@ import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainCon
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.StationListController;
+import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
 import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.NewTrain;
@@ -67,8 +68,12 @@ public class StationListActivity extends Activity{
             @Override
             public void onClick(View v) {
 //                favController.addFavourite(trainDetails[0], trainDetails[1]);
-                favController.addFavourite(trainDetails[0], trainDetails[1]);
-                Toast.makeText(StationListActivity.this, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show();
+                try {
+                    favController.addFavourite(trainDetails[0], trainDetails[1]);
+                    Toast.makeText(StationListActivity.this, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show();
+                } catch (FavouriteException e) {
+                    Toast.makeText(StationListActivity.this, "E' già fra i preferiti!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

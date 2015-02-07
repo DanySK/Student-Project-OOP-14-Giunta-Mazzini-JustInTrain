@@ -14,18 +14,18 @@ public class ButtonListener extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent i = new Intent(context, NotificationService.class);
+
         if(intent.getAction().equals("Aggiorna")){
-            Log.d("--------------------------------", "" + intent.getStringExtra("number"));
+            Log.d("-----------", "aggiornata" );
             i.putExtra("number", intent.getStringExtra("number"));
-            i.putExtra("time", intent.getStringExtra("time"));
+            i.putExtra("idOrigine", intent.getStringExtra("idOrigine"));
             context.startService(i);
         }
 
         if(intent.getAction().equals("Elimina")){
+            Log.d("---------", "eliminata");
             context.stopService(i);
         }
     }
-
-
 }
 

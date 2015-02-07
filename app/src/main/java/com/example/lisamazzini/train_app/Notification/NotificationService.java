@@ -50,33 +50,29 @@ public class NotificationService extends Service {
         // Here I have all the information needed for the Notification (see more @NotificationPack)
         this.numeroTreno = intent.getStringExtra("number");
         this.IDorigine = intent.getStringExtra("idOrigine");
-        this.IDpartenza = intent.getStringExtra("idPartenza");
-        this.IDarrivo = intent.getStringExtra("idArrivo");
-        this.orarioArrivo = intent.getStringExtra("oraArrivo");
-        this.orarioPartenza = intent.getStringExtra("oraPartenza");
-
-
-
+//        this.IDpartenza = intent.getStringExtra("idPartenza");
+//        this.IDarrivo = intent.getStringExtra("idArrivo");
+//        this.orarioArrivo = intent.getStringExtra("oraArrivo");
+//        this.orarioPartenza = intent.getStringExtra("oraPartenza");
 
         //Here I set the data for the refresh intent (so the data will be the same)
         Intent intentRefresh = new Intent(this, ButtonListener.class);
         intentRefresh.setAction("Aggiorna");
-        intentRefresh = intent;
+
 
         //Here I set the close intent, just adding the action.
         Intent intentClose = new Intent(this, ButtonListener.class);
         intentClose.setAction("Elimina");
+        intentRefresh.putExtra("number", this.numeroTreno);
+        intentRefresh.putExtra("idOrigine", this.IDorigine);
 
         pIntentRefresh = PendingIntent.getBroadcast(this, 1, intentRefresh, PendingIntent.FLAG_UPDATE_CURRENT);
         pIntentClose = PendingIntent.getBroadcast(this, 1, intentClose, PendingIntent.FLAG_UPDATE_CURRENT);
-        pIntentAutorefresh = PendingIntent.getBroadcast(this, 1, intentRefresh, PendingIntent.FLAG_UPDATE_CURRENT);
+//        pIntentAutorefresh = PendingIntent.getBroadcast(this, 1, intentRefresh, PendingIntent.FLAG_UPDATE_CURRENT);
 
 //        Integer hour = Integer.parseInt(this.time.split(":")[0]);
 //        Integer minute = Integer.parseInt(this.time.split(":")[1]) - 15;
 //        am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-
-
-
 
 //        calendar.set(Calendar.HOUR_OF_DAY, hour);
 //        calendar.set(Calendar.MINUTE, minute);
@@ -85,7 +81,6 @@ public class NotificationService extends Service {
 
         spiceManager = new SpiceManager(UncachedSpiceService.class);
 
-        //
         spiceManager.execute(new TrainRequest(this.numeroTreno, this.IDorigine), new ResultListener());
         // TrainRequest request = new TrainRequest(this.number);
         //spiceManager.execute(request, new TrainRequestListener());
@@ -93,7 +88,7 @@ public class NotificationService extends Service {
         spiceManager.start(this);
 
         // If the OS stops the service after running out of memory, the service will be started again with da same intent
-        return START_REDELIVER_INTENT;
+        return START_STICKY;
     }
 
     @Override

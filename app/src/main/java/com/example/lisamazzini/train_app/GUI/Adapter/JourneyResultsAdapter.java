@@ -1,7 +1,10 @@
 package com.example.lisamazzini.train_app.GUI.Adapter;
 
+import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +15,10 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.example.lisamazzini.train_app.Achievement.DelayAchievement;
+import com.example.lisamazzini.train_app.Controller.AchievementController;
+import com.example.lisamazzini.train_app.Controller.NotificationPack;
+import com.example.lisamazzini.train_app.Exceptions.AchievementException;
 import com.example.lisamazzini.train_app.GUI.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Notification.NotificationService;
@@ -22,6 +29,7 @@ import java.util.List;
 public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAdapter.JourneyViewHolder>{
 
     private final List<PlainSolution> journeyList;
+    private final AchievementController achievementController = new AchievementController();
 
     public JourneyResultsAdapter(List<PlainSolution> list) {
         this.journeyList = list;
@@ -49,6 +57,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         journeyViewHolder.delay.setText(journeyTrain.getDelay());
         journeyViewHolder.stationCode = journeyTrain.getIDorigine();
         journeyViewHolder.menu.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void onClick(View v) {
                 PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
@@ -69,6 +78,12 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
                                 intent.putExtra("oraPartenza", journeyTrain.getOrarioPartenza());
                                 intent.putExtra("oraArrivo", journeyTrain.getOrarioArrivo());
                                 ctx.startService(intent);
+                                achievementController.addAchievement(new DelayAchievement());
+                                try {
+                                    achievementController.updateAchievements(journeyTrain);
+                                } catch (AchievementException e) {
+                                    // dialog = AlertDialog.Builder
+                                }
                                 return true;
                             case R.id.unpin:
                                 ctx.stopService(intent);
