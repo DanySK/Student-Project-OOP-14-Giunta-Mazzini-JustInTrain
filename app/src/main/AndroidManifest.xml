@@ -42,6 +42,11 @@
         <activity
             android:name=".GUI.FavouriteTrainListActivity">
         </activity>
+
+        <activity
+            android:name=".GUI.JourneyResultsActivity" android:parentActivityName=".GUI.MainActivity">
+        </activity>
+
         <activity
             android:name=".GUI.MainActivity">
             <intent-filter>

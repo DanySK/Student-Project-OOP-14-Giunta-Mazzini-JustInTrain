@@ -9,7 +9,7 @@
 
 
     <!--questo è il mio custom theme yeee-->
-    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <!--<item name="colorPrimary">#f36c60</item>-->
         <!--<item name="colorPrimaryDark">#b0120a</item>-->
         <item name="android:windowActionModeOverlay">true</item>

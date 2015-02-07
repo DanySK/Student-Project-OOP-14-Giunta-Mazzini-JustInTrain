@@ -128,8 +128,8 @@ public class NavigationDrawerFragment extends Fragment {
             public void onClick(View v) {
                 if (departure.length() > 0 && arrival.length() > 0) {
                     Intent i = new Intent(getActivity(), JourneyResultsActivity.class);
-                    i.putExtra("journeyDeparture", departure.getText().toString());
-                    i.putExtra("journeyArrival", arrival.getText().toString());
+                    i.putExtra("departureStation", departure.getText().toString());
+                    i.putExtra("arrivalStation", arrival.getText().toString());
                     startActivity(i);
                 }
             }
@@ -143,27 +143,6 @@ public class NavigationDrawerFragment extends Fragment {
         drawerListAdapter = new DrawerListAdapter(TITLES, getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(drawerListAdapter);
-
-//        Button btn3 = (Button) drawerView.findViewById(R.id.btnPrefTrains);
-//        btn3.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(getActivity(), FavouriteTrainListActivity.class);
-//                startActivity(i);
-//            }
-//        });
-
-//        final Button btn = (Button)drawerView.findViewById(R.id.elimina);
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                IFavouriteController fc = FavouriteTrainController.getInstance();
-//                fc.setContext(drawerView.getContext());
-//                fc.removeFavourites();
-//            }
-//        });
-
-
 
 //        mDrawerListView = (ListView) inflater.inflate(
 //                R.layout.fragment_navigation_drawer, container, false);

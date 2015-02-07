@@ -1,5 +1,7 @@
 package com.example.lisamazzini.train_app.Controller;
 
+import android.util.Log;
+
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolutionWrapper;
@@ -63,6 +65,7 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
             String[] datas = result.split(Constants.SEPARATOR);
             //Only one train
             if (datas.length == 1) {
+                Log.d("cazzi", datas[0]);
                 // I take the second part of the string, and divide it in 2; example 608 - S11145 -> [608,S11145]
                 datas = Utilities.splitString(datas[0]);
 
@@ -73,6 +76,7 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
 
             } else {
 
+                Log.d("cazzi", datas[0] + " " + datas[1]);
                 // se c'è più di un treno con quel codice, scorro la lista di stazioni di entrambi e cerco il mio
 
                 //Here I take the data of the first train
