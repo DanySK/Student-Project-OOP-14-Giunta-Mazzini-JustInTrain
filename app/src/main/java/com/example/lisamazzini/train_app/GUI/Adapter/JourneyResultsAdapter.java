@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.Achievement.DelayAchievement;
 import com.example.lisamazzini.train_app.Controller.AchievementController;
@@ -82,7 +83,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
                                 try {
                                     achievementController.updateAchievements(journeyTrain);
                                 } catch (AchievementException e) {
-                                    // dialog = AlertDialog.Builder
+                                    Toast.makeText(ctx, "HAI ACCUMULATO 10 MINUTI DI RITARDO", Toast.LENGTH_LONG).show();
                                 }
                                 return true;
                             case R.id.unpin:
@@ -115,7 +116,6 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         protected TextView delay;
         protected Button menu;
         protected String stationCode;
-
 
         public JourneyViewHolder(View v) {
             super(v);

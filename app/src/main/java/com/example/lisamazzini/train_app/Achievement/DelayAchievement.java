@@ -14,11 +14,7 @@ import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 public class DelayAchievement implements IAchievement {
 
     private Integer totalDelay = 0;
-    DelayAchievement delayAchievement = new DelayAchievement();
 
-    public DelayAchievement getInstance(){
-        return this.delayAchievement;
-    }
 
     @Override
     public void addData(PlainSolution train) throws AchievementException {
@@ -27,7 +23,7 @@ public class DelayAchievement implements IAchievement {
     }
 
     private void check() throws DelayAchievementException {
-        if(this.totalDelay >= 100){
+        if(this.totalDelay >= 10){
             throw new DelayAchievementException();
         }
     }
