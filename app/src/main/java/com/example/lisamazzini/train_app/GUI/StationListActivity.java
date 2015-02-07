@@ -98,7 +98,7 @@ public class StationListActivity extends Activity{
         spiceManager.shouldStop();
         super.onStop();
     }
-
+    //ciao
 
     private class TrainAndStationsRequestListener extends AbstractListener<String> {
         //If there's internet connection I get the train details in this form  '608 - LECCE|608-S11145'
