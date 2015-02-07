@@ -18,6 +18,14 @@ import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 
+import org.joda.time.DateTime;
+import org.joda.time.Minutes;
+import org.joda.time.MutableDateTime;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class NotificationService extends Service {
 
     //This is the intent to refresh the Notification, that will start the service again
@@ -35,6 +43,7 @@ public class NotificationService extends Service {
     private String IDorigine;
     private String IDpartenza;
     private String IDarrivo;
+    private DateTime time;
 
 
     @Override
@@ -46,47 +55,69 @@ public class NotificationService extends Service {
 
     @Override
     public int onStartCommand (Intent intent, int flags, int startId){
+        spiceManager = new SpiceManager(UncachedSpiceService.class);
 
-        // Here I have all the information needed for the Notification (see more @NotificationPack)
         this.numeroTreno = intent.getStringExtra("number");
         this.IDorigine = intent.getStringExtra("idOrigine");
 //        this.IDpartenza = intent.getStringExtra("idPartenza");
 //        this.IDarrivo = intent.getStringExtra("idArrivo");
 //        this.orarioArrivo = intent.getStringExtra("oraArrivo");
-//        this.orarioPartenza = intent.getStringExtra("oraPartenza");
+        this.orarioPartenza = intent.getStringExtra("oraPartenza");
 
         //Here I set the data for the refresh intent (so the data will be the same)
         Intent intentRefresh = new Intent(this, ButtonListener.class);
         intentRefresh.setAction("Aggiorna");
 
-
         //Here I set the close intent, just adding the action.
         Intent intentClose = new Intent(this, ButtonListener.class);
         intentClose.setAction("Elimina");
+
+        // Here I have all the information needed for the Notification (see more @NotificationPack)
         intentRefresh.putExtra("number", this.numeroTreno);
         intentRefresh.putExtra("idOrigine", this.IDorigine);
+        intentRefresh.putExtra("oraPartenza", this.orarioPartenza);
 
-        pIntentRefresh = PendingIntent.getBroadcast(this, 1, intentRefresh, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intentStart = new Intent(NotificationService.this, NotificationService.class);
+        intentStart.putExtra("number", this.numeroTreno);
+        intentStart.putExtra("idOrigine", this.IDorigine);
+        intentStart.putExtra("oraPartenza", this.orarioPartenza);
+        PendingIntent pStart = PendingIntent.getService(this, 0, intentStart, PendingIntent.FLAG_UPDATE_CURRENT);
         pIntentClose = PendingIntent.getBroadcast(this, 1, intentClose, PendingIntent.FLAG_UPDATE_CURRENT);
+        pIntentRefresh = PendingIntent.getBroadcast(this, 1, intentRefresh, PendingIntent.FLAG_UPDATE_CURRENT);
+        try {
+            this.time = new DateTime(new SimpleDateFormat("HH:mm").parse(this.orarioPartenza));
+            this.time = this.time.minus(15);
+            DateTime now = new DateTime(Calendar.getInstance().getTime());
+            String[] a = orarioPartenza.split(":");
+            MutableDateTime n = now.toMutableDateTime();
+            n.setDate(Calendar.getInstance().getTimeInMillis());
+            n.setTime(Integer.parseInt(a[0]), Integer.parseInt(a[1]), 0, 0);
+
+            Integer timeDifference = Minutes.minutesBetween(now, n).getMinutes();
+            Log.d("dio madonna", "" + timeDifference);
+            if(timeDifference > 15){
+               // è presto
+                n.addMinutes(-15);
+                Long millis = n.getMillis();
+                Log.d("Quanti siete", "" + millis);
+                AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                am.set(AlarmManager.RTC_WAKEUP, millis, pStart);
+            }else {
+                // è ora
+                spiceManager.execute(new TrainRequest(this.numeroTreno, this.IDorigine), new ResultListener());
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
 //        pIntentAutorefresh = PendingIntent.getBroadcast(this, 1, intentRefresh, PendingIntent.FLAG_UPDATE_CURRENT);
 
-//        Integer hour = Integer.parseInt(this.time.split(":")[0]);
-//        Integer minute = Integer.parseInt(this.time.split(":")[1]) - 15;
-//        am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 
-//        calendar.set(Calendar.HOUR_OF_DAY, hour);
-//        calendar.set(Calendar.MINUTE, minute);
-//        calendar.set(Calendar.SECOND, 0);
-//        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pIntentAutorefresh);
-
-        spiceManager = new SpiceManager(UncachedSpiceService.class);
-
-        spiceManager.execute(new TrainRequest(this.numeroTreno, this.IDorigine), new ResultListener());
         // TrainRequest request = new TrainRequest(this.number);
         //spiceManager.execute(request, new TrainRequestListener());
 
         spiceManager.start(this);
-
         // If the OS stops the service after running out of memory, the service will be started again with da same intent
         return START_STICKY;
     }
@@ -121,6 +152,8 @@ public class NotificationService extends Service {
                         .setOngoing(true)
                         .addAction(R.drawable.ic_launcher, "Aggiorna", pIntentRefresh)
                         .addAction(R.drawable.ic_launcher, "Elimina", pIntentClose)
+                        .setTicker("Treno in arrivo")
+                        .setWhen(System.currentTimeMillis())
                         .setStyle(new NotificationCompat.InboxStyle()
                                 .setBigContentTitle("Treno " + train.getNumeroTreno())
                                 .addLine("Il treno non è ancora partito"))
@@ -133,6 +166,8 @@ public class NotificationService extends Service {
                         .setOngoing(true)
                         .addAction(R.drawable.ic_launcher, "Aggiorna", pIntentRefresh)
                         .addAction(R.drawable.ic_launcher, "Elimina", pIntentClose)
+                        .setTicker("AlarmNotification")
+                        .setWhen(System.currentTimeMillis())
                         .setStyle(new NotificationCompat.InboxStyle()
                                 .setBigContentTitle("Treno" + train.getNumeroTreno())
                                 .addLine("Ritardo " + train.getRitardo())
@@ -147,6 +182,8 @@ public class NotificationService extends Service {
                         .setStyle(new NotificationCompat.InboxStyle()
                                 .setBigContentTitle("Treno " + train.getNumeroTreno())
                                 .addLine("Treno arrivato a destinazione"))
+                        .setTicker("Treno in arrivo!")
+                        .setWhen(System.currentTimeMillis())
                         .build();
             }
             not.priority = Notification.PRIORITY_MAX;

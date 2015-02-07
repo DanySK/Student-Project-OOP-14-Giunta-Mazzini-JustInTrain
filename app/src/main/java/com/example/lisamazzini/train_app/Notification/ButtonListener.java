@@ -19,6 +19,7 @@ public class ButtonListener extends BroadcastReceiver {
             Log.d("-----------", "aggiornata" );
             i.putExtra("number", intent.getStringExtra("number"));
             i.putExtra("idOrigine", intent.getStringExtra("idOrigine"));
+            i.putExtra("oraPartenza", intent.getStringExtra("oraPartenza"));
             context.startService(i);
         }
 

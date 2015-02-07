@@ -48,7 +48,7 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
             // cerco i dati del treno in questione (stazione + codice stazione di origine totale)
             url = new URL("http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/" + p.getNumeroTreno());
             in = new BufferedReader(new InputStreamReader(url.openStream()));
-
+            Log.d("wft", p.getNumeroTreno());
             String result = in.readLine();
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
