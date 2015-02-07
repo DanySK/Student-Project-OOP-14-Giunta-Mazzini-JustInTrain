@@ -9,7 +9,7 @@
     >
 
     <TextView
-        android:id="@+id/trainCategory"
+        android:id="@+id/tTrainCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -23,13 +23,13 @@
         <!--android:text="cat"-->
 
     <TextView
-        android:id="@+id/trainNumber"
+        android:id="@+id/tTrainNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/departureStation"
-        android:layout_toRightOf="@+id/departureTime"
+        android:layout_above="@+id/tDepartureStation"
+        android:layout_toRightOf="@+id/tDepartureTime"
 
         android:layout_marginTop="8dp"
         android:layout_marginLeft ="8dp" />
@@ -37,22 +37,22 @@
         <!--android:text="num"-->
 
     <TextView
-        android:id="@+id/departureTime"
+        android:id="@+id/tDepartureTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_below="@+id/trainCategory"
+        android:layout_below="@+id/tTrainCategory"
         android:layout_marginTop="4dp" />
 
         <!--android:text="19:21"-->
 
     <TextView
-        android:id="@+id/departureStation"
+        android:id="@+id/tDepartureStation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_below="@+id/trainCategory"
-        android:layout_toRightOf="@+id/departureTime"
+        android:layout_below="@+id/tTrainCategory"
+        android:layout_toRightOf="@+id/tDepartureTime"
 
         android:layout_marginTop="4dp"
         android:layout_marginLeft="8dp"
@@ -61,22 +61,22 @@
         <!--android:text="Pesaro"-->
 
     <TextView
-        android:id="@+id/arrivalTime"
+        android:id="@+id/tArrivalTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_below="@+id/departureTime"
+        android:layout_below="@+id/tDepartureTime"
         android:layout_marginTop="4dp" />
 
         <!--android:text="20:55"-->
 
     <TextView
-    android:id="@+id/arrivalStation"
+    android:id="@+id/tArrivalStation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_below="@+id/departureStation"
-        android:layout_toRightOf="@+id/arrivalTime"
+        android:layout_below="@+id/tDepartureStation"
+        android:layout_toRightOf="@+id/tArrivalTime"
 
         android:layout_marginTop="4dp"
         android:layout_marginLeft="8dp"
@@ -85,7 +85,7 @@
         <!--android:text="Cesena"-->
 
     <TextView
-        android:id="@+id/delay"
+        android:id="@+id/tDelay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -100,24 +100,25 @@
         />
 
     <Button
-        style="?android:attr/buttonStyleSmall"
-        android:id="@+id/btnOpt"
+        android:id="@+id/bOptions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_below="@+id/arrivalTime"
-        android:text="lissa"
+        android:layout_below="@+id/tArrivalTime"
 
+        style="?android:attr/buttonStyleSmall"
+
+        android:text="lissa"
     />
 
     <TextView
-        android:id="@+id/duration"
+        android:id="@+id/tDuration"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_toRightOf="@+id/btnOpt"
-        android:layout_below="@+id/arrivalTime"
+        android:layout_toRightOf="@+id/bOptions"
+        android:layout_below="@+id/tArrivalTime"
 
         android:layout_marginTop="12dp"
         android:layout_marginLeft="16dp" />

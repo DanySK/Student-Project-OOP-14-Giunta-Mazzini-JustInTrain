@@ -12,6 +12,8 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,9 +24,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.example.lisamazzini.train_app.Controller.FavouriteTrainListController;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
+import com.example.lisamazzini.train_app.GUI.Adapter.DrawerListAdapter;
 import com.example.lisamazzini.train_app.R;
 
 /**
@@ -63,6 +65,11 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
+
+    RecyclerView recyclerView;
+    DrawerListAdapter drawerListAdapter;
+    RecyclerView.LayoutManager layoutManager;
+
     public NavigationDrawerFragment() {
     }
 
@@ -97,14 +104,15 @@ public class NavigationDrawerFragment extends Fragment {
 
         final View drawerView = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 
-        mDrawerListView = (LinearLayout) drawerView.findViewById(R.id.linear);
+//        mDrawerListView = (LinearLayout) drawerView.findViewById(R.id.linear);
 
-        final EditText trainNumber = (EditText)drawerView.findViewById(R.id.trainNumber);
-        final EditText departure = (EditText)drawerView.findViewById(R.id.departure);
-        final EditText arrival = (EditText)drawerView.findViewById(R.id.arrival);
-        Button btn1 = (Button) drawerView.findViewById(R.id.btnTrainNumber);
-        Button btn2 = (Button) drawerView.findViewById(R.id.btnJourney);
-        btn1.setOnClickListener(new View.OnClickListener() {
+        final EditText trainNumber = (EditText)drawerView.findViewById(R.id.eTrainNumber);
+        final Button trainNumberSearchButton = (Button) drawerView.findViewById(R.id.bTrainNumberSearch);
+        final EditText departure = (EditText)drawerView.findViewById(R.id.eDepartureStation);
+        final EditText arrival = (EditText)drawerView.findViewById(R.id.eArrivalStation);
+        final Button journeySearchButton = (Button) drawerView.findViewById(R.id.bJourneySearch);
+
+        trainNumberSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (trainNumber.length() > 0) {
@@ -112,9 +120,10 @@ public class NavigationDrawerFragment extends Fragment {
                     i.putExtra("trainNumber", trainNumber.getText().toString());
                     startActivity(i);
                 }
-                    }
-    });
-        btn2.setOnClickListener(new View.OnClickListener() {
+            }
+        });
+
+        journeySearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (departure.length() > 0 && arrival.length() > 0) {
@@ -126,24 +135,33 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
 
-        Button btn3 = (Button) drawerView.findViewById(R.id.btnPrefTrains);
-        btn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), FavouriteTrainListActivity.class);
-                startActivity(i);
-            }
-        });
+        String[] TITLES = {"Favourite Train", "Erase All Favs"};
 
-        final Button btn = (Button)drawerView.findViewById(R.id.elimina);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                IFavouriteController fc = FavouriteTrainController.getInstance();
-                fc.setContext(drawerView.getContext());
-                fc.removeFavourites();
-            }
-        });
+        recyclerView = (RecyclerView) drawerView.findViewById(R.id.lDrawerList);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getActivity());
+        drawerListAdapter = new DrawerListAdapter(TITLES, getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(drawerListAdapter);
+
+//        Button btn3 = (Button) drawerView.findViewById(R.id.btnPrefTrains);
+//        btn3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(getActivity(), FavouriteTrainListActivity.class);
+//                startActivity(i);
+//            }
+//        });
+
+//        final Button btn = (Button)drawerView.findViewById(R.id.elimina);
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                IFavouriteController fc = FavouriteTrainController.getInstance();
+//                fc.setContext(drawerView.getContext());
+//                fc.removeFavourites();
+//            }
+//        });
 
 
 

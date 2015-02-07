@@ -2,8 +2,6 @@ package com.example.lisamazzini.train_app.GUI.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.Parcel;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +12,6 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.example.lisamazzini.train_app.Controller.NotificationPack;
 import com.example.lisamazzini.train_app.GUI.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Notification.NotificationService;
@@ -108,15 +105,15 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         public JourneyViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
-            category = (TextView)v.findViewById(R.id.trainCategory);
-            number = (TextView) v.findViewById(R.id.trainNumber);
-            duration = (TextView) v.findViewById(R.id.duration);
-            departureStation = (TextView) v.findViewById(R.id.departureStation);
-            departureTime = (TextView) v.findViewById(R.id.departureTime);
-            arrivalStation = (TextView) v.findViewById(R.id.arrivalStation);
-            arrivalTime = (TextView) v.findViewById(R.id.arrivalTime);
-            delay = (TextView) v.findViewById(R.id.delay);
-            menu = (Button)v.findViewById(R.id.btnOpt);
+            category = (TextView)v.findViewById(R.id.tTrainCategory);
+            number = (TextView) v.findViewById(R.id.tTrainNumber);
+            duration = (TextView) v.findViewById(R.id.tDuration);
+            departureStation = (TextView) v.findViewById(R.id.tDepartureStation);
+            departureTime = (TextView) v.findViewById(R.id.tDepartureTime);
+            arrivalStation = (TextView) v.findViewById(R.id.tArrivalStation);
+            arrivalTime = (TextView) v.findViewById(R.id.tArrivalTime);
+            delay = (TextView) v.findViewById(R.id.tDelay);
+            menu = (Button)v.findViewById(R.id.bOptions);
             stationCode = "";
         }
 
