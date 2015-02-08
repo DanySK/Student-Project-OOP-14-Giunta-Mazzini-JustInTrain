@@ -8,19 +8,19 @@ public class JourneyRequest extends SpiceRequest<Tragitto> {
 
     private final String departureID;
     private final String arrivalID;
+    private final String requestedTime;
 
 
-    public JourneyRequest(String departureID, String arrivalID) {
+    public JourneyRequest(String departureID, String arrivalID, String requestedTime) {
         super(Tragitto.class);
         this.departureID = departureID;
         this.arrivalID = arrivalID;
+        this.requestedTime = requestedTime;
     }
 
     @Override
     public Tragitto loadDataFromNetwork() throws Exception {
-        Tragitto tragitto = JourneyRestClient.get().getJourneys(departureID, arrivalID, "2015-02-08T00:00:00");
-
-
+        Tragitto tragitto = JourneyRestClient.get().getJourneys(departureID, arrivalID, requestedTime);
         return tragitto;
     }
 

@@ -15,6 +15,7 @@ public class JourneyResultsActivity extends ActionBarActivity {
     private Toolbar toolbar;
     private String departureStation;
     private String arrivalStation;
+    private String requestedTime;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +25,9 @@ public class JourneyResultsActivity extends ActionBarActivity {
         Intent i = getIntent();
         this.departureStation = i.getStringExtra("departureStation");
         this.arrivalStation = i.getStringExtra("arrivalStation");
+        this.requestedTime = i.getStringExtra("requestedTime");
 
-
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle(departureStation + " " + arrivalStation);
@@ -35,9 +36,9 @@ public class JourneyResultsActivity extends ActionBarActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, JourneyResultsFragment.newInstance());
-        fragment = (JourneyResultsFragment)getSupportFragmentManager().findFragmentById(R.id.journeyResultsFragment);
+        fragment = (JourneyResultsFragment) getSupportFragmentManager().findFragmentById(R.id.journeyResultsFragment);
 
-        fragment.makeRequestsWithStations(departureStation, arrivalStation);
+        fragment.makeRequestsWithStations(departureStation, arrivalStation, requestedTime);
     }
 
 
@@ -49,8 +50,4 @@ public class JourneyResultsActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
 }

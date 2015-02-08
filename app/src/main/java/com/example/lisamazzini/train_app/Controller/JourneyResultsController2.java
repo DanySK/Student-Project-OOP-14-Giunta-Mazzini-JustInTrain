@@ -12,19 +12,7 @@ import java.util.List;
 
 public class JourneyResultsController2 {
 
-    private final String departure;
-    private final String arrival;
-    private final String date;
-    private final String time;
     private List<PlainSolution> plainSolutions = new LinkedList<>();
-
-
-    public JourneyResultsController2(String departure, String arrival, String date, String time) {
-        this.departure = departure;
-        this.arrival = arrival;
-        this.date = date;
-        this.time = time;
-    }
 
     public void buildPlainSolutions(Tragitto tragitto) {
         plainSolutions.clear();
@@ -35,12 +23,9 @@ public class JourneyResultsController2 {
                         sol.getDurata()));
             }
         }
-        Log.d("cazzi", "build " + plainSolutions.size());
     }
 
     public List<PlainSolution> getPlainSolutions() {
-        Log.d("cazzi", " get " + plainSolutions.size());
-
-        return this.plainSolutions.subList(0, 5 );
+        return this.plainSolutions.subList(0, 5);
     }
 }

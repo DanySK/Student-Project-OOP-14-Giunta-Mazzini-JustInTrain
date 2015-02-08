@@ -42,6 +42,7 @@ public class JourneyResultsFragment extends Fragment {
     private String departureID;
     private String arrivalStation;
     private String arrivalID;
+    private String requestedTime;
 
 
     public static JourneyResultsFragment newInstance() {
@@ -67,21 +68,23 @@ public class JourneyResultsFragment extends Fragment {
         recyclerView.setAdapter(journeyResultsAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        controller = new JourneyResultsController2("pesaro", "pesaro", "asdf", "adsf");
+        controller = new JourneyResultsController2();
 
         return layoutInflater;
     }
 
-    public void makeRequestsWithStations(String departureStation, String arrivalStation) {
+    public void makeRequestsWithStations(String departureStation, String arrivalStation, String requestedTime) {
         this.departureStation = departureStation;
         this.arrivalStation = arrivalStation;
+        this.requestedTime = requestedTime;
         spiceManager.execute(new JourneyDataRequest(this.departureStation), new DepartureDataRequestListenter());
     }
 
-    public void makeRequestsWithIDs(String departureID, String arrivalID) {
+    public void makeRequestsWithIDs(String departureID, String arrivalID, String requestedTime) {
         this.departureID = departureID;
         this.arrivalID = arrivalID;
-        spiceManager.execute(new JourneyRequest(departureID, arrivalID), new JourneyRequestListener());
+        this.requestedTime = requestedTime;
+        spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -116,7 +119,7 @@ public class JourneyResultsFragment extends Fragment {
         @Override
         public void onRequestSuccess(String s) {
             arrivalID = s.split("\\|S")[1];
-            spiceManager.execute(new JourneyRequest(departureID, arrivalID), new JourneyRequestListener());
+            spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
         }
     }
 

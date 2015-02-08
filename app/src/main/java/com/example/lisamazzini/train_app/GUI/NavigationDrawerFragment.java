@@ -1,6 +1,5 @@
 package com.example.lisamazzini.train_app.GUI;
 
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
@@ -25,19 +24,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TimePicker;
 
-import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
-import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.GUI.Adapter.DrawerListAdapter;
 import com.example.lisamazzini.train_app.R;
 
-import org.joda.time.DateTime;
-
-import java.text.ParseException;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -67,6 +60,8 @@ public class NavigationDrawerFragment extends Fragment {
      */
     private ActionBarDrawerToggle mDrawerToggle;
 
+
+
     private DrawerLayout mDrawerLayout;
     private LinearLayout mDrawerListView;
     private View mFragmentContainerView;
@@ -76,9 +71,18 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean mUserLearnedDrawer;
 
 
-    RecyclerView recyclerView;
-    DrawerListAdapter drawerListAdapter;
-    RecyclerView.LayoutManager layoutManager;
+    private Calendar calendar = Calendar.getInstance();
+    private Format formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:00");
+    protected int hour = 0;
+    private int minute = 0;
+    private int day;
+    private int month;
+    private int year;
+    private String actualTime;
+
+    private RecyclerView recyclerView;
+    private DrawerListAdapter drawerListAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     public NavigationDrawerFragment() {
     }
@@ -104,7 +108,6 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
     }
 
@@ -113,14 +116,15 @@ public class NavigationDrawerFragment extends Fragment {
                              final Bundle savedInstanceState) {
 
         final View drawerView = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-
-//        mDrawerListView = (LinearLayout) drawerView.findViewById(R.id.linear);
-
         final EditText trainNumber = (EditText)drawerView.findViewById(R.id.eTrainNumber);
         final Button trainNumberSearchButton = (Button) drawerView.findViewById(R.id.bTrainNumberSearch);
         final EditText departure = (EditText)drawerView.findViewById(R.id.eDepartureStation);
         final EditText arrival = (EditText)drawerView.findViewById(R.id.eArrivalStation);
         final Button journeySearchButton = (Button) drawerView.findViewById(R.id.bJourneySearch);
+
+        setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        setTime(calendar.get(Calendar.HOUR_OF_DAY)-1, calendar.get(Calendar.MINUTE));
+        actualTime = buildDateTime();
 
         trainNumberSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,29 +137,6 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
 
-
-        final EditText time = (EditText)drawerView.findViewById(R.id.eTimePicker);
-
-
-
-//        time.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Calendar mcurrentTime = Calendar.getInstance();
-//                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-//                int minute = mcurrentTime.get(Calendar.MINUTE);
-//                TimePickerDialog mTimePicker;
-//                mTimePicker = new TimePickerDialog(getActivity().getApplicationContext(), new TimePickerDialog.OnTimeSetListener() {
-//                    @Override
-//                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-//                        time.setText( selectedHour + ":" + selectedMinute);
-//                    }
-//                }, hour, minute, true);//Yes 24 hour time
-//                mTimePicker.setTitle("Select Time");
-//                mTimePicker.show();
-//            }
-//        });
-
         journeySearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,6 +144,7 @@ public class NavigationDrawerFragment extends Fragment {
                     Intent i = new Intent(getActivity(), JourneyResultsActivity.class);
                     i.putExtra("departureStation", departure.getText().toString());
                     i.putExtra("arrivalStation", arrival.getText().toString());
+                    i.putExtra("requestedTime", buildDateTime());
                     startActivity(i);
                 }
             }
@@ -177,38 +159,35 @@ public class NavigationDrawerFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(drawerListAdapter);
 
-//        mDrawerListView = (ListView) inflater.inflate(
-//                R.layout.fragment_navigation_drawer, container, false);
-//        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                selectItem(position);
-//            }
-//        });
-//        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-//                getActionBar().getThemedContext(),
-//                android.R.layout.simple_list_item_activated_1,
-//                android.R.id.text1,
-//                new String[]{
-//                        getString(R.string.title_section1),
-//                        getString(R.string.title_section2),
-//                        getString(R.string.title_section3),
-//                }));
-//        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return drawerView;
-//        return mDrawerListView;
+    }
+
+    public String getActualTime() {
+        return this.actualTime;
+    }
+
+    public void setTime(int hour, int minute) {
+        this.hour = hour;
+        this.minute = minute;
+        Log.d("cazzi", "" + hour + minute);
+    }
+
+    public void setDate(int year, int month, int day) {
+        this.year = year;
+        this.day = day;
+        this.month = month;
+        Log.d("cazzi", "" + year + month + day);
+    }
+
+    public String buildDateTime() {
+        calendar.set(this.year, this.month, this.day, this.hour, this.minute);
+        return formatter.format(calendar.getTime());
     }
 
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
 
-    /**
-     * Users of this fragment must call this method to set up the navigation drawer interactions.
-     *
-     * @param fragmentId   The android:id of this fragment in its activity's layout.
-     * @param drawerLayout The DrawerLayout containing this fragment's UI.
-     */
     public void setUp(int fragmentId, DrawerLayout drawerLayout) {
         mFragmentContainerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
@@ -344,10 +323,6 @@ public class NavigationDrawerFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Per the navigation drawer design guidelines, updates the action bar to show the global app
-     * 'context', rather than just what's in the current screen.
-     */
     private void showGlobalContextActionBar() {
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
@@ -359,13 +334,7 @@ public class NavigationDrawerFragment extends Fragment {
         return ((ActionBarActivity) getActivity()).getSupportActionBar();
     }
 
-    /**
-     * Callbacks interface that all activities using this fragment must implement.
-     */
     public static interface NavigationDrawerCallbacks {
-        /**
-         * Called when an item in the navigation drawer is selected.
-         */
         void onNavigationDrawerItemSelected(int position);
     }
 }

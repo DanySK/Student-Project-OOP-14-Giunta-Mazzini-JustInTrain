@@ -80,19 +80,25 @@
         android:singleLine="true"
      />
 
-    <EditText
-        android:id="@+id/eTimePicker"
+    <Button
+        android:id="@+id/bTimePicker"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:ems="4"
-        android:maxEms="4"
+        android:layout_below="@id/eArrivalStation"
 
-        android:clickable="true"
+        android:onClick="showTimePickerDialog" />
+
+    <Button
+        android:id="@+id/bDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
         android:layout_below="@id/eArrivalStation"
-        />
+        android:layout_toRightOf="@id/bTimePicker"
+
+        android:onClick="showDatePickerDialog" />
 
     <Button
     android:id="@+id/bJourneySearch"
@@ -115,7 +121,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:layout_below="@id/eTimePicker"
+        android:layout_below="@id/bTimePicker"
 
         android:layout_marginTop="32dp"
     />

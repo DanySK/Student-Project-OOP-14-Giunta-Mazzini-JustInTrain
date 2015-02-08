@@ -1,16 +1,22 @@
 package com.example.lisamazzini.train_app.GUI;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.SpinnerAdapter;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.TimePicker;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
@@ -21,7 +27,8 @@ import com.example.lisamazzini.train_app.Model.Constants;
 import java.util.List;
 import java.util.ArrayList;
 
-public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+//public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private Toolbar toolbar;
@@ -109,12 +116,40 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             public boolean onNavigationItemSelected(int position, long l) {
                 String[] IDs = finalJourneys.get(1).get(position).split(Constants.SEPARATOR);
                 Log.d("cazzi", "faccio richieste con " + IDs[0] + " " + IDs[1]);
-                fragment.makeRequestsWithIDs(IDs[0], IDs[1]);
+                fragment.makeRequestsWithIDs(IDs[0], IDs[1], mNavigationDrawerFragment.getActualTime());
                 return true;
             }
         };
         action.setDisplayShowTitleEnabled(false);
         action.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_LIST);
         action.setListNavigationCallbacks(spinnerAdapter, navigationListener);
+    }
+
+    private TimePickerFragment timeFragment;
+    private DialogFragment dateFragment;
+
+
+    public void showTimePickerDialog(View v) {
+        timeFragment = new TimePickerFragment();
+        timeFragment.show(getSupportFragmentManager(), "timePicker");
+    }
+
+    public void showDatePickerDialog(View v) {
+        dateFragment = new DatePickerFragment();
+        dateFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        if (view.isShown()) {
+            mNavigationDrawerFragment.setTime(hourOfDay, minute);
+        }
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        if (view.isShown()) {
+            mNavigationDrawerFragment.setDate(year, monthOfYear, dayOfMonth);
+        }
     }
 }
