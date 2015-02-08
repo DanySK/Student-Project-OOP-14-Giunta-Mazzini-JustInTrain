@@ -27,7 +27,8 @@ import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 
 /**
- * Created by lisamazzini on 22/01/15.
+ * Created by Lisa Mazzini
+ *
  */
 public class StationListActivity extends Activity{
 
@@ -137,7 +138,6 @@ public class StationListActivity extends Activity{
 
                     //Here I take the data of the second train
                     final String[] secondChoiceData = listController.computeData(datas[1]);
-
 
                         //Here I create the options that will be showed to the user
                         String[] choices = listController.computeChoices(firstChoiceData, secondChoiceData);

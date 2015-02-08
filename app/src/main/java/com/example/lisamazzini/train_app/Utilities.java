@@ -2,21 +2,22 @@ package com.example.lisamazzini.train_app;
 
 
 import org.joda.time.DateTime;
+import org.joda.time.MutableDateTime;
+
+import java.util.Calendar;
 
 /**
- * Created by lisamazzini on 03/02/15.
+ * Created by Lisa Mazzini
  */
 public class Utilities {
 
 
     // fonte: http://stackoverflow.com/questions/9027317/how-to-convert-milliseconds-to-hhmmss-format
     public static String fromMsToTime(Long millis){
-
         DateTime date = new DateTime(millis);
         date.plusHours(1);
         int hour = date.getHourOfDay();
         int minutes = date.getMinuteOfHour();
-
         return hour + ":" + minutes;
 
     }
@@ -27,5 +28,14 @@ public class Utilities {
         result[1] = data.split("\\|")[1].split("-")[1];    //codice
         result[2] = data.split("\\|")[0].split("-")[1];    //nome
         return result;
+    }
+
+    public static MutableDateTime getDate(String time){
+        DateTime now = new DateTime(Calendar.getInstance().getTime());
+        String[] arrTime = time.split(":");
+        MutableDateTime date = now.toMutableDateTime();
+        date.setDate(Calendar.getInstance().getTimeInMillis());
+        date.setTime(Integer.parseInt(arrTime[0]), Integer.parseInt(arrTime[1]), 0, 0);
+        return date;
     }
 }
