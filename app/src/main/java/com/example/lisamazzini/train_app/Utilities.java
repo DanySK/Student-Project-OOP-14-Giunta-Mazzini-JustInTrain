@@ -30,6 +30,7 @@ public class Utilities {
         return result;
     }
 
+    //Questo
     public static MutableDateTime getDate(String time){
         DateTime now = new DateTime(Calendar.getInstance().getTime());
         String[] arrTime = time.split(":");
