@@ -1,7 +1,6 @@
 package com.example.lisamazzini.train_app.GUI.Adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
@@ -34,16 +33,16 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
         Fermate f = list.get(i);
         viewHolder.stationName.setText(f.getStazione());
         if(f.getOrientamento() == (null)){
-            viewHolder.visited.setText("CANCELLATA");
+            viewHolder.extraMessage.setText("CANCELLATA");
         }else{
             if(f.getActualFermataType() == 2L) {
-            viewHolder.visited.setText("Fermata Straordinaria");
+            viewHolder.extraMessage.setText("Fermata Straordinaria");
             }
-            viewHolder.expectedArrival.setText(Utilities.fromMsToTime(f.getEffettiva()));
-            viewHolder.scheduledArrival.setText(Utilities.fromMsToTime(f.getProgrammata()));
             viewHolder.timeDifference.setText("" + f.getRitardo());
-            viewHolder.expectedPlatform.setText(f.getBinarioEffettivoPartenzaDescrizione());
-            viewHolder.scheduledPlatform.setText(f.getBinarioProgrammatoPartenzaDescrizione());
+            viewHolder.plannedTime.setText(Utilities.fromMsToTime(f.getProgrammata()));
+            viewHolder.plannedPlatform.setText(f.getBinarioEffettivoPartenzaDescrizione());
+            viewHolder.actualTime.setText(Utilities.fromMsToTime(f.getEffettiva()));
+            viewHolder.actualPlatform.setText(f.getBinarioProgrammatoPartenzaDescrizione());
         }
 
     }
@@ -61,25 +60,24 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView stationName;
-        TextView visited;
-        TextView expectedArrival;
-        TextView scheduledArrival;
+        TextView extraMessage;
+        TextView actualTime;
+        TextView plannedTime;
         TextView timeDifference;
-        TextView expectedPlatform;
-        TextView scheduledPlatform;
+        TextView actualPlatform;
+        TextView plannedPlatform;
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
-            stationName = (TextView) itemView.findViewById(R.id.statName);
-            visited = (TextView) itemView.findViewById(R.id.visited);
-            expectedArrival = (TextView) itemView.findViewById(R.id.expArr);
-            scheduledArrival = (TextView) itemView.findViewById(R.id.planArr);
-            timeDifference = (TextView) itemView.findViewById(R.id.delaaay);
-            expectedPlatform = (TextView) itemView.findViewById(R.id.expPlat);
-            scheduledPlatform = (TextView) itemView.findViewById(R.id.schPlat);
+            stationName = (TextView) itemView.findViewById(R.id.tStationName);
+            timeDifference = (TextView) itemView.findViewById(R.id.tTimeDifference);
+            plannedTime = (TextView) itemView.findViewById(R.id.tPlannedTime);
+            plannedPlatform = (TextView) itemView.findViewById(R.id.tPlannedPlatform);
+            actualTime = (TextView) itemView.findViewById(R.id.tActualTime);
+            actualPlatform = (TextView) itemView.findViewById(R.id.tActualPlatform);
+            extraMessage = (TextView) itemView.findViewById(R.id.tExtraMessage);
         }
     }
-
 }
 
 /*

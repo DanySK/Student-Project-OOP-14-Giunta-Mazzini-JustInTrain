@@ -44,7 +44,7 @@
         android:layout_below="@+id/tTrainCategory"
         android:layout_marginTop="4dp" />
 
-        <!--android:text="19:21"-->
+    <!--android:text="19:21"-->
 
     <TextView
         android:id="@+id/tDepartureStation"
@@ -85,7 +85,7 @@
         <!--android:text="Cesena"-->
 
     <TextView
-        android:id="@+id/tDelay"
+        android:id="@+id/tTimeDifference"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 

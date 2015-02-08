@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Preferito"-->
+        <!--android:id="@+id/add_favourite"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true" />-->
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tInfo"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/lDelay"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Delay: "-->
+            <!--/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tDelay"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="123'"-->
+            <!--/>-->
+
+
+        <!--<TextView-->
+            <!--android:id="@+id/lProgress"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Progress: "-->
+            <!--/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tProgress"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Recupering"-->
+            <!--/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/lLastSeen"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Last Seen: "-->
+            <!--/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tLastSeenTime"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="19:23"-->
+            <!--/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tLastSeenStation"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="CATTOLICA SAN GIOVANNI GABICCE"-->
+            <!--/>-->
+
+        <!--</RelativeLayout>-->
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+    />
+
+</LinearLayout>

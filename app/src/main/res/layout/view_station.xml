@@ -1,73 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:id="@+id/s">
 
     <TextView
+        android:id="@+id/tStationName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Stazione"
-        android:id="@+id/statName"
+
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+
+        android:paddingLeft="4dp"
+        android:layout_marginTop="16dp"
+
+        android:textStyle="bold"
+        android:textSize="16dp"
+        android:textAllCaps="true"
+        android:text="Cattolica San Giovanni Gabicce"
+         />
 
     <TextView
+        android:id="@+id/tTimeDifference"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Visitato"
-        android:id="@+id/visited"
+
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/statName"
-        android:layout_toEndOf="@+id/statName" />
+        android:layout_toRightOf="@+id/tStationName"
+
+        android:layout_marginTop="17dp"
+        android:paddingLeft="16dp"
+
+        android:text="123'"
+
+        />
+
 
     <TextView
+        android:id="@+id/lPlanned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Arrivo1"
-        android:id="@+id/planArr"
-        android:layout_below="@+id/statName"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+
+        android:layout_below="@+id/tStationName"
+
+        android:paddingLeft="4dp"
+        android:layout_marginTop="6dp"
+
+        android:textStyle="italic"
+        android:textSize="12dp"
+        android:text="PLANNED"
+        />
 
     <TextView
+        android:id="@+id/lPlannedTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Arrivo2"
-        android:id="@+id/expArr"
-        android:layout_below="@+id/visited"
-        android:layout_toRightOf="@+id/planArr"
-        android:layout_toEndOf="@+id/planArr" />
+
+        android:layout_below="@+id/lPlanned"
+
+        android:paddingLeft="4dp"
+        android:layout_marginTop="4dp"
+
+        android:text="Time: "
+        />
 
     <TextView
+        android:id="@+id/tPlannedTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Binario1"
-        android:id="@+id/expPlat"
-        android:layout_below="@+id/planArr"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+
+        android:layout_toRightOf="@+id/lPlannedTime"
+        android:layout_below="@+id/lPlanned"
+
+        android:paddingLeft="4dp"
+        android:layout_marginTop="4dp"
+
+        android:textStyle="bold"
+        android:text="00:00"
+
+        />
 
     <TextView
+        android:id="@+id/lPlannedPlatform"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Binario2"
-        android:id="@+id/schPlat"
-        android:layout_below="@+id/expArr"
-        android:layout_toRightOf="@+id/expPlat"
-        android:layout_toEndOf="@+id/expPlat" />
+
+        android:layout_toRightOf="@+id/tPlannedTime"
+        android:layout_below="@+id/lPlanned"
+
+        android:paddingLeft="32dp"
+        android:layout_marginTop="4dp"
+
+        android:text="Platform: "
+        />
 
     <TextView
+        android:id="@+id/tPlannedPlatform"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="RIT"
-        android:id="@+id/delaaay"
-        android:layout_below="@+id/visited"
-        android:layout_centerHorizontal="true" />
+
+        android:layout_toRightOf="@+id/lPlannedPlatform"
+        android:layout_below="@id/lPlanned"
+
+        android:paddingLeft="4dp"
+        android:layout_marginTop="4dp"
+
+        android:textStyle="bold"
+        android:text="1"
+        />
+
+    <TextView
+        android:id="@+id/lActual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/lPlannedTime"
+
+        android:paddingLeft="4dp"
+        android:layout_marginTop="6dp"
+
+        android:textStyle="italic"
+        android:textSize="12dp"
+        android:text="ACTUAL"
+        />
+
+    <TextView
+        android:id="@+id/lActualTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/lActual"
+
+        android:paddingLeft="4dp"
+        android:layout_marginTop="4dp"
+
+        android:text="Time: "
+        />
+
+    <TextView
+        android:id="@+id/tActualTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_toRightOf="@+id/lActualTime"
+        android:layout_below="@+id/lActual"
+
+        android:paddingLeft="4dp"
+        android:layout_marginTop="4dp"
+
+        android:textStyle="bold"
+        android:text="00:00"
+        />
+
+    <TextView
+        android:id="@+id/lActualPlatform"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_toRightOf="@+id/tActualTime"
+        android:layout_below="@+id/lActual"
+
+        android:paddingLeft="32dp"
+        android:layout_marginTop="4dp"
+
+        android:text="Platform: "
+        />
+
+    <TextView
+        android:id="@+id/tActualPlatform"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_toRightOf="@+id/lActualPlatform"
+        android:layout_below="@id/lActual"
+
+        android:paddingLeft="4dp"
+        android:layout_marginTop="4dp"
+
+        android:textStyle="bold"
+        android:text="1"
+        />
+
+    <TextView
+        android:id="@+id/tExtraMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/lActualTime"
+
+        android:layout_marginTop="4dp"
+        android:paddingLeft="4dp"
+        />
+
 </RelativeLayout>

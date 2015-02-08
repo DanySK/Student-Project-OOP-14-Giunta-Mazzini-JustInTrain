@@ -1,7 +1,6 @@
 package com.example.lisamazzini.train_app.GUI.Adapter;
 
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -126,7 +125,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
             departureTime = (TextView) v.findViewById(R.id.tDepartureTime);
             arrivalStation = (TextView) v.findViewById(R.id.tArrivalStation);
             arrivalTime = (TextView) v.findViewById(R.id.tArrivalTime);
-            delay = (TextView) v.findViewById(R.id.tDelay);
+            delay = (TextView) v.findViewById(R.id.tTimeDifference);
             menu = (Button)v.findViewById(R.id.bOptions);
             stationCode = "";
         }

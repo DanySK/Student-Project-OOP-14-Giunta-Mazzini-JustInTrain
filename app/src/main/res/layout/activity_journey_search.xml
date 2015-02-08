@@ -10,7 +10,6 @@
     <fragment
         android:name="com.example.lisamazzini.train_app.GUI.JourneyResultsFragment"
         android:id="@+id/journeyResultsFragment"
-
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
     </fragment>

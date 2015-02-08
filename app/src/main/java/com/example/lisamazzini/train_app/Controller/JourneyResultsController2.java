@@ -41,6 +41,6 @@ public class JourneyResultsController2 {
     public List<PlainSolution> getPlainSolutions() {
         Log.d("cazzi", " get " + plainSolutions.size());
 
-        return this.plainSolutions.subList(12, 17);
+        return this.plainSolutions.subList(0, 5 );
     }
 }
