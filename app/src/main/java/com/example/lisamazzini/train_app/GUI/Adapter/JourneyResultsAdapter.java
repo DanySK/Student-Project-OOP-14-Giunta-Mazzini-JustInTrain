@@ -15,7 +15,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lisamazzini.train_app.Achievement.DelayAchievement;
+import com.example.lisamazzini.train_app.Achievement.BasicAchievement;
+import com.example.lisamazzini.train_app.Achievement.DelayAchievement1;
 import com.example.lisamazzini.train_app.Controller.AchievementController;
 import com.example.lisamazzini.train_app.Exceptions.AchievementException;
 import com.example.lisamazzini.train_app.GUI.StationListActivity;
@@ -28,7 +29,7 @@ import java.util.List;
 public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAdapter.JourneyViewHolder>{
 
     private final List<PlainSolution> journeyList;
-    private final AchievementController achievementController = new AchievementController();
+    private AchievementController achievementController;
 
     public JourneyResultsAdapter(List<PlainSolution> list) {
         this.journeyList = list;
@@ -72,16 +73,13 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
                                 Log.d("----OHI--", "Son qui");
                                 intent.putExtra("number", journeyTrain.getNumeroTreno());
                                 intent.putExtra("idOrigine", journeyTrain.getIDorigine());
-                                intent.putExtra("idPartenza", journeyTrain.getIDpartenza());
-                                intent.putExtra("idArrivo", journeyTrain.getIDarrivo());
                                 intent.putExtra("oraPartenza", journeyTrain.getOrarioPartenza());
-                                intent.putExtra("oraArrivo", journeyTrain.getOrarioArrivo());
                                 ctx.startService(intent);
-                                achievementController.addAchievement(new DelayAchievement());
+                                achievementController = new AchievementController(ctx);
                                 try {
                                     achievementController.updateAchievements(journeyTrain);
                                 } catch (AchievementException e) {
-                                    Toast.makeText(ctx, "HAI ACCUMULATO 10 MINUTI DI RITARDO", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(ctx, e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                                 return true;
                             case R.id.unpin:

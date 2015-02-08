@@ -1,5 +1,7 @@
 package com.example.lisamazzini.train_app.Achievement;
 
+import android.content.Context;
+
 import com.example.lisamazzini.train_app.Exceptions.AchievementException;
 import com.example.lisamazzini.train_app.Model.NewTrain;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;

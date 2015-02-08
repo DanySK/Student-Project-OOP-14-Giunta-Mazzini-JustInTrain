@@ -26,7 +26,6 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
         }else{
             throw new FavouriteException();
         }
-
     }
 
     @Override

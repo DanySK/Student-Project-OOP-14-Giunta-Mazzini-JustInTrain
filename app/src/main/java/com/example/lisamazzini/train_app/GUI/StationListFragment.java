@@ -158,7 +158,6 @@ public class StationListFragment extends Fragment{
                     //Here I take the data of the second train
                     final String[] secondChoiceData = listController.computeData(datas[1]);
 
-
                     //Here I create the options that will be showed to the user
                     String[] choices = listController.computeChoices(firstChoiceData, secondChoiceData);
 
@@ -201,7 +200,7 @@ public class StationListFragment extends Fragment{
 
         @Override
         public void onRequestSuccess(NewTrain trainResponse) {
-            ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
+            ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno() + " " + listController.getProgress(trainResponse));
             fermateList.clear();
             fermateList.addAll(trainResponse.getFermate());
             adapter.notifyDataSetChanged();

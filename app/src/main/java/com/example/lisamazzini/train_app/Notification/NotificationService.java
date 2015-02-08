@@ -37,10 +37,7 @@ public class NotificationService extends Service {
 
     private String numeroTreno;
     private String orarioPartenza;
-    private String orarioArrivo;
     private String IDorigine;
-    private String IDpartenza;
-    private String IDarrivo;
 
 
     @Override
@@ -56,9 +53,6 @@ public class NotificationService extends Service {
 
         this.numeroTreno = intent.getStringExtra("number");
         this.IDorigine = intent.getStringExtra("idOrigine");
-//        this.IDpartenza = intent.getStringExtra("idPartenza");
-//        this.IDarrivo = intent.getStringExtra("idArrivo");
-//        this.orarioArrivo = intent.getStringExtra("oraArrivo");
         this.orarioPartenza = intent.getStringExtra("oraPartenza");
 
         //Here I set the data for the refresh intent (so the data will be the same)
@@ -108,6 +102,7 @@ public class NotificationService extends Service {
     }
 
 
+
     private class ResultListener extends AbstractListener<NewTrain> {
 
         @Override
@@ -123,10 +118,10 @@ public class NotificationService extends Service {
             Intent intentHome = new Intent(NotificationService.this, StationListActivity.class);
             intentHome.putExtra("trainNumber", numeroTreno);
             intentHome.putExtra("stationCode", IDorigine);
-            PendingIntent home = PendingIntent.getActivity(NotificationService.this, 1, intentHome, PendingIntent.FLAG_ONE_SHOT);
+            PendingIntent home = PendingIntent.getActivity(NotificationService.this, 1, intentHome, PendingIntent.FLAG_UPDATE_CURRENT);
 
             //If the train is not departed yet the notification will show the data
-            if(train.getNonPartito()) {
+            if(notDeparted(train)) {
                 not = builder.setSmallIcon(R.drawable.ic_launcher)
                         .setOngoing(true)
                         .addAction(R.drawable.ic_launcher, "Aggiorna", pIntentRefresh)
@@ -138,21 +133,7 @@ public class NotificationService extends Service {
                                 .addLine("Il treno non è ancora partito"))
                         .build();
             //Else, the notification is empty
-            }else if(train.getCircolante()){
-                not = builder
-                        .setSmallIcon(R.drawable.ic_launcher)
-                        .setOngoing(true)
-                        .addAction(R.drawable.ic_launcher, "Aggiorna", pIntentRefresh)
-                        .addAction(R.drawable.ic_launcher, "Elimina", pIntentClose)
-                        .setTicker("Treno in arrivo!")
-                        .setContentIntent(home)
-                        .setStyle(new NotificationCompat.InboxStyle()
-                                .setBigContentTitle("Treno" + train.getNumeroTreno())
-                                .addLine("Ritardo " + train.getRitardo())
-                                .addLine("Ultimo avvistamento" + train.getStazioneUltimoRilevamento())
-                                .addLine("Ore " + train.getCompOraUltimoRilevamento()))
-                        .build();
-            }else{
+            }else if(isArrived(train)){
                 not = builder.setSmallIcon(R.drawable.ic_launcher)
                         .setOngoing(true)
                         .addAction(R.drawable.ic_launcher, "Aggiorna", pIntentRefresh)
@@ -163,9 +144,32 @@ public class NotificationService extends Service {
                                 .addLine("Treno arrivato a destinazione"))
                         .setTicker("Treno in arrivo!")
                         .build();
+            }else{
+                not = builder
+                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setOngoing(true)
+                        .addAction(R.drawable.ic_launcher, "Aggiorna", pIntentRefresh)
+                        .addAction(R.drawable.ic_launcher, "Elimina", pIntentClose)
+                        .setTicker("Treno in arrivo!")
+                        .setContentIntent(home)
+                        .setStyle(new NotificationCompat.InboxStyle()
+                                .setBigContentTitle("Treno" + train.getNumeroTreno())
+                                .addLine("Ritardo " + train.getRitardo())
+                                .addLine("Visto a " + train.getStazioneUltimoRilevamento())
+                                .addLine("Alle ore " + train.getCompOraUltimoRilevamento()))
+                        .build();
             }
             not.priority = Notification.PRIORITY_MAX;
             startForeground(1, not);
         }
+
+        private boolean notDeparted(NewTrain train){
+            return train.getFermate().get(0).getActualFermataType() == 0;
+        }
+
+        private boolean isArrived(NewTrain train){
+            return train.getFermate().get(train.getFermate().size()-1).getActualFermataType() == 1;
+        }
+
     }
 }
