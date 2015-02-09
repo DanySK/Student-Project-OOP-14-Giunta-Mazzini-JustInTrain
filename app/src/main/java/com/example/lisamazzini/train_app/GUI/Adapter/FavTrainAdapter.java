@@ -52,43 +52,17 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
         if(train.getFermate().size() == 0  || !train.getSubTitle().equals("")){
             holder.extra.setText(train.getSubTitle());
         }else{
-            holder.delay.setText("" + train.getRitardo());
-            holder.lastSeenStation.setText(train.getStazioneUltimoRilevamento());
+            if (train.getRitardo() > 0) {
+                holder.delay.setText("  •  " + train.getRitardo() + "'  DEL");
+            } else if (train.getRitardo() < 0) {
+                holder.delay.setText("  •  " + train.getRitardo() + "'  DEL");
+            } else {
+                holder.delay.setText("  •  " + "ON TIME");
+            }
             holder.lastSeemTime.setText(train.getCompOraUltimoRilevamento());
+            holder.lastSeenStation.setText(train.getStazioneUltimoRilevamento());
         }
         holder.stationCode = train.getIdOrigine();
-
-//        holder.menu.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
-//                popupMenu.getMenuInflater().inflate(R.menu.menu_fav_train, popupMenu.getMenu());
-//                final View view = v;
-//                favouriteController.setContext(v.getContext());
-
-//                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//
-//                    @Override
-//                    public boolean onMenuItemClick(MenuItem item) {
-//                        switch (item.getItemId()) {
-//                            case R.id.delete:
-//                                favouriteController.removeFavourite(train.getNumeroTreno().toString(), train.getIdOrigine());
-//                                if (position == 0 && getItemCount() == 1) {
-//                                    list = new LinkedList<>();
-//                                } else {
-//                                    list.remove(position);
-//                                }
-//                                notifyItemRemoved(position);
-//                                notifyDataSetChanged();
-//                                return true;
-//                            default:
-//                                return false;
-//                        }
-//                    }
-//                });
-//                popupMenu.show();
-//            }
-//        });
     }
 
     @Override
@@ -101,25 +75,23 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
         TextView trainCategory;
         TextView trainNumber;
         TextView delay;
-        TextView lastSeenStation;
         TextView lastSeemTime;
-        TextView isMoving;
+        TextView lastSeenStation;
+        TextView progress;
         TextView extra;
         String stationCode;
-        Button menu;
 
         public Holder(View itemView) {
 
             super(itemView);
             itemView.setOnClickListener(this);
-            menu =(Button) itemView.findViewById(R.id.options);
-            trainCategory = (TextView) itemView.findViewById(R.id.trainCat);
-            trainNumber = (TextView) itemView.findViewById(R.id.trainNum);
-            delay = (TextView) itemView.findViewById(R.id.delaaay);
-            lastSeenStation = (TextView) itemView.findViewById(R.id.lastseen);
-            lastSeemTime = (TextView) itemView.findViewById(R.id.timelastseen);
-            isMoving = (TextView) itemView.findViewById(R.id.moving);
-            extra = (TextView) itemView.findViewById(R.id.extra);
+            trainCategory = (TextView) itemView.findViewById(R.id.tFavTrainCategory);
+            trainNumber = (TextView) itemView.findViewById(R.id.tFavTrainNumber);
+            delay = (TextView) itemView.findViewById(R.id.tFavDelay);
+            lastSeemTime = (TextView) itemView.findViewById(R.id.tFavLastSeenTime);
+            lastSeenStation = (TextView) itemView.findViewById(R.id.tFavLastSeenStation);
+            progress = (TextView) itemView.findViewById(R.id.tFavProgress);
+            extra = (TextView) itemView.findViewById(R.id.tFavExtraMessage);
         }
 
         @Override

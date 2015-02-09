@@ -264,6 +264,7 @@ public class StationListFragment extends Fragment {
 
         @Override
         public void onRequestSuccess(NewTrain trainResponse) {
+            toggleFavouriteIcon();
             ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
 
             trainResponse.setProgress(listController.getProgress(trainResponse));

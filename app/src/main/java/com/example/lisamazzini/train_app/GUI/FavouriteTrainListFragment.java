@@ -107,7 +107,7 @@ public class FavouriteTrainListFragment extends Fragment {
         @Override
         public void onRequestSuccess(NewTrain trainResponse) {
             favList.add(trainResponse);
-            Log.d("cazz", "size della fav list " + favList.size());
+            Log.d("cazzi", favList.get(0).getCategoria() + " " + favList.get(0).getCompDurata());
             adapter.notifyDataSetChanged();
         }
     }
