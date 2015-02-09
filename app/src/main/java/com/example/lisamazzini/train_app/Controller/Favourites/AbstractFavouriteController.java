@@ -2,6 +2,7 @@ package com.example.lisamazzini.train_app.Controller.Favourites;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
 
@@ -54,6 +55,10 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
         return new ArrayList<>(getFavouritesAsMap().keySet());
     }
 
+    public boolean isFavourite(String... strings) {
+        return alreadyFavourite(buildKey(strings));
+    }
+
     protected void check() {
         if (sharedPref == null) {
             throw new UnsupportedOperationException("Set your context first");
@@ -61,6 +66,7 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     }
 
     protected boolean alreadyFavourite(String string){
+        Log.d("cazzi", string);
         return getFavouritesAsMap().containsKey(string);
     }
 

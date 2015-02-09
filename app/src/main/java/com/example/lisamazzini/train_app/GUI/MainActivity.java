@@ -65,13 +65,13 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
         favouriteJourneyController.setContext(getApplicationContext());
-        favouriteJourneyController.removeFavourites();
-        try {
-            favouriteJourneyController.addFavourite("7104", "5066", "pesaro", "cesena");
-            favouriteJourneyController.addFavourite("7104", "11145", "pesaro", "lecce");
-        } catch (FavouriteException e) {
-            e.printStackTrace();
-        }
+//        favouriteJourneyController.removeFavourites();
+//        try {
+//            favouriteJourneyController.addFavourite("07104", "05066", "pesaro", "cesena");
+//            favouriteJourneyController.addFavourite("07104", "011145", "pesaro", "lecce");
+//        } catch (FavouriteException e) {
+//            e.printStackTrace();
+//        }
 
 
         // Set up the drawer.

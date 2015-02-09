@@ -3,6 +3,7 @@ package com.example.lisamazzini.train_app.Controller.Favourites;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
 import com.example.lisamazzini.train_app.Model.Constants;
@@ -32,11 +33,13 @@ public class FavouriteJourneyController extends AbstractFavouriteController{
     @Override
     public void addFavourite(String... strings) throws FavouriteException {
         super.check();
-        String key;
-        if(!(super.alreadyFavourite(key = buildKey(strings[0], strings[1])))) {
+        String key = buildKey(strings[0], strings[1]);
+//        if(!(super.alreadyFavourite(key = buildKey(strings[0], strings[1])))) {
+        if(!super.alreadyFavourite(key)) {
             editor.putString(key, buildKey(strings[2], strings[3]));
             editor.apply();
         }else{
+            Log.d("cazzi", "già preferito");
             throw new FavouriteException();
         }
     }

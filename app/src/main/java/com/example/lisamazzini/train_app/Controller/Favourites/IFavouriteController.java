@@ -21,4 +21,6 @@ public interface IFavouriteController {
 
     public List<String> getFavouritesAsList();
 
+    public boolean isFavourite(String... data);
+
 }

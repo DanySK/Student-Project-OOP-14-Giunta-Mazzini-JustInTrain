@@ -3,20 +3,28 @@ package com.example.lisamazzini.train_app.GUI;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
+import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.Controller.JourneyDataRequest;
 import com.example.lisamazzini.train_app.Controller.JourneyRequest;
 import com.example.lisamazzini.train_app.Controller.JourneyResultsController2;
 import com.example.lisamazzini.train_app.Controller.JourneyTrainRequest;
+import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
 import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
 import com.example.lisamazzini.train_app.GUI.Adapter.JourneyResultsAdapter;
+import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolutionWrapper;
 import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
@@ -43,6 +51,9 @@ public class JourneyResultsFragment extends Fragment {
     private String arrivalStation;
     private String arrivalID;
     private String requestedTime;
+    private boolean idsDownloaded;
+    private IFavouriteController favouriteController = FavouriteJourneyController.getInstance();
+    private Menu menu;
 
 
     public static JourneyResultsFragment newInstance() {
@@ -52,10 +63,16 @@ public class JourneyResultsFragment extends Fragment {
     public JourneyResultsFragment() {
     }
 
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        favouriteController.setContext(getActivity().getApplicationContext());
 
         View layoutInflater = inflater.inflate(R.layout.fragment_journey_results, container, false);
         recyclerView = (RecyclerView)layoutInflater.findViewById(R.id.cardListFragment);
@@ -71,6 +88,63 @@ public class JourneyResultsFragment extends Fragment {
         controller = new JourneyResultsController2();
 
         return layoutInflater;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Do something that differs the Activity's menu here
+        super.onCreateOptionsMenu(menu, inflater);
+        this.menu = menu;
+    }
+
+    private void setAsFavouriteIcon(boolean b) {
+        menu.getItem(1).setVisible(!b);
+        menu.getItem(2).setVisible(b);
+    }
+
+    private void toggleFavouriteIcon() {
+        if (favouriteController.isFavourite(departureID, arrivalID)) {
+            setAsFavouriteIcon(true);
+        } else {
+            setAsFavouriteIcon(false);
+        }
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.home) {
+            return true;
+        }
+        if (id == R.id.action_prefere) {
+            try {
+                addFavourite();
+                setAsFavouriteIcon(true);
+            } catch (FavouriteException e) {
+                e.printStackTrace();
+            }
+        } else if (id == R.id.action_deprefere) {
+            removeFavourite();
+            setAsFavouriteIcon(false);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void removeFavourite() {
+        Log.d("cazzi", "rimuovo");
+        favouriteController.removeFavourite(departureID, arrivalID);
+    }
+
+    public void addFavourite() throws FavouriteException {
+        Log.d("cazzi", "aggiungo");
+        favouriteController.addFavourite(departureID, arrivalID, departureStation, arrivalStation);
+    }
+
+    public boolean isIDsDownloaded() {
+        return idsDownloaded;
     }
 
     public void makeRequestsWithStations(String departureStation, String arrivalStation, String requestedTime) {
@@ -119,6 +193,8 @@ public class JourneyResultsFragment extends Fragment {
         @Override
         public void onRequestSuccess(String s) {
             arrivalID = s.split("\\|S")[1];
+            idsDownloaded = true;
+            toggleFavouriteIcon();
             spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
         }
     }

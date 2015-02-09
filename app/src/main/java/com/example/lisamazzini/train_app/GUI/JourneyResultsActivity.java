@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
@@ -23,6 +25,7 @@ public class JourneyResultsActivity extends ActionBarActivity {
     private String departureStation;
     private String arrivalStation;
     private String requestedTime;
+    private Menu menu;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,29 +51,41 @@ public class JourneyResultsActivity extends ActionBarActivity {
         fragment.makeRequestsWithStations(departureStation, arrivalStation, requestedTime);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.getItem(1).setVisible(false);
+        menu.getItem(2).setVisible(false);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        this.menu = menu;
+//        return super.onCreateOptionsMenu(menu);
+//    }
+//
+//
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        int id = item.getItemId();
 //        if (id == R.id.action_settings) {
 //            return true;
-//        } else if (id == R.id.action_prefere) {
-//            try {
-//                favouriteJourneyController.addFavourite(actualJourneyIDs.get(0), actualJourneyIDs.get(1), actualJourneyIDs.get(2), actualJourneyIDs.get(3));
+//        }
+//        if (fragment.isIDsDownloaded()) {
+//            if (id == R.id.action_prefere) {
+//                fragment.addFavourite();
 //                item.setVisible(false);
 //                menu.getItem(2).setVisible(true);
-//                restoreActionBar(menu);
 //                Log.d("cazzi", "ho toccato un non preferito");
-//            } catch (FavouriteException e) {
-//                e.printStackTrace();
+//            } else if (id == R.id.action_deprefere) {
+//                fragment.removeFavourite();
+//                item.setVisible(false);
+//                menu.getItem(1).setVisible(true);
+//                Log.d("cazzi", "ho toccato un preferito");
 //            }
-//        } else if (id == R.id.action_deprefere) {
-//            favouriteJourneyController.removeFavourite(actualJourneyIDs.get(0).split(Constants.SEPARATOR)[0], actualJourneyIDs.get(0).split(Constants.SEPARATOR)[1]);
-//            Log.d("cazzi", "rimuovo " + actualJourneyIDs.get(0).split(Constants.SEPARATOR)[0] + " " + actualJourneyIDs.get(0).split(Constants.SEPARATOR)[1]);
-//            item.setVisible(false);
-//            menu.getItem(1).setVisible(true);
-//            Log.d("cazzi", "ho toccato un preferito");
-//            restoreActionBar(menu);
 //        }
 //        return super.onOptionsItemSelected(item);
 //    }
