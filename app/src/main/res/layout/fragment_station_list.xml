@@ -55,7 +55,7 @@
             android:layout_below="@+id/tInfo"
 
             android:textStyle="bold"
-            android:text="123'"
+
             />
 
 
@@ -84,7 +84,7 @@
             android:layout_toRightOf="@id/lProgress"
 
             android:textStyle="bold"
-            android:text="Recupering"
+
             />
 
         <TextView
@@ -112,7 +112,7 @@
             android:layout_below="@id/lProgress"
 
             android:textStyle="bold"
-            android:text="19:23"
+
             />
 
         <TextView
@@ -127,7 +127,7 @@
             android:layout_below="@id/lProgress"
 
             android:textStyle="bold"
-            android:text="CATTOLICA SAN GIOVANNI GABICCE"
+
             />
 
         </RelativeLayout>

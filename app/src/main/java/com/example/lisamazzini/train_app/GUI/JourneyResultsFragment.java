@@ -110,11 +110,8 @@ public class JourneyResultsFragment extends Fragment {
         }
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
         if (id == R.id.home) {
             return true;
@@ -143,9 +140,6 @@ public class JourneyResultsFragment extends Fragment {
         favouriteController.addFavourite(departureID, arrivalID, departureStation, arrivalStation);
     }
 
-    public boolean isIDsDownloaded() {
-        return idsDownloaded;
-    }
 
     public void makeRequestsWithStations(String departureStation, String arrivalStation, String requestedTime) {
         this.departureStation = departureStation;

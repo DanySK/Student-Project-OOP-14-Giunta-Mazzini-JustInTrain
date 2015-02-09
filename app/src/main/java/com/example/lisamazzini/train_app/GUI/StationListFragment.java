@@ -1,7 +1,6 @@
 package com.example.lisamazzini.train_app.GUI;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,7 +10,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -20,6 +23,7 @@ import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.Controller.StationListController;
+import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
 import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Fermate;
@@ -34,9 +38,6 @@ import java.util.List;
 public class StationListFragment extends Fragment {
 
     private RecyclerView recyclerView;
-//    private Button bFavourite;
-//    private TextView tData;
-//    private TextView info;
     private StationListAdapter adapter;
     private LinearLayoutManager manager;
     private List<Fermate> fermateList = new LinkedList<>();
@@ -55,6 +56,7 @@ public class StationListFragment extends Fragment {
     TextView progress;
     TextView lastSeenTime;
     TextView lastSeenStation;
+    private Menu menu;
 
 
     public static StationListFragment newInstance() {
@@ -62,6 +64,11 @@ public class StationListFragment extends Fragment {
     }
 
     public StationListFragment() {
+    }
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -89,28 +96,67 @@ public class StationListFragment extends Fragment {
 
         this.favController.setContext(getActivity().getApplicationContext());
 
-//        this.bFavourite = (Button)findViewById(R.id.add_favourite);
-//        this.tData = (TextView)findViewById(R.id.train_details_text);
-//        this.info = (TextView)findViewById(R.id.info);
-//        this.trainNumber = getIntent().getStringExtra("trainNumber");
-//        this.stationCode = getIntent().getStringExtra("stationCode");
+        this.trainNumber = getActivity().getIntent().getStringExtra("trainNumber");
+        this.stationCode = getActivity().getIntent().getStringExtra("stationCode");
 
-//        this.bFavourite.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                favController.addFavourite(trainDetails[0], trainDetails[1]);
-//                try {
-//                    favController.addFavourite(trainDetails[0], trainDetails[1]);
-//                    Toast.makeText(StationListActivity.this, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show();
-//                } catch (FavouriteException e) {
-//                    Toast.makeText(StationListActivity.this, "E' già fra i preferiti!", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//
-//        this.bFavourite.setVisibility(View.INVISIBLE);
 
         return layoutInflater;
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Do something that differs the Activity's menu here
+        Log.d("cazzi", "fatto oncreate");
+        super.onCreateOptionsMenu(menu, inflater);
+        this.menu = menu;
+
+    }
+
+    private void setAsFavouriteIcon(boolean b) {
+        if (menu == null) {
+            Log.d("cazzi", "menu è null");
+        }
+        menu.getItem(1).setVisible(!b);
+        menu.getItem(2).setVisible(b);
+    }
+
+    private void toggleFavouriteIcon() {
+        if (favController.isFavourite(trainNumber, stationCode)) {
+            setAsFavouriteIcon(true);
+        } else {
+            setAsFavouriteIcon(false);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.home) {
+            return true;
+        }
+        if (id == R.id.action_prefere) {
+            try {
+                addFavourite();
+                setAsFavouriteIcon(true);
+            } catch (FavouriteException e) {
+                e.printStackTrace();
+            }
+        } else if (id == R.id.action_deprefere) {
+            removeFavourite();
+            setAsFavouriteIcon(false);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void removeFavourite() {
+        Log.d("cazzi", "rimuovo");
+        favController.removeFavourite(trainNumber, stationCode);
+    }
+
+    public void addFavourite() throws FavouriteException {
+        Log.d("cazzi", "aggiungo");
+        favController.addFavourite(trainNumber, stationCode);
     }
 
     public void makeRequest(String trainNumber, String stationCode) {
@@ -162,6 +208,8 @@ public class StationListFragment extends Fragment {
                     datas = listController.computeData(datas[0]);
                     trainDetails = datas;
                     listController.setCode(datas[1]);
+                    stationCode = trainDetails[1];
+                    toggleFavouriteIcon();
                     spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
                     //There's more than one train with the same number
                 }else{
@@ -183,12 +231,14 @@ public class StationListFragment extends Fragment {
                                 case 0:
                                     trainDetails = firstChoiceData;
                                     listController.setCode(firstChoiceData[1]);
+                                    toggleFavouriteIcon();
                                     spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
                                     dialog.dismiss();
                                     break;
                                 case 1:
                                     trainDetails = secondChoiceData;
                                     listController.setCode(secondChoiceData[1]);
+                                    toggleFavouriteIcon();
                                     spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
                                     dialog.dismiss();
                                     break;
@@ -228,7 +278,6 @@ public class StationListFragment extends Fragment {
             progress.setText(trainResponse.getProgress());
             lastSeenTime.setText(trainResponse.getCompOraUltimoRilevamento());
             lastSeenStation.setText(trainResponse.getStazioneUltimoRilevamento());
-
         }
     }
 

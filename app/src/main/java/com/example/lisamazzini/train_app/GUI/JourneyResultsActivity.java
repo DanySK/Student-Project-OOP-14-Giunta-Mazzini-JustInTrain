@@ -1,21 +1,19 @@
 package com.example.lisamazzini.train_app.GUI;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
+import android.os.Bundle;
+import android.content.Intent;
+import android.support.v7.widget.Toolbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
-import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
-import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
-import com.example.lisamazzini.train_app.Controller.JourneyResultsController2;
 import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.R;
+import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
+import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 
 public class JourneyResultsActivity extends ActionBarActivity {
 
@@ -47,7 +45,6 @@ public class JourneyResultsActivity extends ActionBarActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, JourneyResultsFragment.newInstance());
         fragment = (JourneyResultsFragment) getSupportFragmentManager().findFragmentById(R.id.journeyResultsFragment);
-
         fragment.makeRequestsWithStations(departureStation, arrivalStation, requestedTime);
     }
 
@@ -59,34 +56,18 @@ public class JourneyResultsActivity extends ActionBarActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        this.menu = menu;
-//        return super.onCreateOptionsMenu(menu);
-//    }
-//
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//        if (fragment.isIDsDownloaded()) {
-//            if (id == R.id.action_prefere) {
-//                fragment.addFavourite();
-//                item.setVisible(false);
-//                menu.getItem(2).setVisible(true);
-//                Log.d("cazzi", "ho toccato un non preferito");
-//            } else if (id == R.id.action_deprefere) {
-//                fragment.removeFavourite();
-//                item.setVisible(false);
-//                menu.getItem(1).setVisible(true);
-//                Log.d("cazzi", "ho toccato un preferito");
-//            }
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+        int id = item.getItemId();
+        if (id == R.id.home) {
+            return true;
+        }
+        if (id == R.id.action_prefere) {
+            return false;
+        } else if (id == R.id.action_deprefere) {
+            return false;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

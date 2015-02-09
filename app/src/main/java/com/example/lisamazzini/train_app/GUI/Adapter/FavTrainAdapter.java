@@ -58,37 +58,37 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
         }
         holder.stationCode = train.getIdOrigine();
 
-        holder.menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
-                popupMenu.getMenuInflater().inflate(R.menu.menu_fav_train, popupMenu.getMenu());
-                final View view = v;
-                favouriteController.setContext(v.getContext());
+//        holder.menu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
+//                popupMenu.getMenuInflater().inflate(R.menu.menu_fav_train, popupMenu.getMenu());
+//                final View view = v;
+//                favouriteController.setContext(v.getContext());
 
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.delete:
-                                favouriteController.removeFavourite(train.getNumeroTreno().toString(), train.getIdOrigine());
-                                if (position == 0 && getItemCount() == 1) {
-                                    list = new LinkedList<>();
-                                } else {
-                                    list.remove(position);
-                                }
-                                notifyItemRemoved(position);
-                                notifyDataSetChanged();
-                                return true;
-                            default:
-                                return false;
-                        }
-                    }
-                });
-                popupMenu.show();
-            }
-        });
+//                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//
+//                    @Override
+//                    public boolean onMenuItemClick(MenuItem item) {
+//                        switch (item.getItemId()) {
+//                            case R.id.delete:
+//                                favouriteController.removeFavourite(train.getNumeroTreno().toString(), train.getIdOrigine());
+//                                if (position == 0 && getItemCount() == 1) {
+//                                    list = new LinkedList<>();
+//                                } else {
+//                                    list.remove(position);
+//                                }
+//                                notifyItemRemoved(position);
+//                                notifyDataSetChanged();
+//                                return true;
+//                            default:
+//                                return false;
+//                        }
+//                    }
+//                });
+//                popupMenu.show();
+//            }
+//        });
     }
 
     @Override
