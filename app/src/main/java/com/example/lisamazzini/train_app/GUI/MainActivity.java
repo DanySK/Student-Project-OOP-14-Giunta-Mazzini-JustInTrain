@@ -20,12 +20,16 @@ import android.widget.TimePicker;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
+import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Model.Constants;
 
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 //public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
@@ -35,6 +39,12 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
     private ArrayList<String> journeys;
 
+    Map<String, String> map;
+    final List<String> stationNames = new LinkedList<>();
+    final List<String> IDs = new LinkedList<>();
+
+    private Menu menu;
+    private final List<String> actualJourneyIDs = new ArrayList<>();
     private SpinnerAdapter spinnerAdapter;
     private JourneyResultsFragment fragment;
     private IFavouriteController favouriteJourneyController = FavouriteJourneyController.getInstance();
@@ -51,14 +61,17 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 //            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
         favouriteJourneyController.setContext(getApplicationContext());
-//        favouriteJourneyController.removeFavourites();
-//        favouriteJourneyController.addFavourite("pesaro", "7104", "cesena", "5066");
-//        favouriteJourneyController.addFavourite("pesaro", "7104", "lecce", "11145");
+        favouriteJourneyController.removeFavourites();
+        try {
+            favouriteJourneyController.addFavourite("7104", "5066", "pesaro", "cesena");
+            favouriteJourneyController.addFavourite("7104", "11145", "pesaro", "lecce");
+        } catch (FavouriteException e) {
+            e.printStackTrace();
+        }
 
 
         // Set up the drawer.
@@ -80,7 +93,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
-            restoreActionBar();
+            this.menu = menu;
+            restoreActionBar(menu);
             return true;
         }
         return super.onCreateOptionsMenu(menu);
@@ -91,38 +105,72 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_prefere) {
+            try {
+                favouriteJourneyController.addFavourite(actualJourneyIDs.get(0), actualJourneyIDs.get(1), actualJourneyIDs.get(2), actualJourneyIDs.get(3));
+                item.setVisible(false);
+                menu.getItem(2).setVisible(true);
+                restoreActionBar(menu);
+                Log.d("cazzi", "ho toccato un non preferito");
+            } catch (FavouriteException e) {
+                e.printStackTrace();
+            }
+        } else if (id == R.id.action_deprefere) {
+            favouriteJourneyController.removeFavourite(actualJourneyIDs.get(0).split(Constants.SEPARATOR)[0], actualJourneyIDs.get(0).split(Constants.SEPARATOR)[1]);
+            Log.d("cazzi", "rimuovo " + actualJourneyIDs.get(0).split(Constants.SEPARATOR)[0] + " " + actualJourneyIDs.get(0).split(Constants.SEPARATOR)[1]);
+            item.setVisible(false);
+            menu.getItem(1).setVisible(true);
+            Log.d("cazzi", "ho toccato un preferito");
+            restoreActionBar(menu);
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void restoreActionBar() {
+    private void refreshLists() {
+        IDs.clear();
+        stationNames.clear();
+        for (String s : (map = (Map<String, String>) favouriteJourneyController.getFavouritesAsMap()).keySet()) {
+            IDs.add(s);
 
-        // TODO da mettere nel controller
-        journeys = new ArrayList<String>(favouriteJourneyController.getFavouritesAsList());
-        final List<List<String>> finalJourneys = new ArrayList<List<String>>();
-        for (int i = 0; i < 2; i++) {
-            finalJourneys.add(new ArrayList<String>());
         }
-        for (String s : journeys) {
-            String[] splitted = s.split(Constants.SEPARATOR);
-            finalJourneys.get(0).add(splitted[0] + " " + splitted[2]);
-            finalJourneys.get(1).add(splitted[1] + Constants.SEPARATOR + splitted[3]);
+
+        for (String s : IDs) {
+            stationNames.add(map.get(s).replaceAll(Constants.SEPARATOR, " "));
         }
-        spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, finalJourneys.get(0));
+
+    }
+
+    public void restoreActionBar(Menu menu) {
+
+        final MenuItem notFavItem= menu.findItem(R.id.action_prefere);
+        final MenuItem isFavItem = menu.findItem(R.id.action_deprefere);
+
+        refreshLists();
+
+        spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, stationNames);
 
         ActionBar action = getSupportActionBar();
         navigationListener = new ActionBar.OnNavigationListener() {
             @Override
             public boolean onNavigationItemSelected(int position, long l) {
-                String[] IDs = finalJourneys.get(1).get(position).split(Constants.SEPARATOR);
-                Log.d("cazzi", "faccio richieste con " + IDs[0] + " " + IDs[1]);
-                fragment.makeRequestsWithIDs(IDs[0], IDs[1], mNavigationDrawerFragment.getActualTime());
+//                String[] IDs = finalJourneys.get(1).get(position).split(Constants.SEPARATOR);
+//                Log.d("cazzi", "faccio richieste con " + IDs[0] + " " + IDs[1]);
+                actualJourneyIDs.clear();
+                actualJourneyIDs.add(IDs.get(position));
+                actualJourneyIDs.add(stationNames.get(position));
+                Log.d("cazzi", Arrays.toString(actualJourneyIDs.toArray()));
+                fragment.makeRequestsWithIDs(IDs.get(position).split(Constants.SEPARATOR)[0], IDs.get(position).split(Constants.SEPARATOR)[1], mNavigationDrawerFragment.getActualTime());
+                isFavItem.setVisible(true);
+                notFavItem.setVisible(false);
                 return true;
             }
         };
         action.setDisplayShowTitleEnabled(false);
         action.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_LIST);
         action.setListNavigationCallbacks(spinnerAdapter, navigationListener);
+
+
+
     }
 
     private TimePickerFragment timeFragment;

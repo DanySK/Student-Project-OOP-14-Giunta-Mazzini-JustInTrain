@@ -37,6 +37,8 @@ public class NewTrain{
     private Boolean circolante;
     private String subTitle;
 
+    private String progress;
+
 
     private Boolean inStazione;
     private Boolean haCambiNumero;
@@ -66,7 +68,13 @@ public class NewTrain{
     private String compDurata;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
+    public String getProgress() {
+        return progress;
+    }
 
+    public void setProgress(String progress) {
+        this.progress = progress;
+    }
 
     /**
      *

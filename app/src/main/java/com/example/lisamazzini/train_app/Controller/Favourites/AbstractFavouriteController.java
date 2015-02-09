@@ -54,13 +54,13 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
         return new ArrayList<>(getFavouritesAsMap().keySet());
     }
 
-    private void check() {
+    protected void check() {
         if (sharedPref == null) {
             throw new UnsupportedOperationException("Set your context first");
         }
     }
 
-    private boolean alreadyFavourite(String string){
+    protected boolean alreadyFavourite(String string){
         return getFavouritesAsMap().containsKey(string);
     }
 

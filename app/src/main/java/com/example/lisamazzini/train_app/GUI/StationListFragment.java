@@ -1,6 +1,7 @@
 package com.example.lisamazzini.train_app.GUI;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
@@ -29,7 +31,7 @@ import com.octo.android.robospice.UncachedSpiceService;
 import java.util.LinkedList;
 import java.util.List;
 
-public class StationListFragment extends Fragment{
+public class StationListFragment extends Fragment {
 
     private RecyclerView recyclerView;
 //    private Button bFavourite;
@@ -48,6 +50,12 @@ public class StationListFragment extends Fragment{
     private String trainNumber;
     private String stationCode;
 
+    TextView info;
+    TextView delay;
+    TextView progress;
+    TextView lastSeenTime;
+    TextView lastSeenStation;
+
 
     public static StationListFragment newInstance() {
         return new StationListFragment();
@@ -63,6 +71,12 @@ public class StationListFragment extends Fragment{
 
         View layoutInflater = inflater.inflate(R.layout.fragment_station_list, container, false);
         this.recyclerView = (RecyclerView)layoutInflater.findViewById(R.id.recycler);
+
+        info = (TextView)layoutInflater.findViewById(R.id.tInfo);
+        delay = (TextView)layoutInflater.findViewById(R.id.tDelay);
+        progress = (TextView)layoutInflater.findViewById(R.id.tProgress);
+        lastSeenTime = (TextView)layoutInflater.findViewById(R.id.tLastSeenTime);
+        lastSeenStation = (TextView)layoutInflater.findViewById(R.id.tLastSeenStation);
 
         this.manager = new LinearLayoutManager(getActivity());
         this.adapter = new StationListAdapter(fermateList);
@@ -187,7 +201,7 @@ public class StationListFragment extends Fragment{
 
         @Override
         public Context getContext() {
-            return getActivity().getApplicationContext();
+            return getActivity();
         }
     }
 
@@ -200,11 +214,21 @@ public class StationListFragment extends Fragment{
 
         @Override
         public void onRequestSuccess(NewTrain trainResponse) {
-            ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno() + " " + listController.getProgress(trainResponse));
+            ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
+
+            trainResponse.setProgress(listController.getProgress(trainResponse));
+
             fermateList.clear();
             fermateList.addAll(trainResponse.getFermate());
             adapter.notifyDataSetChanged();
 //            bFavourite.setVisibility(View.VISIBLE);
+
+            info.setText(trainResponse.getSubTitle());
+            delay.setText(trainResponse.getRitardo().toString() + "'");
+            progress.setText(trainResponse.getProgress());
+            lastSeenTime.setText(trainResponse.getCompOraUltimoRilevamento());
+            lastSeenStation.setText(trainResponse.getStazioneUltimoRilevamento());
+
         }
     }
 

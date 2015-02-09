@@ -4,6 +4,7 @@ package com.example.lisamazzini.train_app.Controller.Favourites;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
 import com.example.lisamazzini.train_app.Model.Constants;
 
 import java.util.ArrayList;
@@ -26,6 +27,18 @@ public class FavouriteJourneyController extends AbstractFavouriteController{
         super.sharedPref = context.getSharedPreferences(Constants.JOURNEY_PREF_FILE, Context.MODE_APPEND);
         super.editor = sharedPref.edit();
         editor.apply();
+    }
+
+    @Override
+    public void addFavourite(String... strings) throws FavouriteException {
+        super.check();
+        String key;
+        if(!(super.alreadyFavourite(key = buildKey(strings[0], strings[1])))) {
+            editor.putString(key, buildKey(strings[2], strings[3]));
+            editor.apply();
+        }else{
+            throw new FavouriteException();
+        }
     }
 
     protected String buildKey(String... strings) {
