@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -83,6 +84,8 @@ public class NavigationDrawerFragment extends Fragment {
     private RecyclerView recyclerView;
     private DrawerListAdapter drawerListAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private Toolbar toolbar;
+    private Menu menu;
 
     public NavigationDrawerFragment() {
     }
@@ -303,8 +306,12 @@ public class NavigationDrawerFragment extends Fragment {
         // If the drawer is open, show the global app actions in the action bar. See also
         // showGlobalContextActionBar, which controls the top-left area of the action bar.
         if (mDrawerLayout != null && isDrawerOpen()) {
-            inflater.inflate(R.menu.global, menu);
-            showGlobalContextActionBar();
+            inflater.inflate(R.menu.menu_main, menu);
+            menu.getItem(0).setVisible(false);
+            menu.getItem(1).setVisible(false);
+            ActionBar action = ((ActionBarActivity) getActivity()).getSupportActionBar();
+            action.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_STANDARD);
+            action.setTitle("Search");
         }
         super.onCreateOptionsMenu(menu, inflater);
     }

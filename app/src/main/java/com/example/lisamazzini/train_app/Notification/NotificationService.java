@@ -125,8 +125,8 @@ public class NotificationService extends Service {
             if(notDeparted(train)) {
                 not = builder.setSmallIcon(R.drawable.ic_launcher)
                         .setOngoing(true)
-                        .addAction(R.drawable.ic_launcher, "Aggiorna", pIntentRefresh)
-                        .addAction(R.drawable.ic_launcher, "Elimina", pIntentClose)
+                        .addAction(R.drawable.ic_refresh, "Aggiorna", pIntentRefresh)
+                        .addAction(R.drawable.ic_delete, "Elimina", pIntentClose)
                         .setTicker("Treno in arrivo!")
                         .setContentIntent(home)
                         .setStyle(new NotificationCompat.InboxStyle()
@@ -137,8 +137,8 @@ public class NotificationService extends Service {
             }else if(isArrived(train)){
                 not = builder.setSmallIcon(R.drawable.ic_launcher)
                         .setOngoing(true)
-                        .addAction(R.drawable.ic_launcher, "Aggiorna", pIntentRefresh)
-                        .addAction(R.drawable.ic_launcher, "Elimina", pIntentClose)
+                        .addAction(R.drawable.ic_refresh, "Aggiorna", pIntentRefresh)
+                        .addAction(R.drawable.ic_delete, "Elimina", pIntentClose)
                         .setContentIntent(home)
                         .setStyle(new NotificationCompat.InboxStyle()
                                 .setBigContentTitle(train.getNumeroTreno() + " " + train.getCategoria())
@@ -157,8 +157,8 @@ public class NotificationService extends Service {
                 not = builder
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setOngoing(true)
-                        .addAction(R.drawable.ic_launcher, "Aggiorna", pIntentRefresh)
-                        .addAction(R.drawable.ic_launcher, "Elimina", pIntentClose)
+                        .addAction(R.drawable.ic_refresh, "Aggiorna", pIntentRefresh)
+                        .addAction(R.drawable.ic_delete, "Elimina", pIntentClose)
                         .setTicker("Treno in arrivo!")
                         .setContentIntent(home)
                         .setStyle(new NotificationCompat.InboxStyle()
