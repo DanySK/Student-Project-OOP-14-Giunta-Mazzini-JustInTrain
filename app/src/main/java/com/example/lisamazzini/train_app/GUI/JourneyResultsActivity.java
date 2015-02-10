@@ -45,14 +45,14 @@ public class JourneyResultsActivity extends ActionBarActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, JourneyResultsFragment.newInstance());
         fragment = (JourneyResultsFragment) getSupportFragmentManager().findFragmentById(R.id.journeyResultsFragment);
-        fragment.makeRequestsWithStations(departureStation, arrivalStation, requestedTime);
+        fragment.makeOuterRequestsWithStations(departureStation, arrivalStation, requestedTime);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.getItem(0).setVisible(false);
         menu.getItem(1).setVisible(false);
-        menu.getItem(2).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 

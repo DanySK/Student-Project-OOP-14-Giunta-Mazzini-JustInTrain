@@ -118,8 +118,8 @@ public class StationListFragment extends Fragment {
         if (menu == null) {
             Log.d("cazzi", "menu è null");
         }
-        menu.getItem(1).setVisible(!b);
-        menu.getItem(2).setVisible(b);
+        menu.getItem(0).setVisible(!b);
+        menu.getItem(1).setVisible(b);
     }
 
     private void toggleFavouriteIcon() {

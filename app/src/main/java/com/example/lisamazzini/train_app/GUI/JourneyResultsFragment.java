@@ -55,9 +55,13 @@ public class JourneyResultsFragment extends Fragment {
     private String arrivalStation;
     private String arrivalID;
     private String requestedTime;
-    private boolean idsDownloaded;
     private IFavouriteController favouriteController = FavouriteJourneyController.getInstance();
     private Menu menu;
+
+    private int previousTotal = 0;
+    private boolean loading = true;
+    private int visibleThreshold = 5;
+    int firstVisibleItem, visibleItemCount, totalItemCount;
 
 
     public static JourneyResultsFragment newInstance() {
@@ -91,7 +95,52 @@ public class JourneyResultsFragment extends Fragment {
 
         controller = new JourneyResultsController2();
 
+        resetScrollListener();
+
+//        recyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(manager) {
+//            @Override
+//            public void onLoadMore(int current_page) {
+//                spiceManager.execute(new JourneyTrainRequest(controller.getPlainSolutions()), new JourneyTrainRequestListener());
+//            }
+//        });
+
+
+//        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//
+//                visibleItemCount = recyclerView.getChildCount();
+//                totalItemCount = manager.getItemCount();
+//                firstVisibleItem = manager.findFirstVisibleItemPosition();
+//
+//                if (loading) {
+//                    if (totalItemCount > previousTotal) {
+//                        loading = false;
+//                        previousTotal = totalItemCount;
+//                    }
+//                }
+//
+//                if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+//                    Log.d("cazzi", "ho raggiunto la fine");
+//                    loading = true;
+//                }
+//            }
+//        });
+
+
+
         return layoutInflater;
+    }
+
+    public void resetScrollListener() {
+        recyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(manager) {
+            @Override
+            public void onLoadMore(int current_page) {
+                spiceManager.execute(new JourneyTrainRequest(controller.getPlainSolutions()), new JourneyTrainRequestListener());
+            }
+        });
+
     }
 
     @Override
@@ -102,8 +151,8 @@ public class JourneyResultsFragment extends Fragment {
     }
 
     private void setAsFavouriteIcon(boolean b) {
-        menu.getItem(1).setVisible(!b);
-        menu.getItem(2).setVisible(b);
+        menu.getItem(0).setVisible(!b);
+        menu.getItem(1).setVisible(b);
     }
 
     private void toggleFavouriteIcon() {
@@ -144,15 +193,29 @@ public class JourneyResultsFragment extends Fragment {
         favouriteController.addFavourite(departureID, arrivalID, departureStation, arrivalStation);
     }
 
+    public void makeOuterRequestsWithStations(String departureStation, String arrivalStation, String requestedTime) {
+        list.clear();
+        journeyResultsAdapter.notifyDataSetChanged();
+        resetScrollListener();
+        makeRequestsWithStations(departureStation, arrivalStation, requestedTime);
+    }
 
-    public void makeRequestsWithStations(String departureStation, String arrivalStation, String requestedTime) {
+    public void makeOuterRequestsWithIDs(String departureID, String arrivalID, String requestedTime) {
+        list.clear();
+        journeyResultsAdapter.notifyDataSetChanged();
+        resetScrollListener();
+        makeRequestsWithIDs(departureID, arrivalID, requestedTime);
+    }
+
+
+    private void makeRequestsWithStations(String departureStation, String arrivalStation, String requestedTime) {
         this.departureStation = departureStation;
         this.arrivalStation = arrivalStation;
         this.requestedTime = requestedTime;
         spiceManager.execute(new JourneyDataRequest(this.departureStation), new DepartureDataRequestListenter());
     }
 
-    public void makeRequestsWithIDs(String departureID, String arrivalID, String requestedTime) {
+    private void makeRequestsWithIDs(String departureID, String arrivalID, String requestedTime) {
         this.departureID = departureID;
         this.arrivalID = arrivalID;
         this.requestedTime = requestedTime;
@@ -218,8 +281,7 @@ public class JourneyResultsFragment extends Fragment {
         @Override
         public void onRequestSuccess(String s) {
             arrivalID = s.split("\\|S")[1];
-            idsDownloaded = true;
-            toggleFavouriteIcon();
+             toggleFavouriteIcon();
             spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
         }
     }
@@ -237,13 +299,10 @@ public class JourneyResultsFragment extends Fragment {
         public void onRequestSuccess(Tragitto tragitto) {
             controller.buildPlainSolutions(tragitto);
             spiceManager.execute(new JourneyTrainRequest(controller.getPlainSolutions()), new JourneyTrainRequestListener());
-//            journeyResultsAdapter = new JourneyResultsAdapter(controller.getPlainSolutions());
-//            recyclerView.setAdapter(journeyResultsAdapter);
-//            journeyResultsAdapter.notifyDataSetChanged();
         }
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////
 
     private class JourneyTrainRequestListener extends AbstractListener<PlainSolutionWrapper> {
 
@@ -254,11 +313,13 @@ public class JourneyResultsFragment extends Fragment {
 
         @Override
         public void onRequestSuccess(PlainSolutionWrapper plainSolutions) {
-            list.clear();
+//            list.clear();
             list.addAll(plainSolutions.getList());
             journeyResultsAdapter.notifyDataSetChanged();
         }
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////
 
     @Override
     public void onAttach(Activity activity) {

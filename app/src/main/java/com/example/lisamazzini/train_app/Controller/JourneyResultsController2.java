@@ -7,25 +7,55 @@ import com.example.lisamazzini.train_app.Model.Tragitto.Soluzioni;
 import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
 import com.example.lisamazzini.train_app.Model.Tragitto.Vehicle;
 
+import org.joda.time.DateTime;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 public class JourneyResultsController2 {
 
     private List<PlainSolution> plainSolutions = new LinkedList<>();
+    private int upperBound;
+    private int lowerBound;
 
     public void buildPlainSolutions(Tragitto tragitto) {
         plainSolutions.clear();
-        for (Soluzioni sol : tragitto.getSoluzioni()) {
+        upperBound = 0;
+        lowerBound = -1;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        DateTime dt = new DateTime();
+        for (Soluzioni sol : tragitto.getSoluzioni())
             for (Vehicle vehicle : sol.getVehicles()) {
+                if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equals("Frecciabianca")) {
+                    vehicle.setCategoriaDescrizione("FB");
+                }
+                try {
+                    if (lowerBound == -1 && vehicle.getOrarioPartenza() != null && new DateTime(sdf.parse(vehicle.getOrarioPartenza())).isAfterNow()) {
+                        Log.d("cazzi", "lowerboiudn valeva " + lowerBound);
+                        lowerBound = plainSolutions.size();
+                        Log.d("cazzi", "setto lowerbound a " + lowerBound);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 plainSolutions.add(new PlainSolution(vehicle.getCategoriaDescrizione(), vehicle.getNumeroTreno(),
                         vehicle.getOrigine(), vehicle.getOraPartenza(), vehicle.getDestinazione(), vehicle.getOraArrivo(),
                         sol.getDurata()));
             }
-        }
     }
 
     public List<PlainSolution> getPlainSolutions() {
-        return this.plainSolutions.subList(0, 5);
+        upperBound = lowerBound + 5 >= plainSolutions.size() ? plainSolutions.size()-1 : lowerBound + 5;
+        Log.d("cazzi", "lowerbound " + lowerBound + " upperbound " + upperBound);
+        List<PlainSolution> subList = this.plainSolutions.subList(lowerBound, upperBound);
+        lowerBound += 6;
+        if (lowerBound < plainSolutions.size()-1) {
+            return subList;
+        } else {
+            return new LinkedList<PlainSolution>();
+        }
     }
 }
