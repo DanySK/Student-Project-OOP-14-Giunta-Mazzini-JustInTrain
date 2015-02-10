@@ -31,7 +31,6 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
     private IFavouriteController favouriteController = FavouriteTrainController.getInstance();
 
     public FavTrainAdapter(List<NewTrain> list){
-
         this.list = list;
     }
 

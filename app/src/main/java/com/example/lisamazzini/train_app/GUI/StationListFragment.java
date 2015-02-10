@@ -1,7 +1,6 @@
 package com.example.lisamazzini.train_app.GUI;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
@@ -54,11 +52,16 @@ public class StationListFragment extends Fragment {
     private String trainNumber;
     private String stationCode;
 
+
     TextView info;
     TextView delay;
     TextView progress;
     TextView lastSeenTime;
     TextView lastSeenStation;
+    TextView textDelay;
+    TextView textProgress;
+    TextView textLastSeen;
+
     private Menu menu;
 
     public static StationListFragment newInstance() {
@@ -86,6 +89,12 @@ public class StationListFragment extends Fragment {
         progress = (TextView)layoutInflater.findViewById(R.id.tProgress);
         lastSeenTime = (TextView)layoutInflater.findViewById(R.id.tLastSeenTime);
         lastSeenStation = (TextView)layoutInflater.findViewById(R.id.tLastSeenStation);
+        textDelay = (TextView)layoutInflater.findViewById(R.id.lDelay);
+        textLastSeen = (TextView)layoutInflater.findViewById(R.id.lLastSeen);
+        textProgress = (TextView)layoutInflater.findViewById(R.id.lProgress);
+        textDelay.setVisibility(View.INVISIBLE);
+        textLastSeen.setVisibility(View.INVISIBLE);
+        textProgress.setVisibility(View.INVISIBLE);
 
         this.manager = new LinearLayoutManager(getActivity());
         this.adapter = new StationListAdapter(fermateList);
@@ -152,12 +161,12 @@ public class StationListFragment extends Fragment {
 
     public void removeFavourite() {
         Log.d("cazzi", "rimuovo");
-        favController.removeFavourite(trainNumber, stationCode);
+        favController.removeFavourite(trainDetails[0], trainDetails[1]);
     }
 
     public void addFavourite() throws FavouriteException {
         Log.d("cazzi", "aggiungo");
-        favController.addFavourite(trainNumber, stationCode);
+        favController.addFavourite(trainDetails[0], trainDetails[1]);
     }
 
     public void makeRequest(String trainNumber, String stationCode) {
@@ -274,12 +283,14 @@ public class StationListFragment extends Fragment {
             fermateList.addAll(trainResponse.getFermate());
             adapter.notifyDataSetChanged();
 
+            textDelay.setVisibility(View.VISIBLE);
+            textLastSeen.setVisibility(View.VISIBLE);
+            textProgress.setVisibility(View.VISIBLE);
             info.setText(trainResponse.getSubTitle());
             delay.setText(trainResponse.getRitardo().toString() + "'");
             progress.setText(trainResponse.getProgress());
             lastSeenTime.setText(trainResponse.getCompOraUltimoRilevamento());
             lastSeenStation.setText(trainResponse.getStazioneUltimoRilevamento());
-
         }
     }
 

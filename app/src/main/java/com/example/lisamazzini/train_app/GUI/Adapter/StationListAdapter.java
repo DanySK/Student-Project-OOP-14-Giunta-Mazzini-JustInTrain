@@ -1,5 +1,6 @@
 package com.example.lisamazzini.train_app.GUI.Adapter;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.*;
 import android.widget.*;
@@ -43,6 +44,12 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
             viewHolder.plannedPlatform.setText(f.getBinarioEffettivoPartenzaDescrizione());
             viewHolder.actualTime.setText(Utilities.fromMsToTime(f.getEffettiva()));
             viewHolder.actualPlatform.setText(f.getBinarioProgrammatoPartenzaDescrizione());
+            if(f.getActualFermataType() == 1L ) {
+                viewHolder.itemView.setBackgroundColor(Color.rgb(196,230,255));
+            }else{
+                viewHolder.itemView.setBackgroundColor(Color.WHITE);
+            }
+
         }
 
     }

@@ -11,6 +11,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.example.lisamazzini.train_app.Controller.AbstractListener;
+import com.example.lisamazzini.train_app.Controller.StationListController;
 import com.example.lisamazzini.train_app.Controller.TrainRequest;
 import com.example.lisamazzini.train_app.GUI.StationListActivity;
 import com.example.lisamazzini.train_app.Model.NewTrain;
@@ -129,7 +130,7 @@ public class NotificationService extends Service {
                         .setTicker("Treno in arrivo!")
                         .setContentIntent(home)
                         .setStyle(new NotificationCompat.InboxStyle()
-                                .setBigContentTitle("Treno " + train.getNumeroTreno())
+                                .setBigContentTitle(train.getNumeroTreno() + " " + train.getCategoria())
                                 .addLine("Il treno non è ancora partito"))
                         .build();
             //Else, the notification is empty
@@ -140,11 +141,19 @@ public class NotificationService extends Service {
                         .addAction(R.drawable.ic_launcher, "Elimina", pIntentClose)
                         .setContentIntent(home)
                         .setStyle(new NotificationCompat.InboxStyle()
-                                .setBigContentTitle("Treno " + train.getNumeroTreno())
+                                .setBigContentTitle(train.getNumeroTreno() + " " + train.getCategoria())
                                 .addLine("Treno arrivato a destinazione"))
                         .setTicker("Treno in arrivo!")
                         .build();
             }else{
+                String ritardo;
+                if(train.getRitardo() > 0){
+                    ritardo = train.getRitardo() + "' di RITARDO";
+                }else if(train.getRitardo() < 0){
+                    ritardo = train.getRitardo()*-1 + "' di ANTICIPO";
+                }else{
+                    ritardo = "in ORARIO";
+                }
                 not = builder
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setOngoing(true)
@@ -153,10 +162,10 @@ public class NotificationService extends Service {
                         .setTicker("Treno in arrivo!")
                         .setContentIntent(home)
                         .setStyle(new NotificationCompat.InboxStyle()
-                                .setBigContentTitle("Treno" + train.getNumeroTreno())
-                                .addLine("Ritardo " + train.getRitardo())
-                                .addLine("Visto a " + train.getStazioneUltimoRilevamento())
-                                .addLine("Alle ore " + train.getCompOraUltimoRilevamento()))
+                                .setBigContentTitle(train.getNumeroTreno() + " " + train.getCategoria())
+                                .addLine(ritardo)
+                                .addLine("Andamento: " + Utilities.getProgress(train))
+                                .addLine("Visto a " + train.getStazioneUltimoRilevamento() + " alle " + train.getCompOraUltimoRilevamento()))
                         .build();
             }
             not.priority = Notification.PRIORITY_MAX;

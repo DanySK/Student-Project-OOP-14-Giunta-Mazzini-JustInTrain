@@ -39,8 +39,6 @@ public class AchievementListFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.fragment_achievement_list, container, false);
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_list);
-
-
         achievementListController = new AchievementListController(getActivity());
         this.manager = new LinearLayoutManager(getActivity());
         adapter = new AchievementListAdapter(achievementListController.computeAchievement());
