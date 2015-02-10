@@ -36,7 +36,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
     }
 
 
-    //chiamato quando viene instanziato il viewHolder
+    //chiamato quando viene istanziato il viewHolder
     @Override
     public JourneyViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_journey, viewGroup, false);
@@ -75,10 +75,14 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
                                 intent.putExtra("idOrigine", journeyTrain.getIDorigine());
                                 intent.putExtra("oraPartenza", journeyTrain.getOrarioPartenza());
                                 ctx.startService(intent);
+
+
                                 achievementController = new AchievementController(ctx);
                                 try {
+                                    Log.d("i looooooog", "sto per aggiornare");
                                     achievementController.updateAchievements(journeyTrain);
                                 } catch (AchievementException e) {
+                                    Log.d("i looooooog", "ORDUNQUE? " + e.getMessage());
                                     Toast.makeText(ctx, e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                                 return true;

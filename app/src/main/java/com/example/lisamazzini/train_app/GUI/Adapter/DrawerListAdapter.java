@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
+import com.example.lisamazzini.train_app.GUI.AchievementListActivity;
 import com.example.lisamazzini.train_app.GUI.FavouriteTrainListActivity;
 import com.example.lisamazzini.train_app.R;
 
@@ -64,6 +65,12 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Dr
                     IFavouriteController fc = FavouriteTrainController.getInstance();
                     fc.setContext(v.getContext());
                     fc.removeFavourites();
+                    break;
+
+                case 2:
+                    Intent intent = new Intent(v.getContext(), AchievementListActivity.class);
+                    v.getContext().startActivity(intent);
+
             }
         }
     }

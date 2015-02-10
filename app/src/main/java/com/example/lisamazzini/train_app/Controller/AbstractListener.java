@@ -16,7 +16,7 @@ import com.octo.android.robospice.request.listener.RequestListener;
 
 public abstract class AbstractListener<X> implements RequestListener<X> {
 
-    protected final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+    protected final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getDialogContext());
 
     public void onRequestFailure(SpiceException spiceException) {
         dialogBuilder.setTitle("Problemi di connessione")
@@ -24,18 +24,18 @@ public abstract class AbstractListener<X> implements RequestListener<X> {
                 .setNeutralButton("Ok" , new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getContext(), MainActivity.class);
-                        getContext().startActivity(intent);
+                        Intent intent = new Intent(getDialogContext(), MainActivity.class);
+                        getDialogContext().startActivity(intent);
                     }
                 }).show();
 
-        Toast.makeText(getContext(),
+        Toast.makeText(getDialogContext(),
                 "Error: " + spiceException.getMessage(), Toast.LENGTH_SHORT)
                 .show();
 
     }
 
-    public abstract Context getContext();
+    public abstract Context getDialogContext();
 
     @Override
     public abstract void onRequestSuccess(X result);

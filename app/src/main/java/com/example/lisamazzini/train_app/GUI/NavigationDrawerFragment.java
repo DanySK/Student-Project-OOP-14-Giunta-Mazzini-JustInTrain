@@ -150,7 +150,7 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
 
-        String[] TITLES = {"Favourite Train", "Erase All Favs"};
+        String[] TITLES = {"Favourite Train", "Erase All Favs", "Achievement"};
 
         recyclerView = (RecyclerView) drawerView.findViewById(R.id.lDrawerList);
         recyclerView.setHasFixedSize(true);

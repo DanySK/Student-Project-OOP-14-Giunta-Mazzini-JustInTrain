@@ -8,13 +8,13 @@ package com.example.lisamazzini.train_app.Model;
 
 public class Constants {
 
-    public static final int N_TIME_SLOT = 5;
-
     public final static String JOURNEY_PREF_FILE = "JourneyPref";
     public final static String TRAIN_PREF_FILE = "TrainPref";
     public final static String SEPARATOR = "%";
     public final static String ROOT = "http://193.138.161.135/viaggiatrenomobile/resteasy/viaggiatreno";
 
+    public final static String DELAY_ACH = "Hai accumulato 10 minuti di ritardo!";
+    public final static String PIN_ACH = "Hai pinnato 5 treni!!";
 
 
 }

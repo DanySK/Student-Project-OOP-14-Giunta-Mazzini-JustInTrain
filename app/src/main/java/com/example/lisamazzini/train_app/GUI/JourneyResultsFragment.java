@@ -212,6 +212,8 @@ public class JourneyResultsFragment extends Fragment {
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////
+
     private class JourneyTrainRequestListener implements RequestListener<PlainSolutionWrapper> {
 
         @Override

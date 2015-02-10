@@ -1,6 +1,5 @@
 package com.example.lisamazzini.train_app.GUI;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -26,18 +25,15 @@ import com.octo.android.robospice.UncachedSpiceService;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class FavouriteTrainListFragment extends Fragment {
 
     private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
-
     private IFavouriteController favController = FavouriteTrainController.getInstance();
     private FavouriteTrainListController listController;
     private RecyclerView favListView;
     private List<NewTrain> favList = new LinkedList<>();
     private LinearLayoutManager manager;
     private FavTrainAdapter adapter;
-
 
     public static FavouriteTrainListFragment newInstance() {
         return new FavouriteTrainListFragment();
@@ -72,7 +68,6 @@ public class FavouriteTrainListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         View layoutInfalter = inflater.inflate(R.layout.fragment_favourite_train_list, container, false);
 
         favController = FavouriteTrainController.getInstance();
@@ -100,7 +95,7 @@ public class FavouriteTrainListFragment extends Fragment {
     private class TrainRequestListener extends AbstractListener<NewTrain> {
 
         @Override
-        public Context getContext() {
+        public Context getDialogContext() {
             return getActivity();
         }
 

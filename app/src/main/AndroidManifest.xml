@@ -48,6 +48,10 @@
         </activity>
 
         <activity
+            android:name=".GUI.AchievementListActivity" android:parentActivityName=".GUI.MainActivity">
+        </activity>
+
+        <activity
             android:name=".GUI.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

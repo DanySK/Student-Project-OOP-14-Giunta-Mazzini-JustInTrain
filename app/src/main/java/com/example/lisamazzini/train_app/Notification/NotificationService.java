@@ -106,7 +106,7 @@ public class NotificationService extends Service {
     private class ResultListener extends AbstractListener<NewTrain> {
 
         @Override
-        public Context getContext() {
+        public Context getDialogContext() {
             return NotificationService.this;
         }
 

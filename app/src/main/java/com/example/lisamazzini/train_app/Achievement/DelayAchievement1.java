@@ -1,6 +1,7 @@
 package com.example.lisamazzini.train_app.Achievement;
 
 import com.example.lisamazzini.train_app.Exceptions.DelayAchievementException;
+import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import android.content.Context;
 
@@ -19,11 +20,10 @@ public class DelayAchievement1 extends BasicAchievement {
 
             @Override
             public void control(Long value) throws DelayAchievementException {
-                if(value == 10L){
-                    throw new DelayAchievementException("Hai accumulato 10 minuti di ritardo!");
+                if(value > 10L){
+                    throw new DelayAchievementException(Constants.DELAY_ACH);
                 }
             }
-
             @Override
             public String getKey() {
                 return "Delay";

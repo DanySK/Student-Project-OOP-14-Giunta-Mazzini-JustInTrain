@@ -1,6 +1,7 @@
 package com.example.lisamazzini.train_app.GUI;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,7 +18,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
@@ -38,6 +41,9 @@ import java.util.List;
 public class StationListFragment extends Fragment {
 
     private RecyclerView recyclerView;
+//    private Button bFavourite;
+//    private TextView tData;
+//    private TextView info;
     private StationListAdapter adapter;
     private LinearLayoutManager manager;
     private List<Fermate> fermateList = new LinkedList<>();
@@ -57,6 +63,7 @@ public class StationListFragment extends Fragment {
     TextView lastSeenTime;
     TextView lastSeenStation;
     private Menu menu;
+
 
 
     public static StationListFragment newInstance() {
@@ -99,6 +106,20 @@ public class StationListFragment extends Fragment {
         this.trainNumber = getActivity().getIntent().getStringExtra("trainNumber");
         this.stationCode = getActivity().getIntent().getStringExtra("stationCode");
 
+//        this.bFavourite.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                favController.addFavourite(trainDetails[0], trainDetails[1]);
+//                try {
+//                    favController.addFavourite(trainDetails[0], trainDetails[1]);
+//                    Toast.makeText(StationListActivity.this, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show();
+//                } catch (FavouriteException e) {
+//                    Toast.makeText(StationListActivity.this, "E' già fra i preferiti!", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//
+//        this.bFavourite.setVisibility(View.INVISIBLE);
 
         return layoutInflater;
     }
@@ -191,7 +212,7 @@ public class StationListFragment extends Fragment {
                         .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(getContext(), MainActivity.class);
+                                Intent intent = new Intent(getDialogContext(), MainActivity.class);
                                 startActivity(intent);
                             }
                         })
@@ -250,7 +271,7 @@ public class StationListFragment extends Fragment {
         }
 
         @Override
-        public Context getContext() {
+        public Context getDialogContext() {
             return getActivity();
         }
     }
@@ -258,7 +279,7 @@ public class StationListFragment extends Fragment {
 
     private class AnotherListener extends AbstractListener<NewTrain>{
         @Override
-        public Context getContext() {
+        public Context getDialogContext() {
             return getActivity().getApplicationContext();
         }
 
@@ -272,13 +293,13 @@ public class StationListFragment extends Fragment {
             fermateList.clear();
             fermateList.addAll(trainResponse.getFermate());
             adapter.notifyDataSetChanged();
-//            bFavourite.setVisibility(View.VISIBLE);
 
             info.setText(trainResponse.getSubTitle());
             delay.setText(trainResponse.getRitardo().toString() + "'");
             progress.setText(trainResponse.getProgress());
             lastSeenTime.setText(trainResponse.getCompOraUltimoRilevamento());
             lastSeenStation.setText(trainResponse.getStazioneUltimoRilevamento());
+
         }
     }
 
