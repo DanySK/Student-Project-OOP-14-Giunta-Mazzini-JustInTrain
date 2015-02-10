@@ -65,7 +65,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
         favouriteJourneyController.setContext(getApplicationContext());
-      //  favouriteJourneyController.removeFavourites();
+        favouriteJourneyController.removeFavourites();
 //        try {
 //            favouriteJourneyController.addFavourite("07104", "05066", "pesaro", "cesena");
 //            favouriteJourneyController.addFavourite("07104", "011145", "pesaro", "lecce");
@@ -131,7 +131,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         stationNames.clear();
         for (String s : (map = (Map<String, String>) favouriteJourneyController.getFavouritesAsMap()).keySet()) {
             IDs.add(s);
-
         }
 
         for (String s : IDs) {
@@ -148,28 +147,31 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         refreshLists();
 
         spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, stationNames);
-
-        ActionBar action = getSupportActionBar();
-        navigationListener = new ActionBar.OnNavigationListener() {
-            @Override
-            public boolean onNavigationItemSelected(int position, long l) {
-//                String[] IDs = finalJourneys.get(1).get(position).split(Constants.SEPARATOR);
-//                Log.d("cazzi", "faccio richieste con " + IDs[0] + " " + IDs[1]);
-                actualJourneyIDs.clear();
-                actualJourneyIDs.add(IDs.get(position));
-                actualJourneyIDs.add(stationNames.get(position));
-                Log.d("cazzi", Arrays.toString(actualJourneyIDs.toArray()));
-                fragment.makeOuterRequestsWithIDs(IDs.get(position).split(Constants.SEPARATOR)[0], IDs.get(position).split(Constants.SEPARATOR)[1], mNavigationDrawerFragment.getActualTime());
-                isFavItem.setVisible(true);
-                notFavItem.setVisible(false);
-                return true;
-            }
-        };
-        action.setDisplayShowTitleEnabled(false);
-        action.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_LIST);
-        action.setListNavigationCallbacks(spinnerAdapter, navigationListener);
-
-
+        if (stationNames.size() > 0 ) {
+            ActionBar action = getSupportActionBar();
+            navigationListener = new ActionBar.OnNavigationListener() {
+                @Override
+                public boolean onNavigationItemSelected(int position, long l) {
+                    //                String[] IDs = finalJourneys.get(1).get(position).split(Constants.SEPARATOR);
+                    //                Log.d("cazzi", "faccio richieste con " + IDs[0] + " " + IDs[1]);
+                    actualJourneyIDs.clear();
+                    actualJourneyIDs.add(IDs.get(position));
+                    actualJourneyIDs.add(stationNames.get(position));
+                    Log.d("cazzi", Arrays.toString(actualJourneyIDs.toArray()));
+                    fragment.makeOuterRequestsWithIDs(IDs.get(position).split(Constants.SEPARATOR)[0], IDs.get(position).split(Constants.SEPARATOR)[1], mNavigationDrawerFragment.getActualTime());
+                    isFavItem.setVisible(true);
+                    notFavItem.setVisible(false);
+                    return true;
+                }
+            };
+            action.setDisplayShowTitleEnabled(false);
+            action.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_LIST);
+            action.setListNavigationCallbacks(spinnerAdapter, navigationListener);
+        } else {
+            isFavItem.setVisible(false);
+            notFavItem.setVisible(false);
+            getSupportActionBar().setTitle("Nessuna tratta favorita!");
+        }
 
     }
 

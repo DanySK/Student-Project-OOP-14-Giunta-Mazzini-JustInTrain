@@ -110,6 +110,10 @@ public class StationListFragment extends Fragment {
         this.trainNumber = getActivity().getIntent().getStringExtra("trainNumber");
         this.stationCode = getActivity().getIntent().getStringExtra("stationCode");
 
+//        trainDetails[0] = trainNumber;
+//        trainDetails[1] = stationCode;
+
+
         return layoutInflater;
     }
 
