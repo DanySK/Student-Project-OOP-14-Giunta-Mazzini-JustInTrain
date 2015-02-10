@@ -18,9 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
@@ -41,7 +39,6 @@ import java.util.List;
 public class StationListFragment extends Fragment {
 
     private RecyclerView recyclerView;
-//    private Button bFavourite;
 //    private TextView tData;
 //    private TextView info;
     private StationListAdapter adapter;
@@ -63,8 +60,6 @@ public class StationListFragment extends Fragment {
     TextView lastSeenTime;
     TextView lastSeenStation;
     private Menu menu;
-
-
 
     public static StationListFragment newInstance() {
         return new StationListFragment();
@@ -105,21 +100,6 @@ public class StationListFragment extends Fragment {
 
         this.trainNumber = getActivity().getIntent().getStringExtra("trainNumber");
         this.stationCode = getActivity().getIntent().getStringExtra("stationCode");
-
-//        this.bFavourite.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                favController.addFavourite(trainDetails[0], trainDetails[1]);
-//                try {
-//                    favController.addFavourite(trainDetails[0], trainDetails[1]);
-//                    Toast.makeText(StationListActivity.this, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show();
-//                } catch (FavouriteException e) {
-//                    Toast.makeText(StationListActivity.this, "E' già fra i preferiti!", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//
-//        this.bFavourite.setVisibility(View.INVISIBLE);
 
         return layoutInflater;
     }

@@ -50,7 +50,7 @@ public class AchievementController {
             }
         }catch (AchievementException e){
             if(data.contains(e.getMessage())){
-                Log.d("i looooooog", "aggiorno i dati");
+                Log.d("i looooooog", " non aggiorno i dati");
                 //do nothing
                 return;
             }else{

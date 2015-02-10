@@ -12,24 +12,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/add_favourite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-
-            android:text="Preferito"
-            />
-
         <TextView
             android:id="@+id/tInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:layout_below="@id/add_favourite"
-
             android:paddingLeft="4dp"
             android:layout_marginTop="8dp"
 

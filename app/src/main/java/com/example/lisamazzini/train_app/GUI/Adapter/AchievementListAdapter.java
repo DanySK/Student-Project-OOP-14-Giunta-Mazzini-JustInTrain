@@ -1,6 +1,7 @@
 package com.example.lisamazzini.train_app.GUI.Adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,18 +25,19 @@ public class AchievementListAdapter  extends RecyclerView.Adapter<AchievementLis
 
     @Override
     public AchievementViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_journey, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_achievement, parent, false);
         return new AchievementViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(AchievementViewHolder holder, int position) {
+        Log.d("ohi " + achievements.get(position), "sbloccato");
         holder.text.setText(achievements.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return achievements.size();
     }
 
     public static class AchievementViewHolder extends RecyclerView.ViewHolder{

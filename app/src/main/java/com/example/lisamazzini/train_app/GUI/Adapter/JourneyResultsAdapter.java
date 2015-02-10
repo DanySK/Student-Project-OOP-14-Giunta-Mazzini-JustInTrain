@@ -75,8 +75,6 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
                                 intent.putExtra("idOrigine", journeyTrain.getIDorigine());
                                 intent.putExtra("oraPartenza", journeyTrain.getOrarioPartenza());
                                 ctx.startService(intent);
-
-
                                 achievementController = new AchievementController(ctx);
                                 try {
                                     Log.d("i looooooog", "sto per aggiornare");
@@ -85,9 +83,6 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
                                     Log.d("i looooooog", "ORDUNQUE? " + e.getMessage());
                                     Toast.makeText(ctx, e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
-                                return true;
-                            case R.id.unpin:
-                                ctx.stopService(intent);
                                 return true;
                             default:
                                 return false;

@@ -33,6 +33,7 @@ public class BasicAchievement implements IAchievement {
 
     @Override
     public void addData(PlainSolution train) throws AchievementException {
+
         // prendo il valore dal file
         this.value = data.getLong(strategy.getKey(), 0L);
         //aggiorno il valore

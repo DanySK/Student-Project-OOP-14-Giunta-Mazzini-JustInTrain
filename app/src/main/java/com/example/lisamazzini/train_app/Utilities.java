@@ -15,6 +15,9 @@ public class Utilities {
 
 
     public static String fromMsToTime(Long millis){
+        if(millis == null){
+            return "--";
+        }
         DateTime date = new DateTime(millis);
         date.plusHours(1);
         return DateTimeFormat.forPattern("HH:mm").print(date);
