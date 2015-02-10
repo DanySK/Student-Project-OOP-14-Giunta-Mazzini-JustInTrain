@@ -12,7 +12,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by lisamazzini on 04/02/15.
+ * Questa classe rappresenta l'implementazione generica di un Achievement;
+ * Utilizza delle SharedPreferences per leggere e aggiornare i dati relativi all'achievement e
+ * un oggetto Strategy per identificare come aggiornare i dati e quando sbloccare l'achievement.
+ *
+ * @author Lisa Mazzini
  */
 
 //Singleton + strategy (?)
@@ -23,7 +27,13 @@ public class BasicAchievement implements IAchievement {
     private final SharedPreferences data;
     private final SharedPreferences.Editor editor;
 
-
+    /**
+     * Costruttore
+     *
+     * @param value valore da aggiornare
+     * @param strategy oggetto Strategy che ne descrive il funzionamento
+     * @param context il Context necessario per prendere le SharedPreferences
+     */
     public BasicAchievement(Long value, Strategy strategy, Context context){
         this.value = value;
         this.strategy = strategy;
@@ -31,6 +41,13 @@ public class BasicAchievement implements IAchievement {
         editor = data.edit();
     }
 
+    /**
+     * Metodo che aggiorna i dati dell'achievement
+     *
+     *
+     * @param train il treno da cui prendere i dati
+     * @throws AchievementException se si sblocca un achievement
+     */
     @Override
     public void addData(PlainSolution train) throws AchievementException {
 

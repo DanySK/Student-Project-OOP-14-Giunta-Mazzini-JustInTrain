@@ -6,7 +6,10 @@ import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import android.content.Context;
 
 /**
- * Created by lisamazzini on 08/02/15.
+ * Classe che rappresenta l'achievement "Ritardatario level 1", che si basa
+ * sui minuti di ritardo accumulati e si sblocca dopo 60 minuti;
+ *
+ * @author Lisa Mazzini
  */
 public class DelayAchievement1 extends BasicAchievement {
 
@@ -20,7 +23,7 @@ public class DelayAchievement1 extends BasicAchievement {
 
             @Override
             public void control(Long value) throws DelayAchievementException {
-                if(value > 10L){
+                if(value > 60L){
                     throw new DelayAchievementException(Constants.DELAY_ACH);
                 }
             }
