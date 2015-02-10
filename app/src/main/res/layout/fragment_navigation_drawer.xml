@@ -16,8 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:ems="5"
-        android:maxEms="5"
+        android:ems="10"
+        android:maxEms="10"
 
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -51,8 +51,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:ems="5"
-        android:maxEms="5"
+        android:ems="10"
+        android:maxEms="10"
 
         android:layout_below="@+id/eTrainNumber"
 
@@ -68,8 +68,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:ems="5"
-        android:maxEms="5"
+        android:ems="10"
+        android:maxEms="10"
 
         android:layout_below="@+id/eDepartureStation"
 
