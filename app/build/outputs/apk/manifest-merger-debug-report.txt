@@ -63,22 +63,36 @@ ADDED from AndroidManifest.xml:37:9
 		ADDED from AndroidManifest.xml:37:19
 activity#com.example.lisamazzini.train_app.GUI.FavouriteTrainListActivity
 ADDED from AndroidManifest.xml:42:9
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:43:60
 	android:name
 		ADDED from AndroidManifest.xml:43:13
+activity#com.example.lisamazzini.train_app.GUI.JourneyResultsActivity
+ADDED from AndroidManifest.xml:46:9
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:47:56
+	android:name
+		ADDED from AndroidManifest.xml:47:13
+activity#com.example.lisamazzini.train_app.GUI.AchievementListActivity
+ADDED from AndroidManifest.xml:50:9
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:51:57
+	android:name
+		ADDED from AndroidManifest.xml:51:13
 activity#com.example.lisamazzini.train_app.GUI.MainActivity
-ADDED from AndroidManifest.xml:45:9
+ADDED from AndroidManifest.xml:54:9
 	android:name
-		ADDED from AndroidManifest.xml:46:13
+		ADDED from AndroidManifest.xml:55:13
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:47:13
+ADDED from AndroidManifest.xml:56:13
 action#android.intent.action.MAIN
-ADDED from AndroidManifest.xml:48:17
+ADDED from AndroidManifest.xml:57:17
 	android:name
-		ADDED from AndroidManifest.xml:48:25
+		ADDED from AndroidManifest.xml:57:25
 category#android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:50:17
+ADDED from AndroidManifest.xml:59:17
 	android:name
-		ADDED from AndroidManifest.xml:50:27
+		ADDED from AndroidManifest.xml:59:27
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:recyclerview-v7:21.0.0:15:5

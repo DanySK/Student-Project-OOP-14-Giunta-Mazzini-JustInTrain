@@ -48,7 +48,17 @@
         <!-- android:name=".GUI.FavouriteJourneyListActivity" -->
         <!-- android:label="@string/title_activity_favourite_journey_list" > -->
         <!-- </activity> -->
-        <activity android:name="com.example.lisamazzini.train_app.GUI.FavouriteTrainListActivity" >
+        <activity
+            android:name="com.example.lisamazzini.train_app.GUI.FavouriteTrainListActivity"
+            android:parentActivityName="com.example.lisamazzini.train_app.GUI.MainActivity" >
+        </activity>
+        <activity
+            android:name="com.example.lisamazzini.train_app.GUI.JourneyResultsActivity"
+            android:parentActivityName="com.example.lisamazzini.train_app.GUI.MainActivity" >
+        </activity>
+        <activity
+            android:name="com.example.lisamazzini.train_app.GUI.AchievementListActivity"
+            android:parentActivityName="com.example.lisamazzini.train_app.GUI.MainActivity" >
         </activity>
         <activity android:name="com.example.lisamazzini.train_app.GUI.MainActivity" >
             <intent-filter>
