@@ -37,12 +37,9 @@ import java.util.List;
 public class StationListFragment extends Fragment {
 
     private RecyclerView recyclerView;
-//    private TextView tData;
-//    private TextView info;
     private StationListAdapter adapter;
     private LinearLayoutManager manager;
     private List<Fermate> fermateList = new LinkedList<>();
-
 
     private StationListController listController;
     private IFavouriteController favController = FavouriteTrainController.getInstance();
@@ -51,7 +48,6 @@ public class StationListFragment extends Fragment {
     private String[] trainDetails;
     private String trainNumber;
     private String stationCode;
-
 
     TextView info;
     TextView delay;
@@ -106,13 +102,6 @@ public class StationListFragment extends Fragment {
 
 
         this.favController.setContext(getActivity().getApplicationContext());
-
-        this.trainNumber = getActivity().getIntent().getStringExtra("trainNumber");
-        this.stationCode = getActivity().getIntent().getStringExtra("stationCode");
-
-//        trainDetails[0] = trainNumber;
-//        trainDetails[1] = stationCode;
-
 
         return layoutInflater;
     }
@@ -283,6 +272,9 @@ public class StationListFragment extends Fragment {
 
             trainResponse.setProgress(listController.getProgress(trainResponse));
 
+            trainDetails = new String[2];
+            trainDetails[0] = trainResponse.getNumeroTreno().toString();
+            trainDetails[1] = trainResponse.getIdOrigine();
             fermateList.clear();
             fermateList.addAll(trainResponse.getFermate());
             adapter.notifyDataSetChanged();
