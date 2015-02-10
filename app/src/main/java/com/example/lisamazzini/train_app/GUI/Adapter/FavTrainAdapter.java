@@ -53,9 +53,9 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
             holder.extra.setText(train.getSubTitle());
         }else{
             if (train.getRitardo() > 0) {
-                holder.delay.setText("  •  " + train.getRitardo() + "'  DEL");
+                holder.delay.setText("  •  " + train.getRitardo() + "'  DELAY");
             } else if (train.getRitardo() < 0) {
-                holder.delay.setText("  •  " + train.getRitardo() + "'  DEL");
+                holder.delay.setText("  •  " + train.getRitardo()*(-1) + "'  ADVANCE");
             } else {
                 holder.delay.setText("  •  " + "ON TIME");
             }

@@ -3,6 +3,7 @@ package com.example.lisamazzini.train_app.GUI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -51,7 +52,8 @@ public class StationListActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.home) {
+        if (id == android.R.id.home) {
+            onBackPressed();
             return true;
         }
         if (id == R.id.action_prefere) {
