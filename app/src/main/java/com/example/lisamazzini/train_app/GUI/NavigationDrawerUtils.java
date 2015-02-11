@@ -1,7 +1,6 @@
 package com.example.lisamazzini.train_app.GUI;
 
 
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.DatePicker;
@@ -18,7 +17,7 @@ public class NavigationDrawerUtils implements INavgationDrawerUtils {
     private NavigationDrawerFragment fragment;
 
     private TimePickerFragment timeFragment;
-    private DialogFragment dateFragment;
+    private DatePickerFragment dateFragment;
 
     public NavigationDrawerUtils(FragmentActivity activity) {
         this.activity = activity;

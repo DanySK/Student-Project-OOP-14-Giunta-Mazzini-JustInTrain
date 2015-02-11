@@ -1,6 +1,7 @@
 package com.example.lisamazzini.train_app.Network;
 
 
+import com.example.lisamazzini.train_app.Model.Constants;
 import com.squareup.okhttp.OkHttpClient;
 
 import retrofit.RestAdapter;
@@ -9,7 +10,6 @@ import retrofit.client.OkClient;
 public class JourneyRestClient {
 
     private static JourneyAPI REST_CLIENT;
-    private static String ROOT = "http://193.138.161.135/viaggiatrenomobile/resteasy/viaggiatreno";
 
     static {
         setupRestClient();
@@ -23,7 +23,7 @@ public class JourneyRestClient {
 
     private static void setupRestClient() {
         RestAdapter.Builder builder = new RestAdapter.Builder()
-                .setEndpoint(ROOT)
+                .setEndpoint(Constants.ROOT)
                 .setClient(new OkClient(new OkHttpClient()));
         builder.setLogLevel(RestAdapter.LogLevel.FULL);
 
