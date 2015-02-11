@@ -8,10 +8,7 @@ import android.support.v7.widget.Toolbar;
 import com.example.lisamazzini.train_app.GUI.Fragment.AchievementListFragment;
 import com.example.lisamazzini.train_app.R;
 
-public class AchievementListActivity extends ActionBarActivity {
-
-    private AchievementListFragment fragment;
-    private Toolbar toolbar;
+public class AchievementListActivity extends AbstractBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +24,7 @@ public class AchievementListActivity extends ActionBarActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, AchievementListFragment.newInstance());
-        fragment = (AchievementListFragment)getSupportFragmentManager().findFragmentById(R.id.achievementListFragment);
+        //AchievementListFragment fragment = (AchievementListFragment)getSupportFragmentManager().findFragmentById(R.id.achievementListFragment);
+
     }
 }

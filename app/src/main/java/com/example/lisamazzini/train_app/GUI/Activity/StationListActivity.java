@@ -11,9 +11,8 @@ import android.view.MenuItem;
 import com.example.lisamazzini.train_app.GUI.Fragment.StationListFragment;
 import com.example.lisamazzini.train_app.R;
 
-public class StationListActivity extends ActionBarActivity {
+public class StationListActivity extends AbstractBaseActivity {
 
-    private Toolbar toolbar;
     private StationListFragment fragment;
     private String trainNumber;
     private String stationCode;
@@ -63,6 +62,7 @@ public class StationListActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
 
 

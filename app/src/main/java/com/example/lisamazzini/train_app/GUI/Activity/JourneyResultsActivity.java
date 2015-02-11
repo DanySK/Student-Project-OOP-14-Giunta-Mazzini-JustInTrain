@@ -13,18 +13,16 @@ import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 
-public class JourneyResultsActivity extends ActionBarActivity {
+public class JourneyResultsActivity extends AbstractBaseActivity {
 
     private JourneyResultsFragment fragment;
-    private IFavouriteController favouriteJourneyController = FavouriteJourneyController.getInstance();
-    private Toolbar toolbar;
     private String departureStation;
     private String arrivalStation;
     private String requestedTime;
-    private Menu menu;
 
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey_search);
 
@@ -44,6 +42,7 @@ public class JourneyResultsActivity extends ActionBarActivity {
         fragmentManager.beginTransaction().replace(R.id.container, JourneyResultsFragment.newInstance());
         fragment = (JourneyResultsFragment) getSupportFragmentManager().findFragmentById(R.id.journeyResultsFragment);
         fragment.makeOuterRequestsWithStations(departureStation, arrivalStation, requestedTime);
+
     }
 
     @Override
@@ -68,4 +67,5 @@ public class JourneyResultsActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

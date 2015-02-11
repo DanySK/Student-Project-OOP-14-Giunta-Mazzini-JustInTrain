@@ -35,10 +35,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
+public class MainActivity extends AbstractBaseActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
-    private Toolbar toolbar;
 
     private ArrayList<String> journeys;
 
@@ -76,7 +75,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 //            e.printStackTrace();
 //        }
 
-
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
@@ -85,6 +83,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, JourneyResultsFragment.newInstance());
         fragment = (JourneyResultsFragment)getSupportFragmentManager().findFragmentById(R.id.journeyResultsFragment);
+
     }
 
     @Override
@@ -132,6 +131,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             IDs.add(s);
         }
 
+
         for (String s : IDs) {
             stationNames.add(map.get(s).replaceAll(Constants.SEPARATOR, " "));
         }
@@ -140,13 +140,13 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
     public void restoreActionBar(Menu menu) {
 
-        final MenuItem notFavItem= menu.findItem(R.id.action_prefere);
+        final MenuItem notFavItem = menu.findItem(R.id.action_prefere);
         final MenuItem isFavItem = menu.findItem(R.id.action_deprefere);
 
         refreshLists();
 
         spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, stationNames);
-        if (stationNames.size() > 0 ) {
+        if (stationNames.size() > 0) {
             ActionBar action = getSupportActionBar();
             navigationListener = new ActionBar.OnNavigationListener() {
                 @Override
@@ -162,22 +162,25 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                     notFavItem.setVisible(false);
                     return true;
                 }
+
             };
-            action.setDisplayShowTitleEnabled(false);
-            action.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_LIST);
-            action.setListNavigationCallbacks(spinnerAdapter, navigationListener);
-        } else {
-            isFavItem.setVisible(false);
-            notFavItem.setVisible(false);
-            getSupportActionBar().setTitle("Nessuna tratta favorita!");
-        }
+                action.setDisplayShowTitleEnabled(false);
+                action.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_LIST);
+                action.setListNavigationCallbacks(spinnerAdapter,navigationListener);
+
+            }else{
+                isFavItem.setVisible(false);
+                notFavItem.setVisible(false);
+                getSupportActionBar().setTitle("Nessuna tratta favorita!");
+            }
+
 
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
-         public void onNavigationDrawerItemSelected(int position) {
+    public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
     }
 
@@ -208,4 +211,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             mNavigationDrawerFragment.setDate(year, monthOfYear, dayOfMonth);
         }
     }
+
+
+
 }

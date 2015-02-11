@@ -10,9 +10,8 @@ import com.example.lisamazzini.train_app.R;
 /**
  * Created by lisamazzini on 22/01/15.
  */
-public class FavouriteTrainListActivity extends ActionBarActivity{
+public class FavouriteTrainListActivity extends AbstractBaseActivity{
 
-    Toolbar toolbar;
     FavouriteTrainListFragment fragment;
 
     @Override
@@ -30,5 +29,6 @@ public class FavouriteTrainListActivity extends ActionBarActivity{
         fragmentMan.beginTransaction().replace(R.id.container, FavouriteTrainListFragment.newInstance());
         fragment = (FavouriteTrainListFragment)getSupportFragmentManager().findFragmentById(R.id.favouriteTrainListFragment);
         fragment.makeRequest();
+
     }
 }
