@@ -25,6 +25,7 @@ public class JourneyDataRequest extends SpiceRequest<String>{
     public String loadDataFromNetwork() throws IOException, InvalidStationException {
         URL url = new URL(mainUrl + station + "?=" + station);
         Log.d("cazzi", url.toString());
+
         BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
         String result = in.readLine();
         in.close();

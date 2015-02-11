@@ -1,10 +1,11 @@
-package com.example.lisamazzini.train_app.GUI;
+package com.example.lisamazzini.train_app.GUI.Activity;
 
 import android.support.v4.app.*;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import com.example.lisamazzini.train_app.GUI.Fragment.AchievementListFragment;
 import com.example.lisamazzini.train_app.R;
 
 public class AchievementListActivity extends ActionBarActivity {

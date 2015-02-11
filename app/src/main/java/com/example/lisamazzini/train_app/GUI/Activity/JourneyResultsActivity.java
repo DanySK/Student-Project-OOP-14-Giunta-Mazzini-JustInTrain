@@ -1,6 +1,5 @@
-package com.example.lisamazzini.train_app.GUI;
+package com.example.lisamazzini.train_app.GUI.Activity;
 
-import android.util.Log;
 import android.view.Menu;
 import android.os.Bundle;
 import android.content.Intent;
@@ -9,8 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
-import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
-import com.example.lisamazzini.train_app.Model.Constants;
+import com.example.lisamazzini.train_app.GUI.Fragment.JourneyResultsFragment;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;

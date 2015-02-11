@@ -1,14 +1,14 @@
-package com.example.lisamazzini.train_app.GUI;
+package com.example.lisamazzini.train_app.GUI.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.lisamazzini.train_app.GUI.Fragment.StationListFragment;
 import com.example.lisamazzini.train_app.R;
 
 public class StationListActivity extends ActionBarActivity {

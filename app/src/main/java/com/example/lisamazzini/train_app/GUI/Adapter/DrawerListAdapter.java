@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
-import com.example.lisamazzini.train_app.GUI.AchievementListActivity;
-import com.example.lisamazzini.train_app.GUI.FavouriteTrainListActivity;
+import com.example.lisamazzini.train_app.GUI.Activity.AchievementListActivity;
+import com.example.lisamazzini.train_app.GUI.Activity.FavouriteTrainListActivity;
 import com.example.lisamazzini.train_app.R;
 
 public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.DrawerListViewHolder> {

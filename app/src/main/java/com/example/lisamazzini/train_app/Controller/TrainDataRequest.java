@@ -34,6 +34,7 @@ public class TrainDataRequest extends SpiceRequest<String> {
         }
         in.close();
 
+        //result null eccezione
         return result;
     }
 }

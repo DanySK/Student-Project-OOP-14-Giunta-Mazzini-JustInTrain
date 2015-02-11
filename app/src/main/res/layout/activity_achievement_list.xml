@@ -9,7 +9,7 @@
         layout="@layout/toolbar"/>
 
     <fragment
-        class="com.example.lisamazzini.train_app.GUI.AchievementListFragment"
+        class="com.example.lisamazzini.train_app.GUI.Fragment.AchievementListFragment"
         android:id="@+id/achievementListFragment"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />

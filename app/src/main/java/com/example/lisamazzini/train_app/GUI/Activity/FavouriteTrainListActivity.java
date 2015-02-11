@@ -1,8 +1,10 @@
-package com.example.lisamazzini.train_app.GUI;
+package com.example.lisamazzini.train_app.GUI.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
+
+import com.example.lisamazzini.train_app.GUI.Fragment.FavouriteTrainListFragment;
 import com.example.lisamazzini.train_app.R;
 
 /**

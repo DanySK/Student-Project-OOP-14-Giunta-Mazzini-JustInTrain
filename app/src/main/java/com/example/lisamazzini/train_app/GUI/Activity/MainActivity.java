@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI;
+package com.example.lisamazzini.train_app.GUI.Activity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -21,6 +21,10 @@ import android.widget.TimePicker;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
+import com.example.lisamazzini.train_app.GUI.Fragment.DatePickerFragment;
+import com.example.lisamazzini.train_app.GUI.Fragment.JourneyResultsFragment;
+import com.example.lisamazzini.train_app.GUI.Fragment.NavigationDrawerFragment;
+import com.example.lisamazzini.train_app.GUI.Fragment.TimePickerFragment;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Model.Constants;
 
@@ -31,7 +35,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
-//public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
@@ -85,11 +88,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     }
 
     @Override
-         public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -99,6 +97,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         }
         return super.onCreateOptionsMenu(menu);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -173,6 +172,13 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             getSupportActionBar().setTitle("Nessuna tratta favorita!");
         }
 
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+         public void onNavigationDrawerItemSelected(int position) {
+        // update the main content by replacing fragments
     }
 
     private TimePickerFragment timeFragment;

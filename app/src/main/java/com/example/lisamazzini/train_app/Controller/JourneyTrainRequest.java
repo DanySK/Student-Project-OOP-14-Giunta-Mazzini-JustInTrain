@@ -59,7 +59,7 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
 
             ////////////////////////////////////////////////////////////////////////
 
-            // capisco se il treno è singolo o doppio
+            // capisco se il treno è singolo o doppio}
 
             //I used Constants.SEPARATOR to divide the result in case there are more train with the same number
             String[] datas = result.split(Constants.SEPARATOR);

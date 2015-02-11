@@ -12,7 +12,7 @@ import android.util.Log;
 
 import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.TrainRequest;
-import com.example.lisamazzini.train_app.GUI.StationListActivity;
+import com.example.lisamazzini.train_app.GUI.Activity.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Treno.Train;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Utilities;

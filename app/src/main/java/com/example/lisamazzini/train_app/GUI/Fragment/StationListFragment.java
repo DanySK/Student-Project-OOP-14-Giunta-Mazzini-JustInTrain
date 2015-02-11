@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI;
+package com.example.lisamazzini.train_app.GUI.Fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,6 +23,7 @@ import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainCon
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.Controller.StationListController;
 import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
+import com.example.lisamazzini.train_app.GUI.Activity.MainActivity;
 import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Treno.Train;
@@ -110,16 +111,12 @@ public class StationListFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Do something that differs the Activity's menu here
-        Log.d("cazzi", "fatto oncreate");
         super.onCreateOptionsMenu(menu, inflater);
         this.menu = menu;
 
     }
 
     private void setAsFavouriteIcon(boolean b) {
-        if (menu == null) {
-            Log.d("cazzi", "menu è null");
-        }
         menu.getItem(0).setVisible(!b);
         menu.getItem(1).setVisible(b);
     }
@@ -153,12 +150,10 @@ public class StationListFragment extends Fragment {
     }
 
     public void removeFavourite() {
-        Log.d("cazzi", "rimuovo");
         favController.removeFavourite(trainDetails[0], trainDetails[1]);
     }
 
     public void addFavourite() throws FavouriteException {
-        Log.d("cazzi", "aggiungo");
         favController.addFavourite(trainDetails[0], trainDetails[1]);
     }
 
@@ -207,10 +202,8 @@ public class StationListFragment extends Fragment {
                 //Only one train
                 if(datas.length == 1){
                     // I take the second part of the string, and divide it in 2; example 608 - S11145 -> [608,S11145]
-
-                    datas = listController.computeData(datas[0]);
-                    trainDetails = datas;
-                    listController.setCode(datas[1]);
+                    trainDetails = listController.computeData(datas[0]);
+                    listController.setCode(trainDetails[1]);
                     stationCode = trainDetails[1];
                     toggleFavouriteIcon();
                     spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
@@ -234,18 +227,16 @@ public class StationListFragment extends Fragment {
                                 case 0:
                                     trainDetails = firstChoiceData;
                                     listController.setCode(firstChoiceData[1]);
-                                    toggleFavouriteIcon();
                                     spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
-                                    dialog.dismiss();
                                     break;
                                 case 1:
                                     trainDetails = secondChoiceData;
                                     listController.setCode(secondChoiceData[1]);
-                                    toggleFavouriteIcon();
                                     spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
-                                    dialog.dismiss();
                                     break;
                             }
+                            toggleFavouriteIcon();
+                            dialog.dismiss();
                         }
                     }).show();
                 }
@@ -262,7 +253,7 @@ public class StationListFragment extends Fragment {
     private class AnotherListener extends AbstractListener<Train>{
         @Override
         public Context getDialogContext() {
-            return getActivity().getApplicationContext();
+            return getActivity();
         }
 
         @Override

@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI;
+package com.example.lisamazzini.train_app.GUI.Fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -53,10 +53,10 @@ public class FavouriteTrainListFragment extends Fragment {
         super.onStop();
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
+//    @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

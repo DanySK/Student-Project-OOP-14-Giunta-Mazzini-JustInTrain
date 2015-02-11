@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI;
+package com.example.lisamazzini.train_app.GUI.Fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,8 +26,9 @@ import com.example.lisamazzini.train_app.Controller.JourneyResultsController2;
 import com.example.lisamazzini.train_app.Controller.JourneyTrainRequest;
 import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
 import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
+import com.example.lisamazzini.train_app.GUI.Activity.MainActivity;
 import com.example.lisamazzini.train_app.GUI.Adapter.JourneyResultsAdapter;
-import com.example.lisamazzini.train_app.Model.Constants;
+import com.example.lisamazzini.train_app.GUI.EndlessRecyclerOnScrollListener;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolutionWrapper;
 import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
@@ -36,9 +36,7 @@ import com.example.lisamazzini.train_app.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 

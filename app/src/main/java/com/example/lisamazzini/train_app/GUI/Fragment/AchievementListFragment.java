@@ -1,21 +1,16 @@
-package com.example.lisamazzini.train_app.GUI;
+package com.example.lisamazzini.train_app.GUI.Fragment;
 
 import android.app.Activity;
-import android.content.*;
 import android.os.Bundle;
 import android.support.v4.app.*;
 import android.support.v7.widget.*;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.*;
 
 import com.example.lisamazzini.train_app.Controller.AchievementListController;
 import com.example.lisamazzini.train_app.GUI.Adapter.AchievementListAdapter;
-import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.R;
-
-import java.util.*;
 
 /**
  * Created by lisamazzini on 10/02/15.
@@ -49,8 +44,8 @@ public class AchievementListFragment extends Fragment{
         return view;
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
+//    @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//    }
 }

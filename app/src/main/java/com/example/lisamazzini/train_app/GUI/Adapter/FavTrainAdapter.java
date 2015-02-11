@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
-import com.example.lisamazzini.train_app.GUI.StationListActivity;
+import com.example.lisamazzini.train_app.GUI.Activity.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Treno.Train;
 import com.example.lisamazzini.train_app.R;
 

@@ -15,11 +15,9 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lisamazzini.train_app.Achievement.BasicAchievement;
-import com.example.lisamazzini.train_app.Achievement.DelayAchievement1;
 import com.example.lisamazzini.train_app.Controller.AchievementController;
 import com.example.lisamazzini.train_app.Exceptions.AchievementException;
-import com.example.lisamazzini.train_app.GUI.StationListActivity;
+import com.example.lisamazzini.train_app.GUI.Activity.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Notification.NotificationService;
 import com.example.lisamazzini.train_app.R;

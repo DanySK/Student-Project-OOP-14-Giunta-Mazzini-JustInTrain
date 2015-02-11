@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI;
+package com.example.lisamazzini.train_app.GUI.Fragment;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -26,6 +26,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.example.lisamazzini.train_app.GUI.Activity.JourneyResultsActivity;
+import com.example.lisamazzini.train_app.GUI.Activity.StationListActivity;
 import com.example.lisamazzini.train_app.GUI.Adapter.DrawerListAdapter;
 import com.example.lisamazzini.train_app.R;
 

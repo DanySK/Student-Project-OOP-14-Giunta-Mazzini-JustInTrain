@@ -9,7 +9,7 @@
         layout="@layout/toolbar"/>
 
     <fragment
-        android:name="com.example.lisamazzini.train_app.GUI.FavouriteTrainListFragment"
+        android:name="com.example.lisamazzini.train_app.GUI.Fragment.FavouriteTrainListFragment"
         android:id="@+id/favouriteTrainListFragment"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
