@@ -225,21 +225,6 @@ public class JourneyResultsFragment extends Fragment {
     private class DepartureDataRequestListenter extends AbstractListener<String> {
 
         @Override
-        public void onRequestFailure(SpiceException spiceException) {
-            if (spiceException.getCause() instanceof InvalidStationException) {
-                dialogBuilder.setTitle("Stazione inesistente!")
-                        .setMessage("Il nome inserito per la stazione di partenza non corrisponde a nessun risultato")
-                        .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent i = new Intent(getDialogContext(), MainActivity.class);
-                                startActivity(i);
-                            }
-                        }).show();
-            }
-        }
-
-        @Override
         public Context getDialogContext() {
             return getActivity();
         }
@@ -254,22 +239,6 @@ public class JourneyResultsFragment extends Fragment {
     ///////////////////////////////////////////////////////////////////////////////////////
 
     private class ArrivalDataRequestListener extends AbstractListener<String> {
-
-        @Override
-        public void onRequestFailure(SpiceException spiceException) {
-            if (spiceException.getCause() instanceof InvalidStationException) {
-                Log.d("cazzi", "sbagliata arrivo");
-                dialogBuilder.setTitle("Stazione inesistente!")
-                        .setMessage("Il nome inserito per la stazione di arrivo non corrisponde a nessun risultato")
-                        .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent i = new Intent(getDialogContext(), MainActivity.class);
-                                startActivity(i);
-                            }
-                        }).show();
-            }
-        }
 
         @Override
         public Context getDialogContext() {

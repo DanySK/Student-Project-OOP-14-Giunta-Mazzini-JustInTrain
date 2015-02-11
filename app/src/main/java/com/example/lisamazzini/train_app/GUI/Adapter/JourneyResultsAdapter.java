@@ -24,7 +24,7 @@ import com.example.lisamazzini.train_app.R;
 
 import java.util.List;
 
-public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAdapter.JourneyViewHolder>{
+public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAdapter.JourneyViewHolder> implements IAdapter<JourneyResultsAdapter.JourneyViewHolder>{
 
     private final List<PlainSolution> journeyList;
     private AchievementController achievementController;

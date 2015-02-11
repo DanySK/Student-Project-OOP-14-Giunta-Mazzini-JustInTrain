@@ -11,6 +11,8 @@ public class PlainSolutionWrapper extends LinkedList<PlainSolution> {
         this.plainSolutions = plainSolutionList;
     }
 
+
+
     public List<PlainSolution> getList() {
         return this.plainSolutions;
     }

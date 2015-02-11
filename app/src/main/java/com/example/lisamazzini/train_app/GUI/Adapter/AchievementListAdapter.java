@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by lisamazzini on 09/02/15.
  */
-public class AchievementListAdapter  extends RecyclerView.Adapter<AchievementListAdapter.AchievementViewHolder> {
+public class AchievementListAdapter  extends RecyclerView.Adapter<AchievementListAdapter.AchievementViewHolder> implements IAdapter<AchievementListAdapter.AchievementViewHolder>{
 
     List<String> achievements = new LinkedList<>();
 

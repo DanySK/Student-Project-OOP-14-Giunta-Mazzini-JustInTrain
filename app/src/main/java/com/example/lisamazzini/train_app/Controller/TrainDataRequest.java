@@ -2,39 +2,38 @@ package com.example.lisamazzini.train_app.Controller;
 
 import android.util.Log;
 
+import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
 import com.example.lisamazzini.train_app.Model.Constants;
+import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
 import com.octo.android.robospice.request.SpiceRequest;
 
 import java.io.BufferedReader;
 import java.io.*;
 import java.net.*;
+import java.util.LinkedList;
+import java.util.List;
 
 
-public class TrainDataRequest extends SpiceRequest<String> {
+public class TrainDataRequest extends AbstractRequest {
 
     private final static String mainUrl = "http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/";
 
     private final String searchNumber;
 
     public TrainDataRequest(String searchQuery){
-        super(String.class);
+        super(ListWrapper.class);
         this.searchNumber = searchQuery;
     }
 
     @Override
-    public String loadDataFromNetwork() throws IOException {
-        URL url = new URL(mainUrl + searchNumber);
-        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+    protected URL generateURL() throws MalformedURLException {
+        return new URL(mainUrl + searchNumber);
+    }
 
-        String result = in.readLine();
-        String inputLine;
-        while ((inputLine = in.readLine()) != null) {
-            result += Constants.SEPARATOR + inputLine;
-            System.out.println(inputLine);
+    @Override
+    protected void check(List result) throws InvalidTrainNumberException {
+        if(result.size()==0) {
+            throw new InvalidTrainNumberException();
         }
-        in.close();
-
-        //result null eccezione
-        return result;
     }
 }

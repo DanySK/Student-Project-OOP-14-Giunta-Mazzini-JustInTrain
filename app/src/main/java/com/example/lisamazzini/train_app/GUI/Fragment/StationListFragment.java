@@ -26,6 +26,7 @@ import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
 import com.example.lisamazzini.train_app.GUI.Activity.MainActivity;
 import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.Model.Constants;
+import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
 import com.example.lisamazzini.train_app.Model.Treno.Train;
 import com.example.lisamazzini.train_app.Model.Treno.Fermate;
 import com.example.lisamazzini.train_app.R;
@@ -178,69 +179,40 @@ public class StationListFragment extends Fragment {
         spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
     }
 
-    private class TrainAndStationsRequestListener extends AbstractListener<String> {
+    private class TrainAndStationsRequestListener extends AbstractListener<ListWrapper> {
         //If there's internet connection I get the train details in this form  '608 - LECCE|608-S11145'
         @Override
-        public void onRequestSuccess(final String data) {
+        public void onRequestSuccess(final ListWrapper result) {
             //The user put a not valid train number, the result is empty
-            if(data == null){
-                dialogBuilder.setTitle("Numero treno non valido!")
-                        .setMessage("Il numero inserito non corrisponde a nessun cazzo di treno")
-                        .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(getDialogContext(), MainActivity.class);
-                                startActivity(intent);
-                            }
-                        })
-                        .show();
-                //The train number is correct
-            }else {
-
-                //I used Constants.SEPARATOR to divide the result in case there are more train with the same number
-                String[] datas = data.split(Constants.SEPARATOR);
-                //Only one train
-                if(datas.length == 1){
-                    // I take the second part of the string, and divide it in 2; example 608 - S11145 -> [608,S11145]
-                    trainDetails = listController.computeData(datas[0]);
-                    listController.setCode(trainDetails[1]);
-                    stationCode = trainDetails[1];
-                    toggleFavouriteIcon();
-                    spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
-                    //There's more than one train with the same number
-                }else{
-
-                    //Here I take the data of the first train
-                    final String[] firstChoiceData = listController.computeData(datas[0]);
-
-                    //Here I take the data of the second train
-                    final String[] secondChoiceData = listController.computeData(datas[1]);
-
-                    //Here I create the options that will be showed to the user
-                    String[] choices = listController.computeChoices(firstChoiceData, secondChoiceData);
-
-                    dialogBuilder.setSingleChoiceItems(choices, -1, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            switch (which) {
-                                case 0:
-                                    trainDetails = firstChoiceData;
-                                    listController.setCode(firstChoiceData[1]);
-                                    spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
-                                    break;
-                                case 1:
-                                    trainDetails = secondChoiceData;
-                                    listController.setCode(secondChoiceData[1]);
-                                    spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
-                                    break;
-                            }
-                            toggleFavouriteIcon();
-                            dialog.dismiss();
-                        }
-                    }).show();
+            //Only one train
+            List<String> data = result.getList();
+            if(data.size() == 1){
+                // I take the second part of the string, and divide it in 2; example 608 - S11145 -> [608,S11145]
+                trainDetails = listController.computeData(data.get(0));
+                listController.setCode(trainDetails[1]);
+                stationCode = trainDetails[1];
+                toggleFavouriteIcon();
+                spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
+                //There's more than one train with the same number
+            }else{
+                final String[][] dataMatrix = new String[data.size()][3];
+                String[] choices = new String[data.size()];
+                for (int i = 0 ; i < data.size() - 1 ; i++){
+                    dataMatrix[i] = listController.computeData(data.get(i));
+                    choices[i] = listController.computeChoices(dataMatrix[i]);
                 }
+                dialogBuilder.setSingleChoiceItems(choices, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        trainDetails = dataMatrix[which];
+                        listController.setCode(dataMatrix[which][1]);
+                        spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
+                        toggleFavouriteIcon();
+                        dialog.dismiss();
+                    }
+                }).show();
             }
+
         }
 
         @Override
@@ -248,7 +220,6 @@ public class StationListFragment extends Fragment {
             return getActivity();
         }
     }
-
 
     private class AnotherListener extends AbstractListener<Train>{
         @Override

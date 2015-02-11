@@ -14,7 +14,7 @@ import com.example.lisamazzini.train_app.GUI.Activity.AchievementListActivity;
 import com.example.lisamazzini.train_app.GUI.Activity.FavouriteTrainListActivity;
 import com.example.lisamazzini.train_app.R;
 
-public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.DrawerListViewHolder> {
+public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.DrawerListViewHolder> implements IAdapter<DrawerListAdapter.DrawerListViewHolder>{
 
 
     String TITLES[];

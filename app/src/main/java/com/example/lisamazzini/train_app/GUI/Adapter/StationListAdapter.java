@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by lisamazzini on 23/01/15.
  */
-public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter.RecyclerViewHolder>{
+public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter.RecyclerViewHolder> implements IAdapter<StationListAdapter.RecyclerViewHolder>{
 
     List<Fermate> list;
 

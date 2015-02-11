@@ -20,7 +20,7 @@ import java.util.List;
  *
  * Created by lisamazzini on 25/01/15.
  */
-public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder> {
+public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder> implements IAdapter<FavTrainAdapter.Holder> {
 
     List<Train> list;
     private IFavouriteController favouriteController = FavouriteTrainController.getInstance();
