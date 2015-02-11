@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Model;
+package com.example.lisamazzini.train_app.Model.Treno;
 
 import java.util.HashMap;
 import java.util.Map;

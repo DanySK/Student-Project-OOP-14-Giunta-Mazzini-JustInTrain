@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import com.example.lisamazzini.train_app.Controller.FavouriteTrainListController
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.GUI.Adapter.FavTrainAdapter;
-import com.example.lisamazzini.train_app.Model.NewTrain;
+import com.example.lisamazzini.train_app.Model.Treno.Train;
 import com.example.lisamazzini.train_app.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
@@ -31,7 +30,7 @@ public class FavouriteTrainListFragment extends Fragment {
     private IFavouriteController favController = FavouriteTrainController.getInstance();
     private FavouriteTrainListController listController;
     private RecyclerView favListView;
-    private List<NewTrain> favList = new LinkedList<>();
+    private List<Train> favList = new LinkedList<>();
     private LinearLayoutManager manager;
     private FavTrainAdapter adapter;
 
@@ -92,7 +91,7 @@ public class FavouriteTrainListFragment extends Fragment {
         }
     }
 
-    private class TrainRequestListener extends AbstractListener<NewTrain> {
+    private class TrainRequestListener extends AbstractListener<Train> {
 
         @Override
         public Context getDialogContext() {
@@ -100,7 +99,7 @@ public class FavouriteTrainListFragment extends Fragment {
         }
 
         @Override
-        public void onRequestSuccess(NewTrain trainResponse) {
+        public void onRequestSuccess(Train trainResponse) {
             favList.add(trainResponse);
 //            Log.d("cazzi", favList.get(0).getCategoria() + " " + favList.get(0).getCompDurata());
             adapter.notifyDataSetChanged();

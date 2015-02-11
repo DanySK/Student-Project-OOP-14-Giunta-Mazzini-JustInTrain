@@ -1,5 +1,7 @@
-package com.example.lisamazzini.train_app.Model;
+package com.example.lisamazzini.train_app.Model.Treno;
 
+
+    import com.example.lisamazzini.train_app.Model.Treno.Fermate;
 
     import java.util.ArrayList;
     import java.util.HashMap;
@@ -12,7 +14,7 @@ package com.example.lisamazzini.train_app.Model;
 
 
 
-public class NewTrain{
+public class Train {
 
     private Object fermateSoppresse;
     private List<Fermate> fermate = new ArrayList<Fermate>();

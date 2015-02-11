@@ -5,9 +5,9 @@ import android.util.Log;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolutionWrapper;
-import com.example.lisamazzini.train_app.Network.RestClientTrain;
-import com.example.lisamazzini.train_app.Model.Fermate;
-import com.example.lisamazzini.train_app.Model.NewTrain;
+import com.example.lisamazzini.train_app.Model.Treno.Train;
+import com.example.lisamazzini.train_app.Network.TrainRestClient;
+import com.example.lisamazzini.train_app.Model.Treno.Fermate;
 import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.request.SpiceRequest;
 
@@ -70,7 +70,7 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
                 datas = Utilities.splitString(datas[0]);
 
                 // scarico i dati di quel preciso treno e setto cosa mi serve
-                NewTrain train = RestClientTrain.get().getTrain(datas[0], datas[1]);
+                Train train = TrainRestClient.get().getTrain(datas[0], datas[1]);
                 p.setIDorigine(train.getIdOrigine());
                 p.setDelay(train.getRitardo());
 
@@ -85,10 +85,10 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
                 //Here I take the data of the second train
                 final String[] secondChoiceData = Utilities.splitString(datas[1]);
 
-                NewTrain train;
+                Train train;
 
                 // scarico i dati del primo treno trovato e setto cosa mi serve
-                train = RestClientTrain.get().getTrain(firstChoiceData[0], firstChoiceData[1]);
+                train = TrainRestClient.get().getTrain(firstChoiceData[0], firstChoiceData[1]);
 
                 boolean trovato = false;
 
@@ -103,7 +103,7 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
 
                 // scarico i dati del secondo treno trovato e setto cosa mi serve
                 if (trovato == false) {
-                    train = RestClientTrain.get().getTrain(secondChoiceData[0], secondChoiceData[1]);
+                    train = TrainRestClient.get().getTrain(secondChoiceData[0], secondChoiceData[1]);
                     for(Fermate f : train.getFermate()){
                         if(f.getId().equals(p.getIDpartenza())){
                             p.setIDorigine(train.getIdOrigine());

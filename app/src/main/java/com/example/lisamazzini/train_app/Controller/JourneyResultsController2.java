@@ -31,6 +31,10 @@ public class JourneyResultsController2 {
             for (Vehicle vehicle : sol.getVehicles()) {
                 if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equals("Frecciabianca")) {
                     vehicle.setCategoriaDescrizione("FB");
+                } else if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equals("Frecciarossa")) {
+                    vehicle.setCategoriaDescrizione("FR");
+                } else if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equals("Frecciargento")) {
+                    vehicle.setCategoriaDescrizione("FA");
                 }
                 try {
                     if (lowerBound == -1 && vehicle.getOrarioPartenza() != null && new DateTime(sdf.parse(vehicle.getOrarioPartenza())).isAfterNow()) {

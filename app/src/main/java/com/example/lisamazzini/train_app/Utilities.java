@@ -3,13 +3,12 @@ package com.example.lisamazzini.train_app;
 
 import android.util.Log;
 
-import com.example.lisamazzini.train_app.Model.Fermate;
-import com.example.lisamazzini.train_app.Model.NewTrain;
+import com.example.lisamazzini.train_app.Model.Treno.Train;
+import com.example.lisamazzini.train_app.Model.Treno.Fermate;
 
 import org.joda.time.DateTime;
 import org.joda.time.MutableDateTime;
 import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -48,7 +47,7 @@ public class Utilities {
         return date;
     }
 
-    public static String getProgress(NewTrain train){
+    public static String getProgress(Train train){
         Long delta = 0L;
         Long intermediateDelta = 0L;
         List<Fermate> visited = new LinkedList<>();

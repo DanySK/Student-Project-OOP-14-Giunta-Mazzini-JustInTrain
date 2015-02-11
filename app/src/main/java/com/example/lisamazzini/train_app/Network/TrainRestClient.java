@@ -5,19 +5,19 @@ import com.squareup.okhttp.OkHttpClient;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 
-public class RestClientTrain {
+public class TrainRestClient {
 
 
-        private static InterfacciaAPI REST_CLIENT_LISA;
+        private static TrainAPI REST_CLIENT_LISA;
         private static String ROOT = "http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno";
 
         static {
             setupRestClientLisa();
         }
 
-        private RestClientTrain() {}
+        private TrainRestClient() {}
 
-        public static InterfacciaAPI get() {
+        public static TrainAPI get() {
             return REST_CLIENT_LISA;
         }
 
@@ -28,7 +28,7 @@ public class RestClientTrain {
             builder.setLogLevel(RestAdapter.LogLevel.FULL);
 
             RestAdapter restAdapter = builder.build();
-            REST_CLIENT_LISA = restAdapter.create(InterfacciaAPI.class);
+            REST_CLIENT_LISA = restAdapter.create(TrainAPI.class);
 
     }
 }

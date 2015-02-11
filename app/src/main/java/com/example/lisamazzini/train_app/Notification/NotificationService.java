@@ -11,10 +11,9 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.example.lisamazzini.train_app.Controller.AbstractListener;
-import com.example.lisamazzini.train_app.Controller.StationListController;
 import com.example.lisamazzini.train_app.Controller.TrainRequest;
 import com.example.lisamazzini.train_app.GUI.StationListActivity;
-import com.example.lisamazzini.train_app.Model.NewTrain;
+import com.example.lisamazzini.train_app.Model.Treno.Train;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.SpiceManager;
@@ -104,7 +103,7 @@ public class NotificationService extends Service {
 
 
 
-    private class ResultListener extends AbstractListener<NewTrain> {
+    private class ResultListener extends AbstractListener<Train> {
 
         @Override
         public Context getDialogContext() {
@@ -112,7 +111,7 @@ public class NotificationService extends Service {
         }
 
         @Override
-        public void onRequestSuccess(NewTrain train) {
+        public void onRequestSuccess(Train train) {
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
             Notification not;
@@ -172,11 +171,11 @@ public class NotificationService extends Service {
             startForeground(1, not);
         }
 
-        private boolean notDeparted(NewTrain train){
+        private boolean notDeparted(Train train){
             return train.getFermate().get(0).getActualFermataType() == 0;
         }
 
-        private boolean isArrived(NewTrain train){
+        private boolean isArrived(Train train){
             return train.getFermate().get(train.getFermate().size()-1).getActualFermataType() == 1;
         }
 

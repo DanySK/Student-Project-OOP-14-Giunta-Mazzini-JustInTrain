@@ -25,8 +25,8 @@ import com.example.lisamazzini.train_app.Controller.StationListController;
 import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
 import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Model.Fermate;
-import com.example.lisamazzini.train_app.Model.NewTrain;
+import com.example.lisamazzini.train_app.Model.Treno.Train;
+import com.example.lisamazzini.train_app.Model.Treno.Fermate;
 import com.example.lisamazzini.train_app.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
@@ -259,14 +259,14 @@ public class StationListFragment extends Fragment {
     }
 
 
-    private class AnotherListener extends AbstractListener<NewTrain>{
+    private class AnotherListener extends AbstractListener<Train>{
         @Override
         public Context getDialogContext() {
             return getActivity().getApplicationContext();
         }
 
         @Override
-        public void onRequestSuccess(NewTrain trainResponse) {
+        public void onRequestSuccess(Train trainResponse) {
             toggleFavouriteIcon();
             ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
 

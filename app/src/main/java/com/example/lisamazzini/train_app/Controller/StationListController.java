@@ -1,12 +1,7 @@
 package com.example.lisamazzini.train_app.Controller;
 
-import android.util.Log;
-
-import com.example.lisamazzini.train_app.Model.Fermate;
-import com.example.lisamazzini.train_app.Model.NewTrain;
+import com.example.lisamazzini.train_app.Model.Treno.Train;
 import com.example.lisamazzini.train_app.Utilities;
-
-import java.util.*;
 
 public class StationListController {
 
@@ -40,7 +35,7 @@ public class StationListController {
         return result;
     }
 
-    public String getProgress(NewTrain train){
+    public String getProgress(Train train){
         return Utilities.getProgress(train);
     }
 

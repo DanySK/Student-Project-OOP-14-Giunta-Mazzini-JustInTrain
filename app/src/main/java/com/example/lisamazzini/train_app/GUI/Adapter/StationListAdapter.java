@@ -6,7 +6,7 @@ import android.view.*;
 import android.widget.*;
 
 import com.example.lisamazzini.train_app.*;
-import com.example.lisamazzini.train_app.Model.Fermate;
+import com.example.lisamazzini.train_app.Model.Treno.Fermate;
 
 import java.util.List;
 
