@@ -24,7 +24,8 @@ import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
 import com.example.lisamazzini.train_app.GUI.Fragment.DatePickerFragment;
 import com.example.lisamazzini.train_app.GUI.Fragment.JourneyResultsFragment;
 import com.example.lisamazzini.train_app.GUI.Fragment.NavigationDrawerFragment;
-import com.example.lisamazzini.train_app.GUI.Fragment.TimePickerFragment;
+import com.example.lisamazzini.train_app.GUI.INavgationDrawerUtils;
+import com.example.lisamazzini.train_app.GUI.NavigationDrawerUtils;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Model.Constants;
 
@@ -35,10 +36,11 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MainActivity extends AbstractBaseActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
+//public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
+public class MainActivity extends AbstractBaseActivity implements INavgationDrawerUtils {
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
+    private INavgationDrawerUtils utils;
     private ArrayList<String> journeys;
 
     Map<String, String> map;
@@ -62,9 +64,11 @@ public class MainActivity extends AbstractBaseActivity implements NavigationDraw
             setSupportActionBar(toolbar);
 //            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        utils = new NavigationDrawerUtils(MainActivity.this);
+//        mNavigationDrawerFragment = (NavigationDrawerFragment)
+//                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mNavigationDrawerFragment = utils.getNavigationDrawerFragment();
 
         favouriteJourneyController.setContext(getApplicationContext());
 //        favouriteJourneyController.removeFavourites();
@@ -75,6 +79,7 @@ public class MainActivity extends AbstractBaseActivity implements NavigationDraw
 //            e.printStackTrace();
 //        }
 
+
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
@@ -83,7 +88,6 @@ public class MainActivity extends AbstractBaseActivity implements NavigationDraw
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, JourneyResultsFragment.newInstance());
         fragment = (JourneyResultsFragment)getSupportFragmentManager().findFragmentById(R.id.journeyResultsFragment);
-
     }
 
     @Override
@@ -131,7 +135,6 @@ public class MainActivity extends AbstractBaseActivity implements NavigationDraw
             IDs.add(s);
         }
 
-
         for (String s : IDs) {
             stationNames.add(map.get(s).replaceAll(Constants.SEPARATOR, " "));
         }
@@ -140,13 +143,13 @@ public class MainActivity extends AbstractBaseActivity implements NavigationDraw
 
     public void restoreActionBar(Menu menu) {
 
-        final MenuItem notFavItem = menu.findItem(R.id.action_prefere);
+        final MenuItem notFavItem= menu.findItem(R.id.action_prefere);
         final MenuItem isFavItem = menu.findItem(R.id.action_deprefere);
 
         refreshLists();
 
         spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, stationNames);
-        if (stationNames.size() > 0) {
+        if (stationNames.size() > 0 ) {
             ActionBar action = getSupportActionBar();
             navigationListener = new ActionBar.OnNavigationListener() {
                 @Override
@@ -162,56 +165,47 @@ public class MainActivity extends AbstractBaseActivity implements NavigationDraw
                     notFavItem.setVisible(false);
                     return true;
                 }
-
             };
-                action.setDisplayShowTitleEnabled(false);
-                action.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_LIST);
-                action.setListNavigationCallbacks(spinnerAdapter,navigationListener);
-
-            }else{
-                isFavItem.setVisible(false);
-                notFavItem.setVisible(false);
-                getSupportActionBar().setTitle("Nessuna tratta favorita!");
-            }
-
+            action.setDisplayShowTitleEnabled(false);
+            action.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_LIST);
+            action.setListNavigationCallbacks(spinnerAdapter, navigationListener);
+        } else {
+            isFavItem.setVisible(false);
+            notFavItem.setVisible(false);
+            getSupportActionBar().setTitle("Nessuna tratta favorita!");
+        }
 
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
+    public NavigationDrawerFragment getNavigationDrawerFragment() {
+        return null;
     }
 
-    private TimePickerFragment timeFragment;
-    private DialogFragment dateFragment;
-
-
+    @Override
     public void showTimePickerDialog(View v) {
-        timeFragment = new TimePickerFragment();
-        timeFragment.show(getSupportFragmentManager(), "timePicker");
+        utils.showTimePickerDialog(v);
     }
 
+    @Override
     public void showDatePickerDialog(View v) {
-        dateFragment = new DatePickerFragment();
-        dateFragment.show(getSupportFragmentManager(), "datePicker");
+        utils.showDatePickerDialog(v);
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        if (view.isShown()) {
-            mNavigationDrawerFragment.setTime(hourOfDay, minute);
-        }
+        utils.onTimeSet(view, hourOfDay, minute);
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        if (view.isShown()) {
-            mNavigationDrawerFragment.setDate(year, monthOfYear, dayOfMonth);
-        }
+        utils.onDateSet(view, year, monthOfYear, dayOfMonth);
     }
 
-
-
+    @Override
+    public void onNavigationDrawerItemSelected(int position) {
+        utils.onNavigationDrawerItemSelected(position);
+    }
 }
