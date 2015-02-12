@@ -1315,8 +1315,9 @@ containing a value of this type.
         public static final int ic_drawer_lines=0x7f020036;
         public static final int ic_launcher=0x7f020037;
         public static final int ic_not_preferred=0x7f020038;
-        public static final int ic_preferred=0x7f020039;
-        public static final int ic_refresh=0x7f02003a;
+        public static final int ic_pin=0x7f020039;
+        public static final int ic_preferred=0x7f02003a;
+        public static final int ic_refresh=0x7f02003b;
     }
     public static final class id {
         public static final int ach_text=0x7f0a005d;
@@ -1341,7 +1342,7 @@ containing a value of this type.
         public static final int always=0x7f0a0016;
         public static final int bDatePicker=0x7f0a0050;
         public static final int bJourneySearch=0x7f0a0051;
-        public static final int bOptions=0x7f0a0070;
+        public static final int bOptions=0x7f0a006f;
         public static final int bTimePicker=0x7f0a004f;
         public static final int bTrainNumberSearch=0x7f0a004c;
         public static final int beginning=0x7f0a0013;
@@ -1439,7 +1440,7 @@ containing a value of this type.
         public static final int tPlannedTime=0x7f0a0075;
         public static final int tProgress=0x7f0a0058;
         public static final int tStationName=0x7f0a0072;
-        public static final int tTimeDifference=0x7f0a006f;
+        public static final int tTimeDifference=0x7f0a0070;
         public static final int tTrainCategory=0x7f0a0069;
         public static final int tTrainNumber=0x7f0a006a;
         public static final int tabMode=0x7f0a000b;

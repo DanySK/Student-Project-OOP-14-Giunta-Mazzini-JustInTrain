@@ -16,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -54,6 +55,9 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
 
             // cerco i dati del treno in questione (stazione + codice stazione di origine totale)
             result = Utilities.dallInternet(new URL("http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/" + p.getNumeroTreno())).getList();
+            if (result.size() == 0) {
+                return new PlainSolutionWrapper(new LinkedList<PlainSolution>());
+            }
             iterator = result.iterator();
             makeRequest(p);
             p.setIDorigine(train.getIdOrigine());
