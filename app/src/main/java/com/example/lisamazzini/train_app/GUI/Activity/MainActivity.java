@@ -161,7 +161,8 @@ public class MainActivity extends AbstractBaseActivity implements INavgationDraw
                     actualJourneyIDs.add(IDs.get(position));
                     actualJourneyIDs.add(stationNames.get(position));
                     Log.d("cazzi", Arrays.toString(actualJourneyIDs.toArray()));
-                    fragment.makeOuterRequestsWithIDs(IDs.get(position).split(Constants.SEPARATOR)[0], IDs.get(position).split(Constants.SEPARATOR)[1], mNavigationDrawerFragment.getActualTime());
+                    fragment.makeRequest(Constants.WITH_IDS, mNavigationDrawerFragment.getActualTime(), false, IDs.get(position).split(Constants.SEPARATOR)[0], IDs.get(position).split(Constants.SEPARATOR)[1]);
+//                    fragment.makeOuterRequestsWithIDs(IDs.get(position).split(Constants.SEPARATOR)[0], IDs.get(position).split(Constants.SEPARATOR)[1], mNavigationDrawerFragment.getActualTime());
                     isFavItem.setVisible(true);
                     notFavItem.setVisible(false);
                     return true;

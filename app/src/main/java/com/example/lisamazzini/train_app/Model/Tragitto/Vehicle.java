@@ -15,7 +15,15 @@ public class Vehicle {
     private String categoriaDescrizione;
     private String numeroTreno;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private boolean isTomorrow;
 
+    public boolean isTomorrow() {
+        return isTomorrow;
+    }
+
+    public void setTomorrow(boolean isTomorrow) {
+        this.isTomorrow = isTomorrow;
+    }
 
     public String getOrigine() {
         return origine;

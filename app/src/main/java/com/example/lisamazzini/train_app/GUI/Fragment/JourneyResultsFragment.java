@@ -29,6 +29,7 @@ import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
 import com.example.lisamazzini.train_app.GUI.Activity.MainActivity;
 import com.example.lisamazzini.train_app.GUI.Adapter.JourneyResultsAdapter;
 import com.example.lisamazzini.train_app.GUI.EndlessRecyclerOnScrollListener;
+import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolutionWrapper;
 import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
@@ -56,6 +57,7 @@ public class JourneyResultsFragment extends Fragment {
     private String requestedTime;
     private IFavouriteController favouriteController = FavouriteJourneyController.getInstance();
     private Menu menu;
+    private boolean isCustomTime;
 
     private int previousTotal = 0;
     private boolean loading = true;
@@ -136,7 +138,7 @@ public class JourneyResultsFragment extends Fragment {
         recyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(manager) {
             @Override
             public void onLoadMore(int current_page) {
-                spiceManager.execute(new JourneyTrainRequest(controller.getPlainSolutions()), new JourneyTrainRequestListener());
+                spiceManager.execute(new JourneyTrainRequest(controller.getPlainSolutions(false)), new JourneyTrainRequestListener());
             }
         });
 
@@ -190,39 +192,64 @@ public class JourneyResultsFragment extends Fragment {
         favouriteController.addFavourite(departureID, arrivalID, departureStation, arrivalStation);
     }
 
-    public void makeOuterRequestsWithStations(String departureStation, String arrivalStation, String requestedTime) {
+    public void makeRequest(String userRequestType, String requestedTime, boolean isCustomTime, String... departureAndArrivalData) {
         list.clear();
         journeyResultsAdapter.notifyDataSetChanged();
         resetScrollListener();
-        makeRequestsWithStations(departureStation, arrivalStation, requestedTime);
-    }
-
-    public void makeOuterRequestsWithIDs(String departureID, String arrivalID, String requestedTime) {
-        list.clear();
-        journeyResultsAdapter.notifyDataSetChanged();
-        if (spiceManager.isStarted()) {
-            spiceManager.dontNotifyAnyRequestListeners();
-            spiceManager.shouldStop();
-            spiceManager.start(getActivity());
+        this.requestedTime = requestedTime;
+        this.controller.setTime(this.requestedTime);
+        this.isCustomTime = isCustomTime;
+        if (userRequestType.equals(Constants.WITH_IDS)) {
+            if (spiceManager.isStarted()) {
+                spiceManager.dontNotifyAnyRequestListeners();
+                spiceManager.shouldStop();
+                spiceManager.start(getActivity());
+            }
+            this.departureID = departureAndArrivalData[0];
+            this.arrivalID = departureAndArrivalData[1];
+            spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
+        } else if (userRequestType.equals(Constants.WITH_STATIONS)) {
+            this.departureStation = departureAndArrivalData[0];
+            this.arrivalStation = departureAndArrivalData[1];
+            spiceManager.execute(new JourneyDataRequest(this.departureStation), new DepartureDataRequestListenter());
         }
-        resetScrollListener();
-        makeRequestsWithIDs(departureID, arrivalID, requestedTime);
     }
-
-
-    private void makeRequestsWithStations(String departureStation, String arrivalStation, String requestedTime) {
-        this.departureStation = departureStation;
-        this.arrivalStation = arrivalStation;
-        this.requestedTime = requestedTime;
-        spiceManager.execute(new JourneyDataRequest(this.departureStation), new DepartureDataRequestListenter());
-    }
-
-    private void makeRequestsWithIDs(String departureID, String arrivalID, String requestedTime) {
-        this.departureID = departureID;
-        this.arrivalID = arrivalID;
-        this.requestedTime = requestedTime;
-        spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
-    }
+//
+//    public void makeOuterRequestsWithStations(String departureStation, String arrivalStation, String requestedTime) {
+//        list.clear();
+//        journeyResultsAdapter.notifyDataSetChanged();
+//        resetScrollListener();
+//        makeRequestsWithStations(departureStation, arrivalStation, requestedTime);
+//    }
+//
+//    public void makeOuterRequestsWithIDs(String departureID, String arrivalID, String requestedTime) {
+//        list.clear();
+//        journeyResultsAdapter.notifyDataSetChanged();
+//        if (spiceManager.isStarted()) {
+//            spiceManager.dontNotifyAnyRequestListeners();
+//            spiceManager.shouldStop();
+//            spiceManager.start(getActivity());
+//        }
+//        resetScrollListener();
+//        makeRequestsWithIDs(departureID, arrivalID, requestedTime);
+//    }
+//
+//
+//    private void makeRequestsWithStations(String departureStation, String arrivalStation, String requestedTime) {
+//        this.departureStation = departureStation;
+//        this.arrivalStation = arrivalStation;
+//        this.requestedTime = requestedTime;
+//        this.controller.setTime(this.requestedTime);
+//        spiceManager.execute(new JourneyDataRequest(this.departureStation), new DepartureDataRequestListenter());
+//    }
+//
+//    private void makeRequestsWithIDs(String departureID, String arrivalID, String requestedTime) {
+//        this.departureID = departureID;
+//        this.arrivalID = arrivalID;
+//        this.requestedTime = requestedTime;
+//        this.controller.setTime(this.requestedTime);
+//        spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
+//    }
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -306,7 +333,7 @@ public class JourneyResultsFragment extends Fragment {
         public void onRequestSuccess(Tragitto tragitto) {
             toggleFavouriteIcon();
             controller.buildPlainSolutions(tragitto);
-            spiceManager.execute(new JourneyTrainRequest(controller.getPlainSolutions()), new JourneyTrainRequestListener());
+            spiceManager.execute(new JourneyTrainRequest(controller.getPlainSolutions(isCustomTime)), new JourneyTrainRequestListener());
         }
     }
 

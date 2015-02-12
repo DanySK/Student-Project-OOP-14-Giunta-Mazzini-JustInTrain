@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
 import com.example.lisamazzini.train_app.GUI.Fragment.JourneyResultsFragment;
+import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
@@ -19,6 +20,7 @@ public class JourneyResultsActivity extends AbstractBaseActivity {
     private String departureStation;
     private String arrivalStation;
     private String requestedTime;
+    private boolean isCustomTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class JourneyResultsActivity extends AbstractBaseActivity {
         this.departureStation = i.getStringExtra("departureStation");
         this.arrivalStation = i.getStringExtra("arrivalStation");
         this.requestedTime = i.getStringExtra("requestedTime");
+        this.isCustomTime = i.getBooleanExtra("isCustomTime", false);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -41,7 +44,8 @@ public class JourneyResultsActivity extends AbstractBaseActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, JourneyResultsFragment.newInstance());
         fragment = (JourneyResultsFragment) getSupportFragmentManager().findFragmentById(R.id.journeyResultsFragment);
-        fragment.makeOuterRequestsWithStations(departureStation, arrivalStation, requestedTime);
+//        fragment.makeOuterRequestsWithStations(departureStation, arrivalStation, requestedTime);
+        fragment.makeRequest(Constants.WITH_STATIONS, requestedTime, isCustomTime, departureStation, arrivalStation);
 
     }
 

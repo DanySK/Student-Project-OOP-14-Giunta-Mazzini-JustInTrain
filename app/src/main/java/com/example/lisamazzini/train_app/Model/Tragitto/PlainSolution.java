@@ -15,9 +15,10 @@ public class PlainSolution {
     private String IDorigine = "";
     private String IDpartenza = "";
     private String IDarrivo = "";
+    private boolean isTomorrow = false;
 
 
-    public PlainSolution(String categoria, String numeroTreno, String origine, String orarioPartenza, String destinazione, String orarioArrivo, String durata) {
+    public PlainSolution(String categoria, String numeroTreno, String origine, String orarioPartenza, String destinazione, String orarioArrivo, String durata, boolean isTomorrow) {
         this.categoria = categoria;
         this.numeroTreno = numeroTreno;
         this.origine = origine;
@@ -25,6 +26,7 @@ public class PlainSolution {
         this.destinazione = destinazione;
         this.orarioArrivo = orarioArrivo;
         this.durata = durata;
+        this.isTomorrow = isTomorrow;
     }
 
     public String getCategoria() {
@@ -85,6 +87,10 @@ public class PlainSolution {
 
     public void setIDarrivo(String IDarrivo) {
         this.IDarrivo = IDarrivo;
+    }
+
+    public boolean isTomorrow() {
+        return this.isTomorrow;
     }
 
 

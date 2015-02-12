@@ -82,6 +82,7 @@ public class NavigationDrawerFragment extends Fragment {
     private int month;
     private int year;
     private String actualTime;
+    private boolean isCustomTime;
 
     private RecyclerView recyclerView;
     private DrawerListAdapter drawerListAdapter;
@@ -127,8 +128,8 @@ public class NavigationDrawerFragment extends Fragment {
         final EditText arrival = (EditText)drawerView.findViewById(R.id.eArrivalStation);
         final Button journeySearchButton = (Button) drawerView.findViewById(R.id.bJourneySearch);
 
-        setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        setTime(calendar.get(Calendar.HOUR_OF_DAY)-1, calendar.get(Calendar.MINUTE));
+        setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), false);
+        setTime(calendar.get(Calendar.HOUR_OF_DAY)-1, calendar.get(Calendar.MINUTE), false);
         actualTime = buildDateTime();
 
         trainNumberSearchButton.setOnClickListener(new View.OnClickListener() {
@@ -150,6 +151,7 @@ public class NavigationDrawerFragment extends Fragment {
                     i.putExtra("departureStation", departure.getText().toString());
                     i.putExtra("arrivalStation", arrival.getText().toString());
                     i.putExtra("requestedTime", buildDateTime());
+                    i.putExtra("isCustomTime", isCustomTime);
                     startActivity(i);
                 }
             }
@@ -167,20 +169,26 @@ public class NavigationDrawerFragment extends Fragment {
         return drawerView;
     }
 
+    public boolean getCustomTime() {
+        return this.isCustomTime;
+    }
+
     public String getActualTime() {
         return this.actualTime;
     }
 
-    public void setTime(int hour, int minute) {
+    public void setTime(int hour, int minute, boolean isCustomTime) {
         this.hour = hour;
         this.minute = minute;
+        this.isCustomTime = isCustomTime;
         Log.d("cazzi", "" + hour + minute);
     }
 
-    public void setDate(int year, int month, int day) {
+    public void setDate(int year, int month, int day, boolean isCustomTime) {
         this.year = year;
         this.day = day;
         this.month = month;
+        this.isCustomTime = isCustomTime;
         Log.d("cazzi", "" + year + month + day);
     }
 

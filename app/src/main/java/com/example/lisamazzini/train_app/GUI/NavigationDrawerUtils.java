@@ -40,13 +40,13 @@ public class NavigationDrawerUtils implements INavgationDrawerUtils {
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         if (view.isShown()) {
-           fragment.setTime(hourOfDay, minute);
+           fragment.setTime(hourOfDay, minute, true);
         }
     }
 
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         if (view.isShown()) {
-            fragment.setDate(year, monthOfYear, dayOfMonth);
+            fragment.setDate(year, monthOfYear, dayOfMonth, true);
         }
     }
 

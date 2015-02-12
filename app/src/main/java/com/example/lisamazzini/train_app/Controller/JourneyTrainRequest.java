@@ -55,13 +55,13 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
             // cerco i dati del treno in questione (stazione + codice stazione di origine totale)
             result = Utilities.dallInternet(new URL("http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/" + p.getNumeroTreno())).getList();
             iterator = result.iterator();
-            makeRequest();
+            makeRequest(p);
             p.setIDorigine(train.getIdOrigine());
             p.setDelay(train.getRitardo());
             if (result.size() > 1) {
                 boolean trovato = false;
                 while (!trovato && iterator.hasNext()) {
-                    makeRequest();
+                    makeRequest(p);
                     for(Fermate f : train.getFermate()){
                         if(f.getId().equals(p.getIDpartenza())){
                             p.setIDorigine(train.getIdOrigine());
@@ -76,8 +76,11 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
         return new PlainSolutionWrapper(plainSolutions);
     }
 
-    private void makeRequest() {
+    private void makeRequest(PlainSolution p) {
         datas = iterator.next().split("\\|")[1].split("-");
         train = TrainRestClient.get().getTrain(datas[0], datas[1]);
+        if (p.isTomorrow()) {
+            train.setRitardo(0L);
+        }
     }
 }
