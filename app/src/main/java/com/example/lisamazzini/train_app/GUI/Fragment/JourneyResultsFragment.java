@@ -251,9 +251,9 @@ public class JourneyResultsFragment extends Fragment {
                         dialog.dismiss();
                     }
                 }).show();
-                toggleFavouriteIcon();
-                spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
             }
+            toggleFavouriteIcon();
+            spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
         }
     }
 
