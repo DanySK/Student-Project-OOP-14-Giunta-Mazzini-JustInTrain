@@ -4,11 +4,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
 import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
 import com.example.lisamazzini.train_app.GUI.Activity.MainActivity;
+import com.octo.android.robospice.exception.NetworkException;
+import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
@@ -43,7 +46,8 @@ public abstract class AbstractListener<X> implements RequestListener<X> {
                             getDialogContext().startActivity(i);
                         }
                     }).show();
-        }else {
+        } else {
+            Log.d("cazzi", spiceException.toString());
 
             dialogBuilder.setTitle("Problemi di connessione")
                     .setMessage("Controllare la propria connessione internet, patacca")

@@ -57,29 +57,29 @@ ADDED from AndroidManifest.xml:26:9
 		ADDED from AndroidManifest.xml:26:63
 	android:name
 		ADDED from AndroidManifest.xml:26:19
-activity#com.example.lisamazzini.train_app.GUI.StationListActivity
+activity#com.example.lisamazzini.train_app.GUI.Activity.StationListActivity
 ADDED from AndroidManifest.xml:37:9
 	android:name
 		ADDED from AndroidManifest.xml:37:19
-activity#com.example.lisamazzini.train_app.GUI.FavouriteTrainListActivity
+activity#com.example.lisamazzini.train_app.GUI.Activity.FavouriteTrainListActivity
 ADDED from AndroidManifest.xml:42:9
 	android:parentActivityName
-		ADDED from AndroidManifest.xml:43:60
+		ADDED from AndroidManifest.xml:43:69
 	android:name
 		ADDED from AndroidManifest.xml:43:13
-activity#com.example.lisamazzini.train_app.GUI.JourneyResultsActivity
+activity#com.example.lisamazzini.train_app.GUI.Activity.JourneyResultsActivity
 ADDED from AndroidManifest.xml:46:9
 	android:parentActivityName
-		ADDED from AndroidManifest.xml:47:56
+		ADDED from AndroidManifest.xml:47:65
 	android:name
 		ADDED from AndroidManifest.xml:47:13
-activity#com.example.lisamazzini.train_app.GUI.AchievementListActivity
+activity#com.example.lisamazzini.train_app.GUI.Activity.AchievementListActivity
 ADDED from AndroidManifest.xml:50:9
 	android:parentActivityName
-		ADDED from AndroidManifest.xml:51:57
+		ADDED from AndroidManifest.xml:51:66
 	android:name
 		ADDED from AndroidManifest.xml:51:13
-activity#com.example.lisamazzini.train_app.GUI.MainActivity
+activity#com.example.lisamazzini.train_app.GUI.Activity.MainActivity
 ADDED from AndroidManifest.xml:54:9
 	android:name
 		ADDED from AndroidManifest.xml:55:13

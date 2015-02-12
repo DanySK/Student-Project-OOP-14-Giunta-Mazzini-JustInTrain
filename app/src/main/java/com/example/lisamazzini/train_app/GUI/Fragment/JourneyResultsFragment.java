@@ -200,6 +200,12 @@ public class JourneyResultsFragment extends Fragment {
     public void makeOuterRequestsWithIDs(String departureID, String arrivalID, String requestedTime) {
         list.clear();
         journeyResultsAdapter.notifyDataSetChanged();
+        if (spiceManager.isStarted()) {
+//            spiceManager.cancelAllRequests();
+            spiceManager.dontNotifyAnyRequestListeners();
+            spiceManager.shouldStop();
+            spiceManager.start(getActivity());
+        }
         resetScrollListener();
         makeRequestsWithIDs(departureID, arrivalID, requestedTime);
     }
@@ -336,6 +342,7 @@ public class JourneyResultsFragment extends Fragment {
 
     @Override
     public void onStop() {
+
         spiceManager.shouldStop();
         super.onStop();
     }

@@ -18,7 +18,7 @@ import java.util.List;
 
 public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
 
-    List<PlainSolution> plainSolutions;
+    private List<PlainSolution> plainSolutions;
 
     public JourneyTrainRequest(List<PlainSolution> plainSolutions) {
         super(PlainSolutionWrapper.class);

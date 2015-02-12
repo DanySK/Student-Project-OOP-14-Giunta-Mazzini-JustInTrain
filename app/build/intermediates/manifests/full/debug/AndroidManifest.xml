@@ -43,24 +43,24 @@
         <!-- &lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" />&ndash;&gt; -->
         <!-- &lt;!&ndash;</intent-filter>&ndash;&gt; -->
         <!-- </activity> -->
-        <activity android:name="com.example.lisamazzini.train_app.GUI.StationListActivity" />
+        <activity android:name="com.example.lisamazzini.train_app.GUI.Activity.StationListActivity" />
         <!-- <activity -->
         <!-- android:name=".GUI.FavouriteJourneyListActivity" -->
         <!-- android:label="@string/title_activity_favourite_journey_list" > -->
         <!-- </activity> -->
         <activity
-            android:name="com.example.lisamazzini.train_app.GUI.FavouriteTrainListActivity"
-            android:parentActivityName="com.example.lisamazzini.train_app.GUI.MainActivity" >
+            android:name="com.example.lisamazzini.train_app.GUI.Activity.FavouriteTrainListActivity"
+            android:parentActivityName="com.example.lisamazzini.train_app.GUI.Activity.MainActivity" >
         </activity>
         <activity
-            android:name="com.example.lisamazzini.train_app.GUI.JourneyResultsActivity"
-            android:parentActivityName="com.example.lisamazzini.train_app.GUI.MainActivity" >
+            android:name="com.example.lisamazzini.train_app.GUI.Activity.JourneyResultsActivity"
+            android:parentActivityName="com.example.lisamazzini.train_app.GUI.Activity.MainActivity" >
         </activity>
         <activity
-            android:name="com.example.lisamazzini.train_app.GUI.AchievementListActivity"
-            android:parentActivityName="com.example.lisamazzini.train_app.GUI.MainActivity" >
+            android:name="com.example.lisamazzini.train_app.GUI.Activity.AchievementListActivity"
+            android:parentActivityName="com.example.lisamazzini.train_app.GUI.Activity.MainActivity" >
         </activity>
-        <activity android:name="com.example.lisamazzini.train_app.GUI.MainActivity" >
+        <activity android:name="com.example.lisamazzini.train_app.GUI.Activity.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
