@@ -16,8 +16,4 @@ public class ListWrapper extends LinkedList<String> {
     public List<String> getList(){
         return this.list;
     }
-
-    public static ListWrapper newInstance(List<String> list){
-        return new ListWrapper(list);
-    }
 }

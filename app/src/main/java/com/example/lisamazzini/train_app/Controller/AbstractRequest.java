@@ -15,7 +15,8 @@ import java.util.List;
 /**
  * Created by lisamazzini on 11/02/15.
  */
-public abstract class AbstractRequest<ListWrapper> extends SpiceRequest<ListWrapper>{
+
+public abstract class AbstractRequest extends SpiceRequest<ListWrapper>{
 
     public AbstractRequest(Class<ListWrapper> clazz) {
         super(clazz);
@@ -33,7 +34,7 @@ public abstract class AbstractRequest<ListWrapper> extends SpiceRequest<ListWrap
         }
         in.close();
         check(result);
-        return new  ListWrapper(result);
+        return new ListWrapper(result);
 
     }
 
