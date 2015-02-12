@@ -42,13 +42,19 @@ public class NotificationService extends Service {
 
     @Override
     public void onDestroy(){
+        super.onDestroy();
         stopForeground(true);
         spiceManager.shouldStop();
         super.onDestroy();
     }
 
+
+
+
     @Override
     public int onStartCommand (Intent intent, int flags, int startId){
+        super.onStartCommand(intent, flags, startId);
+
         spiceManager = new SpiceManager(UncachedSpiceService.class);
 
         this.numeroTreno = intent.getStringExtra("number");
@@ -81,7 +87,7 @@ public class NotificationService extends Service {
         Integer timeDifference = Minutes.minutesBetween(now, departureTime).getMinutes();
 
         if(timeDifference > 15){
-           // è presto
+            // è presto
             departureTime.addMinutes(-15);
             Long millis = departureTime.getMillis();
             Log.d("Quanti siete", "" + millis);
@@ -93,7 +99,7 @@ public class NotificationService extends Service {
         }
         spiceManager.start(this);
         // If the OS stops the service after running out of memory, the service will be started again with da same intent
-        return START_STICKY;
+        return START_REDELIVER_INTENT;
     }
 
     @Override
