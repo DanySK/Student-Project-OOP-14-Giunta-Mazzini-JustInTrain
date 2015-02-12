@@ -108,15 +108,16 @@ public class MainActivity extends AbstractBaseActivity implements INavgationDraw
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.action_prefere) {
-            try {
-                favouriteJourneyController.addFavourite(actualJourneyIDs.get(0), actualJourneyIDs.get(1), actualJourneyIDs.get(2), actualJourneyIDs.get(3));
-                item.setVisible(false);
-                menu.getItem(2).setVisible(true);
-                restoreActionBar(menu);
-                Log.d("cazzi", "ho toccato un non preferito");
-            } catch (FavouriteException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                favouriteJourneyController.addFavourite(actualJourneyIDs.get(0), actualJourneyIDs.get(1), actualJourneyIDs.get(2), actualJourneyIDs.get(3));
+//                item.setVisible(false);
+//                menu.getItem(2).setVisible(true);
+//                restoreActionBar(menu);
+//                Log.d("cazzi", "ho toccato un non preferito");
+//            } catch (FavouriteException e) {
+//                e.printStackTrace();
+//            }
+            return true;
         } else if (id == R.id.action_deprefere) {
             favouriteJourneyController.removeFavourite(actualJourneyIDs.get(0).split(Constants.SEPARATOR)[0], actualJourneyIDs.get(0).split(Constants.SEPARATOR)[1]);
             Log.d("cazzi", "rimuovo " + actualJourneyIDs.get(0).split(Constants.SEPARATOR)[0] + " " + actualJourneyIDs.get(0).split(Constants.SEPARATOR)[1]);

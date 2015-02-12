@@ -197,7 +197,7 @@ public class StationListFragment extends Fragment {
             }else{
                 final String[][] dataMatrix = new String[data.size()][3];
                 String[] choices = new String[data.size()];
-                for (int i = 0 ; i < data.size() - 1 ; i++){
+                for (int i = 0 ; i < data.size(); i++){
                     dataMatrix[i] = listController.computeData(data.get(i));
                     choices[i] = listController.computeChoices(dataMatrix[i]);
                 }

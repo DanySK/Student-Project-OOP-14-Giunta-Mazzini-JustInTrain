@@ -30,11 +30,11 @@ public class JourneyResultsController {
         DateTime dt = new DateTime();
         for (Soluzioni sol : tragitto.getSoluzioni())
             for (Vehicle vehicle : sol.getVehicles()) {
-                if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equals("Frecciabianca")) {
+                if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equalsIgnoreCase("frecciabianca")) {
                     vehicle.setCategoriaDescrizione("FB");
-                } else if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equals("Frecciarossa")) {
+                } else if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equalsIgnoreCase("frecciarossa")) {
                     vehicle.setCategoriaDescrizione("FR");
-                } else if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equals("Frecciargento")) {
+                } else if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equalsIgnoreCase("frecciaargento")) {
                     vehicle.setCategoriaDescrizione("FA");
                 }
                 try {
