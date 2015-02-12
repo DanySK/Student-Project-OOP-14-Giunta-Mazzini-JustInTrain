@@ -3,14 +3,12 @@ package com.example.lisamazzini.train_app.GUI.Fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,9 +21,7 @@ import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainCon
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.Controller.StationListController;
 import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
-import com.example.lisamazzini.train_app.GUI.Activity.MainActivity;
 import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
-import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
 import com.example.lisamazzini.train_app.Model.Treno.Train;
 import com.example.lisamazzini.train_app.Model.Treno.Fermate;
@@ -171,15 +167,15 @@ public class StationListFragment extends Fragment {
 
 
     private void makeRequestWithNumber() {
-        spiceManager.execute(listController.getNumberRequest(), new TrainAndStationsRequestListener());
+        spiceManager.execute(listController.getNumberRequest(), new StationCodeListener());
     }
 
     private void makeRequestWithNumberAndCode() {
         listController.setCode(this.stationCode);
-        spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
+        spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
     }
 
-    private class TrainAndStationsRequestListener extends AbstractListener<ListWrapper> {
+    private class StationCodeListener extends AbstractListener<ListWrapper> {
         //If there's internet connection I get the train details in this form  '608 - LECCE|608-S11145'
         @Override
         public void onRequestSuccess(final ListWrapper result) {
@@ -192,12 +188,12 @@ public class StationListFragment extends Fragment {
                 listController.setCode(trainDetails[1]);
                 stationCode = trainDetails[1];
                 toggleFavouriteIcon();
-                spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
+                spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
                 //There's more than one train with the same number
             }else{
                 final String[][] dataMatrix = new String[data.size()][3];
                 String[] choices = new String[data.size()];
-                for (int i = 0 ; i < data.size() - 1 ; i++){
+                for (int i = 0 ; i < data.size(); i++){
                     dataMatrix[i] = listController.computeData(data.get(i));
                     choices[i] = listController.computeChoices(dataMatrix[i]);
                 }
@@ -206,7 +202,7 @@ public class StationListFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         trainDetails = dataMatrix[which];
                         listController.setCode(dataMatrix[which][1]);
-                        spiceManager.execute(listController.getNumberAndCodeRequest(), new AnotherListener());
+                        spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
                         toggleFavouriteIcon();
                         dialog.dismiss();
                     }
@@ -221,7 +217,7 @@ public class StationListFragment extends Fragment {
         }
     }
 
-    private class AnotherListener extends AbstractListener<Train>{
+    private class TrainResultListener extends AbstractListener<Train>{
         @Override
         public Context getDialogContext() {
             return getActivity();

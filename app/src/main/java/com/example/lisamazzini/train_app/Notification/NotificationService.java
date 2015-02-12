@@ -164,7 +164,7 @@ public class NotificationService extends Service {
                                 .setBigContentTitle(train.getNumeroTreno() + " " + train.getCategoria())
                                 .addLine(ritardo)
                                 .addLine("Andamento: " + Utilities.getProgress(train))
-                                .addLine("Visto a " + train.getStazioneUltimoRilevamento() + " alle " + train.getCompOraUltimoRilevamento()))
+                                .addLine("Visto: " + train.getCompOraUltimoRilevamento() + " " + train.getStazioneUltimoRilevamento()))
                         .build();
             }
             not.priority = Notification.PRIORITY_MAX;

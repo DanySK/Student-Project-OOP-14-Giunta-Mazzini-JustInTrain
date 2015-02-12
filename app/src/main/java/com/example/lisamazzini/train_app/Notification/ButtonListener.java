@@ -19,7 +19,6 @@ public class ButtonListener extends BroadcastReceiver {
         Intent i = new Intent(context, NotificationService.class);
 
         if(intent.getAction().equals("Aggiorna")){
-            Log.d("-----------", "aggiornata" );
             i.putExtra("number", intent.getStringExtra("number"));
             i.putExtra("idOrigine", intent.getStringExtra("idOrigine"));
             i.putExtra("oraPartenza", intent.getStringExtra("oraPartenza"));
@@ -27,7 +26,6 @@ public class ButtonListener extends BroadcastReceiver {
         }
 
         if(intent.getAction().equals("Elimina")){
-            Log.d("---------", "eliminata");
             context.stopService(i);
         }
     }

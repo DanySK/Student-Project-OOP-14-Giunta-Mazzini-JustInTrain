@@ -92,17 +92,14 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.pin:
-                                Log.d("----OHI--", "Son qui");
                                 intent.putExtra("number", journeyTrain.getNumeroTreno());
                                 intent.putExtra("idOrigine", journeyTrain.getIDorigine());
                                 intent.putExtra("oraPartenza", journeyTrain.getOrarioPartenza());
                                 ctx.startService(intent);
                                 achievementController = new AchievementController(ctx);
                                 try {
-                                    Log.d("i looooooog", "sto per aggiornare");
                                     achievementController.updateAchievements(journeyTrain);
                                 } catch (AchievementException e) {
-                                    Log.d("i looooooog", "ORDUNQUE? " + e.getMessage());
                                     Toast.makeText(ctx, e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                                 return true;
