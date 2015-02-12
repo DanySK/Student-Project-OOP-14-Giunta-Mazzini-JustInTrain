@@ -17,11 +17,12 @@ public class JourneyDataRequest extends AbstractRequest{
 
     public JourneyDataRequest(String station){
         super(ListWrapper.class);
+        Log.d("cazzi", station + " in request");
         this.station = station;
     }
 
     protected URL generateURL() throws MalformedURLException {
-        return new URL(mainUrl + station + "?=" + station);
+        return new URL(mainUrl + station + "?q=" + station);
     }
 
     protected void check(List result) throws InvalidStationException {

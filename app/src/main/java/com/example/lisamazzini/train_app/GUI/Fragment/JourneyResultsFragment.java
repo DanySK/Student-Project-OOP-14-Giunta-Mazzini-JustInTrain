@@ -183,12 +183,10 @@ public class JourneyResultsFragment extends Fragment {
     }
 
     public void removeFavourite() {
-        Log.d("cazzi", "rimuovo");
         favouriteController.removeFavourite(departureID, arrivalID);
     }
 
     public void addFavourite() throws FavouriteException {
-        Log.d("cazzi", "aggiungo");
         favouriteController.addFavourite(departureID, arrivalID, departureStation, arrivalStation);
     }
 
@@ -231,15 +229,15 @@ public class JourneyResultsFragment extends Fragment {
         }
 
         @Override
-        public void onRequestSuccess(ListWrapper list) {
-            List<String> data = list.getList();
+        public void onRequestSuccess(ListWrapper lista) {
+            List<String> data = lista.getList();
             if (data.size() == 1) {
                 departureID = data.get(0).split("\\|S")[1];
-//                spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
+                spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
             } else {
                 final String[][] dataMatrix = new String[data.size()][2];
                 String[] choices = new String[data.size()];
-                for (int i = 0 ; i < data.size() - 1 ; i++){
+                for (int i = 0 ; i < data.size(); i++){
                     dataMatrix[i] = controller.computeData(data.get(i));
                     choices[i] = controller.computeChoices(dataMatrix[i]);
                 }
@@ -247,13 +245,11 @@ public class JourneyResultsFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         departureID = dataMatrix[which][1];
-      //                spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
+                        spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
                         dialog.dismiss();
                     }
                 }).show();
             }
-            toggleFavouriteIcon();
-            spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
         }
     }
 
@@ -267,15 +263,15 @@ public class JourneyResultsFragment extends Fragment {
         }
 
         @Override
-        public void onRequestSuccess(ListWrapper list) {
-            List<String> data = list.getList();
+        public void onRequestSuccess(ListWrapper lista) {
+            List<String> data = lista.getList();
             if (data.size() == 1) {
                 arrivalID = data.get(0).split("\\|S")[1];
-//                spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
+                spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
             } else {
                 final String[][] dataMatrix = new String[data.size()][2];
                 String[] choices = new String[data.size()];
-                for (int i = 0 ; i < data.size() - 1 ; i++){
+                for (int i = 0 ; i < data.size(); i++){
                     dataMatrix[i] = controller.computeData(data.get(i));
                     choices[i] = controller.computeChoices(dataMatrix[i]);
                 }
@@ -283,14 +279,12 @@ public class JourneyResultsFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         arrivalID = dataMatrix[which][1];
-//                        spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
+                        spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
                         toggleFavouriteIcon();
                         dialog.dismiss();
                     }
                 }).show();
             }
-            toggleFavouriteIcon();
-            spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
         }
     }
 
@@ -305,6 +299,7 @@ public class JourneyResultsFragment extends Fragment {
 
         @Override
         public void onRequestSuccess(Tragitto tragitto) {
+            toggleFavouriteIcon();
             controller.buildPlainSolutions(tragitto);
             spiceManager.execute(new JourneyTrainRequest(controller.getPlainSolutions()), new JourneyTrainRequestListener());
         }
@@ -321,7 +316,6 @@ public class JourneyResultsFragment extends Fragment {
 
         @Override
         public void onRequestSuccess(PlainSolutionWrapper plainSolutions) {
-//            list.clear();
             list.addAll(plainSolutions.getList());
             journeyResultsAdapter.notifyDataSetChanged();
         }

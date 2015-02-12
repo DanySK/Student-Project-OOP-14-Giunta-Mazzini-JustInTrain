@@ -38,7 +38,7 @@ public class Utilities {
     }
 
     public static String[] splitJourney(String data) {
-        return data.split("\\|");
+        return data.split("\\|S");
     }
 
     //Questo
