@@ -2,6 +2,8 @@ package com.example.lisamazzini.train_app.Controller;
 
 import com.example.lisamazzini.train_app.Exceptions.InvalidInputException;
 import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
+import com.example.lisamazzini.train_app.Model.Treno.Train;
+import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.request.SpiceRequest;
 
 import java.io.BufferedReader;
@@ -23,19 +25,9 @@ public abstract class AbstractRequest extends SpiceRequest<ListWrapper>{
     }
 
     public ListWrapper loadDataFromNetwork() throws IOException, InvalidInputException{
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(generateURL().openStream()));
-
-        String inputLine;
-        List<String> result = new LinkedList<>();
-        while ((inputLine = in.readLine()) != null) {
-            result.add(inputLine);
-            System.out.println(inputLine);
-        }
-        in.close();
-        check(result);
-        return new ListWrapper(result);
-
+        ListWrapper result = Utilities.dallInternet(generateURL());
+        check(result.getList());
+        return result;
     }
 
     protected abstract URL generateURL() throws MalformedURLException;

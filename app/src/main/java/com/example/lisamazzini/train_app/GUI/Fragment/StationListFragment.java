@@ -208,7 +208,6 @@ public class StationListFragment extends Fragment {
                     }
                 }).show();
             }
-
         }
 
         @Override

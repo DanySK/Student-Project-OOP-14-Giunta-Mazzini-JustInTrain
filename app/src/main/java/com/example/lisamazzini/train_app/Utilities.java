@@ -3,6 +3,7 @@ package com.example.lisamazzini.train_app;
 
 import android.util.Log;
 
+import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
 import com.example.lisamazzini.train_app.Model.Treno.Train;
 import com.example.lisamazzini.train_app.Model.Treno.Fermate;
 
@@ -10,6 +11,10 @@ import org.joda.time.DateTime;
 import org.joda.time.MutableDateTime;
 import org.joda.time.format.DateTimeFormat;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -86,5 +91,16 @@ public class Utilities {
         }
 
         return "Costante";
+    }
+
+    public static ListWrapper dallInternet(URL url) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+        String inputLine;
+        List<String> result = new LinkedList<>();
+        while ((inputLine = in.readLine()) != null) {
+            result.add(inputLine);
+        }
+        in.close();
+        return new ListWrapper(result);
     }
 }

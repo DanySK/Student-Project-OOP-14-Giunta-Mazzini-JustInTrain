@@ -201,7 +201,6 @@ public class JourneyResultsFragment extends Fragment {
         list.clear();
         journeyResultsAdapter.notifyDataSetChanged();
         if (spiceManager.isStarted()) {
-//            spiceManager.cancelAllRequests();
             spiceManager.dontNotifyAnyRequestListeners();
             spiceManager.shouldStop();
             spiceManager.start(getActivity());
@@ -342,7 +341,7 @@ public class JourneyResultsFragment extends Fragment {
 
     @Override
     public void onStop() {
-
+        spiceManager.dontNotifyAnyRequestListeners();
         spiceManager.shouldStop();
         super.onStop();
     }

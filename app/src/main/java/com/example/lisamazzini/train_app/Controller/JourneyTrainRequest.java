@@ -1,5 +1,6 @@
 package com.example.lisamazzini.train_app.Controller;
 
+import android.content.DialogInterface;
 import android.util.Log;
 
 import com.example.lisamazzini.train_app.Model.Constants;
@@ -14,11 +15,17 @@ import com.octo.android.robospice.request.SpiceRequest;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
 
-    private List<PlainSolution> plainSolutions;
+    List<PlainSolution> plainSolutions;
+    List<String> result;
+    Iterator<String> iterator;
+    String[] datas;
+    Train train;
 
     public JourneyTrainRequest(List<PlainSolution> plainSolutions) {
         super(PlainSolutionWrapper.class);
@@ -34,76 +41,27 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
         for (PlainSolution p : plainSolutions) {
 
             // cerco l'id di partenza e lo assegno
-            url = new URL("http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/autocompletaStazione/" + p.getOrigine()+ "?=" + p.getOrigine());
+            url = new URL("http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/autocompletaStazione/" + p.getOrigine() + "?=" + p.getOrigine());
             in = new BufferedReader(new InputStreamReader(url.openStream()));
             p.setIDpartenza(in.readLine().split("\\|")[1]);
             in.close();
 
             // cerco l'id di arrivo e lo assegno
-            url = new URL("http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/autocompletaStazione/" + p.getDestinazione()+ "?=" + p.getDestinazione());
+            url = new URL("http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/autocompletaStazione/" + p.getDestinazione() + "?=" + p.getDestinazione());
             in = new BufferedReader(new InputStreamReader(url.openStream()));
             p.setIDarrivo(in.readLine().split("\\|")[1]);
             in.close();
 
             // cerco i dati del treno in questione (stazione + codice stazione di origine totale)
-            url = new URL("http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/" + p.getNumeroTreno());
-            in = new BufferedReader(new InputStreamReader(url.openStream()));
-            Log.d("wft", p.getNumeroTreno());
-            String result = in.readLine();
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                result += Constants.SEPARATOR + inputLine;
-                System.out.println(inputLine);
-            }
-            in.close();
-
-            ////////////////////////////////////////////////////////////////////////
-
-            // capisco se il treno è singolo o doppio}
-
-            //I used Constants.SEPARATOR to divide the result in case there are more train with the same number
-            String[] datas = result.split(Constants.SEPARATOR);
-            //Only one train
-            if (datas.length == 1) {
-                Log.d("cazzi", datas[0]);
-                // I take the second part of the string, and divide it in 2; example 608 - S11145 -> [608,S11145]
-                datas = Utilities.splitString(datas[0]);
-
-                // scarico i dati di quel preciso treno e setto cosa mi serve
-                Train train = TrainRestClient.get().getTrain(datas[0], datas[1]);
-                p.setIDorigine(train.getIdOrigine());
-                p.setDelay(train.getRitardo());
-
-            } else {
-
-                Log.d("cazzi", datas[0] + " " + datas[1]);
-                // se c'è più di un treno con quel codice, scorro la lista di stazioni di entrambi e cerco il mio
-
-                //Here I take the data of the first train
-                final String[] firstChoiceData = Utilities.splitString(datas[0]);
-
-                //Here I take the data of the second train
-                final String[] secondChoiceData = Utilities.splitString(datas[1]);
-
-                Train train;
-
-                // scarico i dati del primo treno trovato e setto cosa mi serve
-                train = TrainRestClient.get().getTrain(firstChoiceData[0], firstChoiceData[1]);
-
+            result = Utilities.dallInternet(new URL("http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/" + p.getNumeroTreno())).getList();
+            iterator = result.iterator();
+            makeRequest();
+            p.setIDorigine(train.getIdOrigine());
+            p.setDelay(train.getRitardo());
+            if (result.size() > 1) {
                 boolean trovato = false;
-
-                for(Fermate f : train.getFermate()){
-                    if(f.getId().equals(p.getIDpartenza())){
-                        p.setIDorigine(train.getIdOrigine());
-                        p.setDelay(train.getRitardo());
-                        trovato = true;
-                        break;
-                    }
-                }
-
-                // scarico i dati del secondo treno trovato e setto cosa mi serve
-                if (trovato == false) {
-                    train = TrainRestClient.get().getTrain(secondChoiceData[0], secondChoiceData[1]);
+                while (!trovato && iterator.hasNext()) {
+                    makeRequest();
                     for(Fermate f : train.getFermate()){
                         if(f.getId().equals(p.getIDpartenza())){
                             p.setIDorigine(train.getIdOrigine());
@@ -116,5 +74,10 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
             }
         }
         return new PlainSolutionWrapper(plainSolutions);
+    }
+
+    private void makeRequest() {
+        datas = iterator.next().split("\\|")[1].split("-");
+        train = TrainRestClient.get().getTrain(datas[0], datas[1]);
     }
 }
