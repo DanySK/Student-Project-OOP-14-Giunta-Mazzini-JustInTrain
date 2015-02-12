@@ -22,7 +22,7 @@ import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyC
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.Controller.JourneyDataRequest;
 import com.example.lisamazzini.train_app.Controller.JourneyRequest;
-import com.example.lisamazzini.train_app.Controller.JourneyResultsController2;
+import com.example.lisamazzini.train_app.Controller.JourneyResultsController;
 import com.example.lisamazzini.train_app.Controller.JourneyTrainRequest;
 import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
 import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
@@ -32,6 +32,7 @@ import com.example.lisamazzini.train_app.GUI.EndlessRecyclerOnScrollListener;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolutionWrapper;
 import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
+import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
 import com.example.lisamazzini.train_app.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
@@ -45,7 +46,7 @@ public class JourneyResultsFragment extends Fragment {
     private RecyclerView recyclerView;
     private LinearLayoutManager manager;
     private JourneyResultsAdapter journeyResultsAdapter;
-    JourneyResultsController2 controller;
+    JourneyResultsController controller;
     private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
     private List<PlainSolution> list = new LinkedList<>();
     private String departureStation;
@@ -91,7 +92,7 @@ public class JourneyResultsFragment extends Fragment {
         recyclerView.setAdapter(journeyResultsAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        controller = new JourneyResultsController2();
+        controller = new JourneyResultsController();
 
         resetScrollListener();
 
@@ -222,7 +223,7 @@ public class JourneyResultsFragment extends Fragment {
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
-    private class DepartureDataRequestListenter extends AbstractListener<String> {
+    private class DepartureDataRequestListenter extends AbstractListener<ListWrapper> {
 
         @Override
         public Context getDialogContext() {
@@ -230,15 +231,35 @@ public class JourneyResultsFragment extends Fragment {
         }
 
         @Override
-        public void onRequestSuccess(String s) {
-            departureID = s.split("\\|S")[1];
-            spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
+        public void onRequestSuccess(ListWrapper list) {
+            List<String> data = list.getList();
+            if (data.size() == 1) {
+                departureID = data.get(0).split("\\|S")[1];
+//                spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
+            } else {
+                final String[][] dataMatrix = new String[data.size()][2];
+                String[] choices = new String[data.size()];
+                for (int i = 0 ; i < data.size() - 1 ; i++){
+                    dataMatrix[i] = controller.computeData(data.get(i));
+                    choices[i] = controller.computeChoices(dataMatrix[i]);
+                }
+                dialogBuilder.setSingleChoiceItems(choices, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        departureID = dataMatrix[which][1];
+      //                spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
+                        dialog.dismiss();
+                    }
+                }).show();
+                toggleFavouriteIcon();
+                spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
+            }
         }
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
-    private class ArrivalDataRequestListener extends AbstractListener<String> {
+    private class ArrivalDataRequestListener extends AbstractListener<ListWrapper> {
 
         @Override
         public Context getDialogContext() {
@@ -246,9 +267,29 @@ public class JourneyResultsFragment extends Fragment {
         }
 
         @Override
-        public void onRequestSuccess(String s) {
-            arrivalID = s.split("\\|S")[1];
-             toggleFavouriteIcon();
+        public void onRequestSuccess(ListWrapper list) {
+            List<String> data = list.getList();
+            if (data.size() == 1) {
+                arrivalID = data.get(0).split("\\|S")[1];
+//                spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
+            } else {
+                final String[][] dataMatrix = new String[data.size()][2];
+                String[] choices = new String[data.size()];
+                for (int i = 0 ; i < data.size() - 1 ; i++){
+                    dataMatrix[i] = controller.computeData(data.get(i));
+                    choices[i] = controller.computeChoices(dataMatrix[i]);
+                }
+                dialogBuilder.setSingleChoiceItems(choices, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        arrivalID = dataMatrix[which][1];
+//                        spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
+                        toggleFavouriteIcon();
+                        dialog.dismiss();
+                    }
+                }).show();
+            }
+            toggleFavouriteIcon();
             spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
         }
     }

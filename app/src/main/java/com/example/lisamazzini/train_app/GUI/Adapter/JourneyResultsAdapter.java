@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,10 +55,33 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         journeyViewHolder.arrivalTime.setText(journeyTrain.getOrarioArrivo());
         journeyViewHolder.delay.setText(journeyTrain.getDelay());
         journeyViewHolder.stationCode = journeyTrain.getIDorigine();
-        journeyViewHolder.menu.setOnClickListener(new View.OnClickListener() {
+        journeyViewHolder.pinButton.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void onClick(View v) {
+//                final Intent intent = new Intent(v.getContext(), NotificationService.class);
+//                final Context ctx = v.getContext();
+//                int id = v.getVisibility();
+//                switch (id) {
+//                    //usa la visibility oppure il nome della src se la sostituisce del tutto
+//                    case notpinned:
+//                        //rendi visibile l'image button preferito
+//                        intent.putExtra("number", journeyTrain.getNumeroTreno());
+//                        intent.putExtra("idOrigine", journeyTrain.getIDorigine());
+//                        intent.putExtra("oraPartenza", journeyTrain.getOrarioPartenza());
+//                        ctx.startService(intent);
+//                        achievementController = new AchievementController(ctx);
+//                        try {
+//                            Log.d("i looooooog", "sto per aggiornare");
+//                            achievementController.updateAchievements(journeyTrain);
+//                        } catch (AchievementException e) {
+//                            Log.d("i looooooog", "ORDUNQUE? " + e.getMessage());
+//                            Toast.makeText(ctx, e.getMessage(), Toast.LENGTH_LONG).show();
+//                        }
+//                    case pinned:
+//                        //elimina il service e cambia icona
+//                }
+
                 PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
                 popupMenu.getMenuInflater().inflate(R.menu.menu_fav_journey, popupMenu.getMenu());
                 final Intent intent = new Intent(v.getContext(), NotificationService.class);
@@ -107,7 +131,8 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         protected TextView arrivalStation;
         protected TextView arrivalTime;
         protected TextView delay;
-        protected Button menu;
+//        protected ImageButton pinButton;
+        protected Button pinButton;
         protected String stationCode;
 
         public JourneyViewHolder(View v) {
@@ -121,7 +146,8 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
             arrivalStation = (TextView) v.findViewById(R.id.tArrivalStation);
             arrivalTime = (TextView) v.findViewById(R.id.tArrivalTime);
             delay = (TextView) v.findViewById(R.id.tTimeDifference);
-            menu = (Button)v.findViewById(R.id.bOptions);
+//            pinButton = (ImageButton)v.findViewById(R.id.bOptions);
+            pinButton = (Button)v.findViewById(R.id.bOptions);
             stationCode = "";
         }
 

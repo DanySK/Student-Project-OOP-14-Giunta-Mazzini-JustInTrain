@@ -6,6 +6,7 @@ import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.Soluzioni;
 import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
 import com.example.lisamazzini.train_app.Model.Tragitto.Vehicle;
+import com.example.lisamazzini.train_app.Utilities;
 
 import org.joda.time.DateTime;
 
@@ -15,7 +16,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-public class JourneyResultsController2 {
+public class JourneyResultsController {
 
     private List<PlainSolution> plainSolutions = new LinkedList<>();
     private int upperBound;
@@ -61,5 +62,14 @@ public class JourneyResultsController2 {
         } else {
             return new LinkedList<PlainSolution>();
         }
+    }
+
+    public String[] computeData(String data){
+        return Utilities.splitJourney(data);
+    }
+
+    public String computeChoices(String[] first){
+        final String result= "Stazione: " + first[0];
+        return result;
     }
 }

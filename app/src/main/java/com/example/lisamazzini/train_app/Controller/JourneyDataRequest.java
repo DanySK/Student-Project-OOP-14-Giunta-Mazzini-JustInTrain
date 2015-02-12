@@ -3,6 +3,8 @@ package com.example.lisamazzini.train_app.Controller;
 import android.util.Log;
 
 import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
+import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -14,7 +16,7 @@ public class JourneyDataRequest extends AbstractRequest{
     private final String station;
 
     public JourneyDataRequest(String station){
-        super(String.class);
+        super(ListWrapper.class);
         this.station = station;
     }
 

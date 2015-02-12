@@ -37,6 +37,10 @@ public class Utilities {
         return result;
     }
 
+    public static String[] splitJourney(String data) {
+        return data.split("\\|");
+    }
+
     //Questo
     public static MutableDateTime getDate(String time){
         DateTime now = new DateTime(Calendar.getInstance().getTime());
