@@ -6,13 +6,12 @@ import android.content.Intent;
 import android.util.Log;
 
 /**
+ *
+ *
  * Created by Lisa Mazzini
  */
 public class ButtonListener extends BroadcastReceiver {
 
-       /* public ButtonListener(){
-            super();
-       }*/
 
     @Override
     public void onReceive(Context context, Intent intent) {

@@ -25,37 +25,33 @@ import org.joda.time.MutableDateTime;
 import java.util.Calendar;
 
 /**
+ * Questa classe costituisce il Service che opera in background per gestire la comparsa e l'aggiornamento
+ * della notifica di un treno "pinnato"; il service infatti si viene avviato alla pressione del Pin e
+ * parte subito; se è presto (ovvero mancano più di 15 minuti al suo arrivo alla stazione desiderata)
+ * il Service setta un AlarmManager che si occuperà di riinviare l'intent al momento giusto.
+ * Se invece mancano meno di 15 minuti, la notifica viene costruita in base allo stato del treno e viene resa
+ * visibile.
  * Created by Lisa Mazzini
  */
 public class NotificationService extends Service {
 
-    //This is the intent to refresh the Notification, that will start the service again
+    private final SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
     private PendingIntent pIntentRefresh;
-    //This is the intent to stop the service
     private PendingIntent pIntentClose;
-    private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
-
     private String numeroTreno;
     private String orarioPartenza;
     private String IDorigine;
 
-
     @Override
     public void onDestroy(){
-        super.onDestroy();
         stopForeground(true);
         spiceManager.shouldStop();
         super.onDestroy();
     }
 
-
-
-
     @Override
     public int onStartCommand (Intent intent, int flags, int startId){
         super.onStartCommand(intent, flags, startId);
-
-        spiceManager = new SpiceManager(UncachedSpiceService.class);
 
         this.numeroTreno = intent.getStringExtra("number");
         this.IDorigine = intent.getStringExtra("idOrigine");
@@ -90,7 +86,6 @@ public class NotificationService extends Service {
             // è presto
             departureTime.addMinutes(-15);
             Long millis = departureTime.getMillis();
-            Log.d("Quanti siete", "" + millis);
             AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
             am.set(AlarmManager.RTC_WAKEUP, millis, pStart);
         }else {
@@ -107,7 +102,9 @@ public class NotificationService extends Service {
         return null;
     }
 
-
+    /**
+     * Inner class adibita alla ricezione dei dati dopo la connessione a internet
+     */
 
     private class ResultListener extends AbstractListener<Train> {
 
@@ -126,26 +123,22 @@ public class NotificationService extends Service {
             intentHome.putExtra("stationCode", IDorigine);
             PendingIntent home = PendingIntent.getActivity(NotificationService.this, 1, intentHome, PendingIntent.FLAG_UPDATE_CURRENT);
 
+            builder.setSmallIcon(R.drawable.ic_launcher)
+                    .setOngoing(true)
+                    .addAction(R.drawable.ic_refresh, "Aggiorna", pIntentRefresh)
+                    .addAction(R.drawable.ic_delete, "Elimina", pIntentClose)
+                    .setTicker("Treno in arrivo!")
+                    .setContentIntent(home);
+
             //If the train is not departed yet the notification will show the data
             if(notDeparted(train)) {
-                not = builder.setSmallIcon(R.drawable.ic_launcher)
-                        .setOngoing(true)
-                        .addAction(R.drawable.ic_refresh, "Aggiorna", pIntentRefresh)
-                        .addAction(R.drawable.ic_delete, "Elimina", pIntentClose)
-                        .setTicker("Treno in arrivo!")
-                        .setContentIntent(home)
-                        .setStyle(new NotificationCompat.InboxStyle()
+            not = builder.setStyle(new NotificationCompat.InboxStyle()
                                 .setBigContentTitle(train.getNumeroTreno() + " " + train.getCategoria())
                                 .addLine("Il treno non è ancora partito"))
                         .build();
             //Else, the notification is empty
             }else if(isArrived(train)){
-                not = builder.setSmallIcon(R.drawable.ic_launcher)
-                        .setOngoing(true)
-                        .addAction(R.drawable.ic_refresh, "Aggiorna", pIntentRefresh)
-                        .addAction(R.drawable.ic_delete, "Elimina", pIntentClose)
-                        .setContentIntent(home)
-                        .setStyle(new NotificationCompat.InboxStyle()
+                not = builder.setStyle(new NotificationCompat.InboxStyle()
                                 .setBigContentTitle(train.getNumeroTreno() + " " + train.getCategoria())
                                 .addLine("Treno arrivato a destinazione"))
                         .setTicker("Treno in arrivo!")
@@ -159,14 +152,7 @@ public class NotificationService extends Service {
                 }else{
                     ritardo = "in ORARIO";
                 }
-                not = builder
-                        .setSmallIcon(R.drawable.ic_launcher)
-                        .setOngoing(true)
-                        .addAction(R.drawable.ic_refresh, "Aggiorna", pIntentRefresh)
-                        .addAction(R.drawable.ic_delete, "Elimina", pIntentClose)
-                        .setTicker("Treno in arrivo!")
-                        .setContentIntent(home)
-                        .setStyle(new NotificationCompat.InboxStyle()
+                not = builder.setStyle(new NotificationCompat.InboxStyle()
                                 .setBigContentTitle(train.getNumeroTreno() + " " + train.getCategoria())
                                 .addLine(ritardo)
                                 .addLine("Andamento: " + Utilities.getProgress(train))
@@ -177,12 +163,23 @@ public class NotificationService extends Service {
             startForeground(1, not);
         }
 
+        /**
+         * Metodo che determina se un treno è partito o meno, controllando se la prima stazione è visitata
+         *
+         * @param train treno da controllare
+         * @return true se è non partito, false se è partito
+         */
         private boolean notDeparted(Train train){
             return train.getFermate().get(0).getActualFermataType() == 0;
         }
 
+        /**
+         * Metodo che determina se un treno è arrivato, controllando se l'ultima stazione è visitata.
+         * @param train treno da controllare
+         * @return true sè è arrivato, false se non è arrivato
+         */
         private boolean isArrived(Train train){
-            return train.getFermate().get(train.getFermate().size()-1).getActualFermataType() == 1;
+            return train.getFermate().get(train.getFermate().size()-1).getActualFermataType() != 0 ;
         }
 
     }
