@@ -3,6 +3,7 @@ package com.example.lisamazzini.train_app.Controller;
 import android.util.Log;
 
 import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
+import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
 
 import java.net.MalformedURLException;
@@ -11,18 +12,15 @@ import java.util.List;
 
 public class JourneyDataRequest extends AbstractRequest{
 
-    private final static String mainUrl = "http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/autocompletaStazione/";
-
     private final String station;
 
     public JourneyDataRequest(String station){
         super(ListWrapper.class);
-        Log.d("cazzi", station + " in request");
         this.station = station;
     }
 
     protected URL generateURL() throws MalformedURLException {
-        return new URL(mainUrl + station + "?q=" + station);
+        return new URL(Constants.ROOT + Constants.STATION_AUTOCOMPLETE + station + "?q=" + station);
     }
 
     protected void check(List result) throws InvalidStationException {

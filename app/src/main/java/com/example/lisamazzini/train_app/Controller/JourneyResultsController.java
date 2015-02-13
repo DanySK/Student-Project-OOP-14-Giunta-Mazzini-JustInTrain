@@ -40,13 +40,6 @@ public class JourneyResultsController {
         lowerBound = 0;
         for (Soluzioni sol : tragitto.getSoluzioni()) {
             for (Vehicle vehicle : sol.getVehicles()) {
-//                if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equalsIgnoreCase("frecciabianca")) {
-//                    vehicle.setCategoriaDescrizione("FB");
-//                } else if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equalsIgnoreCase("frecciarossa")) {
-//                    vehicle.setCategoriaDescrizione("FR");
-//                } else if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equalsIgnoreCase("frecciaargento")) {
-//                    vehicle.setCategoriaDescrizione("FA");
-//                }
                 vehicle.setCategoriaDescrizione("" + setCategory(vehicle, "frecciabianca", "FB"));
                 vehicle.setCategoriaDescrizione("" + setCategory(vehicle, "frecciarossa", "FR"));
                 vehicle.setCategoriaDescrizione("" + setCategory(vehicle, "frecciaargento", "FA"));
@@ -55,7 +48,6 @@ public class JourneyResultsController {
                         foundFirstTakeable = true;
                         lowerBound = plainSolutions.size() > 0 ? plainSolutions.size() - 1 : 0;
                     }
-                    Log.d("cazzi", actualTime.toString() + " " + vehicle.getOrarioPartenza() + " " + checkIsTomorrow(vehicle));
                     plainSolutions.add(new PlainSolution(vehicle.getCategoriaDescrizione(), vehicle.getNumeroTreno(),
                             vehicle.getOrigine(), vehicle.getOraPartenza(), vehicle.getDestinazione(), vehicle.getOraArrivo(),
                             sol.getDurata(), checkIsTomorrow(vehicle)));
@@ -68,10 +60,8 @@ public class JourneyResultsController {
 
     private String setCategory(Vehicle vehicle, String category, String abbr) {
         if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equalsIgnoreCase(category)) {
-            Log.d("cazzi", "fatta set category");
             return abbr;
         }
-        Log.d("cazzi", "fatta set category ma niente da fare");
         return vehicle.getCategoriaDescrizione();
     }
 
@@ -85,7 +75,6 @@ public class JourneyResultsController {
     }
 
     public List<PlainSolution> getPlainSolutions(boolean isCustom) {
-        Log.d("cazzi", "lowerbound " + lowerBound + " upperbound " + upperBound);
         List<PlainSolution> subList;
         if (isCustom) {
             upperBound = plainSolutions.size() < 5 ? plainSolutions.size() : 5;
@@ -107,7 +96,6 @@ public class JourneyResultsController {
     }
 
     public String computeChoices(String[] first){
-        final String result= "Stazione: " + first[0];
-        return result;
+        return "Stazione: " + first[0];
     }
 }

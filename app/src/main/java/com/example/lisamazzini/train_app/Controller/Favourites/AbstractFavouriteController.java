@@ -66,7 +66,6 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     }
 
     protected boolean alreadyFavourite(String string){
-        Log.d("cazzi", string);
         return getFavouritesAsMap().containsKey(string);
     }
 

@@ -1,9 +1,5 @@
 package com.example.lisamazzini.train_app.Controller;
 
-import android.content.DialogInterface;
-import android.util.Log;
-
-import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolutionWrapper;
 import com.example.lisamazzini.train_app.Model.Treno.Train;
@@ -18,7 +14,6 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 
 public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
 
@@ -54,7 +49,7 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
             in.close();
 
             // cerco i dati del treno in questione (stazione + codice stazione di origine totale)
-            result = Utilities.dallInternet(new URL("http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/" + p.getNumeroTreno())).getList();
+            result = Utilities.fetchData(new URL("http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/" + p.getNumeroTreno())).getList();
             if (result.size() == 0) {
                 return new PlainSolutionWrapper(new LinkedList<PlainSolution>());
             }

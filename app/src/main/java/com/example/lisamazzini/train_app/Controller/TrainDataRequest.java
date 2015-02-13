@@ -16,8 +16,6 @@ import java.util.List;
 
 public class TrainDataRequest extends AbstractRequest {
 
-    private final static String mainUrl = "http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/";
-
     private final String searchNumber;
 
     public TrainDataRequest(String searchQuery){
@@ -27,7 +25,7 @@ public class TrainDataRequest extends AbstractRequest {
 
     @Override
     protected URL generateURL() throws MalformedURLException {
-        return new URL(mainUrl + searchNumber);
+        return new URL(Constants.ROOT + Constants.TRAIN_AUTOCOMPLETE + searchNumber);
     }
 
     @Override

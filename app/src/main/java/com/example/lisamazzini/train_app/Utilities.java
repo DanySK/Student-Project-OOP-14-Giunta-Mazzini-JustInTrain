@@ -93,7 +93,7 @@ public class Utilities {
         return "Costante";
     }
 
-    public static ListWrapper dallInternet(URL url) throws IOException {
+    public static ListWrapper fetchData(URL url) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
         String inputLine;
         List<String> result = new LinkedList<>();

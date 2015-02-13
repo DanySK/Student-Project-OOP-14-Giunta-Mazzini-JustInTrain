@@ -36,5 +36,4 @@ public class StationListController {
     public String getProgress(Train train){
         return Utilities.getProgress(train);
     }
-
 }

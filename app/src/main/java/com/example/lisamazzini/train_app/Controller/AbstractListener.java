@@ -15,16 +15,11 @@ import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
-/**
- * Created by lisamazzini on 05/02/15.
- */
-
 public abstract class AbstractListener<X> implements RequestListener<X> {
 
     protected final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getDialogContext());
 
     public void onRequestFailure(SpiceException spiceException) {
-        //numero non valido
         if(spiceException.getCause() instanceof InvalidTrainNumberException){
             dialogBuilder.setTitle("Numero treno non valido!")
                     .setMessage("Il numero inserito non corrisponde a nessun cazzo di treno")
@@ -36,7 +31,7 @@ public abstract class AbstractListener<X> implements RequestListener<X> {
                         }
                     })
                     .show();
-        }else if (spiceException.getCause() instanceof InvalidStationException) {
+        } else if (spiceException.getCause() instanceof InvalidStationException) {
             dialogBuilder.setTitle("Stazione inesistente!")
                     .setMessage("Il nome inserito non corrisponde a nessun risultato")
                     .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
@@ -47,10 +42,8 @@ public abstract class AbstractListener<X> implements RequestListener<X> {
                         }
                     }).show();
         } else {
-            Log.d("cazzi", spiceException.toString());
-
             dialogBuilder.setTitle("Problemi di connessione")
-                    .setMessage("Controllare la propria connessione internet, patacca")
+                    .setMessage("Controllare la propria connessione internet")
                     .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

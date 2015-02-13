@@ -10,7 +10,6 @@ public class JourneyRequest extends SpiceRequest<Tragitto> {
     private final String arrivalID;
     private final String requestedTime;
 
-
     public JourneyRequest(String departureID, String arrivalID, String requestedTime) {
         super(Tragitto.class);
         this.departureID = departureID;
