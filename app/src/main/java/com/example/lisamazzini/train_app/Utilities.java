@@ -67,7 +67,7 @@ public class Utilities {
             }
         }
 
-        if(visited.size() < 5) {
+        if(visited.size() <= 5) {
             for (int i = visited.size() - 2; i >= 0; i--) {
                 intermediateDelta = visited.get(i + 1).getRitardo() - visited.get(i).getRitardo();
                 Log.d(" A intermediate delta", "" + intermediateDelta);
