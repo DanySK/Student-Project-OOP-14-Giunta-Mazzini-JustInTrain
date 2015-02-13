@@ -7,6 +7,7 @@ import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.Soluzioni;
 import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
 import com.example.lisamazzini.train_app.Model.Tragitto.Vehicle;
+import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
 import com.example.lisamazzini.train_app.Utilities;
 
 import org.joda.time.DateTime;
@@ -33,6 +34,12 @@ public class JourneyResultsController {
         }
     }
 
+    private String setCategory(Vehicle vehicle, String category, String abbr) {
+        if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equalsIgnoreCase(category)) {
+            return abbr;
+        }
+        return vehicle.getCategoriaDescrizione();
+    }
 
     public void buildPlainSolutions(Tragitto tragitto) {
         plainSolutions.clear();
@@ -56,13 +63,6 @@ public class JourneyResultsController {
                 }
             }
         }
-    }
-
-    private String setCategory(Vehicle vehicle, String category, String abbr) {
-        if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equalsIgnoreCase(category)) {
-            return abbr;
-        }
-        return vehicle.getCategoriaDescrizione();
     }
 
 
@@ -91,11 +91,29 @@ public class JourneyResultsController {
         }
     }
 
-    public String[] computeData(String data){
+
+
+    public boolean isOneResult(List<String> list) {
+        return list.size() == 1;
+    }
+
+    public String[][] getTableForMultipleResults(List<String> list) {
+        final String[][] dataMatrix = new String[2][list.size()];
+        for (int i = 0 ; i < list.size(); i++) {
+            String[] temp = splitData(list.get(i));
+            dataMatrix[0][i] = temp[0];
+            dataMatrix[1][i] = temp[1];
+            dataMatrix[0][1]= computeChoices(dataMatrix[0][i]);
+        }
+        return dataMatrix;
+    }
+
+
+    public String[] splitData(String data){
         return Utilities.splitJourney(data);
     }
 
-    public String computeChoices(String[] first){
-        return "Stazione: " + first[0];
+    public String computeChoices(String s){
+        return "Stazione: " + s;
     }
 }

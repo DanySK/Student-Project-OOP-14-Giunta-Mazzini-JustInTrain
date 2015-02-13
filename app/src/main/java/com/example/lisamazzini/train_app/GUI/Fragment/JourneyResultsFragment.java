@@ -1,15 +1,11 @@
 package com.example.lisamazzini.train_app.GUI.Fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,9 +20,6 @@ import com.example.lisamazzini.train_app.Controller.JourneyDataRequest;
 import com.example.lisamazzini.train_app.Controller.JourneyRequest;
 import com.example.lisamazzini.train_app.Controller.JourneyResultsController;
 import com.example.lisamazzini.train_app.Controller.JourneyTrainRequest;
-import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
-import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
-import com.example.lisamazzini.train_app.GUI.Activity.MainActivity;
 import com.example.lisamazzini.train_app.GUI.Adapter.JourneyResultsAdapter;
 import com.example.lisamazzini.train_app.GUI.EndlessRecyclerOnScrollListener;
 import com.example.lisamazzini.train_app.Model.Constants;
@@ -37,7 +30,6 @@ import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
 import com.example.lisamazzini.train_app.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
-import com.octo.android.robospice.persistence.exception.SpiceException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -46,18 +38,20 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
 
     private RecyclerView recyclerView;
     private LinearLayoutManager manager;
-    private JourneyResultsAdapter journeyResultsAdapter;
+    private JourneyResultsAdapter adapter;
+    private List<PlainSolution> plainSolutionList = new LinkedList<>();
+
     private JourneyResultsController controller;
-    private List<PlainSolution> list = new LinkedList<>();
-    private String departureStation;
-    private String departureID;
-    private String arrivalStation;
-    private String arrivalID;
-    private String requestedTime;
     private IFavouriteController favouriteController = FavouriteJourneyController.getInstance();
+    private FavouriteFragmentsUtils favouriteFragmentsUtils;
+
     private Menu menu;
     private boolean isCustomTime;
-    private FavouriteFragmentsUtils favouriteFragmentsUtils;
+    private String departureID, departureStation, arrivalID, arrivalStation, requestedTime;
+//    private String departureID;
+//    private String arrivalStation;
+//    private String arrivalID;
+//    private String requestedTime;
 
     public static JourneyResultsFragment newInstance() {
         return new JourneyResultsFragment();
@@ -83,14 +77,14 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
         this.recyclerView = (RecyclerView)layoutInflater.findViewById(R.id.cardListFragment);
 
         this.manager = new LinearLayoutManager(getActivity());
-        this.journeyResultsAdapter = new JourneyResultsAdapter(list);
-        this.journeyResultsAdapter.notifyDataSetChanged();
+        this.adapter = new JourneyResultsAdapter(plainSolutionList);
+        this.adapter.notifyDataSetChanged();
 
         this.recyclerView.setLayoutManager(manager);
-        this.recyclerView.setAdapter(journeyResultsAdapter);
+        this.recyclerView.setAdapter(adapter);
         this.recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        controller = new JourneyResultsController();
+        this.controller = new JourneyResultsController();
 
         resetScrollListener();
 
@@ -125,8 +119,8 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
 
 
     public void makeRequest(String userRequestType, String requestedTime, boolean isCustomTime, String... departureAndArrivalData) {
-        list.clear();
-        journeyResultsAdapter.notifyDataSetChanged();
+        plainSolutionList.clear();
+        adapter.notifyDataSetChanged();
         resetScrollListener();
         this.requestedTime = requestedTime;
         this.controller.setTime(this.requestedTime);
@@ -159,20 +153,16 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
         @Override
         public void onRequestSuccess(ListWrapper lista) {
             List<String> data = lista.getList();
-            if (data.size() == 1) {
-                departureID = data.get(0).split("\\|S")[1];
+
+            if (controller.isOneResult(data)) {
+                departureID = controller.splitData(lista.getList().get(0))[1];
                 spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
             } else {
-                final String[][] dataMatrix = new String[data.size()][2];
-                String[] choices = new String[data.size()];
-                for (int i = 0 ; i < data.size(); i++){
-                    dataMatrix[i] = controller.computeData(data.get(i));
-                    choices[i] = controller.computeChoices(dataMatrix[i]);
-                }
-                dialogBuilder.setSingleChoiceItems(choices, -1, new DialogInterface.OnClickListener() {
+                final String[][] choices = controller.getTableForMultipleResults(data);
+                dialogBuilder.setSingleChoiceItems(choices[0], -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        departureID = dataMatrix[which][1];
+                        departureID = choices[1][which];
                         spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
                         dialog.dismiss();
                     }
@@ -192,21 +182,18 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
 
         @Override
         public void onRequestSuccess(ListWrapper lista) {
+
             List<String> data = lista.getList();
-            if (data.size() == 1) {
-                arrivalID = data.get(0).split("\\|S")[1];
+
+            if (controller.isOneResult(data)) {
+                departureID = controller.splitData(lista.getList().get(0))[1];
                 spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
             } else {
-                final String[][] dataMatrix = new String[data.size()][2];
-                String[] choices = new String[data.size()];
-                for (int i = 0 ; i < data.size(); i++){
-                    dataMatrix[i] = controller.computeData(data.get(i));
-                    choices[i] = controller.computeChoices(dataMatrix[i]);
-                }
-                dialogBuilder.setSingleChoiceItems(choices, -1, new DialogInterface.OnClickListener() {
+                final String[][] choices = controller.getTableForMultipleResults(data);
+                dialogBuilder.setSingleChoiceItems(choices[0], -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        arrivalID = dataMatrix[which][1];
+                        arrivalID = choices[1][which];
                         spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
                         favouriteFragmentsUtils.toggleFavouriteIcon(departureID, arrivalID);
                         dialog.dismiss();
@@ -244,8 +231,8 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
 
         @Override
         public void onRequestSuccess(PlainSolutionWrapper plainSolutions) {
-            list.addAll(plainSolutions.getList());
-            journeyResultsAdapter.notifyDataSetChanged();
+            plainSolutionList.addAll(plainSolutions.getList());
+            adapter.notifyDataSetChanged();
         }
     }
 }
