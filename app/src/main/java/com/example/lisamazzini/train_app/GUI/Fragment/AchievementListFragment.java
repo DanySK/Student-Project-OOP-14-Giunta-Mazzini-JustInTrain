@@ -44,8 +44,4 @@ public class AchievementListFragment extends Fragment{
         return view;
     }
 
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//    }
 }

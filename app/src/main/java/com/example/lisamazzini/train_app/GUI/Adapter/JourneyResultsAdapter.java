@@ -56,39 +56,6 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         journeyViewHolder.arrivalTime.setText(journeyTrain.getOrarioArrivo());
         journeyViewHolder.delay.setText(journeyTrain.getDelay());
         journeyViewHolder.stationCode = journeyTrain.getIDorigine();
-//        journeyViewHolder.pinButton.setOnClickListener(new View.OnClickListener() {
-//            @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-//            @Override
-//            public void onClick(View v) {
-//                PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
-//                popupMenu.getMenuInflater().inflate(R.menu.menu_fav_journey, popupMenu.getMenu());
-//                final Intent intent = new Intent(v.getContext(), NotificationService.class);
-//                final Context ctx = v.getContext();
-//
-//                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                    @Override
-//                    public boolean onMenuItemClick(MenuItem item) {
-//                        switch (item.getItemId()){
-//                            case R.id.pin:
-//                                intent.putExtra("number", journeyTrain.getNumeroTreno());
-//                                intent.putExtra("idOrigine", journeyTrain.getIDorigine());
-//                                intent.putExtra("oraPartenza", journeyTrain.getOrarioPartenza());
-//                                ctx.startService(intent);
-//                                achievementController = new AchievementController(ctx);
-//                                try {
-//                                    achievementController.updateAchievements(journeyTrain);
-//                                } catch (AchievementException e) {
-//                                    Toast.makeText(ctx, e.getMessage(), Toast.LENGTH_LONG).show();
-//                                }
-//                                return true;
-//                            default:
-//                                return false;
-//                        }
-//                    }
-//                });
-//                popupMenu.show();
-//            }
-//        });
         journeyViewHolder.pinButton.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             @Override
@@ -126,7 +93,6 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         protected TextView arrivalTime;
         protected TextView delay;
         protected ImageButton pinButton;
-//        protected Button pinButton;
         protected String stationCode;
 
         public JourneyViewHolder(View v) {
@@ -141,7 +107,6 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
             arrivalTime = (TextView) v.findViewById(R.id.tArrivalTime);
             delay = (TextView) v.findViewById(R.id.tTimeDifference);
             pinButton = (ImageButton)v.findViewById(R.id.bOptions);
-//            pinButton = (Button)v.findViewById(R.id.bOptions);
             stationCode = "";
         }
 
