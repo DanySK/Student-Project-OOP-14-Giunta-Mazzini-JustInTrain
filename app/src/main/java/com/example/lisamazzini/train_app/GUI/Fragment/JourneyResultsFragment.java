@@ -42,13 +42,12 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class JourneyResultsFragment extends Fragment {
+public class JourneyResultsFragment extends AbstractRobospiceFragment {
 
     private RecyclerView recyclerView;
     private LinearLayoutManager manager;
     private JourneyResultsAdapter journeyResultsAdapter;
     private JourneyResultsController controller;
-    private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
     private List<PlainSolution> list = new LinkedList<>();
     private String departureStation;
     private String departureID;
@@ -58,6 +57,7 @@ public class JourneyResultsFragment extends Fragment {
     private IFavouriteController favouriteController = FavouriteJourneyController.getInstance();
     private Menu menu;
     private boolean isCustomTime;
+    private FavouriteFragmentsUtils favouriteFragmentsUtils;
 
     public static JourneyResultsFragment newInstance() {
         return new JourneyResultsFragment();
@@ -75,18 +75,20 @@ public class JourneyResultsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        favouriteController.setContext(getActivity().getApplicationContext());
+        super.spiceManager = new SpiceManager(UncachedSpiceService.class);
+        this.favouriteController.setContext(getActivity().getApplicationContext());
+        this.favouriteFragmentsUtils = new FavouriteFragmentsUtils(FavouriteJourneyController.getInstance());
 
         View layoutInflater = inflater.inflate(R.layout.fragment_journey_results, container, false);
-        recyclerView = (RecyclerView)layoutInflater.findViewById(R.id.cardListFragment);
+        this.recyclerView = (RecyclerView)layoutInflater.findViewById(R.id.cardListFragment);
 
         this.manager = new LinearLayoutManager(getActivity());
         this.journeyResultsAdapter = new JourneyResultsAdapter(list);
-        journeyResultsAdapter.notifyDataSetChanged();
+        this.journeyResultsAdapter.notifyDataSetChanged();
 
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(journeyResultsAdapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        this.recyclerView.setLayoutManager(manager);
+        this.recyclerView.setAdapter(journeyResultsAdapter);
+        this.recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         controller = new JourneyResultsController();
 
@@ -110,48 +112,17 @@ public class JourneyResultsFragment extends Fragment {
         // Do something that differs the Activity's menu here
         super.onCreateOptionsMenu(menu, inflater);
         this.menu = menu;
+        this.favouriteFragmentsUtils.setMenu(this.menu);
     }
 
-    private void setAsFavouriteIcon(boolean b) {
-        menu.getItem(0).setVisible(!b);
-        menu.getItem(1).setVisible(b);
-    }
 
-    private void toggleFavouriteIcon() {
-        if (favouriteController.isFavourite(departureID, arrivalID)) {
-            setAsFavouriteIcon(true);
-        } else {
-            setAsFavouriteIcon(false);
-        }
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.home) {
-            return true;
-        }
-        if (id == R.id.action_prefere) {
-            try {
-                addFavourite();
-                setAsFavouriteIcon(true);
-            } catch (FavouriteException e) {
-                e.printStackTrace();
-            }
-        } else if (id == R.id.action_deprefere) {
-            removeFavourite();
-            setAsFavouriteIcon(false);
-        }
+        menu = favouriteFragmentsUtils.onOptionsItemSelected(item, new String[]{departureID, arrivalID, departureStation, arrivalStation});
         return super.onOptionsItemSelected(item);
     }
 
-    public void removeFavourite() {
-        favouriteController.removeFavourite(departureID, arrivalID);
-    }
-
-    public void addFavourite() throws FavouriteException {
-        favouriteController.addFavourite(departureID, arrivalID, departureStation, arrivalStation);
-    }
 
     public void makeRequest(String userRequestType, String requestedTime, boolean isCustomTime, String... departureAndArrivalData) {
         list.clear();
@@ -237,7 +208,7 @@ public class JourneyResultsFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         arrivalID = dataMatrix[which][1];
                         spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
-                        toggleFavouriteIcon();
+                        favouriteFragmentsUtils.toggleFavouriteIcon(departureID, arrivalID);
                         dialog.dismiss();
                     }
                 }).show();
@@ -256,7 +227,7 @@ public class JourneyResultsFragment extends Fragment {
 
         @Override
         public void onRequestSuccess(Tragitto tragitto) {
-            toggleFavouriteIcon();
+            favouriteFragmentsUtils.toggleFavouriteIcon(departureID, arrivalID);
             controller.buildPlainSolutions(tragitto);
             spiceManager.execute(new JourneyTrainRequest(controller.getPlainSolutions(isCustomTime)), new JourneyTrainRequestListener());
         }
@@ -276,25 +247,5 @@ public class JourneyResultsFragment extends Fragment {
             list.addAll(plainSolutions.getList());
             journeyResultsAdapter.notifyDataSetChanged();
         }
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////////
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
-
-    @Override
-    public void onStart() {
-        spiceManager.start(getActivity());
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        spiceManager.dontNotifyAnyRequestListeners();
-        spiceManager.shouldStop();
-        super.onStop();
     }
 }

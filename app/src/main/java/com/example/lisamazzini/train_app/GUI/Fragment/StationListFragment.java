@@ -32,7 +32,7 @@ import com.octo.android.robospice.UncachedSpiceService;
 import java.util.LinkedList;
 import java.util.List;
 
-public class StationListFragment extends Fragment {
+public class StationListFragment extends AbstractRobospiceFragment {
 
     private RecyclerView recyclerView;
     private StationListAdapter adapter;
@@ -41,20 +41,21 @@ public class StationListFragment extends Fragment {
 
     private StationListController listController;
     private IFavouriteController favController = FavouriteTrainController.getInstance();
-    private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
+    private FavouriteFragmentsUtils favouriteFragmentsUtils;
+
 
     private String[] trainDetails;
     private String trainNumber;
     private String stationCode;
 
-    TextView info;
-    TextView delay;
-    TextView progress;
-    TextView lastSeenTime;
-    TextView lastSeenStation;
-    TextView textDelay;
-    TextView textProgress;
-    TextView textLastSeen;
+    private TextView info;
+    private TextView delay;
+    private TextView progress;
+    private TextView lastSeenTime;
+    private TextView lastSeenStation;
+    private TextView textDelay;
+    private TextView textProgress;
+    private TextView textLastSeen;
 
     private Menu menu;
 
@@ -74,7 +75,7 @@ public class StationListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        super.spiceManager = new SpiceManager(UncachedSpiceService.class);
         View layoutInflater = inflater.inflate(R.layout.fragment_station_list, container, false);
         this.recyclerView = (RecyclerView)layoutInflater.findViewById(R.id.recycler);
 
@@ -98,7 +99,7 @@ public class StationListFragment extends Fragment {
         this.recyclerView.setAdapter(adapter);
         this.recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-
+        this.favouriteFragmentsUtils = new FavouriteFragmentsUtils(FavouriteTrainController.getInstance());
         this.favController.setContext(getActivity().getApplicationContext());
 
         return layoutInflater;
@@ -110,48 +111,13 @@ public class StationListFragment extends Fragment {
         // Do something that differs the Activity's menu here
         super.onCreateOptionsMenu(menu, inflater);
         this.menu = menu;
-
-    }
-
-    private void setAsFavouriteIcon(boolean b) {
-        menu.getItem(0).setVisible(!b);
-        menu.getItem(1).setVisible(b);
-    }
-
-    private void toggleFavouriteIcon() {
-        if (favController.isFavourite(trainNumber, stationCode)) {
-            setAsFavouriteIcon(true);
-        } else {
-            setAsFavouriteIcon(false);
-        }
+        favouriteFragmentsUtils.setMenu(this.menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.home) {
-            return true;
-        }
-        if (id == R.id.action_prefere) {
-            try {
-                addFavourite();
-                setAsFavouriteIcon(true);
-            } catch (FavouriteException e) {
-                e.printStackTrace();
-            }
-        } else if (id == R.id.action_deprefere) {
-            removeFavourite();
-            setAsFavouriteIcon(false);
-        }
+        menu = favouriteFragmentsUtils.onOptionsItemSelected(item, trainDetails);
         return super.onOptionsItemSelected(item);
-    }
-
-    public void removeFavourite() {
-        favController.removeFavourite(trainDetails[0], trainDetails[1]);
-    }
-
-    public void addFavourite() throws FavouriteException {
-        favController.addFavourite(trainDetails[0], trainDetails[1]);
     }
 
     public void makeRequest(String trainNumber, String stationCode) {
@@ -159,20 +125,11 @@ public class StationListFragment extends Fragment {
         this.stationCode = stationCode;
         this.listController = new StationListController(this.trainNumber);
         if(this.stationCode == null) {
-            makeRequestWithNumber();
+            spiceManager.execute(listController.getNumberRequest(), new StationCodeListener());
         }else{
-            makeRequestWithNumberAndCode();
+            listController.setCode(this.stationCode);
+            spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
         }
-    }
-
-
-    private void makeRequestWithNumber() {
-        spiceManager.execute(listController.getNumberRequest(), new StationCodeListener());
-    }
-
-    private void makeRequestWithNumberAndCode() {
-        listController.setCode(this.stationCode);
-        spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
     }
 
     private class StationCodeListener extends AbstractListener<ListWrapper> {
@@ -187,7 +144,7 @@ public class StationListFragment extends Fragment {
                 trainDetails = listController.computeData(data.get(0));
                 listController.setCode(trainDetails[1]);
                 stationCode = trainDetails[1];
-                toggleFavouriteIcon();
+                favouriteFragmentsUtils.toggleFavouriteIcon(trainNumber, stationCode);
                 spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
                 //There's more than one train with the same number
             }else{
@@ -203,7 +160,7 @@ public class StationListFragment extends Fragment {
                         trainDetails = dataMatrix[which];
                         listController.setCode(dataMatrix[which][1]);
                         spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
-                        toggleFavouriteIcon();
+                        favouriteFragmentsUtils.toggleFavouriteIcon(trainNumber, stationCode);
                         dialog.dismiss();
                     }
                 }).show();
@@ -224,7 +181,6 @@ public class StationListFragment extends Fragment {
 
         @Override
         public void onRequestSuccess(Train trainResponse) {
-            toggleFavouriteIcon();
             ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
 
             trainResponse.setProgress(listController.getProgress(trainResponse));
@@ -232,6 +188,8 @@ public class StationListFragment extends Fragment {
             trainDetails = new String[2];
             trainDetails[0] = trainResponse.getNumeroTreno().toString();
             trainDetails[1] = trainResponse.getIdOrigine();
+            favouriteFragmentsUtils.toggleFavouriteIcon(trainNumber, stationCode);
+
             fermateList.clear();
             fermateList.addAll(trainResponse.getFermate());
             adapter.notifyDataSetChanged();
@@ -245,22 +203,5 @@ public class StationListFragment extends Fragment {
             lastSeenTime.setText(trainResponse.getCompOraUltimoRilevamento());
             lastSeenStation.setText(trainResponse.getStazioneUltimoRilevamento());
         }
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
-
-    @Override
-    public void onStart() {
-        spiceManager.start(getActivity());
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        spiceManager.shouldStop();
-        super.onStop();
     }
 }

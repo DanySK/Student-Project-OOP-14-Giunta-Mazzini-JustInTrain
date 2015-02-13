@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import com.example.lisamazzini.train_app.GUI.Activity.JourneyResultsActivity;
 import com.example.lisamazzini.train_app.GUI.Activity.StationListActivity;
 import com.example.lisamazzini.train_app.GUI.Adapter.DrawerListAdapter;
+import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.R;
 
 import java.text.Format;
@@ -66,7 +67,6 @@ public class NavigationDrawerFragment extends Fragment {
 
 
     private DrawerLayout mDrawerLayout;
-    private LinearLayout mDrawerListView;
     private View mFragmentContainerView;
 
     private int mCurrentSelectedPosition = 0;
@@ -75,7 +75,7 @@ public class NavigationDrawerFragment extends Fragment {
 
 
     private Calendar calendar = Calendar.getInstance();
-    private Format formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:00");
+    private Format formatter = new SimpleDateFormat(Constants.SDF_NO_SECS);
     protected int hour = 0;
     private int minute = 0;
     private int day;
