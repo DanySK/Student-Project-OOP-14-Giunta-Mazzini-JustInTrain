@@ -47,7 +47,7 @@ public class JourneyResultsFragment extends Fragment {
     private RecyclerView recyclerView;
     private LinearLayoutManager manager;
     private JourneyResultsAdapter journeyResultsAdapter;
-    JourneyResultsController controller;
+    private JourneyResultsController controller;
     private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
     private List<PlainSolution> list = new LinkedList<>();
     private String departureStation;
@@ -58,12 +58,6 @@ public class JourneyResultsFragment extends Fragment {
     private IFavouriteController favouriteController = FavouriteJourneyController.getInstance();
     private Menu menu;
     private boolean isCustomTime;
-
-    private int previousTotal = 0;
-    private boolean loading = true;
-    private int visibleThreshold = 5;
-    int firstVisibleItem, visibleItemCount, totalItemCount;
-
 
     public static JourneyResultsFragment newInstance() {
         return new JourneyResultsFragment();
@@ -97,39 +91,6 @@ public class JourneyResultsFragment extends Fragment {
         controller = new JourneyResultsController();
 
         resetScrollListener();
-
-//        recyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(manager) {
-//            @Override
-//            public void onLoadMore(int current_page) {
-//                spiceManager.execute(new JourneyTrainRequest(controller.getPlainSolutions()), new JourneyTrainRequestListener());
-//            }
-//        });
-
-
-//        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//
-//                visibleItemCount = recyclerView.getChildCount();
-//                totalItemCount = manager.getItemCount();
-//                firstVisibleItem = manager.findFirstVisibleItemPosition();
-//
-//                if (loading) {
-//                    if (totalItemCount > previousTotal) {
-//                        loading = false;
-//                        previousTotal = totalItemCount;
-//                    }
-//                }
-//
-//                if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-//                    Log.d("cazzi", "ho raggiunto la fine");
-//                    loading = true;
-//                }
-//            }
-//        });
-
-
 
         return layoutInflater;
     }
@@ -214,42 +175,6 @@ public class JourneyResultsFragment extends Fragment {
             spiceManager.execute(new JourneyDataRequest(this.departureStation), new DepartureDataRequestListenter());
         }
     }
-//
-//    public void makeOuterRequestsWithStations(String departureStation, String arrivalStation, String requestedTime) {
-//        list.clear();
-//        journeyResultsAdapter.notifyDataSetChanged();
-//        resetScrollListener();
-//        makeRequestsWithStations(departureStation, arrivalStation, requestedTime);
-//    }
-//
-//    public void makeOuterRequestsWithIDs(String departureID, String arrivalID, String requestedTime) {
-//        list.clear();
-//        journeyResultsAdapter.notifyDataSetChanged();
-//        if (spiceManager.isStarted()) {
-//            spiceManager.dontNotifyAnyRequestListeners();
-//            spiceManager.shouldStop();
-//            spiceManager.start(getActivity());
-//        }
-//        resetScrollListener();
-//        makeRequestsWithIDs(departureID, arrivalID, requestedTime);
-//    }
-//
-//
-//    private void makeRequestsWithStations(String departureStation, String arrivalStation, String requestedTime) {
-//        this.departureStation = departureStation;
-//        this.arrivalStation = arrivalStation;
-//        this.requestedTime = requestedTime;
-//        this.controller.setTime(this.requestedTime);
-//        spiceManager.execute(new JourneyDataRequest(this.departureStation), new DepartureDataRequestListenter());
-//    }
-//
-//    private void makeRequestsWithIDs(String departureID, String arrivalID, String requestedTime) {
-//        this.departureID = departureID;
-//        this.arrivalID = arrivalID;
-//        this.requestedTime = requestedTime;
-//        this.controller.setTime(this.requestedTime);
-//        spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
-//    }
 
     ///////////////////////////////////////////////////////////////////////////////////////
 

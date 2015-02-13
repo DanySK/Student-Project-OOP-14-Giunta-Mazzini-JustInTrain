@@ -29,6 +29,5 @@ public class TrainRestClient {
 
             RestAdapter restAdapter = builder.build();
             REST_CLIENT = restAdapter.create(TrainAPI.class);
-
     }
 }

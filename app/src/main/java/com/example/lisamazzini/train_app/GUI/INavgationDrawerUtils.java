@@ -21,7 +21,4 @@ public interface INavgationDrawerUtils extends NavigationDrawerFragment.Navigati
     void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth);
 
     void onNavigationDrawerItemSelected(int position);
-
-
-
 }

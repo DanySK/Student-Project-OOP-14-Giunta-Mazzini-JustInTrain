@@ -6,18 +6,15 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
-import com.example.lisamazzini.train_app.GUI.Fragment.DatePickerFragment;
+import com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers.DatePickerFragment;
 import com.example.lisamazzini.train_app.GUI.Fragment.NavigationDrawerFragment;
-import com.example.lisamazzini.train_app.GUI.Fragment.TimePickerFragment;
+import com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers.TimePickerFragment;
 import com.example.lisamazzini.train_app.R;
 
 public class NavigationDrawerUtils implements INavgationDrawerUtils {
 
     private FragmentActivity activity;
     private NavigationDrawerFragment fragment;
-
-    private TimePickerFragment timeFragment;
-    private DatePickerFragment dateFragment;
 
     public NavigationDrawerUtils(FragmentActivity activity) {
         this.activity = activity;
@@ -29,12 +26,12 @@ public class NavigationDrawerUtils implements INavgationDrawerUtils {
     }
 
     public void showTimePickerDialog(View v) {
-        timeFragment = new TimePickerFragment();
+        TimePickerFragment timeFragment = new TimePickerFragment();
         timeFragment.show(activity.getSupportFragmentManager(), "timePicker");
     }
 
     public void showDatePickerDialog(View v) {
-        dateFragment = new DatePickerFragment();
+        DatePickerFragment dateFragment = new DatePickerFragment();
         dateFragment.show(activity.getSupportFragmentManager(), "datePicker");
     }
 

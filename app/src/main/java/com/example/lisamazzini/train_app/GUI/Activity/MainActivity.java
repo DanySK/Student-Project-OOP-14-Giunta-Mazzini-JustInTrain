@@ -1,8 +1,5 @@
 package com.example.lisamazzini.train_app.GUI.Activity;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,14 +11,11 @@ import android.widget.SpinnerAdapter;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TimePicker;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
-import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
-import com.example.lisamazzini.train_app.GUI.Fragment.DatePickerFragment;
 import com.example.lisamazzini.train_app.GUI.Fragment.JourneyResultsFragment;
 import com.example.lisamazzini.train_app.GUI.Fragment.NavigationDrawerFragment;
 import com.example.lisamazzini.train_app.GUI.INavgationDrawerUtils;
@@ -36,16 +30,13 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
-//public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
 public class MainActivity extends AbstractBaseActivity implements INavgationDrawerUtils {
 
-    private NavigationDrawerFragment mNavigationDrawerFragment;
-    private INavgationDrawerUtils utils;
-    private ArrayList<String> journeys;
+    private INavgationDrawerUtils navgationDrawerUtils;
+    private NavigationDrawerFragment navigationDrawerFragment;
 
-    Map<String, String> map;
-    final List<String> stationNames = new LinkedList<>();
-    final List<String> IDs = new LinkedList<>();
+    private final List<String> favouriteStationNames = new LinkedList<>();
+    private final List<String> favouriteStationIDs = new LinkedList<>();
 
     private Menu menu;
     private final List<String> actualJourneyIDs = new ArrayList<>();
@@ -62,26 +53,14 @@ public class MainActivity extends AbstractBaseActivity implements INavgationDraw
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        utils = new NavigationDrawerUtils(MainActivity.this);
-//        mNavigationDrawerFragment = (NavigationDrawerFragment)
-//                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        navgationDrawerUtils = new NavigationDrawerUtils(MainActivity.this);
 
-        mNavigationDrawerFragment = utils.getNavigationDrawerFragment();
+        navigationDrawerFragment = navgationDrawerUtils.getNavigationDrawerFragment();
 
         favouriteJourneyController.setContext(getApplicationContext());
-//        favouriteJourneyController.removeFavourites();
-//        try {
-//            favouriteJourneyController.addFavourite("07104", "05066", "pesaro", "cesena");
-//            favouriteJourneyController.addFavourite("07104", "011145", "pesaro", "lecce");
-//        } catch (FavouriteException e) {
-//            e.printStackTrace();
-//        }
 
-
-        // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
+        navigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
@@ -92,7 +71,7 @@ public class MainActivity extends AbstractBaseActivity implements INavgationDraw
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+        if (!navigationDrawerFragment.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
             this.menu = menu;
             restoreActionBar(menu);
@@ -108,38 +87,29 @@ public class MainActivity extends AbstractBaseActivity implements INavgationDraw
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.action_prefere) {
-//            try {
-//                favouriteJourneyController.addFavourite(actualJourneyIDs.get(0), actualJourneyIDs.get(1), actualJourneyIDs.get(2), actualJourneyIDs.get(3));
-//                item.setVisible(false);
-//                menu.getItem(2).setVisible(true);
-//                restoreActionBar(menu);
-//                Log.d("cazzi", "ho toccato un non preferito");
-//            } catch (FavouriteException e) {
-//                e.printStackTrace();
-//            }
             return true;
         } else if (id == R.id.action_deprefere) {
             favouriteJourneyController.removeFavourite(actualJourneyIDs.get(0).split(Constants.SEPARATOR)[0], actualJourneyIDs.get(0).split(Constants.SEPARATOR)[1]);
-            Log.d("cazzi", "rimuovo " + actualJourneyIDs.get(0).split(Constants.SEPARATOR)[0] + " " + actualJourneyIDs.get(0).split(Constants.SEPARATOR)[1]);
+            // TODO TOGGLE
             item.setVisible(false);
             menu.getItem(1).setVisible(true);
-            Log.d("cazzi", "ho toccato un preferito");
             restoreActionBar(menu);
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void refreshLists() {
-        IDs.clear();
-        stationNames.clear();
-        for (String s : (map = (Map<String, String>) favouriteJourneyController.getFavouritesAsMap()).keySet()) {
-            IDs.add(s);
+        favouriteStationIDs.clear();
+        favouriteStationNames.clear();
+
+        Map<String, String> favouriteJourneysMap;
+        for (String s : (favouriteJourneysMap = (Map<String, String>) favouriteJourneyController.getFavouritesAsMap()).keySet()) {
+            favouriteStationIDs.add(s);
         }
 
-        for (String s : IDs) {
-            stationNames.add(map.get(s).replaceAll(Constants.SEPARATOR, " "));
+        for (String s : favouriteStationIDs) {
+            favouriteStationNames.add(favouriteJourneysMap.get(s).replaceAll(Constants.SEPARATOR, " "));
         }
-
     }
 
     public void restoreActionBar(Menu menu) {
@@ -149,20 +119,17 @@ public class MainActivity extends AbstractBaseActivity implements INavgationDraw
 
         refreshLists();
 
-        spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, stationNames);
-        if (stationNames.size() > 0 ) {
+        spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, favouriteStationNames);
+        if (favouriteStationNames.size() > 0 ) {
             ActionBar action = getSupportActionBar();
             navigationListener = new ActionBar.OnNavigationListener() {
                 @Override
                 public boolean onNavigationItemSelected(int position, long l) {
-                    //                String[] IDs = finalJourneys.get(1).get(position).split(Constants.SEPARATOR);
-                    //                Log.d("cazzi", "faccio richieste con " + IDs[0] + " " + IDs[1]);
                     actualJourneyIDs.clear();
-                    actualJourneyIDs.add(IDs.get(position));
-                    actualJourneyIDs.add(stationNames.get(position));
+                    actualJourneyIDs.add(favouriteStationIDs.get(position));
+                    actualJourneyIDs.add(favouriteStationNames.get(position));
                     Log.d("cazzi", Arrays.toString(actualJourneyIDs.toArray()));
-                    fragment.makeRequest(Constants.WITH_IDS, mNavigationDrawerFragment.getActualTime(), false, IDs.get(position).split(Constants.SEPARATOR)[0], IDs.get(position).split(Constants.SEPARATOR)[1]);
-//                    fragment.makeOuterRequestsWithIDs(IDs.get(position).split(Constants.SEPARATOR)[0], IDs.get(position).split(Constants.SEPARATOR)[1], mNavigationDrawerFragment.getActualTime());
+                    fragment.makeRequest(Constants.WITH_IDS, navigationDrawerFragment.getActualTime(), false, favouriteStationIDs.get(position).split(Constants.SEPARATOR)[0], favouriteStationIDs.get(position).split(Constants.SEPARATOR)[1]);
                     isFavItem.setVisible(true);
                     notFavItem.setVisible(false);
                     return true;
@@ -188,26 +155,26 @@ public class MainActivity extends AbstractBaseActivity implements INavgationDraw
 
     @Override
     public void showTimePickerDialog(View v) {
-        utils.showTimePickerDialog(v);
+        navgationDrawerUtils.showTimePickerDialog(v);
     }
 
     @Override
     public void showDatePickerDialog(View v) {
-        utils.showDatePickerDialog(v);
+        navgationDrawerUtils.showDatePickerDialog(v);
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        utils.onTimeSet(view, hourOfDay, minute);
+        navgationDrawerUtils.onTimeSet(view, hourOfDay, minute);
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        utils.onDateSet(view, year, monthOfYear, dayOfMonth);
+        navgationDrawerUtils.onDateSet(view, year, monthOfYear, dayOfMonth);
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        utils.onNavigationDrawerItemSelected(position);
+        navgationDrawerUtils.onNavigationDrawerItemSelected(position);
     }
 }

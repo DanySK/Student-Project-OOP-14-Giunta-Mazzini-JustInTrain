@@ -41,7 +41,6 @@ public class Train {
 
     private String progress;
 
-
     private Boolean inStazione;
     private Boolean haCambiNumero;
     private Boolean nonPartito;
@@ -78,344 +77,334 @@ public class Train {
         this.progress = progress;
     }
 
-    /**
-     *
-     * @return
-     * The fermateSoppresse
-     */
+
+
+
+
+
     public Object getFermateSoppresse() {
         return fermateSoppresse;
     }
 
-    /**
-     *
-     * @param fermateSoppresse
-     * The fermateSoppresse
-     */
     public void setFermateSoppresse(Object fermateSoppresse) {
         this.fermateSoppresse = fermateSoppresse;
     }
 
 
-    /**
-     *
-     * @return
-     * The fermate
-     */
+
+
+
+
+
     public List<Fermate> getFermate() {
         return fermate;
     }
 
-    /**
-     *
-     * @param fermate
-     * The fermate
-     */
+
+
+
+
+
     public void setFermate(List<Fermate> fermate) {
         this.fermate = fermate;
     }
 
-    /**
-     *
-     * @return
-     * The anormalita
-     */
+
+
+
+
+
     public Object getAnormalita() {
         return anormalita;
     }
 
-    /**
-     *
-     * @param anormalita
-     * The anormalita
-     */
+
+
+
+
+
     public void setAnormalita(Object anormalita) {
         this.anormalita = anormalita;
     }
 
-    /**
-     *
-     * @return
-     * The provvedimenti
-     */
     public Object getProvvedimenti() {
         return provvedimenti;
     }
 
-    /**
-     *
-     * @param provvedimenti
-     * The provvedimenti
-     */
+
+
+
+
+
     public void setProvvedimenti(Object provvedimenti) {
         this.provvedimenti = provvedimenti;
     }
 
-    /**
-     *
-     * @return
-     * The segnalazioni
-     */
+
+
+
+
+
     public Object getSegnalazioni() {
         return segnalazioni;
     }
 
-    /**
-     *
-     * @param segnalazioni
-     * The segnalazioni
-     */
+
+
+
+
+
     public void setSegnalazioni(Object segnalazioni) {
         this.segnalazioni = segnalazioni;
     }
 
 
-    /**
-     *
-     * @return
-     * The stazioneUltimoRilevamento
-     */
+
+
+
+
+
     public String getStazioneUltimoRilevamento() {
         return stazioneUltimoRilevamento;
     }
 
-    /**
-     *
-     * @param stazioneUltimoRilevamento
-     * The stazioneUltimoRilevamento
-     */
+
+
+
+
+
     public void setStazioneUltimoRilevamento(String stazioneUltimoRilevamento) {
         this.stazioneUltimoRilevamento = stazioneUltimoRilevamento;
     }
 
-    /**
-     *
-     * @return
-     * The idDestinazione
-     */
+
+
+
+
+
     public String getIdDestinazione() {
         return idDestinazione;
     }
 
-    /**
-     *
-     * @param idDestinazione
-     * The idDestinazione
-     */
+
+
+
+
+
     public void setIdDestinazione(String idDestinazione) {
         this.idDestinazione = idDestinazione;
     }
 
-    /**
-     *
-     * @return
-     * The idOrigine
-     */
+
+
+
+
+
     public String getIdOrigine() {
         return idOrigine;
     }
 
-    /**
-     *
-     * @param idOrigine
-     * The idOrigine
-     */
+
+
+
+
+
     public void setIdOrigine(String idOrigine) {
         this.idOrigine = idOrigine;
     }
 
-    /**
-     *
-     * @return
-     * The cambiNumero
-     */
+
+
+
+
+
     public List<Object> getCambiNumero() {
         return cambiNumero;
     }
 
-    /**
-     *
-     * @param cambiNumero
-     * The cambiNumero
-     */
+
+
+
+
+
     public void setCambiNumero(List<Object> cambiNumero) {
         this.cambiNumero = cambiNumero;
     }
 
-    /**
-     *
-     * @return
-     * The hasProvvedimenti
-     */
+
+
+
+
+
     public Boolean getHasProvvedimenti() {
         return hasProvvedimenti;
     }
 
-    /**
-     *
-     * @param hasProvvedimenti
-     * The hasProvvedimenti
-     */
+
+
+
+
+
     public void setHasProvvedimenti(Boolean hasProvvedimenti) {
         this.hasProvvedimenti = hasProvvedimenti;
     }
 
-    /**
-     *
-     * @return
-     * The descOrientamento
-     */
+
+
+
+
+
     public List<String> getDescOrientamento() {
         return descOrientamento;
     }
 
-    /**
-     *
-     * @param descOrientamento
-     * The descOrientamento
-     */
+
+
+
+
+
     public void setDescOrientamento(List<String> descOrientamento) {
         this.descOrientamento = descOrientamento;
     }
 
-    /**
-     *
-     * @return
-     * The compOraUltimoRilevamento
-     */
+
+
+
+
+
     public String getCompOraUltimoRilevamento() {
         return compOraUltimoRilevamento;
     }
 
-    /**
-     *
-     * @param compOraUltimoRilevamento
-     * The compOraUltimoRilevamento
-     */
+
+
+
+
+
     public void setCompOraUltimoRilevamento(String compOraUltimoRilevamento) {
         this.compOraUltimoRilevamento = compOraUltimoRilevamento;
     }
 
-    /**
-     *
-     * @return
-     * The motivoRitardoPrevalente
-     */
+
+
+
+
+
     public Object getMotivoRitardoPrevalente() {
         return motivoRitardoPrevalente;
     }
 
-    /**
-     *
-     * @param motivoRitardoPrevalente
-     * The motivoRitardoPrevalente
-     */
+
+
+
+
+
     public void setMotivoRitardoPrevalente(Object motivoRitardoPrevalente) {
         this.motivoRitardoPrevalente = motivoRitardoPrevalente;
     }
 
 
 
-    /**
-     *
-     * @return
-     * The numeroTreno
-     */
+
+
+
+
+
     public Long getNumeroTreno() {
         return numeroTreno;
     }
 
-    /**
-     *
-     * @param numeroTreno
-     * The numeroTreno
-     */
+
+
+
+
+
     public void setNumeroTreno(Long numeroTreno) {
         this.numeroTreno = numeroTreno;
     }
 
-    /**
-     *
-     * @return
-     * The categoria
-     */
+
+
+
+
+
     public String getCategoria() {
         return categoria;
     }
 
-    /**
-     *
-     * @param categoria
-     * The categoria
-     */
+
+
+
+
+
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
 
 
 
-    /**
-     *
-     * @return
-     * The origine
-     */
+
+
+
+
+
     public String getOrigine() {
         return origine;
     }
 
-    /**
-     *
-     * @param origine
-     * The origine
-     */
+
+
+
+
+
     public void setOrigine(String origine) {
         this.origine = origine;
     }
 
 
 
-    /**
-     *
-     * @return
-     * The destinazione
-     */
+
+
+
+
+
     public String getDestinazione() {
         return destinazione;
     }
 
-    /**
-     *
-     * @param destinazione
-     * The destinazione
-     */
+
+
+
+
+
     public void setDestinazione(String destinazione) {
         this.destinazione = destinazione;
     }
 
-    /**
-     *
-     * @return
-     * The codDestinazione
-     */
+
+
+
+
+
     public Object getCodDestinazione() {
         return codDestinazione;
     }
 
-    /**
-     *
-     * @param codDestinazione
-     * The codDestinazione
-     */
+
+
+
+
+
     public void setCodDestinazione(Object codDestinazione) {
         this.codDestinazione = codDestinazione;
     }
 
 
-    /**
-     *
-     * @return
-     * The origineZero
-     */
+
+
+
+
+
     public String getOrigineZero() {
         return origineZero;
     }

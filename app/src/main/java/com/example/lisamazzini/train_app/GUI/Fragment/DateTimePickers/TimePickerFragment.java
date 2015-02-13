@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI.Fragment;
+package com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
 
+import com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers.IPicker;
+
 import java.util.Calendar;
 
-public class TimePickerFragment extends DialogFragment implements IPicker{
+public class TimePickerFragment extends DialogFragment implements IPicker {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
