@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.lisamazzini.train_app.Controller.AchievementController;
 import com.example.lisamazzini.train_app.Exceptions.AchievementException;
 import com.example.lisamazzini.train_app.GUI.Activity.StationListActivity;
+import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Notification.NotificationService;
 import com.example.lisamazzini.train_app.R;
@@ -94,9 +95,9 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
             public void onClick(View v) {
                 final Intent intent = new Intent(v.getContext(), NotificationService.class);
                 final Context ctx = v.getContext();
-                intent.putExtra("number", journeyTrain.getNumeroTreno());
-                intent.putExtra("idOrigine", journeyTrain.getIDorigine());
-                intent.putExtra("oraPartenza", journeyTrain.getOrarioPartenza());
+                intent.putExtra(Constants.TRAIN_N_EXTRA, journeyTrain.getNumeroTreno());
+                intent.putExtra(Constants.ID_ORIGIN_EXTRA, journeyTrain.getIDorigine());
+                intent.putExtra(Constants.DEPARTURE_TIME_EXTRA, journeyTrain.getOrarioPartenza());
                 ctx.startService(intent);
                 achievementController = new AchievementController(ctx);
                 try {
@@ -147,8 +148,8 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         @Override
         public void onClick(View v) {
             Intent i = new Intent(v.getContext(), StationListActivity.class);
-            i.putExtra("trainNumber", this.number.getText().toString());
-            i.putExtra("stationCode", this.stationCode);
+            i.putExtra(Constants.TRAIN_N_EXTRA, this.number.getText().toString());
+            i.putExtra(Constants.ID_ORIGIN_EXTRA, this.stationCode);
             v.getContext().startActivity(i);
         }
     }

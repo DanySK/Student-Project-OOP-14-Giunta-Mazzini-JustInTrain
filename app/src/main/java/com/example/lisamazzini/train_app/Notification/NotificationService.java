@@ -1,6 +1,7 @@
 package com.example.lisamazzini.train_app.Notification;
 
 import android.app.AlarmManager;
+import android.app.IntentService;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -13,6 +14,7 @@ import android.util.Log;
 import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.TrainRequest;
 import com.example.lisamazzini.train_app.GUI.Activity.StationListActivity;
+import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Treno.Train;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Utilities;
@@ -22,6 +24,8 @@ import com.octo.android.robospice.UncachedSpiceService;
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.joda.time.MutableDateTime;
+
+import java.lang.reflect.Constructor;
 import java.util.Calendar;
 
 /**
@@ -35,9 +39,12 @@ import java.util.Calendar;
  */
 public class NotificationService extends Service {
 
+    private final static Integer QUARTER = 15;
+    private final static Long NOT_VISITED = 0L;
     private final SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
     private PendingIntent pIntentRefresh;
     private PendingIntent pIntentClose;
+    private PendingIntent pIntentStart;
     private String numeroTreno;
     private String orarioPartenza;
     private String IDorigine;
@@ -53,47 +60,34 @@ public class NotificationService extends Service {
     public int onStartCommand (Intent intent, int flags, int startId){
         super.onStartCommand(intent, flags, startId);
 
-        this.numeroTreno = intent.getStringExtra("number");
-        this.IDorigine = intent.getStringExtra("idOrigine");
-        this.orarioPartenza = intent.getStringExtra("oraPartenza");
+        this.numeroTreno = intent.getStringExtra(Constants.TRAIN_N_EXTRA);
+        this.IDorigine = intent.getStringExtra(Constants.ID_ORIGIN_EXTRA);
+        this.orarioPartenza = intent.getStringExtra(Constants.DEPARTURE_TIME_EXTRA);
 
-        //Here I set the data for the refresh intent (so the data will be the same)
-        Intent intentRefresh = new Intent(this, ButtonListener.class);
-        intentRefresh.setAction("Aggiorna");
-
-        //Here I set the close intent, just adding the action.
-        Intent intentClose = new Intent(this, ButtonListener.class);
-        intentClose.setAction("Elimina");
-
-        intentRefresh.putExtra("number", this.numeroTreno);
-        intentRefresh.putExtra("idOrigine", this.IDorigine);
-        intentRefresh.putExtra("oraPartenza", this.orarioPartenza);
-
-        Intent intentStart = new Intent(NotificationService.this, NotificationService.class);
-        intentStart.putExtra("number", this.numeroTreno);
-        intentStart.putExtra("idOrigine", this.IDorigine);
-        intentStart.putExtra("oraPartenza", this.orarioPartenza);
-        PendingIntent pStart = PendingIntent.getService(this, 0, intentStart, PendingIntent.FLAG_UPDATE_CURRENT);
-        pIntentClose = PendingIntent.getBroadcast(this, 1, intentClose, PendingIntent.FLAG_UPDATE_CURRENT);
-        pIntentRefresh = PendingIntent.getBroadcast(this, 1, intentRefresh, PendingIntent.FLAG_UPDATE_CURRENT);
+        setIntents();
 
         DateTime now = new DateTime(Calendar.getInstance().getTime());
         MutableDateTime departureTime = Utilities.getDate(this.orarioPartenza);
-
         Integer timeDifference = Minutes.minutesBetween(now, departureTime).getMinutes();
 
-        if(timeDifference > 15){
+        if(timeDifference > QUARTER){
             // è presto
-            departureTime.addMinutes(-15);
+            departureTime.addMinutes(-QUARTER);
             Long millis = departureTime.getMillis();
             AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-            am.set(AlarmManager.RTC_WAKEUP, millis, pStart);
+            am.set(AlarmManager.RTC_WAKEUP, millis, pIntentStart);
         }else {
             // è ora
             spiceManager.execute(new TrainRequest(this.numeroTreno, this.IDorigine), new ResultListener());
         }
-        spiceManager.start(this);
-        // If the OS stops the service after running out of memory, the service will be started again with da same intent
+
+        //lo SpiceManager viene avviato solo se non è già avviato
+        if(!spiceManager.isStarted()) {
+            spiceManager.start(this);
+        }
+
+        // Se il sistema operativo decide di interrompere il service per liberare memoria, restituendo questa costante
+        // il service verrà riavviato con lo stesso intent
         return START_REDELIVER_INTENT;
     }
 
@@ -101,6 +95,30 @@ public class NotificationService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+    private void setIntents(){
+        //Here I set the data for the refresh intent (so the data will be the same)
+        Intent intentRefresh = new Intent(this, ButtonListener.class);
+        intentRefresh.setAction(Constants.ACTION_REFRESH);
+
+        //Here I set the close intent, just adding the action.
+        Intent intentClose = new Intent(this, ButtonListener.class);
+        intentClose.setAction(Constants.ACTION_DELETE);
+
+        intentRefresh.putExtra(Constants.TRAIN_N_EXTRA, this.numeroTreno);
+        intentRefresh.putExtra(Constants.ID_ORIGIN_EXTRA, this.IDorigine);
+        intentRefresh.putExtra(Constants.DEPARTURE_TIME_EXTRA, this.orarioPartenza);
+
+        Intent intentStart = new Intent(NotificationService.this, NotificationService.class);
+        intentStart.putExtra(Constants.TRAIN_N_EXTRA, this.numeroTreno);
+        intentStart.putExtra(Constants.ID_ORIGIN_EXTRA, this.IDorigine);
+        intentStart.putExtra(Constants.DEPARTURE_TIME_EXTRA, this.orarioPartenza);
+        pIntentStart = PendingIntent.getService(this, 0, intentStart, PendingIntent.FLAG_UPDATE_CURRENT);
+        pIntentClose = PendingIntent.getBroadcast(this, 1, intentClose, PendingIntent.FLAG_UPDATE_CURRENT);
+        pIntentRefresh = PendingIntent.getBroadcast(this, 1, intentRefresh, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+
 
     /**
      * Inner class adibita alla ricezione dei dati dopo la connessione a internet
@@ -119,14 +137,14 @@ public class NotificationService extends Service {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
             Notification not;
             Intent intentHome = new Intent(NotificationService.this, StationListActivity.class);
-            intentHome.putExtra("trainNumber", numeroTreno);
-            intentHome.putExtra("stationCode", IDorigine);
+            intentHome.putExtra(Constants.TRAIN_N_EXTRA, numeroTreno);
+            intentHome.putExtra(Constants.ID_ORIGIN_EXTRA, IDorigine);
             PendingIntent home = PendingIntent.getActivity(NotificationService.this, 1, intentHome, PendingIntent.FLAG_UPDATE_CURRENT);
 
             builder.setSmallIcon(R.drawable.ic_launcher)
                     .setOngoing(true)
-                    .addAction(R.drawable.ic_refresh, "Aggiorna", pIntentRefresh)
-                    .addAction(R.drawable.ic_delete, "Elimina", pIntentClose)
+                    .addAction(R.drawable.ic_refresh, Constants.ACTION_REFRESH, pIntentRefresh)
+                    .addAction(R.drawable.ic_delete, Constants.ACTION_DELETE, pIntentClose)
                     .setTicker("Treno in arrivo!")
                     .setContentIntent(home);
 
@@ -170,7 +188,7 @@ public class NotificationService extends Service {
          * @return true se è non partito, false se è partito
          */
         private boolean notDeparted(Train train){
-            return train.getFermate().get(0).getActualFermataType() == 0;
+            return train.getFermate().get(0).getActualFermataType() == NOT_VISITED;
         }
 
         /**
@@ -179,7 +197,7 @@ public class NotificationService extends Service {
          * @return true sè è arrivato, false se non è arrivato
          */
         private boolean isArrived(Train train){
-            return train.getFermate().get(train.getFermate().size()-1).getActualFermataType() != 0 ;
+            return train.getFermate().get(train.getFermate().size()-1).getActualFermataType() != NOT_VISITED ;
         }
 
     }

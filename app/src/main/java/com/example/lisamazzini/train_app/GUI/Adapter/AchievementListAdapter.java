@@ -31,7 +31,6 @@ public class AchievementListAdapter  extends RecyclerView.Adapter<AchievementLis
 
     @Override
     public void onBindViewHolder(AchievementViewHolder holder, int position) {
-        Log.d("ohi " + achievements.get(position), "sbloccato");
         holder.text.setText(achievements.get(position));
     }
 

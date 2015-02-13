@@ -27,7 +27,16 @@ public class Constants {
     public final static String DELAY_ACH = "Hai accumulato 10 minuti di ritardo!";
     public final static String PIN_ACH = "Hai pinnato 5 treni!!";
 
+    public final static String TRAIN_N_EXTRA = "trainNumber";
+    public final static String ID_ORIGIN_EXTRA = "idOrigine";
+    public final static String DEPARTURE_TIME_EXTRA = "oraPartenza";
 
+    public final static String DEPARTURE_STAT_EXTRA = "departureStation";
+    public final static String ARRIVAL_STAT_EXTRA = "arrivalStation";
+    public final static String REQUESTED_TIME_EXTRA = "requestedTime";
+    public final static String IS_CUSTOM_TIME_EXTRA = "isCustomTime";
+    public final static String ACTION_REFRESH ="Aggiorna";
+    public final static String ACTION_DELETE = "Elimina";
 
 
 }

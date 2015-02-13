@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.lisamazzini.train_app.GUI.Fragment.StationListFragment;
+import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.R;
 
 public class StationListActivity extends AbstractBaseActivity {
@@ -24,8 +25,8 @@ public class StationListActivity extends AbstractBaseActivity {
         overridePendingTransition(R.transition.pull_in_right, R.transition.pull_out_left);
 
         Intent i = getIntent();
-        this.trainNumber = i.getStringExtra("trainNumber");
-        this.stationCode = i.getStringExtra("stationCode");
+        this.trainNumber = i.getStringExtra(Constants.TRAIN_N_EXTRA);
+        this.stationCode = i.getStringExtra(Constants.ID_ORIGIN_EXTRA);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {

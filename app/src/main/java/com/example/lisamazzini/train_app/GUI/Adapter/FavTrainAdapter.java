@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.GUI.Activity.StationListActivity;
+import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Treno.Train;
 import com.example.lisamazzini.train_app.R;
 
@@ -91,8 +92,8 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
         @Override
         public void onClick(View v) {
             Intent i = new Intent(v.getContext(), StationListActivity.class);
-            i.putExtra("stationCode", this.stationCode);
-            i.putExtra("trainNumber", this.trainNumber.getText().toString());
+            i.putExtra(Constants.ID_ORIGIN_EXTRA, this.stationCode);
+            i.putExtra(Constants.TRAIN_N_EXTRA, this.trainNumber.getText().toString());
             v.getContext().startActivity(i);
         }
     }

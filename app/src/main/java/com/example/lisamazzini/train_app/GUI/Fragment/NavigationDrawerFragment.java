@@ -137,7 +137,7 @@ public class NavigationDrawerFragment extends Fragment {
             public void onClick(View v) {
                 if (trainNumber.length() > 0) {
                     Intent i = new Intent(getActivity(), StationListActivity.class);
-                    i.putExtra("trainNumber", trainNumber.getText().toString());
+                    i.putExtra(Constants.TRAIN_N_EXTRA, trainNumber.getText().toString());
                     startActivity(i);
                 }
             }
@@ -148,10 +148,10 @@ public class NavigationDrawerFragment extends Fragment {
             public void onClick(View v) {
                 if (departure.length() > 0 && arrival.length() > 0) {
                     Intent i = new Intent(getActivity(), JourneyResultsActivity.class);
-                    i.putExtra("departureStation", departure.getText().toString());
-                    i.putExtra("arrivalStation", arrival.getText().toString());
-                    i.putExtra("requestedTime", buildDateTime());
-                    i.putExtra("isCustomTime", isCustomTime);
+                    i.putExtra(Constants.DEPARTURE_STAT_EXTRA, departure.getText().toString());
+                    i.putExtra(Constants.ARRIVAL_STAT_EXTRA, arrival.getText().toString());
+                    i.putExtra(Constants.REQUESTED_TIME_EXTRA, buildDateTime());
+                    i.putExtra(Constants.IS_CUSTOM_TIME_EXTRA, isCustomTime);
                     startActivity(i);
                 }
             }
@@ -181,7 +181,6 @@ public class NavigationDrawerFragment extends Fragment {
         this.hour = hour;
         this.minute = minute;
         this.isCustomTime = isCustomTime;
-        Log.d("cazzi", "" + hour + minute);
     }
 
     public void setDate(int year, int month, int day, boolean isCustomTime) {
@@ -189,7 +188,6 @@ public class NavigationDrawerFragment extends Fragment {
         this.day = day;
         this.month = month;
         this.isCustomTime = isCustomTime;
-        Log.d("cazzi", "" + year + month + day);
     }
 
     public String buildDateTime() {

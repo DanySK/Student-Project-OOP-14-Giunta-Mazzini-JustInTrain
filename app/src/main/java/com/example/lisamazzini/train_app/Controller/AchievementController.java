@@ -45,12 +45,10 @@ public class AchievementController {
     public void updateAchievements(PlainSolution train) throws AchievementException {
         try {
             for (IAchievement a : achievements.values()) {
-                Log.d("i looooooog", "aggiorno i dati");
                 a.addData(train);
             }
         }catch (AchievementException e){
             if(data.contains(e.getMessage())){
-                Log.d("i looooooog", " non aggiorno i dati");
                 //do nothing
                 return;
             }else{
@@ -63,12 +61,10 @@ public class AchievementController {
 
     private void remove(AchievementException e){
         if(e instanceof DelayAchievementException){
-            Log.d("i looooooog", "ho raggiunto i minuti sono nelremove");
             achievements.remove("Delay");
             return;
         }
         if(e instanceof PinAchievementException){
-            Log.d("i looooooog", "ho raggiunto i pin sono nelremove");
             achievements.remove("Pin");
             return;
         }

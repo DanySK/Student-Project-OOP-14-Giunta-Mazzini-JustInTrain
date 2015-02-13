@@ -29,10 +29,10 @@ public class JourneyResultsActivity extends AbstractBaseActivity {
         setContentView(R.layout.activity_journey_search);
 
         Intent i = getIntent();
-        this.departureStation = i.getStringExtra("departureStation");
-        this.arrivalStation = i.getStringExtra("arrivalStation");
-        this.requestedTime = i.getStringExtra("requestedTime");
-        this.isCustomTime = i.getBooleanExtra("isCustomTime", false);
+        this.departureStation = i.getStringExtra(Constants.DEPARTURE_STAT_EXTRA);
+        this.arrivalStation = i.getStringExtra(Constants.ARRIVAL_STAT_EXTRA);
+        this.requestedTime = i.getStringExtra(Constants.REQUESTED_TIME_EXTRA);
+        this.isCustomTime = i.getBooleanExtra(Constants.IS_CUSTOM_TIME_EXTRA, false);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
