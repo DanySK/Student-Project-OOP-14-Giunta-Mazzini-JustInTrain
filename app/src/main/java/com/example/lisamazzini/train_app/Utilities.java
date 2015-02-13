@@ -150,4 +150,15 @@ public class Utilities {
         in.close();
         return new ListWrapper(result);
     }
+
+    /**
+     * Metodo che stabilisce se una lista ha un solo elemento.
+     *
+     * @param list lista da controllare
+     * @return true se ha un solo elemento, false altrimenti
+     */
+    public static boolean isOneResult(List<String> list) {
+        return list.size() == 1;
+    }
+
 }

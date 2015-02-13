@@ -38,9 +38,7 @@ public class Train {
     private Long orarioArrivoZero;
     private Boolean circolante;
     private String subTitle;
-
     private String progress;
-
     private Boolean inStazione;
     private Boolean haCambiNumero;
     private Boolean nonPartito;

@@ -28,6 +28,7 @@ import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolutionWrapper;
 import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
 import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
 import com.example.lisamazzini.train_app.R;
+import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 
@@ -154,7 +155,7 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
         public void onRequestSuccess(ListWrapper lista) {
             List<String> data = lista.getList();
 
-            if (controller.isOneResult(data)) {
+            if (Utilities.isOneResult(data)) {
                 departureID = controller.splitData(lista.getList().get(0))[1];
                 spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
             } else {
@@ -185,7 +186,7 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
 
             List<String> data = lista.getList();
 
-            if (controller.isOneResult(data)) {
+            if (Utilities.isOneResult(data)) {
                 departureID = controller.splitData(lista.getList().get(0))[1];
                 spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
             } else {

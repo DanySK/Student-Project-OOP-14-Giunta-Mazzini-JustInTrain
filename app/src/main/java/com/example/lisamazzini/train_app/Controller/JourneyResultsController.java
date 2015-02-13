@@ -91,12 +91,6 @@ public class JourneyResultsController {
         }
     }
 
-
-
-    public boolean isOneResult(List<String> list) {
-        return list.size() == 1;
-    }
-
     public String[][] getTableForMultipleResults(List<String> list) {
         final String[][] dataMatrix = new String[2][list.size()];
         for (int i = 0 ; i < list.size(); i++) {

@@ -19,7 +19,12 @@ import java.io.ObjectOutputStream;
 import java.util.*;
 
 /**
- * Created by lisamazzini on 04/02/15.
+ * Classe che gestisce l'aggiornamento e lo sblocco di achievement; si appoggia su delle SharedPreferences su cui
+ * salva gli achievement che vengono sbloccati. Nel momento in cui un achievement viene sbloccato si controlla che non
+ * sia già stato sbloccato in passato; se è così, non accade nulla, altrimenti viene lanciata un'eccezione che farà
+ * apparire un Toast nell'applicazione e segnerà l'achievement fra quelli sbloccati
+ *
+ * @author Lisa Mazzini
  */
 public class AchievementController {
 
@@ -37,11 +42,12 @@ public class AchievementController {
         editor = data.edit();
     }
 
-
-//    public void addAchievement(IAchievement achievement){
-//        achievements.put(achievement);
-//    }
-
+    /**
+     * Metodo che ad ogni azione di "pin" aggiorna tutti gli achievement e, allo sblocco di uno di essi,
+     * controlla se è già presente fra quelli sbloccati.
+     * @param train treno da cui estrarre i dati
+     * @throws AchievementException se un nuovo achievement viene sbloccato
+     */
     public void updateAchievements(PlainSolution train) throws AchievementException {
         try {
             for (IAchievement a : achievements.values()) {
@@ -58,17 +64,5 @@ public class AchievementController {
             }
         }
     }
-
-    private void remove(AchievementException e){
-        if(e instanceof DelayAchievementException){
-            achievements.remove("Delay");
-            return;
-        }
-        if(e instanceof PinAchievementException){
-            achievements.remove("Pin");
-            return;
-        }
-    }
-
 
 }

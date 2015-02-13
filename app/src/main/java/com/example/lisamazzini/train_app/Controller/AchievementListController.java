@@ -10,27 +10,32 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by lisamazzini on 10/02/15.
+ * Classe che funge da Controller per l'AchievementListFragment; gli achievement vengono collezionati
+ * come semplice lista di stringhe, che viene aggiornata in base agli achievement sbloccati segnati all'interno
+ * delle SharedPreferences
+ *
+ * @author Lisa Mazzini
  */
 public class AchievementListController  {
     private SharedPreferences data;
     List<String> achievements = new LinkedList<>();
 
-
     public AchievementListController(Context context){
         data = context.getSharedPreferences("ACHIEVEMENT_STORE", Context.MODE_APPEND);
     }
 
+    /**
+     * Metodo che aggiorna la lista, scorrendo le informazioni salvate nelle SharedPreferences
+     * @return la lista aggiornata
+     */
     public List<String> computeAchievement(){
         for(String s : data.getAll().keySet()) {
             switch (s) {
                 case Constants.DELAY_ACH:
-                    Log.d("Ritardo", "sbloccato");
                     achievements.add("Ritardatario! (10 minuti)");
                     break;
                 case Constants.PIN_ACH:
-                    Log.d("Pin", "sbloccato");
-                    achievements.add("Pinnatore seriale");
+                    achievements.add("Pinnatore seriale!");
                     break;
                 default:
                     break;

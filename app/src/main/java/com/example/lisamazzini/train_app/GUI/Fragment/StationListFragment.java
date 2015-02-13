@@ -26,6 +26,7 @@ import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
 import com.example.lisamazzini.train_app.Model.Treno.Train;
 import com.example.lisamazzini.train_app.Model.Treno.Fermate;
 import com.example.lisamazzini.train_app.R;
+import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 
@@ -108,7 +109,6 @@ public class StationListFragment extends AbstractRobospiceFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // Do something that differs the Activity's menu here
         super.onCreateOptionsMenu(menu, inflater);
         this.menu = menu;
         favouriteFragmentsUtils.setMenu(this.menu);
@@ -133,27 +133,18 @@ public class StationListFragment extends AbstractRobospiceFragment {
     }
 
     private class StationCodeListener extends AbstractListener<ListWrapper> {
-        //If there's internet connection I get the train details in this form  '608 - LECCE|608-S11145'
         @Override
         public void onRequestSuccess(final ListWrapper result) {
-            //The user put a not valid train number, the result is empty
-            //Only one train
             List<String> data = result.getList();
-            if(data.size() == 1){
-                // I take the second part of the string, and divide it in 2; example 608 - S11145 -> [608,S11145]
+            if(Utilities.isOneResult(data)){
                 trainDetails = listController.computeData(data.get(0));
                 listController.setCode(trainDetails[1]);
                 stationCode = trainDetails[1];
                 favouriteFragmentsUtils.toggleFavouriteIcon(trainNumber, stationCode);
                 spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
-                //There's more than one train with the same number
             }else{
-                final String[][] dataMatrix = new String[data.size()][3];
-                String[] choices = new String[data.size()];
-                for (int i = 0 ; i < data.size(); i++){
-                    dataMatrix[i] = listController.computeData(data.get(i));
-                    choices[i] = listController.computeChoices(dataMatrix[i]);
-                }
+                final String[][] dataMatrix = listController.computeMatrix(data);
+                String[] choices = listController.computeChoices(dataMatrix);
                 dialogBuilder.setSingleChoiceItems(choices, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
