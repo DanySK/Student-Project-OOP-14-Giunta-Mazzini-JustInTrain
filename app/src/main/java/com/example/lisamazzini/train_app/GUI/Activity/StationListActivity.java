@@ -14,10 +14,6 @@ import com.example.lisamazzini.train_app.R;
 
 public class StationListActivity extends AbstractBaseActivity {
 
-    private StationListFragment fragment;
-    private String trainNumber;
-    private String stationCode;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +21,8 @@ public class StationListActivity extends AbstractBaseActivity {
         overridePendingTransition(R.transition.pull_in_right, R.transition.pull_out_left);
 
         Intent i = getIntent();
-        this.trainNumber = i.getStringExtra(Constants.TRAIN_N_EXTRA);
-        this.stationCode = i.getStringExtra(Constants.ID_ORIGIN_EXTRA);
+        String trainNumber = i.getStringExtra(Constants.TRAIN_N_EXTRA);
+        String stationCode = i.getStringExtra(Constants.ID_ORIGIN_EXTRA);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -37,7 +33,7 @@ public class StationListActivity extends AbstractBaseActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, StationListFragment.newInstance());
-        fragment = (StationListFragment) fragmentManager.findFragmentById(R.id.stationListFragment);
+        StationListFragment fragment = (StationListFragment) fragmentManager.findFragmentById(R.id.stationListFragment);
         fragment.makeRequest(trainNumber, stationCode);
     }
 
@@ -63,7 +59,6 @@ public class StationListActivity extends AbstractBaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
 
 

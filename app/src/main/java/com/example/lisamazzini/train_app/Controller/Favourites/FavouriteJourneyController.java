@@ -18,7 +18,6 @@ public class FavouriteJourneyController extends AbstractFavouriteController{
 
     private FavouriteJourneyController() {}
 
-    // TODO però così non è obbligatorio, quindi come fare?
     public static IFavouriteController getInstance() {
         return ADDER;
     }

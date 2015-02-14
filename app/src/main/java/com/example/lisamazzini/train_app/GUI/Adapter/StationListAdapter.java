@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter.RecyclerViewHolder> implements IAdapter<StationListAdapter.RecyclerViewHolder>{
 
-    List<Fermate> list;
+    private final List<Fermate> list;
 
     public StationListAdapter(List<Fermate> list){
         this.list = list;
@@ -59,20 +59,14 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
         return list.size();
     }
 
-    public void updateList(List<Fermate> data) {
-        list = data;
-        notifyDataSetChanged();
-    }
-
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
-
         protected TextView stationName;
-        TextView extraMessage;
-        TextView actualTime;
-        TextView plannedTime;
-        TextView timeDifference;
-        TextView actualPlatform;
-        TextView plannedPlatform;
+        protected TextView extraMessage;
+        protected TextView actualTime;
+        protected TextView plannedTime;
+        protected TextView timeDifference;
+        protected TextView actualPlatform;
+        protected TextView plannedPlatform;
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
@@ -86,22 +80,3 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
         }
     }
 }
-
-/*
-
-public class CustomRecyclerAdapter
-        extends RecyclerView.Adapter<RecyclerViewHolder> {
-
-    private List<Data> mData = Collections.emptyList();
-
-    public CustomRecyclerAdapter() {
-        // Pass context or other static stuff that will be needed.
-    }
-
-    public void updateList(List<Data> data) {
-        mData = data;
-        notifyDataSetChanged();
-    }
-
-    ...
-}*/

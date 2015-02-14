@@ -32,18 +32,16 @@ import java.util.Map;
 
 public class MainActivity extends AbstractBaseActivity implements INavgationDrawerUtils {
 
-    private INavgationDrawerUtils navgationDrawerUtils;
     private NavigationDrawerFragment navigationDrawerFragment;
+    private INavgationDrawerUtils navgationDrawerUtils;
+    private JourneyResultsFragment fragment;
+    private IFavouriteController favouriteJourneyController = FavouriteJourneyController.getInstance();
 
     private final List<String> favouriteStationNames = new LinkedList<>();
     private final List<String> favouriteStationIDs = new LinkedList<>();
+    private final List<String> actualJourneyIDs = new ArrayList<>();
 
     private Menu menu;
-    private final List<String> actualJourneyIDs = new ArrayList<>();
-    private SpinnerAdapter spinnerAdapter;
-    private JourneyResultsFragment fragment;
-    private IFavouriteController favouriteJourneyController = FavouriteJourneyController.getInstance();
-    private ActionBar.OnNavigationListener navigationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +53,7 @@ public class MainActivity extends AbstractBaseActivity implements INavgationDraw
             setSupportActionBar(toolbar);
         }
         navgationDrawerUtils = new NavigationDrawerUtils(MainActivity.this);
-
         navigationDrawerFragment = navgationDrawerUtils.getNavigationDrawerFragment();
-
         favouriteJourneyController.setContext(getApplicationContext());
 
         navigationDrawerFragment.setUp(
@@ -74,6 +70,7 @@ public class MainActivity extends AbstractBaseActivity implements INavgationDraw
         if (!navigationDrawerFragment.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
             this.menu = menu;
+            fragment.getFragmentUtils().setMenu(menu);
             restoreActionBar(menu);
             return true;
         }
@@ -90,9 +87,7 @@ public class MainActivity extends AbstractBaseActivity implements INavgationDraw
             return true;
         } else if (id == R.id.action_deprefere) {
             favouriteJourneyController.removeFavourite(actualJourneyIDs.get(0).split(Constants.SEPARATOR)[0], actualJourneyIDs.get(0).split(Constants.SEPARATOR)[1]);
-            // TODO TOGGLE
-            item.setVisible(false);
-            menu.getItem(1).setVisible(true);
+            fragment.getFragmentUtils().setAsFavouriteIcon(false);
             restoreActionBar(menu);
         }
         return super.onOptionsItemSelected(item);
@@ -113,37 +108,30 @@ public class MainActivity extends AbstractBaseActivity implements INavgationDraw
     }
 
     public void restoreActionBar(Menu menu) {
-
-        final MenuItem notFavItem= menu.findItem(R.id.action_prefere);
-        final MenuItem isFavItem = menu.findItem(R.id.action_deprefere);
-
         refreshLists();
-
-        spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, favouriteStationNames);
+        SpinnerAdapter spinnerAdapter = new ArrayAdapter<String>(getSupportActionBar().getThemedContext(), android.R.layout.simple_spinner_dropdown_item, favouriteStationNames);
         if (favouriteStationNames.size() > 0 ) {
             ActionBar action = getSupportActionBar();
-            navigationListener = new ActionBar.OnNavigationListener() {
+            ActionBar.OnNavigationListener navigationListener = new ActionBar.OnNavigationListener() {
                 @Override
                 public boolean onNavigationItemSelected(int position, long l) {
                     actualJourneyIDs.clear();
                     actualJourneyIDs.add(favouriteStationIDs.get(position));
                     actualJourneyIDs.add(favouriteStationNames.get(position));
-                    Log.d("cazzi", Arrays.toString(actualJourneyIDs.toArray()));
                     fragment.makeRequest(Constants.WITH_IDS, navigationDrawerFragment.getActualTime(), false, favouriteStationIDs.get(position).split(Constants.SEPARATOR)[0], favouriteStationIDs.get(position).split(Constants.SEPARATOR)[1]);
-                    isFavItem.setVisible(true);
-                    notFavItem.setVisible(false);
+                    fragment.getFragmentUtils().setAsFavouriteIcon(true);
                     return true;
                 }
             };
-            action.setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
             action.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_LIST);
             action.setListNavigationCallbacks(spinnerAdapter, navigationListener);
         } else {
-            isFavItem.setVisible(false);
-            notFavItem.setVisible(false);
+            getSupportActionBar().setDisplayShowTitleEnabled(true);
+            getSupportActionBar().setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_STANDARD);
+            fragment.getFragmentUtils().setAllEnabled(false);
             getSupportActionBar().setTitle("Nessuna tratta favorita!");
         }
-
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -32,8 +32,13 @@ public class FavouriteFragmentsUtils {
         return this.menu;
     }
 
-    private void setAsFavouriteIcon(boolean b) {
+    public void setAsFavouriteIcon(boolean b) {
         menu.getItem(0).setVisible(!b);
+        menu.getItem(1).setVisible(b);
+    }
+
+    public void setAllEnabled(boolean b) {
+        menu.getItem(0).setVisible(b);
         menu.getItem(1).setVisible(b);
     }
 

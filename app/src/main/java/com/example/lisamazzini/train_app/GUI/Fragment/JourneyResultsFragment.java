@@ -49,10 +49,6 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
     private Menu menu;
     private boolean isCustomTime;
     private String departureID, departureStation, arrivalID, arrivalStation, requestedTime;
-//    private String departureID;
-//    private String arrivalStation;
-//    private String arrivalID;
-//    private String requestedTime;
 
     public static JourneyResultsFragment newInstance() {
         return new JourneyResultsFragment();
@@ -90,6 +86,10 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
         resetScrollListener();
 
         return layoutInflater;
+    }
+
+    public FavouriteFragmentsUtils getFragmentUtils() {
+        return this.favouriteFragmentsUtils;
     }
 
     public void resetScrollListener() {

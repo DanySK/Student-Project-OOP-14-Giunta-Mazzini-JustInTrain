@@ -13,7 +13,7 @@ import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.FavouriteTrainListController;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
-import com.example.lisamazzini.train_app.GUI.Adapter.FavTrainAdapter;
+import com.example.lisamazzini.train_app.GUI.Adapter.FavouriteTrainListAdapter;
 import com.example.lisamazzini.train_app.Model.Treno.Train;
 import com.example.lisamazzini.train_app.R;
 import com.octo.android.robospice.SpiceManager;
@@ -30,7 +30,7 @@ public class FavouriteTrainListFragment extends AbstractRobospiceFragment {
     private List<Train> favouriteTrainsList = new LinkedList<>();
     private RecyclerView recyclerView;
     private LinearLayoutManager manager;
-    private FavTrainAdapter adapter;
+    private FavouriteTrainListAdapter adapter;
 
     public static FavouriteTrainListFragment newInstance() {
         return new FavouriteTrainListFragment();
@@ -57,7 +57,7 @@ public class FavouriteTrainListFragment extends AbstractRobospiceFragment {
         View layoutInfalter = inflater.inflate(R.layout.fragment_favourite_train_list, container, false);
         this.recyclerView = (RecyclerView)layoutInfalter.findViewById(R.id.favouriteRecycler);
         this.manager = new LinearLayoutManager(getActivity());
-        this.adapter = new FavTrainAdapter(favouriteTrainsList);
+        this.adapter = new FavouriteTrainListAdapter(favouriteTrainsList);
 
         this.recyclerView.setLayoutManager(this.manager);
         this.recyclerView.setAdapter(adapter);

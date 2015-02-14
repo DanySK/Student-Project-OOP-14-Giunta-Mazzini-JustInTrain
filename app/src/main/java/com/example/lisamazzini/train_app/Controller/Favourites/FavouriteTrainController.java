@@ -10,7 +10,6 @@ public class FavouriteTrainController extends AbstractFavouriteController {
 
     private FavouriteTrainController() {}
 
-    // TODO però così non è obbligatorio, quindi come fare?
     public static IFavouriteController getInstance() {
         return ADDER;
     }

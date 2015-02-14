@@ -16,17 +16,12 @@ import com.example.lisamazzini.train_app.R;
 
 import java.util.List;
 
-/**
- * This is the Adapter for the
- *
- * Created by lisamazzini on 25/01/15.
- */
-public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder> implements IAdapter<FavTrainAdapter.Holder> {
+public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTrainListAdapter.Holder> implements IAdapter<FavouriteTrainListAdapter.Holder> {
 
     List<Train> list;
     private IFavouriteController favouriteController = FavouriteTrainController.getInstance();
 
-    public FavTrainAdapter(List<Train> list){
+    public FavouriteTrainListAdapter(List<Train> list){
         this.list = list;
     }
 
@@ -67,14 +62,14 @@ public class FavTrainAdapter extends RecyclerView.Adapter<FavTrainAdapter.Holder
 
     public static class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView trainCategory;
-        TextView trainNumber;
-        TextView delay;
-        TextView lastSeemTime;
-        TextView lastSeenStation;
-        TextView progress;
-        TextView extra;
-        String stationCode;
+        protected TextView trainCategory;
+        protected TextView trainNumber;
+        protected TextView delay;
+        protected TextView lastSeemTime;
+        protected TextView lastSeenStation;
+        protected TextView progress;
+        protected TextView extra;
+        protected String stationCode;
 
         public Holder(View itemView) {
 

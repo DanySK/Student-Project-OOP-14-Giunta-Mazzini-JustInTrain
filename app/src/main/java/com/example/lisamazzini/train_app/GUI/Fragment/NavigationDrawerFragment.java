@@ -32,6 +32,8 @@ import com.example.lisamazzini.train_app.GUI.Adapter.DrawerListAdapter;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.R;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -137,7 +139,7 @@ public class NavigationDrawerFragment extends Fragment {
             public void onClick(View v) {
                 if (trainNumber.length() > 0) {
                     Intent i = new Intent(getActivity(), StationListActivity.class);
-                    i.putExtra(Constants.TRAIN_N_EXTRA, trainNumber.getText().toString());
+                    i.putExtra(Constants.TRAIN_N_EXTRA, trimAndCapitalizeString(trainNumber.getText().toString()));
                     startActivity(i);
                 }
             }
@@ -148,8 +150,8 @@ public class NavigationDrawerFragment extends Fragment {
             public void onClick(View v) {
                 if (departure.length() > 0 && arrival.length() > 0) {
                     Intent i = new Intent(getActivity(), JourneyResultsActivity.class);
-                    i.putExtra(Constants.DEPARTURE_STAT_EXTRA, departure.getText().toString());
-                    i.putExtra(Constants.ARRIVAL_STAT_EXTRA, arrival.getText().toString());
+                    i.putExtra(Constants.DEPARTURE_STAT_EXTRA, trimAndCapitalizeString(departure.getText().toString()));
+                    i.putExtra(Constants.ARRIVAL_STAT_EXTRA, trimAndCapitalizeString(arrival.getText().toString()));
                     i.putExtra(Constants.REQUESTED_TIME_EXTRA, buildDateTime());
                     i.putExtra(Constants.IS_CUSTOM_TIME_EXTRA, isCustomTime);
                     startActivity(i);
@@ -167,6 +169,10 @@ public class NavigationDrawerFragment extends Fragment {
         recyclerView.setAdapter(drawerListAdapter);
 
         return drawerView;
+    }
+
+    public String trimAndCapitalizeString(String s) {
+        return WordUtils.capitalize(s).replaceAll("\\s+$", "");
     }
 
     public boolean getCustomTime() {
