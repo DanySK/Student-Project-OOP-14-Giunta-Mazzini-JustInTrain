@@ -9,6 +9,18 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_achievement_list">AchievementListActivity</string>
-    <string name="hello_world">Hello world!</string>
+
+    <!-- For Layouts -->
+    <string name="train_number"> Numero treno</string>
+    <string name="dep_station"> Stazione di partenza </string>
+    <string name="arr_station"> Stazione di arrivo </string>
+    <string name="delay">Ritardo: </string>
+    <string name="progress">Andamento: </string>
+    <string name="last_seen">Ultimo rilevamento: </string>
+    <string name="star"> ★ </string>
+    <string name="planned">PROGRAMMATO </string>
+    <string name="actual">REALE </string>
+    <string name="time">Ore: </string>
+    <string name="platform">Binario: </string>
 
 </resources>

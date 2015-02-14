@@ -1,7 +1,9 @@
 package com.example.lisamazzini.train_app.GUI.Fragment;
 
+import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
@@ -13,6 +15,7 @@ public class FavouriteFragmentsUtils {
 
     private final IFavouriteController favouriteController;
     private Menu menu;
+    private Context context;
 
 
     public FavouriteFragmentsUtils(IFavouriteController controller) {
@@ -21,6 +24,10 @@ public class FavouriteFragmentsUtils {
 
     public void setMenu(Menu menu) {
         this.menu = menu;
+    }
+
+    public void setContext(Context context){
+        this.context = context;
     }
 
     public Menu toggleFavouriteIcon(String reqData1, String reqData2) {
@@ -41,12 +48,14 @@ public class FavouriteFragmentsUtils {
         int id = item.getItemId();
         if (id == R.id.action_prefere) {
             try {
+                Toast.makeText(context, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show();
                 addFavourite(details);
                 setAsFavouriteIcon(true);
             } catch (FavouriteException e) {
                 e.printStackTrace();
             }
         } else if (id == R.id.action_deprefere) {
+            Toast.makeText(context, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show();
             removeFavourite(details);
             setAsFavouriteIcon(false);
         }

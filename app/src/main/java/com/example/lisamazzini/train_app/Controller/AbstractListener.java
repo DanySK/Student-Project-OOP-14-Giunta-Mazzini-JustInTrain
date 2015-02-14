@@ -22,7 +22,7 @@ public abstract class AbstractListener<X> implements RequestListener<X> {
     public void onRequestFailure(SpiceException spiceException) {
         if(spiceException.getCause() instanceof InvalidTrainNumberException){
             dialogBuilder.setTitle("Numero treno non valido!")
-                    .setMessage("Il numero inserito non corrisponde a nessun cazzo di treno")
+                    .setMessage("Il numero inserito non corrisponde a nessun treno")
                     .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

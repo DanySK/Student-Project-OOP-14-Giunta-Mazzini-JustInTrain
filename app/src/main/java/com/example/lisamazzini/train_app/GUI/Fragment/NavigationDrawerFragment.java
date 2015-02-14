@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.GUI.Activity.JourneyResultsActivity;
 import com.example.lisamazzini.train_app.GUI.Activity.StationListActivity;
@@ -157,7 +158,7 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
 
-        String[] TITLES = {"Favourite Train", "Erase All Favs", "Achievement"};
+        String[] TITLES = {"Treni preferiti", "Rimuovi treni preferiti", "Achievement"};
 
         recyclerView = (RecyclerView) drawerView.findViewById(R.id.lDrawerList);
         recyclerView.setHasFixedSize(true);
@@ -318,7 +319,7 @@ public class NavigationDrawerFragment extends Fragment {
             menu.getItem(1).setVisible(false);
             ActionBar action = ((ActionBarActivity) getActivity()).getSupportActionBar();
             action.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_STANDARD);
-            action.setTitle("Search");
+            action.setTitle("Ricerca...");
         }
         super.onCreateOptionsMenu(menu, inflater);
     }

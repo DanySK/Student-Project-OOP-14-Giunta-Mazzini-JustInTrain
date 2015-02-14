@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.GUI.Fragment.StationListFragment;
 import com.example.lisamazzini.train_app.Model.Constants;
@@ -38,6 +39,8 @@ public class StationListActivity extends AbstractBaseActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, StationListFragment.newInstance());
         fragment = (StationListFragment) fragmentManager.findFragmentById(R.id.stationListFragment);
+        Toast.makeText(this, "Ricerca in corso...", Toast.LENGTH_LONG).show();
+
         fragment.makeRequest(trainNumber, stationCode);
     }
 

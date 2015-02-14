@@ -19,7 +19,6 @@
 
         android:textSize="16dp"
         android:textAllCaps="true"
-        android:text="IC"
         />
 
 
@@ -34,7 +33,6 @@
         android:layout_toRightOf="@id/tFavTrainCategory"
 
         android:textSize="16dp"
-        android:text="608"
         />
 
     <TextView
@@ -47,7 +45,6 @@
         android:paddingLeft="4dp"
         android:layout_marginTop="16dp"
 
-        android:text="  •  14'  RIT"
         android:textStyle="bold"
         android:textAllCaps="true"
         />
@@ -76,7 +73,7 @@
         android:paddingLeft="4dp"
         android:layout_marginTop="4dp"
 
-        android:text="Progress: "
+        android:text="@string/progress"
         />
 
     <TextView
@@ -90,7 +87,6 @@
         android:paddingLeft="4dp"
         android:layout_marginTop="4dp"
 
-        android:text="Constant"
         android:textAllCaps="true"
         />
 
@@ -104,7 +100,7 @@
         android:paddingLeft="4dp"
         android:layout_marginTop="4dp"
 
-        android:text="Last seen: "
+        android:text="@string/last_seen"
 
         />
 
@@ -119,7 +115,6 @@
         android:layout_below="@id/lFavProgress"
         android:layout_toRightOf="@id/lFavLastSeen"
 
-        android:text="14:23"
         />
 
     <TextView
@@ -133,112 +128,7 @@
         android:layout_below="@id/lFavProgress"
         android:layout_toRightOf="@id/tFavLastSeenTime"
 
-        android:text="CATTOLICA SAN GIOVANNI GABICCE"
         />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text=""-->
-        <!--android:id="@+id/trainCat"-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--android:layout_marginLeft="17dp"-->
-        <!--android:linksClickable="true"-->
-        <!--android:textSize="15dp"-->
-        <!--android:layout_marginStart="17dp"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true" />-->
-
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Num:"-->
-        <!--android:id="@+id/trainNum"-->
-        <!--android:layout_alignTop="@+id/trainCat"-->
-        <!--android:layout_toRightOf="@+id/lastseen"-->
-        <!--android:layout_toEndOf="@+id/lastseen" />-->
-
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text=""-->
-        <!--android:id="@+id/delaaay"-->
-        <!--android:textSize="30dp"-->
-        <!--android:layout_alignTop="@+id/trainNum"-->
-        <!--android:layout_toRightOf="@+id/moving"-->
-        <!--android:layout_toEndOf="@+id/moving"-->
-        <!--android:layout_marginLeft="48dp"-->
-        <!--android:layout_marginStart="48dp" />-->
-
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
-        <!--android:text=""-->
-        <!--android:id="@+id/lastseen"-->
-        <!--android:layout_below="@+id/trainCat"-->
-        <!--android:layout_alignLeft="@+id/trainCat"-->
-        <!--android:layout_alignStart="@+id/trainCat" />-->
-
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
-        <!--android:text=""-->
-        <!--android:id="@+id/timelastseen"-->
-        <!--android:layout_alignTop="@+id/lastseen"-->
-        <!--android:layout_toRightOf="@+id/trainNum"-->
-        <!--android:layout_toEndOf="@+id/trainNum" />-->
-
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
-        <!--android:text=""-->
-        <!--android:id="@+id/moving"-->
-        <!--android:layout_below="@+id/timelastseen"-->
-        <!--android:layout_alignLeft="@+id/timelastseen"-->
-        <!--android:layout_alignStart="@+id/timelastseen" />-->
-
-    <!--<Button-->
-        <!--style="?android:attr/buttonStyleSmall"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="..."-->
-        <!--android:id="@+id/options"-->
-        <!--android:layout_alignTop="@+id/delaaay"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_marginRight="26dp"-->
-        <!--android:layout_marginEnd="26dp"-->
-        <!--android:layout_alignBottom="@+id/delaaay" />-->
-
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
-        <!--android:text="extra"-->
-        <!--android:id="@+id/extra"-->
-        <!--android:layout_alignBottom="@+id/moving"-->
-        <!--android:layout_alignLeft="@+id/lastseen"-->
-        <!--android:layout_alignStart="@+id/lastseen" />-->
 
 </RelativeLayout>
           

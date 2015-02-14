@@ -62,6 +62,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
             public void onClick(View v) {
                 final Intent intent = new Intent(v.getContext(), NotificationService.class);
                 final Context ctx = v.getContext();
+                Toast.makeText(ctx, "Notifica impostata", Toast.LENGTH_SHORT).show();
                 intent.putExtra(Constants.TRAIN_N_EXTRA, journeyTrain.getNumeroTreno());
                 intent.putExtra(Constants.ID_ORIGIN_EXTRA, journeyTrain.getIDorigine());
                 intent.putExtra(Constants.DEPARTURE_TIME_EXTRA, journeyTrain.getOrarioPartenza());

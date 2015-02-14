@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.GUI.Fragment.JourneyResultsFragment;
 import com.example.lisamazzini.train_app.Model.Constants;
