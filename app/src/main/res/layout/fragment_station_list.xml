@@ -31,7 +31,7 @@
 
             android:layout_below="@id/tInfo"
 
-            android:text="Delay: "
+            android:text="@string/delay"
             />
 
         <TextView
@@ -60,7 +60,7 @@
 
             android:layout_below="@id/lDelay"
 
-            android:text="Progress: "
+            android:text="@string/progress"
             />
 
         <TextView
@@ -88,7 +88,7 @@
 
             android:layout_below="@id/lProgress"
 
-            android:text="Last Seen: "
+            android:text="@string/last_seen"
             />
 
         <TextView

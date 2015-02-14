@@ -24,8 +24,8 @@ public class Constants {
     public final static String SDF= "yyyy-MM-dd'T'HH:mm:ss";
     public final static String SDF_NO_SECS = "yyyy-MM-dd'T'HH:mm:00";
 
-    public final static String DELAY_ACH = "Hai accumulato 10 minuti di ritardo!";
-    public final static String PIN_ACH = "Hai pinnato 5 treni!!";
+    public final static String DELAY_ACH = "Hai accumulato 60 minuti di ritardo!";
+    public final static String PIN_ACH = "Hai pinnato 10 treni!!";
 
     public final static String TRAIN_N_EXTRA = "trainNumber";
     public final static String ID_ORIGIN_EXTRA = "idOrigine";

@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
@@ -114,6 +115,7 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+       favouriteFragmentsUtils.setContext(getActivity());
         menu = favouriteFragmentsUtils.onOptionsItemSelected(item, new String[]{departureID, arrivalID, departureStation, arrivalStation});
         return super.onOptionsItemSelected(item);
     }
@@ -134,10 +136,12 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
             }
             this.departureID = departureAndArrivalData[0];
             this.arrivalID = departureAndArrivalData[1];
+            Toast.makeText(getActivity(), "Ricerca in corso...", Toast.LENGTH_SHORT).show();
             spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
         } else if (userRequestType.equals(Constants.WITH_STATIONS)) {
             this.departureStation = departureAndArrivalData[0];
             this.arrivalStation = departureAndArrivalData[1];
+            Toast.makeText(getActivity(), "Ricerca in corso...", Toast.LENGTH_SHORT).show();
             spiceManager.execute(new JourneyDataRequest(this.departureStation), new DepartureDataRequestListenter());
         }
     }
@@ -187,7 +191,7 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
             List<String> data = lista.getList();
 
             if (Utilities.isOneResult(data)) {
-                departureID = controller.splitData(lista.getList().get(0))[1];
+                arrivalID = controller.splitData(lista.getList().get(0))[1];
                 spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
             } else {
                 final String[][] choices = controller.getTableForMultipleResults(data);

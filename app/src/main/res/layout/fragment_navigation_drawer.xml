@@ -25,7 +25,7 @@
         android:paddingLeft="4dp"
         android:layout_marginTop="32dp"
 
-        android:hint="Train Number"
+        android:hint="@string/train_number"
         android:singleLine="true"
         android:inputType="number"
         />
@@ -59,7 +59,7 @@
         android:paddingLeft="4dp"
         android:layout_marginTop="32dp"
 
-        android:hint="Departure Station"
+        android:hint="@string/dep_station"
         android:singleLine="true"
         />
 
@@ -76,7 +76,7 @@
         android:paddingLeft="4dp"
         android:layout_marginTop="8dp"
 
-        android:hint="Arrival Station"
+        android:hint="@string/arr_station"
         android:singleLine="true"
      />
 

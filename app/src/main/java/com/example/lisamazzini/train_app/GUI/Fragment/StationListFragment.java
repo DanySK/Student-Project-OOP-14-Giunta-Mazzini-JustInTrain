@@ -101,6 +101,8 @@ public class StationListFragment extends AbstractRobospiceFragment {
         this.recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         this.favouriteFragmentsUtils = new FavouriteFragmentsUtils(FavouriteTrainController.getInstance());
+        this.favouriteFragmentsUtils.setContext(getActivity());
+
         this.favController.setContext(getActivity().getApplicationContext());
 
         return layoutInflater;

@@ -19,7 +19,6 @@ import java.util.List;
 public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTrainListAdapter.Holder> implements IAdapter<FavouriteTrainListAdapter.Holder> {
 
     List<Train> list;
-    private IFavouriteController favouriteController = FavouriteTrainController.getInstance();
 
     public FavouriteTrainListAdapter(List<Train> list){
         this.list = list;
@@ -43,11 +42,11 @@ public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTra
             holder.extra.setText(train.getSubTitle());
         }else{
             if (train.getRitardo() > 0) {
-                holder.delay.setText("  •  " + train.getRitardo() + "'  DELAY");
+                holder.delay.setText("  •  " + train.getRitardo() + "'  RITARDO");
             } else if (train.getRitardo() < 0) {
-                holder.delay.setText("  •  " + train.getRitardo()*(-1) + "'  ADVANCE");
+                holder.delay.setText("  •  " + train.getRitardo()*(-1) + "'  ANTICIPO");
             } else {
-                holder.delay.setText("  •  " + "ON TIME");
+                holder.delay.setText("  • IN ORARIO");
             }
             holder.lastSeemTime.setText(train.getCompOraUltimoRilevamento());
             holder.lastSeenStation.setText(train.getStazioneUltimoRilevamento());
