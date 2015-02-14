@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.lisamazzini.train_app.Exceptions.AchievementException;
+import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 
 import java.io.ObjectOutputStream;
@@ -19,7 +20,6 @@ import java.util.Map;
  * @author Lisa Mazzini
  */
 
-//Singleton + strategy (?)
 public class BasicAchievement implements IAchievement {
 
     private Long value;
@@ -37,8 +37,9 @@ public class BasicAchievement implements IAchievement {
     public BasicAchievement(Long value, Strategy strategy, Context context){
         this.value = value;
         this.strategy = strategy;
-        data = context.getSharedPreferences("ACHIEVEMENT_DATA", Context.MODE_APPEND);
+        data = context.getSharedPreferences(Constants.ACH_DATA_FILE, Context.MODE_APPEND);
         editor = data.edit();
+        editor.apply();
     }
 
     /**

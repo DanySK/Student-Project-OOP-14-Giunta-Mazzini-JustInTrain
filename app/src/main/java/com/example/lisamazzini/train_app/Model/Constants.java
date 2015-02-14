@@ -38,5 +38,8 @@ public class Constants {
     public final static String ACTION_REFRESH ="Aggiorna";
     public final static String ACTION_DELETE = "Elimina";
 
+    public final static String ACH_STORE_FILE = "ACHIEVEMENT_STORE";
+    public final static String ACH_DATA_FILE = "ACHIEVEMENT_DATA";
+
 
 }

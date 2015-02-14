@@ -28,19 +28,15 @@ public class StationListActivity extends AbstractBaseActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle("Searching...");
+            getSupportActionBar().setTitle("Ricerca in corso...");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, StationListFragment.newInstance());
-<<<<<<< local
-        fragment = (StationListFragment) fragmentManager.findFragmentById(R.id.stationListFragment);
         Toast.makeText(this, "Ricerca in corso...", Toast.LENGTH_LONG).show();
 
-=======
         StationListFragment fragment = (StationListFragment) fragmentManager.findFragmentById(R.id.stationListFragment);
->>>>>>> other
         fragment.makeRequest(trainNumber, stationCode);
     }
 

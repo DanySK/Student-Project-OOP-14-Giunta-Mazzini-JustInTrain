@@ -21,7 +21,7 @@ public class AchievementListController  {
     List<String> achievements = new LinkedList<>();
 
     public AchievementListController(Context context){
-        data = context.getSharedPreferences("ACHIEVEMENT_STORE", Context.MODE_APPEND);
+        data = context.getSharedPreferences(Constants.ACH_STORE_FILE, Context.MODE_APPEND);
     }
 
     /**
@@ -32,7 +32,7 @@ public class AchievementListController  {
         for(String s : data.getAll().keySet()) {
             switch (s) {
                 case Constants.DELAY_ACH:
-                    achievements.add("Ritardatario! (10 minuti)");
+                    achievements.add("Ritardatario! (60 minuti)");
                     break;
                 case Constants.PIN_ACH:
                     achievements.add("Pinnatore seriale!");

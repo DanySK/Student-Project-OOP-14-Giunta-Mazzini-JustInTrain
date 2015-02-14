@@ -10,6 +10,7 @@ import com.example.lisamazzini.train_app.Achievement.PinAchievement1;
 import com.example.lisamazzini.train_app.Exceptions.AchievementException;
 import com.example.lisamazzini.train_app.Exceptions.DelayAchievementException;
 import com.example.lisamazzini.train_app.Exceptions.PinAchievementException;
+import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 
 import java.io.File;
@@ -38,7 +39,7 @@ public class AchievementController {
         this.context = context;
         achievements.put("Delay", new DelayAchievement1(context));
         achievements.put("Pin", new PinAchievement1(context));
-        data = context.getSharedPreferences("ACHIEVEMENT_STORE", Context.MODE_APPEND);
+        data = context.getSharedPreferences(Constants.ACH_STORE_FILE, Context.MODE_APPEND);
         editor = data.edit();
     }
 
