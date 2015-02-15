@@ -10,6 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ *
+ *
+ *
+ */
 public abstract class AbstractFavouriteController implements IFavouriteController {
 
     protected SharedPreferences sharedPref;

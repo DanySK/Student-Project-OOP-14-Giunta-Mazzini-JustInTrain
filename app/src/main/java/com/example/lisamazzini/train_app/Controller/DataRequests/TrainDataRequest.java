@@ -23,23 +23,11 @@ public class TrainDataRequest extends AbstractDataRequest {
     }
 
 
-    /**
-     * Metodo che genera l'URL a cui connettersi per ottenere le informazioni
-     * @return
-     * @throws MalformedURLException
-     */
     @Override
     protected URL generateURL() throws MalformedURLException {
         return Utilities.generateTrainAutocompleteURL(this.trainNumber);
     }
 
-    /**
-     * Metodo che controlla che la Request sia andata a buon fine; se il risultato preso
-     * dalla pagina sottoforma di lista di stringhe è vuoto, significa che la pagina era vuota
-     * quindi il numero inserito non corrisponde a nessun treno.
-     * @param result
-     * @throws InvalidTrainNumberException
-     */
     @Override
     protected void check(List result) throws InvalidTrainNumberException {
         if(result.size()==0) {

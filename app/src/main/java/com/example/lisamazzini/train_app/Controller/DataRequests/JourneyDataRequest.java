@@ -8,6 +8,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+/**
+ * Prima Request da effettuare, per ottenere il codice di una data stazione
+ * o eventualmente tutte le stazioni corrispondenti alla stringa data.
+ */
 public class JourneyDataRequest extends AbstractDataRequest {
 
     private final String station;
