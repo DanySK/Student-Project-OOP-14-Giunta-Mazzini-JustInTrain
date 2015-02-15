@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Controller;
+package com.example.lisamazzini.train_app.Controller.TotalRequests;
 
 import com.example.lisamazzini.train_app.Model.Treno.Train;
 import com.example.lisamazzini.train_app.Network.TrainRestClient;

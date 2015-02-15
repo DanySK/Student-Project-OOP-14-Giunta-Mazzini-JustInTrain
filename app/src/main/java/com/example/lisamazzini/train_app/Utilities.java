@@ -3,6 +3,7 @@ package com.example.lisamazzini.train_app;
 
 import android.util.Log;
 
+import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
 import com.example.lisamazzini.train_app.Model.Treno.Train;
 import com.example.lisamazzini.train_app.Model.Treno.Fermate;
@@ -14,6 +15,7 @@ import org.joda.time.format.DateTimeFormat;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -59,12 +61,23 @@ public class Utilities {
     /**
      * Metodo che elabora i dati ottenuti in risposta dal server dall'indirizzo
      * http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/autocompletaStazione/*stazione*
-     * che sono in formato "PESARO|S07104", restituendoli in un array
+     * che sono in formato "PESARO|S07104", restituendoli in un array fatto di [PESARO, 07104]
      * @param data stringa dei dati
      * @return String[] con i dati divisi
      */
-    public static String[] splitJourney(String data) {
+    public static String[] splitStationForJourneySearch(String data) {
         return data.split("\\|S");
+    }
+
+    /**
+     * Metodo che elabora i dati ottenuti in risposta dal server dall'indirizzo
+     * http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/autocompletaStazione/*stazione*
+     * che sono in formato "PESARO|S07104", restituendoli in un array fatto di [PESARO, S07104]
+     * @param data stringa dei dati
+     * @return String[] con i dati divisi
+     */
+    public static String[] splitStationForTrainSearch(String data) {
+        return data.split("\\|");
     }
 
     /**
@@ -128,8 +141,16 @@ public class Utilities {
         return "Costante";
     }
 
+    public static URL generateStationAutocompleteURL(String stationName) throws MalformedURLException {
+        return new URL(Constants.ROOT + Constants.STATION_AUTOCOMPLETE + stationName + "?q=" + stationName);
+    }
+
+    public static URL generateTrainAutocompleteURL(String trainNumber) throws MalformedURLException {
+        return new URL(Constants.ROOT + Constants.TRAIN_AUTOCOMPLETE + trainNumber);
+    }
+
     /**
-     * Metodo che si apre un BufferedReader su una pagina e crea un lista di String ("wrappata" poi in un ListWrapper)
+     * Metodo che apre un BufferedReader su una pagina e crea un lista di String ("wrappata" poi in un ListWrapper)
      * contenente tutte le righe presenti nella pagina
      *
      * es:

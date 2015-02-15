@@ -1,5 +1,6 @@
 package com.example.lisamazzini.train_app.GUI.Activity;
 
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,7 +31,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MainActivity extends AbstractBaseActivity implements INavgationDrawerUtils {
+public class MainActivity extends ActionBarActivity implements INavgationDrawerUtils {
 
     private NavigationDrawerFragment navigationDrawerFragment;
     private INavgationDrawerUtils navgationDrawerUtils;
@@ -48,7 +49,7 @@ public class MainActivity extends AbstractBaseActivity implements INavgationDraw
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }

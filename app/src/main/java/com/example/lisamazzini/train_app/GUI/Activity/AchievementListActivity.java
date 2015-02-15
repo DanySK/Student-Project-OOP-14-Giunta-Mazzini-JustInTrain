@@ -15,16 +15,21 @@ public class AchievementListActivity extends AbstractBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_achievement_list);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle("Achievement sbloccati!");
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        super.getToolbar();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, AchievementListFragment.newInstance());
         //AchievementListFragment fragment = (AchievementListFragment)getSupportFragmentManager().findFragmentById(R.id.achievementListFragment);
+
+    }
+
+    @Override
+    protected String setToolbarTitle() {
+        return "Achievement sbloccati!";
+    }
+
+    @Override
+    protected void getIntents() {
 
     }
 }

@@ -18,7 +18,7 @@ import java.util.List;
 
 public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTrainListAdapter.Holder> implements IAdapter<FavouriteTrainListAdapter.Holder> {
 
-    List<Train> list;
+    private List<Train> list;
 
     public FavouriteTrainListAdapter(List<Train> list){
         this.list = list;

@@ -1,31 +1,27 @@
-package com.example.lisamazzini.train_app.Controller;
-
-import android.util.Log;
+package com.example.lisamazzini.train_app.Controller.DataRequests;
 
 import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
-import com.octo.android.robospice.request.SpiceRequest;
+import com.example.lisamazzini.train_app.Utilities;
+import com.squareup.okhttp.internal.Util;
 
-import java.io.BufferedReader;
-import java.io.*;
 import java.net.*;
-import java.util.LinkedList;
 import java.util.List;
 
 
-public class TrainDataRequest extends AbstractRequest {
+public class TrainDataRequest extends AbstractDataRequest {
 
-    private final String searchNumber;
+    private final String trainNumber;
 
     public TrainDataRequest(String searchQuery){
         super(ListWrapper.class);
-        this.searchNumber = searchQuery;
+        this.trainNumber = searchQuery;
     }
 
     @Override
     protected URL generateURL() throws MalformedURLException {
-        return new URL(Constants.ROOT + Constants.TRAIN_AUTOCOMPLETE + searchNumber);
+        return Utilities.generateTrainAutocompleteURL(this.trainNumber);
     }
 
     @Override

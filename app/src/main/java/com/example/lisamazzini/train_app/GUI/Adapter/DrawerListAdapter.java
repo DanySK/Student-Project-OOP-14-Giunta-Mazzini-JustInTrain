@@ -16,14 +16,11 @@ import com.example.lisamazzini.train_app.R;
 
 public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.DrawerListViewHolder> implements IAdapter<DrawerListAdapter.DrawerListViewHolder>{
 
-
-    String TITLES[];
-    Context context;
+    private String TITLES[];
 
 
-    public DrawerListAdapter(String[] TITLES, Context context) {
+    public DrawerListAdapter(String[] TITLES) {
         this.TITLES = TITLES;
-        this.context = context;
     }
 
     @Override

@@ -36,14 +36,12 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
     }
 
 
-    //chiamato quando viene istanziato il viewHolder
     @Override
     public JourneyViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_journey, viewGroup, false);
         return new JourneyViewHolder(itemView);
     }
 
-    //chiamato quando si collegano i dati al viewholder
     @Override
     public void onBindViewHolder(JourneyViewHolder journeyViewHolder, int position) {
         final PlainSolution journeyTrain = journeyList.get(position);

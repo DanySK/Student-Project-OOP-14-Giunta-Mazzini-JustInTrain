@@ -9,22 +9,24 @@ import com.example.lisamazzini.train_app.R;
 
 public class FavouriteTrainListActivity extends AbstractBaseActivity{
 
-    FavouriteTrainListFragment fragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_train_list);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle("Favourite Trains");
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        super.getToolbar();
+
         FragmentManager fragmentMan = getSupportFragmentManager();
         fragmentMan.beginTransaction().replace(R.id.container, FavouriteTrainListFragment.newInstance());
-        fragment = (FavouriteTrainListFragment)getSupportFragmentManager().findFragmentById(R.id.favouriteTrainListFragment);
+        FavouriteTrainListFragment fragment = (FavouriteTrainListFragment) getSupportFragmentManager().findFragmentById(R.id.favouriteTrainListFragment);
         fragment.makeRequest();
     }
+
+    @Override
+    protected String setToolbarTitle() {
+        return "Treni preferiti";
+    }
+
+    @Override
+    protected void getIntents() {}
 }

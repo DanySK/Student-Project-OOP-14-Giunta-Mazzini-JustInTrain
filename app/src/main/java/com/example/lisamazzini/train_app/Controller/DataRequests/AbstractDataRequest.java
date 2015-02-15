@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Controller;
+package com.example.lisamazzini.train_app.Controller.DataRequests;
 
 import com.example.lisamazzini.train_app.Exceptions.InvalidInputException;
 import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
@@ -10,9 +10,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-public abstract class AbstractRequest extends SpiceRequest<ListWrapper>{
+public abstract class AbstractDataRequest extends SpiceRequest<ListWrapper>{
 
-    public AbstractRequest(Class<ListWrapper> clazz) {
+    public AbstractDataRequest(Class<ListWrapper> clazz) {
         super(clazz);
     }
 

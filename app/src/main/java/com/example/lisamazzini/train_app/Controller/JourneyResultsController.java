@@ -1,13 +1,10 @@
 package com.example.lisamazzini.train_app.Controller;
 
-import android.util.Log;
-
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.Soluzioni;
 import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
 import com.example.lisamazzini.train_app.Model.Tragitto.Vehicle;
-import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
 import com.example.lisamazzini.train_app.Utilities;
 
 import org.joda.time.DateTime;
@@ -19,8 +16,8 @@ import java.util.List;
 
 public class JourneyResultsController {
 
-    private List<PlainSolution> plainSolutions = new LinkedList<>();
-    SimpleDateFormat sdf = new SimpleDateFormat(Constants.SDF);
+    private final List<PlainSolution> plainSolutions = new LinkedList<>();
+    private final SimpleDateFormat sdf = new SimpleDateFormat(Constants.SDF);
     private int upperBound;
     private int lowerBound;
     private DateTime actualTime;
@@ -97,17 +94,11 @@ public class JourneyResultsController {
             String[] temp = splitData(list.get(i));
             dataMatrix[0][i] = temp[0];
             dataMatrix[1][i] = temp[1];
-//            dataMatrix[0][i]= computeChoices(dataMatrix[0][i]);
         }
         return dataMatrix;
     }
 
-
-    public String[] splitData(String data){
-        return Utilities.splitJourney(data);
-    }
-
-    public String computeChoices(String s){
-        return "Stazione: " + s;
+    public String[] splitData(String s) {
+        return Utilities.splitStationForJourneySearch(s);
     }
 }

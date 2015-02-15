@@ -42,4 +42,16 @@ public class Constants {
     public final static String ACH_DATA_FILE = "ACHIEVEMENT_DATA";
 
 
+    public final static String WRONG_TRAIN_TITLE= "Numero treno non valido!";
+    public final static String WRONG_TRAIN= "Il numero inserito non corrisponde a nessun treno";
+    public final static String WRONG_STATION_TITLE = "Stazione inesistente!";
+    public final static String WRONG_STATION = "Il nome inserito non corrisponde a nessun risultato";
+    public final static String CONNECTION_ERROR_TITLE = "Problemi di connessione";
+    public final static String CONNECTION_ERROR = "Controllare la propria connessione internet";
+
+    public final static String OK_MSG = "Ok";
+
+
+
+
 }

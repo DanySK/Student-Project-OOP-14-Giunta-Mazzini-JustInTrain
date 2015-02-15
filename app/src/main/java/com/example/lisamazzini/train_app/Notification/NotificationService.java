@@ -1,7 +1,6 @@
 package com.example.lisamazzini.train_app.Notification;
 
 import android.app.AlarmManager;
-import android.app.IntentService;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -9,10 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import com.example.lisamazzini.train_app.Controller.AbstractListener;
-import com.example.lisamazzini.train_app.Controller.TrainRequest;
+import com.example.lisamazzini.train_app.Controller.TotalRequests.TrainRequest;
 import com.example.lisamazzini.train_app.GUI.Activity.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Treno.Train;
@@ -25,7 +23,6 @@ import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.joda.time.MutableDateTime;
 
-import java.lang.reflect.Constructor;
 import java.util.Calendar;
 
 /**

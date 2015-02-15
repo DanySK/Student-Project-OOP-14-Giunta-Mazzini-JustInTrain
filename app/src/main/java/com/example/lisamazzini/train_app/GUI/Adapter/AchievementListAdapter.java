@@ -12,12 +12,9 @@ import com.example.lisamazzini.train_app.R;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by lisamazzini on 09/02/15.
- */
 public class AchievementListAdapter  extends RecyclerView.Adapter<AchievementListAdapter.AchievementViewHolder> implements IAdapter<AchievementListAdapter.AchievementViewHolder>{
 
-    List<String> achievements = new LinkedList<>();
+    private List<String> achievements = new LinkedList<>();
 
     public AchievementListAdapter(List<String> achievements){
         this.achievements = achievements;

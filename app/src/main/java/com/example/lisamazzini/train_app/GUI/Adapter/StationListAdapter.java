@@ -10,9 +10,6 @@ import com.example.lisamazzini.train_app.Model.Treno.Fermate;
 
 import java.util.List;
 
-/**
- * Created by lisamazzini on 23/01/15.
- */
 public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter.RecyclerViewHolder> implements IAdapter<StationListAdapter.RecyclerViewHolder>{
 
     private final List<Fermate> list;

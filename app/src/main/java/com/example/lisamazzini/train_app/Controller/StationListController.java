@@ -1,7 +1,10 @@
 package com.example.lisamazzini.train_app.Controller;
 
+import com.example.lisamazzini.train_app.Controller.DataRequests.TrainDataRequest;
+import com.example.lisamazzini.train_app.Controller.TotalRequests.TrainRequest;
 import com.example.lisamazzini.train_app.Model.Treno.Train;
 import com.example.lisamazzini.train_app.Utilities;
+import com.squareup.okhttp.internal.Util;
 
 import java.util.List;
 
@@ -58,16 +61,6 @@ public class StationListController {
     }
 
     /**
-     * Metodo per spezzare una stringa di tipo "31 - MILANO NORD CADORNA|31-N00001" (vedi Utilities.splitString)
-     *
-     * @param data stringa da dividere
-     * @return array di dati
-     */
-    public String[] computeData(String data){
-        return Utilities.splitString(data);
-    }
-
-    /**
      * Metodo che presa la matrice di dati restituisce un array con tutti i nomi delle stazioni, da mostrare
      * all'utente per poter scegliere la stazione desiderata
      * @param dataMatrix matrice di dati
@@ -99,5 +92,9 @@ public class StationListController {
      */
     public String getProgress(Train train){
         return Utilities.getProgress(train);
+    }
+
+    public String[] computeData(String s) {
+        return Utilities.splitString(s);
     }
 }

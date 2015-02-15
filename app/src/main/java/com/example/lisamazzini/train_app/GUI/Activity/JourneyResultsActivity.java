@@ -17,24 +17,19 @@ import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteControl
 
 public class JourneyResultsActivity extends AbstractBaseActivity {
 
+    private String departureStation;
+    private String arrivalStation;
+    private String requestedTime;
+    private boolean isCustomTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey_search);
 
-        Intent i = getIntent();
-        String departureStation = i.getStringExtra(Constants.DEPARTURE_STAT_EXTRA);
-        String arrivalStation = i.getStringExtra(Constants.ARRIVAL_STAT_EXTRA);
-        String requestedTime = i.getStringExtra(Constants.REQUESTED_TIME_EXTRA);
-        boolean isCustomTime = i.getBooleanExtra(Constants.IS_CUSTOM_TIME_EXTRA, false);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle(departureStation + " " + arrivalStation);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        getIntents();
+        super.getToolbar();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, JourneyResultsFragment.newInstance());
@@ -43,27 +38,17 @@ public class JourneyResultsActivity extends AbstractBaseActivity {
 
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        menu.getItem(0).setVisible(false);
-//        menu.getItem(1).setVisible(false);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        int id = item.getItemId();
-//        if (id == R.id.home) {
-//            return true;
-//        }
-//        if (id == R.id.action_prefere) {
-//            return false;
-//        } else if (id == R.id.action_deprefere) {
-//            return false;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    protected String setToolbarTitle() {
+        return (departureStation + " " + arrivalStation);
+    }
 
+    @Override
+    protected void getIntents() {
+        Intent i = getIntent();
+        departureStation = i.getStringExtra(Constants.DEPARTURE_STAT_EXTRA);
+        arrivalStation = i.getStringExtra(Constants.ARRIVAL_STAT_EXTRA);
+        requestedTime = i.getStringExtra(Constants.REQUESTED_TIME_EXTRA);
+        isCustomTime = i.getBooleanExtra(Constants.IS_CUSTOM_TIME_EXTRA, false);
+    }
 }

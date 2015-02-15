@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Controller;
+package com.example.lisamazzini.train_app.Controller.TotalRequests;
 
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolutionWrapper;
@@ -9,7 +9,7 @@ import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.request.SpiceRequest;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -17,11 +17,9 @@ import java.util.List;
 
 public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
 
-    List<PlainSolution> plainSolutions;
-    List<String> result;
-    Iterator<String> iterator;
-    String[] datas;
-    Train train;
+    private List<PlainSolution> plainSolutions;
+    private Iterator<String> iterator;
+    private Train train;
 
     public JourneyTrainRequest(List<PlainSolution> plainSolutions) {
         super(PlainSolutionWrapper.class);
@@ -31,25 +29,14 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
     @Override
     public PlainSolutionWrapper loadDataFromNetwork() throws Exception {
 
-        BufferedReader in;
-        URL url;
+        List<String> result;
 
         for (PlainSolution p : plainSolutions) {
 
-            // cerco l'id di partenza e lo assegno
-            url = new URL("http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/autocompletaStazione/" + p.getOrigine() + "?=" + p.getOrigine());
-            in = new BufferedReader(new InputStreamReader(url.openStream()));
-            p.setIDpartenza(in.readLine().split("\\|")[1]);
-            in.close();
+            p.setIDpartenza(getID(p.getOrigine()));
+            p.setIDarrivo(getID(p.getDestinazione()));
 
-            // cerco l'id di arrivo e lo assegno
-            url = new URL("http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/autocompletaStazione/" + p.getDestinazione() + "?=" + p.getDestinazione());
-            in = new BufferedReader(new InputStreamReader(url.openStream()));
-            p.setIDarrivo(in.readLine().split("\\|")[1]);
-            in.close();
-
-            // cerco i dati del treno in questione (stazione + codice stazione di origine totale)
-            result = Utilities.fetchData(new URL("http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/" + p.getNumeroTreno())).getList();
+            result = Utilities.fetchData(Utilities.generateTrainAutocompleteURL(p.getNumeroTreno())).getList();
             if (result.size() == 0) {
                 return new PlainSolutionWrapper(new LinkedList<PlainSolution>());
             }
@@ -75,9 +62,18 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
         return new PlainSolutionWrapper(plainSolutions);
     }
 
+    private String getID(String stationName) throws IOException {
+        return Utilities.splitStationForTrainSearch
+                (Utilities.fetchData
+                        (Utilities.generateStationAutocompleteURL(stationName))
+                        .getList()
+                        .get(0))
+                [1];
+    }
+
     private void makeRequest(PlainSolution p) {
-        datas = iterator.next().split("\\|")[1].split("-");
-        train = TrainRestClient.get().getTrain(datas[0], datas[1]);
+        String[] trainData = iterator.next().split("\\|")[1].split("-");
+        train = TrainRestClient.get().getTrain(trainData[0], trainData[1]);
         if (p.isTomorrow()) {
             train.setRitardo(0L);
         }
