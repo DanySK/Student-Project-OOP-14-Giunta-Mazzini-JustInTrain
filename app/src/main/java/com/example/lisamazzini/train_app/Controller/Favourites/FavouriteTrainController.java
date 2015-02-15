@@ -4,6 +4,9 @@ import android.content.Context;
 
 import com.example.lisamazzini.train_app.Model.Constants;
 
+/**
+ * Classe che modella un controller per i treni favoriti.
+ */
 public class FavouriteTrainController extends AbstractFavouriteController {
 
     private final static FavouriteTrainController ADDER = new FavouriteTrainController();

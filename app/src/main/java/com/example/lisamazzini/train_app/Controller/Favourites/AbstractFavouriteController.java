@@ -12,9 +12,11 @@ import java.util.Map;
 
 
 /**
+ * Classe astratta che implementa l'interfaccia IFavouriteController e quindi modella parzialmente il concetto di preferito
+ * Di norma potrebbe cambiare solo la modalità di aggiunta
  *
- *
- *
+ * @author albertogiunta
+ * @author lisamazzini
  */
 public abstract class AbstractFavouriteController implements IFavouriteController {
 
