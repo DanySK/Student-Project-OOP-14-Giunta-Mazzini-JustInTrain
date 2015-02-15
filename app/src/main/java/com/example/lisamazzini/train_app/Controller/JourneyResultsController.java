@@ -14,15 +14,24 @@ import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Classe che modella un controller per la visualizzazione e l'elaborazione di tratte.
+ *
+ */
 public class JourneyResultsController {
 
-    private final List<PlainSolution> plainSolutions = new LinkedList<>();
     private final SimpleDateFormat sdf = new SimpleDateFormat(Constants.SDF);
+    private final List<PlainSolution> plainSolutions = new LinkedList<>();
     private int upperBound;
     private int lowerBound;
     private DateTime actualTime;
     private boolean foundFirstTakeable = false;
 
+
+    /**
+     * Metodo che deve chiamare chi impelementa un JourneyResultsController per settare l'orario con cui fare le operazioni
+     * @param time: orario come stringa, in formato yyyy-MM-dd'T'HH:mm:ss
+     */
     public void setTime(String time) {
         try {
             actualTime = new DateTime(sdf.parse(time));
@@ -31,6 +40,13 @@ public class JourneyResultsController {
         }
     }
 
+    /**
+     * Meotod per settare la categoria di un treno da nome esteso a abbreviativo
+     * @param vehicle: oggetto su cui fare le operazioni
+     * @param category: nome esteso della categoria da sostituire
+     * @param abbr: nome abbreviato della categoria
+     * @return
+     */
     private String setCategory(Vehicle vehicle, String category, String abbr) {
         if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equalsIgnoreCase(category)) {
             return abbr;
@@ -38,6 +54,11 @@ public class JourneyResultsController {
         return vehicle.getCategoriaDescrizione();
     }
 
+    /**
+     * Metodo che trasforma la lista di soluzioni che viene fornita dai server di trenitalia a un oggetto (plainSolution) più consono e flessibile
+     * Esso infatti aggiunge supporto al ritardo ed altre informazioni utili altrimenti non accessibili.
+     * @param tragitto: intera risposta del server, contiene al suo interno una lista di soluzioni, e a loro volta di vehicles
+     */
     public void buildPlainSolutions(Tragitto tragitto) {
         plainSolutions.clear();
         upperBound = 0;
@@ -62,15 +83,35 @@ public class JourneyResultsController {
         }
     }
 
-
+    /**
+     * Metodo che controlla se il treno in questione è il primo "prendibile",
+     * ovvero se è il primo treno con orario di partenza successivo all'orario stabilito precedentemente.
+     * @param vehicle
+     * @return
+     * @throws ParseException
+     */
     private boolean checkIsFirstTakeable(Vehicle vehicle) throws ParseException {
         return (!foundFirstTakeable && vehicle.getOrarioPartenza() != null && new DateTime(sdf.parse(vehicle.getOrarioPartenza())).isAfter(actualTime));
     }
 
+    /**
+     * Metodo che controlla se il treno in questione è deve ancora partire,
+     * infatti insorgono conflitti qualora un treno del giorno successivo (viene restituito il treno con i dati relativi al giorno stesso)
+     *
+     * @param vehicle
+     * @return
+     * @throws ParseException
+     */
     private boolean checkIsTomorrow(Vehicle vehicle) throws ParseException {
         return (foundFirstTakeable && vehicle.getOraPartenza() != null && new DateTime(sdf.parse(vehicle.getOrarioPartenza())).isAfter(new DateTime().plusDays(1).toDateMidnight()));
     }
 
+    /**
+     * Metodo che restituisce una lista parziale di plainsolution,
+     * che varia a seconda che si faccia una richiesta con orario "custom" o rispetto all'ora corrente
+     * @param isCustom
+     * @return la lista parziale di plainsolutions
+     */
     public List<PlainSolution> getPlainSolutions(boolean isCustom) {
         List<PlainSolution> subList;
         if (isCustom) {
@@ -88,6 +129,12 @@ public class JourneyResultsController {
         }
     }
 
+    /**
+     * Metodo che restituisce una matrice per righe fatta di stazioni e relativi id (nella stessa colonna)
+     * da far scegliere nel caso si cerchi una stazione e vengano restituiti più di un risultato.
+     * @param list
+     * @return
+     */
     public String[][] getTableForMultipleResults(List<String> list) {
         final String[][] dataMatrix = new String[2][list.size()];
         for (int i = 0 ; i < list.size(); i++) {
@@ -98,6 +145,11 @@ public class JourneyResultsController {
         return dataMatrix;
     }
 
+    /**
+     * Metodo di utility che restituisce un codice stazione di tipo 01234 (e non S01234)
+     * @param s
+     * @return
+     */
     public String[] splitData(String s) {
         return Utilities.splitStationForJourneySearch(s);
     }

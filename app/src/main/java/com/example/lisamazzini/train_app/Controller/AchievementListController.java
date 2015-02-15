@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class AchievementListController  {
     private SharedPreferences data;
-    List<String> achievements = new LinkedList<>();
+    private List<String> achievements = new LinkedList<>();
 
     public AchievementListController(Context context){
         data = context.getSharedPreferences(Constants.ACH_STORE_FILE, Context.MODE_APPEND);

@@ -7,6 +7,8 @@ import java.util.*;
 
 /**
  * Classe che funge da controller per il FavouriteTrainListFragment
+ *
+ * @author lisamazzini
  */
 public class FavouriteTrainListController {
 
@@ -33,8 +35,8 @@ public class FavouriteTrainListController {
     }
 
     /**
-     *
-     * @return
+     *Meotodo che fa la richiesta a partire dal numero e id stazione di origine del treno.
+     * @return TrainRequest
      */
     public TrainRequest getRequest() {
         String[] favData = getFavourite().split(Constants.SEPARATOR);

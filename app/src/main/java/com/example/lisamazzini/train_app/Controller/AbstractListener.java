@@ -17,9 +17,13 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 /**
- * Classe astratta per i RequestListener necessari per il funzionamento di Robospice
+ * Classe astratta per i RequestListener necessari per il funzionamento di Robospice.
+ * La implementeranno i lister all'interno delle acitivity che fanno uso di robospice.
  *
  * @param <X>
+ *
+ * @author albertogiunta
+ * @author lisamazzini
  */
 public abstract class AbstractListener<X> implements RequestListener<X> {
 
@@ -72,7 +76,7 @@ public abstract class AbstractListener<X> implements RequestListener<X> {
     /**
      * Metodo da implementare che restituisca il Context in cui si trova il Listener, necessario per
      * mostrare il Dialog
-     * @return
+     * @return context
      */
     public abstract Context getDialogContext();
 
