@@ -23,15 +23,6 @@ public class Train {
     private String progress;
     private Long ritardo;
 
-    public String getProgress() {
-        return progress;
-    }
-
-
-    public void setProgress(String progress) {
-        this.progress = progress;
-    }
-
 
     public List<Fermate> getFermate() {
         return fermate;
@@ -97,8 +88,19 @@ public class Train {
         return subTitle;
     }
 
+
     public void setSubTitle(String subTitle) {
         this.subTitle = subTitle;
+    }
+
+
+    public String getProgress() {
+        return progress;
+    }
+
+
+    public void setProgress(String progress) {
+        this.progress = progress;
     }
 
 

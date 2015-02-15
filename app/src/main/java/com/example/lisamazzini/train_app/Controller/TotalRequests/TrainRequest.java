@@ -4,6 +4,10 @@ import com.example.lisamazzini.train_app.Model.Treno.Train;
 import com.example.lisamazzini.train_app.Network.TrainRestClient;
 import com.octo.android.robospice.request.SpiceRequest;
 
+/**
+ * Request che dato numero del treno e codice della stazione di origine, si connette
+ * alla pagina da cui prendere i dati
+ */
 public class TrainRequest extends SpiceRequest<Train> {
 
     private final String code;

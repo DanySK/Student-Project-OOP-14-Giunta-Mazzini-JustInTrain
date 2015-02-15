@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -126,10 +127,10 @@ public class NavigationDrawerFragment extends Fragment {
 
         final View drawerView = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         final EditText trainNumber = (EditText)drawerView.findViewById(R.id.eTrainNumber);
-        final Button trainNumberSearchButton = (Button) drawerView.findViewById(R.id.bTrainNumberSearch);
+        final ImageButton trainNumberSearchButton = (ImageButton) drawerView.findViewById(R.id.bTrainNumberSearch);
         final EditText departure = (EditText)drawerView.findViewById(R.id.eDepartureStation);
         final EditText arrival = (EditText)drawerView.findViewById(R.id.eArrivalStation);
-        final Button journeySearchButton = (Button) drawerView.findViewById(R.id.bJourneySearch);
+        final ImageButton journeySearchButton = (ImageButton) drawerView.findViewById(R.id.bJourneySearch);
 
         setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), false);
         setTime(calendar.get(Calendar.HOUR_OF_DAY)-1, calendar.get(Calendar.MINUTE), false);

@@ -54,14 +54,16 @@ public class BasicAchievement implements IAchievement {
 
         // prendo il valore dal file
         this.value = data.getLong(strategy.getKey(), 0L);
+
         //aggiorno il valore
         this.value = strategy.compute(train, value);
+
         //rimetto il valore aggiornato nel file
         editor.putLong(strategy.getKey(), this.value);
         editor.apply();
+
         //controllo di aver raggiunto l'obbiettivo
         strategy.control(value);
-        Log.d("i looooooog", "ho finito di fare addData");
 
     }
 }

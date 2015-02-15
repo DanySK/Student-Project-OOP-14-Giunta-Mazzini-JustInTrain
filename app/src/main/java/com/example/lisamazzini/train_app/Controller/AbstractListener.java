@@ -16,10 +16,20 @@ import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
+/**
+ * Classe astratta per i RequestListener necessari per il funzionamento di Robospice
+ *
+ * @param <X>
+ */
 public abstract class AbstractListener<X> implements RequestListener<X> {
 
     protected final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getDialogContext());
 
+    /**
+     * Metodo implementato che mostra un Dialog di errore se la richiesta non è andata a buon fine, diverso
+     * in base al tipo di Exception che viene lanciata
+     * @param spiceException
+     */
     public void onRequestFailure(SpiceException spiceException) {
         if(spiceException.getCause() instanceof InvalidTrainNumberException){
             dialogBuilder.setTitle(Constants.WRONG_TRAIN_TITLE)
@@ -59,8 +69,17 @@ public abstract class AbstractListener<X> implements RequestListener<X> {
         }
     }
 
+    /**
+     * Metodo da implementare che restituisca il Context in cui si trova il Listener, necessario per
+     * mostrare il Dialog
+     * @return
+     */
     public abstract Context getDialogContext();
 
+    /**
+     * Metodo da implementare che esegue azioni con il risultato della Request
+     * @param result
+     */
     @Override
     public abstract void onRequestSuccess(X result);
 

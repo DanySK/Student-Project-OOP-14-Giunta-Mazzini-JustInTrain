@@ -30,20 +30,6 @@
         android:inputType="number"
         />
 
-    <Button
-        android:id="@+id/bTrainNumberSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/eTrainNumber"
-
-        android:layout_marginTop="22dp"
-
-        style="?android:attr/buttonStyleSmall"
-
-        android:text="-->" />
-
     <!--////////////////////////////////////////////////////////////////////-->
 
     <EditText
@@ -100,20 +86,6 @@
 
         android:onClick="showDatePickerDialog" />
 
-    <Button
-    android:id="@+id/bJourneySearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_below="@id/eDepartureStation"
-        android:layout_toRightOf="@id/eArrivalStation"
-
-        android:layout_marginTop="12dp"
-
-        style="?android:attr/buttonStyleSmall"
-
-        android:text="-->" />
-
     <!--////////////////////////////////////////////////////////////////////-->
 
     <android.support.v7.widget.RecyclerView
@@ -125,6 +97,24 @@
 
         android:layout_marginTop="32dp"
     />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bTrainNumberSearch"
+        android:src="@drawable/ic_drawer"
+        android:layout_toRightOf="@+id/eTrainNumber"
+        android:layout_alignBottom="@+id/eTrainNumber"
+    />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bJourneySearch"
+        android:src="@drawable/ic_drawer"
+        android:layout_alignBottom="@+id/eArrivalStation"
+        android:layout_toRightOf="@+id/eDepartureStation"
+        android:layout_toEndOf="@+id/eDepartureStation" />
 
 
     <!--<ListView-->

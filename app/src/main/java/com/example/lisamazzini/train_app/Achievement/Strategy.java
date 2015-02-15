@@ -6,9 +6,7 @@ import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 /**
  * Questa interfaccia rappresenta il comportamento di un achievement,
  * implementando i suoi metodi si stabilisce il modo in cui i dati vengono aggiornati
- * e quando verrà sbloccato l'achievement
- *
- *
+ * e il momento in cui verrà sbloccato l'achievement
  */
 public interface Strategy {
 
