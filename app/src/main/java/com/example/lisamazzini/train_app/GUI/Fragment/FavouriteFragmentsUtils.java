@@ -1,5 +1,6 @@
 package com.example.lisamazzini.train_app.GUI.Fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,8 +50,11 @@ public class FavouriteFragmentsUtils {
         menu.getItem(1).setVisible(b);
     }
 
-    public Menu onOptionsItemSelected(MenuItem item, String[] details) {
+    public Menu onOptionsItemSelected(MenuItem item, String[] details, Activity activity) {
         int id = item.getItemId();
+        if (id == android.R.id.home) {
+            activity.finish();
+        }
         if (id == R.id.action_prefere) {
             try {
                 Toast.makeText(context, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show();

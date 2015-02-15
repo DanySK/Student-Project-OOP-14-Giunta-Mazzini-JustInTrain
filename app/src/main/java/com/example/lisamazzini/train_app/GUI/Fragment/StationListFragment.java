@@ -3,18 +3,21 @@ package com.example.lisamazzini.train_app.GUI.Fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
@@ -30,6 +33,7 @@ import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,10 +48,11 @@ public class StationListFragment extends AbstractRobospiceFragment {
     private IFavouriteController favController = FavouriteTrainController.getInstance();
     private FavouriteFragmentsUtils favouriteFragmentsUtils;
 
-
     private String[] trainDetails;
     private String trainNumber;
     private String stationCode;
+    private ArrayList<String> fermateNamesList = new ArrayList<>();
+    private ArrayList<String> fermateDelaysList = new ArrayList<>();
 
     private TextView info;
     private TextView delay;
@@ -108,17 +113,21 @@ public class StationListFragment extends AbstractRobospiceFragment {
         return layoutInflater;
     }
 
+    public static void onBackPressed() {
+        onBackPressed();
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_main, menu);
         this.menu = menu;
         favouriteFragmentsUtils.setMenu(this.menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        menu = favouriteFragmentsUtils.onOptionsItemSelected(item, trainDetails);
+        menu = favouriteFragmentsUtils.onOptionsItemSelected(item, trainDetails, getActivity());
         return super.onOptionsItemSelected(item);
     }
 
@@ -183,6 +192,10 @@ public class StationListFragment extends AbstractRobospiceFragment {
             trainDetails[1] = trainResponse.getIdOrigine();
             favouriteFragmentsUtils.toggleFavouriteIcon(trainNumber, stationCode);
 
+            for (Fermate f : trainResponse.getFermate()) {
+                fermateNamesList.add(f.getStazione());
+                fermateDelaysList.add(f.getRitardo().toString());
+            }
             fermateList.clear();
             fermateList.addAll(trainResponse.getFermate());
             adapter.notifyDataSetChanged();

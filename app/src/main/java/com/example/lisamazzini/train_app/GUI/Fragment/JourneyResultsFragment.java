@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -50,6 +51,10 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
     private Menu menu;
     private boolean isCustomTime;
     private String departureID, departureStation, arrivalID, arrivalStation, requestedTime;
+//    private String departureID;
+//    private String arrivalStation;
+//    private String arrivalID;
+//    private String requestedTime;
 
     public static JourneyResultsFragment newInstance() {
         return new JourneyResultsFragment();
@@ -89,10 +94,6 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
         return layoutInflater;
     }
 
-    public FavouriteFragmentsUtils getFragmentUtils() {
-        return this.favouriteFragmentsUtils;
-    }
-
     public void resetScrollListener() {
         recyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(manager) {
             @Override
@@ -106,17 +107,18 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Do something that differs the Activity's menu here
-        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_main, menu);
         this.menu = menu;
         this.favouriteFragmentsUtils.setMenu(this.menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-       favouriteFragmentsUtils.setContext(getActivity());
-        menu = favouriteFragmentsUtils.onOptionsItemSelected(item, new String[]{departureID, arrivalID, departureStation, arrivalStation});
+        favouriteFragmentsUtils.setContext(getActivity());
+        menu = favouriteFragmentsUtils.onOptionsItemSelected(item, new String[]{departureID, arrivalID, departureStation, arrivalStation}, getActivity());
         return super.onOptionsItemSelected(item);
     }
 
@@ -144,6 +146,10 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
             Toast.makeText(getActivity(), "Ricerca in corso...", Toast.LENGTH_SHORT).show();
             spiceManager.execute(new JourneyDataRequest(this.departureStation), new DepartureDataRequestListenter());
         }
+    }
+
+    public FavouriteFragmentsUtils getFragmentUtils() {
+        return favouriteFragmentsUtils;
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -191,6 +197,7 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
             List<String> data = lista.getList();
 
             if (Utilities.isOneResult(data)) {
+                favouriteFragmentsUtils.toggleFavouriteIcon(departureID, arrivalID);
                 arrivalID = controller.splitData(lista.getList().get(0))[1];
                 spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
             } else {
@@ -219,7 +226,6 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
 
         @Override
         public void onRequestSuccess(Tragitto tragitto) {
-            favouriteFragmentsUtils.toggleFavouriteIcon(departureID, arrivalID);
             controller.buildPlainSolutions(tragitto);
             spiceManager.execute(new JourneyTrainRequest(controller.getPlainSolutions(isCustomTime)), new JourneyTrainRequestListener());
         }

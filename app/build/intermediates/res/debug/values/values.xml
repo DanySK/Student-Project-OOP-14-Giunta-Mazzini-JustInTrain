@@ -205,8 +205,13 @@
     <string name="star"> ★ </string>
     <string name="time">Ore: </string>
     <string name="title_activity_achievement_list">AchievementListActivity</string>
+<<<<<<< local
+    <string name="title_activity_bar_chart">BarChartActivity</string>
+    <!-- From: file:/Users/albertogiunta/AndroidStudioProjects/oop14-trainapp/app/src/main/res/values/styles.xml -->
+=======
     <string name="train_number"> Numero treno</string>
     <!-- From: file:/Users/lisamazzini/AndroidStudioProjects/oop14-trainapp/app/src/main/res/values/styles.xml -->
+>>>>>>> other
     <eat-comment/>
     <style name="AppTheme" parent="AppTheme.Base"/>
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
@@ -1201,6 +1206,14 @@
     <style name="ThemeOverlay.AppCompat.Dark" parent="Base.ThemeOverlay.AppCompat.Dark"/>
     <style name="ThemeOverlay.AppCompat.Dark.ActionBar" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="ThemeOverlay.AppCompat.Light" parent="Base.ThemeOverlay.AppCompat.Light"/>
+    <!-- From: file:/Users/albertogiunta/AndroidStudioProjects/oop14-trainapp/app/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="ToolbarPopup" parent="Widget.AppCompat.Light.PopupMenu">
+        <item name="android:background">#000</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <!-- From: file:/Users/albertogiunta/AndroidStudioProjects/oop14-trainapp/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <eat-comment/>
     <style name="Widget.AppCompat.ActionBar" parent="Base.Widget.AppCompat.ActionBar"/>
     <style name="Widget.AppCompat.ActionBar.Solid" parent="Base.Widget.AppCompat.ActionBar.Solid"/>
     <style name="Widget.AppCompat.ActionBar.TabBar" parent="Base.Widget.AppCompat.ActionBar.TabBar"/>

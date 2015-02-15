@@ -7,12 +7,12 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar"/>
 
-    <fragment
-        android:name="com.example.lisamazzini.train_app.GUI.Fragment.StationListFragment"
-        android:id="@+id/stationListFragment"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-    </fragment>
+<fragment
+    android:name="com.example.lisamazzini.train_app.GUI.Fragment.StationListFragment"
+    android:id="@+id/stationListFragment"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+</fragment>
 
 </LinearLayout>
 

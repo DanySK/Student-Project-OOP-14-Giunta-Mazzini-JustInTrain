@@ -97,7 +97,7 @@ public class JourneyResultsController {
             String[] temp = splitData(list.get(i));
             dataMatrix[0][i] = temp[0];
             dataMatrix[1][i] = temp[1];
-            dataMatrix[0][1]= computeChoices(dataMatrix[0][i]);
+//            dataMatrix[0][i]= computeChoices(dataMatrix[0][i]);
         }
         return dataMatrix;
     }

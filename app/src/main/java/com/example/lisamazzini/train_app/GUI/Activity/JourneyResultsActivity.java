@@ -17,12 +17,6 @@ import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteControl
 
 public class JourneyResultsActivity extends AbstractBaseActivity {
 
-    private JourneyResultsFragment fragment;
-    private String departureStation;
-    private String arrivalStation;
-    private String requestedTime;
-    private boolean isCustomTime;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -30,10 +24,10 @@ public class JourneyResultsActivity extends AbstractBaseActivity {
         setContentView(R.layout.activity_journey_search);
 
         Intent i = getIntent();
-        this.departureStation = i.getStringExtra(Constants.DEPARTURE_STAT_EXTRA);
-        this.arrivalStation = i.getStringExtra(Constants.ARRIVAL_STAT_EXTRA);
-        this.requestedTime = i.getStringExtra(Constants.REQUESTED_TIME_EXTRA);
-        this.isCustomTime = i.getBooleanExtra(Constants.IS_CUSTOM_TIME_EXTRA, false);
+        String departureStation = i.getStringExtra(Constants.DEPARTURE_STAT_EXTRA);
+        String arrivalStation = i.getStringExtra(Constants.ARRIVAL_STAT_EXTRA);
+        String requestedTime = i.getStringExtra(Constants.REQUESTED_TIME_EXTRA);
+        boolean isCustomTime = i.getBooleanExtra(Constants.IS_CUSTOM_TIME_EXTRA, false);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -44,33 +38,32 @@ public class JourneyResultsActivity extends AbstractBaseActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, JourneyResultsFragment.newInstance());
-        fragment = (JourneyResultsFragment) getSupportFragmentManager().findFragmentById(R.id.journeyResultsFragment);
-//        fragment.makeOuterRequestsWithStations(departureStation, arrivalStation, requestedTime);
+        JourneyResultsFragment fragment = (JourneyResultsFragment) getSupportFragmentManager().findFragmentById(R.id.journeyResultsFragment);
         fragment.makeRequest(Constants.WITH_STATIONS, requestedTime, isCustomTime, departureStation, arrivalStation);
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        menu.getItem(0).setVisible(false);
-        menu.getItem(1).setVisible(false);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-        if (id == R.id.home) {
-            return true;
-        }
-        if (id == R.id.action_prefere) {
-            return false;
-        } else if (id == R.id.action_deprefere) {
-            return false;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        menu.getItem(0).setVisible(false);
+//        menu.getItem(1).setVisible(false);
+//        return super.onCreateOptionsMenu(menu);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        int id = item.getItemId();
+//        if (id == R.id.home) {
+//            return true;
+//        }
+//        if (id == R.id.action_prefere) {
+//            return false;
+//        } else if (id == R.id.action_deprefere) {
+//            return false;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
 }

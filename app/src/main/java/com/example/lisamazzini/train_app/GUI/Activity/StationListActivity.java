@@ -28,7 +28,7 @@ public class StationListActivity extends AbstractBaseActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle("Ricerca in corso...");
+            getSupportActionBar().setTitle("Searching...");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
@@ -40,28 +40,28 @@ public class StationListActivity extends AbstractBaseActivity {
         fragment.makeRequest(trainNumber, stationCode);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        menu.getItem(0).setVisible(false);
-        menu.getItem(1).setVisible(false);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        if (id == R.id.action_prefere) {
-            return false;
-        } else if (id == R.id.action_deprefere) {
-            return false;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        menu.getItem(0).setVisible(false);
+//        menu.getItem(1).setVisible(false);
+//        return super.onCreateOptionsMenu(menu);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == android.R.id.home) {
+//            onBackPressed();
+//            return true;
+//        }
+//        if (id == R.id.action_prefere) {
+//            return false;
+//        } else if (id == R.id.action_deprefere) {
+//            return false;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 }
 
 

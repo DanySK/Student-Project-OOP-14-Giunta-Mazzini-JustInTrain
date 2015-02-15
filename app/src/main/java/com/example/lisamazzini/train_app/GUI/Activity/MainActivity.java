@@ -87,7 +87,6 @@ public class MainActivity extends AbstractBaseActivity implements INavgationDraw
             return true;
         } else if (id == R.id.action_deprefere) {
             favouriteJourneyController.removeFavourite(actualJourneyIDs.get(0).split(Constants.SEPARATOR)[0], actualJourneyIDs.get(0).split(Constants.SEPARATOR)[1]);
-            fragment.getFragmentUtils().setAsFavouriteIcon(false);
             restoreActionBar(menu);
         }
         return super.onOptionsItemSelected(item);
@@ -119,7 +118,6 @@ public class MainActivity extends AbstractBaseActivity implements INavgationDraw
                     actualJourneyIDs.add(favouriteStationIDs.get(position));
                     actualJourneyIDs.add(favouriteStationNames.get(position));
                     fragment.makeRequest(Constants.WITH_IDS, navigationDrawerFragment.getActualTime(), false, favouriteStationIDs.get(position).split(Constants.SEPARATOR)[0], favouriteStationIDs.get(position).split(Constants.SEPARATOR)[1]);
-                    fragment.getFragmentUtils().setAsFavouriteIcon(true);
                     return true;
                 }
             };
