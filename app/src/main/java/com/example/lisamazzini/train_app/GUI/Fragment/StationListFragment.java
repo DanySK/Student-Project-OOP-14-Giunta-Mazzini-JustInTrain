@@ -1,29 +1,23 @@
 package com.example.lisamazzini.train_app.GUI.Fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.Controller.StationListController;
-import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
 import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
 import com.example.lisamazzini.train_app.Model.Treno.Train;
@@ -37,7 +31,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class StationListFragment extends AbstractRobospiceFragment {
+public class StationListFragment extends AbstractRobospiceFragment implements IBaseFragment, IFavouriteFragment {
 
     private RecyclerView recyclerView;
     private StationListAdapter adapter;
@@ -113,10 +107,6 @@ public class StationListFragment extends AbstractRobospiceFragment {
         return layoutInflater;
     }
 
-    public static void onBackPressed() {
-        onBackPressed();
-    }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
@@ -129,6 +119,11 @@ public class StationListFragment extends AbstractRobospiceFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         menu = favouriteFragmentsUtils.onOptionsItemSelected(item, trainDetails, getActivity());
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public FavouriteFragmentsUtils getFragmentUtils() {
+        return this.favouriteFragmentsUtils;
     }
 
     public void makeRequest(String trainNumber, String stationCode) {

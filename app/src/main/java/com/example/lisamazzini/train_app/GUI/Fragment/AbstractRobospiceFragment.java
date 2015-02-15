@@ -20,4 +20,13 @@ public abstract class AbstractRobospiceFragment extends Fragment {
         spiceManager.shouldStop();
         super.onStop();
     }
+
+    public void resetRequests() {
+        if (spiceManager.isStarted()) {
+            spiceManager.dontNotifyAnyRequestListeners();
+            spiceManager.shouldStop();
+            spiceManager.start(getActivity());
+        }
+    }
+
 }

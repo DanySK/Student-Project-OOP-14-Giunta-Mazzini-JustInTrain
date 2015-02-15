@@ -165,7 +165,7 @@ public class NavigationDrawerFragment extends Fragment {
         recyclerView = (RecyclerView) drawerView.findViewById(R.id.lDrawerList);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
-        drawerListAdapter = new DrawerListAdapter(TITLES, getActivity());
+        drawerListAdapter = new DrawerListAdapter(TITLES);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(drawerListAdapter);
 

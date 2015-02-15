@@ -40,22 +40,18 @@ public class FavouriteTrainListFragment extends AbstractRobospiceFragment {
     public FavouriteTrainListFragment() {
     }
 
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        View layoutInfalter = inflater.inflate(R.layout.fragment_favourite_train_list, container, false);
         super.spiceManager = new SpiceManager(UncachedSpiceService.class);
 
         IFavouriteController favouriteController = FavouriteTrainController.getInstance();
         favouriteController.setContext(getActivity().getApplicationContext());
         this.favouriteTrainListController = new FavouriteTrainListController((Map<String, String>) favouriteController.getFavouritesAsMap());
 
-        View layoutInfalter = inflater.inflate(R.layout.fragment_favourite_train_list, container, false);
         this.recyclerView = (RecyclerView)layoutInfalter.findViewById(R.id.favouriteRecycler);
         this.manager = new LinearLayoutManager(getActivity());
         this.adapter = new FavouriteTrainListAdapter(favouriteTrainsList);

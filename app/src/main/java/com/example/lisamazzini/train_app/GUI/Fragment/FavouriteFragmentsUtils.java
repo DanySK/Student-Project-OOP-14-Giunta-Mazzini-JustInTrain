@@ -54,8 +54,7 @@ public class FavouriteFragmentsUtils {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             activity.finish();
-        }
-        if (id == R.id.action_prefere) {
+        } else if (id == R.id.action_prefere) {
             try {
                 Toast.makeText(context, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show();
                 addFavourite(details);

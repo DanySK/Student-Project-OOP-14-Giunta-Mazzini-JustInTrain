@@ -36,24 +36,20 @@ import com.octo.android.robospice.UncachedSpiceService;
 import java.util.LinkedList;
 import java.util.List;
 
-public class JourneyResultsFragment extends AbstractRobospiceFragment {
-
-    private RecyclerView recyclerView;
-    private LinearLayoutManager manager;
-    private JourneyResultsAdapter adapter;
-    private List<PlainSolution> plainSolutionList = new LinkedList<>();
-
-    private JourneyResultsController controller;
-    private IFavouriteController favouriteController = FavouriteJourneyController.getInstance();
-    private FavouriteFragmentsUtils favouriteFragmentsUtils;
+public class JourneyResultsFragment extends AbstractRobospiceFragment implements IBaseFragment, IFavouriteFragment {
 
     private Menu menu;
+    private RecyclerView recyclerView;
+    private final List<PlainSolution> plainSolutionList = new LinkedList<>();
+    private final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+    private JourneyResultsAdapter adapter = new JourneyResultsAdapter(plainSolutionList);
+
+    private final JourneyResultsController controller = new JourneyResultsController();
+    private final FavouriteFragmentsUtils favouriteFragmentsUtils = new FavouriteFragmentsUtils(FavouriteJourneyController.getInstance());
+    private final IFavouriteController favouriteController = FavouriteJourneyController.getInstance();
+
     private boolean isCustomTime;
     private String departureID, departureStation, arrivalID, arrivalStation, requestedTime;
-//    private String departureID;
-//    private String arrivalStation;
-//    private String arrivalID;
-//    private String requestedTime;
 
     public static JourneyResultsFragment newInstance() {
         return new JourneyResultsFragment();
@@ -62,6 +58,7 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
     public JourneyResultsFragment() {
     }
 
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
@@ -71,25 +68,16 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        View layoutInflater = inflater.inflate(R.layout.fragment_journey_results, container, false);
+
         super.spiceManager = new SpiceManager(UncachedSpiceService.class);
         this.favouriteController.setContext(getActivity().getApplicationContext());
-        this.favouriteFragmentsUtils = new FavouriteFragmentsUtils(FavouriteJourneyController.getInstance());
-
-        View layoutInflater = inflater.inflate(R.layout.fragment_journey_results, container, false);
         this.recyclerView = (RecyclerView)layoutInflater.findViewById(R.id.cardListFragment);
-
-        this.manager = new LinearLayoutManager(getActivity());
-        this.adapter = new JourneyResultsAdapter(plainSolutionList);
         this.adapter.notifyDataSetChanged();
-
         this.recyclerView.setLayoutManager(manager);
         this.recyclerView.setAdapter(adapter);
         this.recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        this.controller = new JourneyResultsController();
-
         resetScrollListener();
-
         return layoutInflater;
     }
 
@@ -105,19 +93,16 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // Do something that differs the Activity's menu here
         inflater.inflate(R.menu.menu_main, menu);
         this.menu = menu;
         this.favouriteFragmentsUtils.setMenu(this.menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         favouriteFragmentsUtils.setContext(getActivity());
-        menu = favouriteFragmentsUtils.onOptionsItemSelected(item, new String[]{departureID, arrivalID, departureStation, arrivalStation}, getActivity());
+        this.menu = favouriteFragmentsUtils.onOptionsItemSelected(item, new String[]{departureID, arrivalID, departureStation, arrivalStation}, getActivity());
         return super.onOptionsItemSelected(item);
     }
 
@@ -130,20 +115,16 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment {
         this.controller.setTime(this.requestedTime);
         this.isCustomTime = isCustomTime;
         if (userRequestType.equals(Constants.WITH_IDS)) {
-            if (spiceManager.isStarted()) {
-                spiceManager.dontNotifyAnyRequestListeners();
-                spiceManager.shouldStop();
-                spiceManager.start(getActivity());
-            }
+            super.resetRequests();
             this.departureID = departureAndArrivalData[0];
             this.arrivalID = departureAndArrivalData[1];
-            Toast.makeText(getActivity(), "Ricerca in corso...", Toast.LENGTH_SHORT).show();
             spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
+            Toast.makeText(getActivity(), "Ricerca in corso...", Toast.LENGTH_SHORT).show();
         } else if (userRequestType.equals(Constants.WITH_STATIONS)) {
             this.departureStation = departureAndArrivalData[0];
             this.arrivalStation = departureAndArrivalData[1];
-            Toast.makeText(getActivity(), "Ricerca in corso...", Toast.LENGTH_SHORT).show();
             spiceManager.execute(new JourneyDataRequest(this.departureStation), new DepartureDataRequestListenter());
+            Toast.makeText(getActivity(), "Ricerca in corso...", Toast.LENGTH_SHORT).show();
         }
     }
 
