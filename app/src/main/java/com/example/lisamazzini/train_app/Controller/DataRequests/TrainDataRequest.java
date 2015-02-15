@@ -11,6 +11,8 @@ import java.util.List;
 /**
  * Prima Request da effettuare, per ottenere, dato un numero di treno, le informazioni riguardanti
  * la stazione di origine
+ *
+ * @author lisamazzini
  */
 
 public class TrainDataRequest extends AbstractDataRequest {

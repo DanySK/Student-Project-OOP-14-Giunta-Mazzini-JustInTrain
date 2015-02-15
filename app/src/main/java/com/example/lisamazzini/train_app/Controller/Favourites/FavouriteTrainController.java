@@ -6,6 +6,8 @@ import com.example.lisamazzini.train_app.Model.Constants;
 
 /**
  * Classe che modella un controller per i treni favoriti.
+ *
+ * @author lisamazzini
  */
 public class FavouriteTrainController extends AbstractFavouriteController {
 

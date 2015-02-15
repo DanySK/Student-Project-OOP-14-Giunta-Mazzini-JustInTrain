@@ -11,6 +11,7 @@ import java.util.Map;
  * Interfaccia che modella il concetto controller dei preferiti con metodi per aggiungere, togliere e restituire i preferiti
  *
  * @author albertogiunta
+ * @author lisamazzini
  */
 public interface IFavouriteController {
 

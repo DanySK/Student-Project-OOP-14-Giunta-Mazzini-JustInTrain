@@ -15,6 +15,8 @@ import java.util.Map;
 /**
  * Classe che modella un controller per le tratte favorite.
  * Ridefinisce l'aggiunta della tratta salvando come chiave la coppia di id e come valore la coppia di nomi di stazione
+ *
+ * @author albertogiunta
  */
 public class FavouriteJourneyController extends AbstractFavouriteController{
 

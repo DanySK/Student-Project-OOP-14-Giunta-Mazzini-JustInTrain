@@ -12,7 +12,6 @@ import android.util.Log;
  * l'utente fa "Pin"; si sblocca dopo 10 pin
  *
  * @author Lisa Mazzini
- *
  */
 public class PinAchievement1 extends BasicAchievement {
     public PinAchievement1(Context context) {

@@ -11,6 +11,8 @@ import java.util.List;
 /**
  * Prima Request da effettuare, per ottenere il codice di una data stazione
  * o eventualmente tutte le stazioni corrispondenti alla stringa data.
+ *
+ * @author albertogiunta
  */
 public class JourneyDataRequest extends AbstractDataRequest {
 
