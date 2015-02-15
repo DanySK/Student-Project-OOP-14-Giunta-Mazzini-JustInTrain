@@ -8,6 +8,7 @@ import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
 import com.example.lisamazzini.train_app.Model.Treno.Train;
 import com.example.lisamazzini.train_app.Model.Treno.Fermate;
 
+import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
 import org.joda.time.MutableDateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -78,6 +79,12 @@ public class Utilities {
      */
     public static String[] splitStationForTrainSearch(String data) {
         return data.split("\\|");
+    }
+
+
+
+    public static String trimAndCapitalizeString(String s) {
+        return WordUtils.capitalize(s).replaceAll("\\s+$", "");
     }
 
     /**

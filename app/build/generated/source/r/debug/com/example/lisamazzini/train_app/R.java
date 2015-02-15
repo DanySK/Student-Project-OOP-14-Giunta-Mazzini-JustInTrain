@@ -1340,11 +1340,11 @@ containing a value of this type.
         public static final int action_settings=0x7f0a007e;
         public static final int activity_chooser_view_content=0x7f0a0021;
         public static final int always=0x7f0a0016;
-        public static final int bDatePicker=0x7f0a0050;
-        public static final int bJourneySearch=0x7f0a0051;
+        public static final int bDatePicker=0x7f0a004f;
+        public static final int bJourneySearch=0x7f0a0052;
         public static final int bOptions=0x7f0a006f;
-        public static final int bTimePicker=0x7f0a004f;
-        public static final int bTrainNumberSearch=0x7f0a004c;
+        public static final int bTimePicker=0x7f0a004e;
+        public static final int bTrainNumberSearch=0x7f0a0051;
         public static final int beginning=0x7f0a0013;
         public static final int cardListFragment=0x7f0a0049;
         public static final int checkbox=0x7f0a0029;
@@ -1357,8 +1357,8 @@ containing a value of this type.
         public static final int disableHome=0x7f0a000c;
         public static final int drawer_layout=0x7f0a0043;
         public static final int dropdown=0x7f0a001c;
-        public static final int eArrivalStation=0x7f0a004e;
-        public static final int eDepartureStation=0x7f0a004d;
+        public static final int eArrivalStation=0x7f0a004d;
+        public static final int eDepartureStation=0x7f0a004c;
         public static final int eTrainNumber=0x7f0a004b;
         public static final int edit_query=0x7f0a0033;
         public static final int end=0x7f0a0014;
@@ -1377,7 +1377,7 @@ containing a value of this type.
         public static final int lActualPlatform=0x7f0a007b;
         public static final int lActualTime=0x7f0a0079;
         public static final int lDelay=0x7f0a0055;
-        public static final int lDrawerList=0x7f0a0052;
+        public static final int lDrawerList=0x7f0a0050;
         public static final int lFavLastSeen=0x7f0a0066;
         public static final int lFavProgress=0x7f0a0064;
         public static final int lLastSeen=0x7f0a0059;

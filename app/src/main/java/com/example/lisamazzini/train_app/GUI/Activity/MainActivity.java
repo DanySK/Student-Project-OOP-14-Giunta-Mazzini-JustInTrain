@@ -53,6 +53,9 @@ public class MainActivity extends ActionBarActivity implements INavgationDrawerU
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setHomeButtonEnabled(true);
+
         navgationDrawerUtils = new NavigationDrawerUtils(MainActivity.this);
         navigationDrawerFragment = navgationDrawerUtils.getNavigationDrawerFragment();
         favouriteJourneyController.setContext(getApplicationContext());
@@ -82,6 +85,9 @@ public class MainActivity extends ActionBarActivity implements INavgationDrawerU
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        if (navigationDrawerFragment.onOptionsItemSelected(item)) {
+            return true;
+        }
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.action_prefere) {
@@ -108,6 +114,9 @@ public class MainActivity extends ActionBarActivity implements INavgationDrawerU
     }
 
     public void restoreActionBar(Menu menu) {
+        final MenuItem notFavItem= menu.findItem(R.id.action_prefere);
+        final MenuItem isFavItem = menu.findItem(R.id.action_deprefere);
+
         refreshLists();
         SpinnerAdapter spinnerAdapter = new ArrayAdapter<String>(getSupportActionBar().getThemedContext(), android.R.layout.simple_spinner_dropdown_item, favouriteStationNames);
         if (favouriteStationNames.size() > 0 ) {
@@ -118,6 +127,9 @@ public class MainActivity extends ActionBarActivity implements INavgationDrawerU
                     actualJourneyIDs.clear();
                     actualJourneyIDs.add(favouriteStationIDs.get(position));
                     actualJourneyIDs.add(favouriteStationNames.get(position));
+//                    isFavItem.setVisible(true);
+//                    notFavItem.setVisible(false);
+                    fragment.getFragmentUtils().setAsFavouriteIcon(true);
                     fragment.makeRequest(Constants.WITH_IDS, navigationDrawerFragment.getActualTime(), false, favouriteStationIDs.get(position).split(Constants.SEPARATOR)[0], favouriteStationIDs.get(position).split(Constants.SEPARATOR)[1]);
                     return true;
                 }
@@ -128,7 +140,7 @@ public class MainActivity extends ActionBarActivity implements INavgationDrawerU
         } else {
             getSupportActionBar().setDisplayShowTitleEnabled(true);
             getSupportActionBar().setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_STANDARD);
-            fragment.getFragmentUtils().setAllEnabled(false);
+//            fragment.getFragmentUtils().setAllEnabled(false);
             getSupportActionBar().setTitle("Nessuna tratta favorita!");
         }
     }

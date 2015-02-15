@@ -33,6 +33,7 @@ import com.example.lisamazzini.train_app.GUI.Activity.StationListActivity;
 import com.example.lisamazzini.train_app.GUI.Adapter.DrawerListAdapter;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.R;
+import com.example.lisamazzini.train_app.Utilities;
 
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -101,8 +102,6 @@ public class NavigationDrawerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Read in the flag indicating whether or not the user has demonstrated awareness of the
-        // drawer. See PREF_USER_LEARNED_DRAWER for details.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
@@ -111,8 +110,6 @@ public class NavigationDrawerFragment extends Fragment {
             mFromSavedInstanceState = true;
         }
 
-        // Select either the default item (0) or the last selected item.
-        selectItem(mCurrentSelectedPosition);
     }
 
     @Override
@@ -141,7 +138,7 @@ public class NavigationDrawerFragment extends Fragment {
             public void onClick(View v) {
                 if (trainNumber.length() > 0) {
                     Intent i = new Intent(getActivity(), StationListActivity.class);
-                    i.putExtra(Constants.TRAIN_N_EXTRA, trimAndCapitalizeString(trainNumber.getText().toString()));
+                    i.putExtra(Constants.TRAIN_N_EXTRA, Utilities.trimAndCapitalizeString(trainNumber.getText().toString()));
                     startActivity(i);
                 }
             }
@@ -152,8 +149,8 @@ public class NavigationDrawerFragment extends Fragment {
             public void onClick(View v) {
                 if (departure.length() > 0 && arrival.length() > 0) {
                     Intent i = new Intent(getActivity(), JourneyResultsActivity.class);
-                    i.putExtra(Constants.DEPARTURE_STAT_EXTRA, trimAndCapitalizeString(departure.getText().toString()));
-                    i.putExtra(Constants.ARRIVAL_STAT_EXTRA, trimAndCapitalizeString(arrival.getText().toString()));
+                    i.putExtra(Constants.DEPARTURE_STAT_EXTRA, Utilities.trimAndCapitalizeString(departure.getText().toString()));
+                    i.putExtra(Constants.ARRIVAL_STAT_EXTRA, Utilities.trimAndCapitalizeString(arrival.getText().toString()));
                     i.putExtra(Constants.REQUESTED_TIME_EXTRA, buildDateTime());
                     i.putExtra(Constants.IS_CUSTOM_TIME_EXTRA, isCustomTime);
                     startActivity(i);
@@ -173,9 +170,7 @@ public class NavigationDrawerFragment extends Fragment {
         return drawerView;
     }
 
-    public String trimAndCapitalizeString(String s) {
-        return WordUtils.capitalize(s).replaceAll("\\s+$", "");
-    }
+
 
     public boolean getCustomTime() {
         return this.isCustomTime;
@@ -274,18 +269,6 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    private void selectItem(int position) {
-//        mCurrentSelectedPosition = position;
-//        if (mDrawerListView != null) {
-//            mDrawerListView.setItemChecked(position, true);
-//        }
-//        if (mDrawerLayout != null) {
-//            mDrawerLayout.closeDrawer(mFragmentContainerView);
-//        }
-//        if (mCallbacks != null) {
-//            mCallbacks.onNavigationDrawerItemSelected(position);
-//        }
-    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -325,6 +308,7 @@ public class NavigationDrawerFragment extends Fragment {
             menu.getItem(0).setVisible(false);
             menu.getItem(1).setVisible(false);
             ActionBar action = ((ActionBarActivity) getActivity()).getSupportActionBar();
+            action.setDisplayShowTitleEnabled(true);
             action.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_STANDARD);
             action.setTitle("Ricerca...");
         }
@@ -336,21 +320,10 @@ public class NavigationDrawerFragment extends Fragment {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-
-//        if (item.getItemId() == R.id.action_example) {
-//            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
-//            return true;
-//        }
-
         return super.onOptionsItemSelected(item);
     }
 
-    private void showGlobalContextActionBar() {
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setTitle(R.string.app_name);
-    }
+
 
     private ActionBar getActionBar() {
         return ((ActionBarActivity) getActivity()).getSupportActionBar();

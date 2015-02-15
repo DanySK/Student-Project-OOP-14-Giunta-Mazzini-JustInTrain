@@ -16,6 +16,8 @@ public class FavouriteFragmentsUtils {
 
     private final IFavouriteController favouriteController;
     private Menu menu;
+    private MenuItem favItem;
+    private MenuItem notFavItem;
     private Context context;
 
 
@@ -25,6 +27,8 @@ public class FavouriteFragmentsUtils {
 
     public void setMenu(Menu menu) {
         this.menu = menu;
+        this.favItem = menu.findItem(R.id.action_deprefere);
+        this.notFavItem = menu.findItem(R.id.action_prefere);
     }
 
     public void setContext(Context context){
@@ -41,13 +45,17 @@ public class FavouriteFragmentsUtils {
     }
 
     public void setAsFavouriteIcon(boolean b) {
-        menu.getItem(0).setVisible(!b);
-        menu.getItem(1).setVisible(b);
+        this.favItem.setVisible(b);
+        this.notFavItem.setVisible(!b);
+//        menu.getItem(0).setVisible(!b);
+//        menu.getItem(1).setVisible(b);
     }
 
     public void setAllEnabled(boolean b) {
-        menu.getItem(0).setVisible(b);
-        menu.getItem(1).setVisible(b);
+        this.favItem.setVisible(b);
+        this.notFavItem.setVisible(b);
+//        menu.getItem(0).setVisible(b);
+//        menu.getItem(1).setVisible(b);
     }
 
     public Menu onOptionsItemSelected(MenuItem item, String[] details, Activity activity) {
