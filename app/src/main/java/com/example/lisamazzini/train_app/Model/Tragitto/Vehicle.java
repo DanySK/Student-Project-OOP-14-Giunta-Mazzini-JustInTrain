@@ -14,7 +14,6 @@ public class Vehicle {
     private String categoria;
     private String categoriaDescrizione;
     private String numeroTreno;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
     private boolean isTomorrow;
 
     public boolean isTomorrow() {
@@ -97,13 +96,5 @@ public class Vehicle {
 
     public void setNumeroTreno(String numeroTreno) {
         this.numeroTreno = numeroTreno;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 }
