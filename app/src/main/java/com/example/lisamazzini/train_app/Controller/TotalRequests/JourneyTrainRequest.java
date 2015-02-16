@@ -2,15 +2,13 @@ package com.example.lisamazzini.train_app.Controller.TotalRequests;
 
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolutionWrapper;
-import com.example.lisamazzini.train_app.Model.Treno.Train;
+import com.example.lisamazzini.train_app.Model.Treno.Treno;
 import com.example.lisamazzini.train_app.Network.TrainRestClient;
 import com.example.lisamazzini.train_app.Model.Treno.Fermate;
 import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.request.SpiceRequest;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +29,7 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
 
     private List<PlainSolution> plainSolutions;
     private Iterator<String> iterator;
-    private Train train;
+    private Treno train;
 
     public JourneyTrainRequest(List<PlainSolution> plainSolutions) {
         super(PlainSolutionWrapper.class);

@@ -2,9 +2,8 @@ package com.example.lisamazzini.train_app.Controller;
 
 import com.example.lisamazzini.train_app.Controller.DataRequests.TrainDataRequest;
 import com.example.lisamazzini.train_app.Controller.TotalRequests.TrainRequest;
-import com.example.lisamazzini.train_app.Model.Treno.Train;
+import com.example.lisamazzini.train_app.Model.Treno.Treno;
 import com.example.lisamazzini.train_app.Utilities;
-import com.squareup.okhttp.internal.Util;
 
 import java.util.List;
 
@@ -90,7 +89,7 @@ public class StationListController {
      * @param train treno da analizzare
      * @return stringa che descrive l'andamento del treno
      */
-    public String getProgress(Train train){
+    public String getProgress(Treno train){
         return Utilities.getProgress(train);
     }
 

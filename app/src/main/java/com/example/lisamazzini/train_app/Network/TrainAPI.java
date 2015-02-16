@@ -2,7 +2,7 @@ package com.example.lisamazzini.train_app.Network;
 
 
 
-import com.example.lisamazzini.train_app.Model.Treno.Train;
+import com.example.lisamazzini.train_app.Model.Treno.Treno;
 
 import retrofit.http.*;
 
@@ -13,6 +13,6 @@ import retrofit.http.*;
 public interface TrainAPI {
 
     @GET("/andamentoTreno/{codice}/{numero}")
-    Train getTrain(@Path("numero") String numero, @Path("codice") String codice);
+    Treno getTrain(@Path("numero") String numero, @Path("codice") String codice);
 
 }

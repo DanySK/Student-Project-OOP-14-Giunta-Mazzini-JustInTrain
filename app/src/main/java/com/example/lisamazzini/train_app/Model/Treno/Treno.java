@@ -11,7 +11,7 @@ package com.example.lisamazzini.train_app.Model.Treno;
 /**
  * Created by lisamazzini on 01/02/15.
  */
-public class Train {
+public class Treno {
 
     private List<Fermate> fermate = new ArrayList<Fermate>();
     private String stazioneUltimoRilevamento;

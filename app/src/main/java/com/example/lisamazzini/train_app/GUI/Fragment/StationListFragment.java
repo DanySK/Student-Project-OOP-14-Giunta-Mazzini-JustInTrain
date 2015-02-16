@@ -20,7 +20,7 @@ import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteControl
 import com.example.lisamazzini.train_app.Controller.StationListController;
 import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
-import com.example.lisamazzini.train_app.Model.Treno.Train;
+import com.example.lisamazzini.train_app.Model.Treno.Treno;
 import com.example.lisamazzini.train_app.Model.Treno.Fermate;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Utilities;
@@ -170,14 +170,14 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
         }
     }
 
-    private class TrainResultListener extends AbstractListener<Train>{
+    private class TrainResultListener extends AbstractListener<Treno>{
         @Override
         public Context getDialogContext() {
             return getActivity();
         }
 
         @Override
-        public void onRequestSuccess(Train trainResponse) {
+        public void onRequestSuccess(Treno trainResponse) {
             ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
 
             trainResponse.setProgress(listController.getProgress(trainResponse));

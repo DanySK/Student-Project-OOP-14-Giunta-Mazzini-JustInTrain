@@ -13,7 +13,7 @@ import com.example.lisamazzini.train_app.Controller.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.TotalRequests.TrainRequest;
 import com.example.lisamazzini.train_app.GUI.Activity.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Model.Treno.Train;
+import com.example.lisamazzini.train_app.Model.Treno.Treno;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.SpiceManager;
@@ -121,7 +121,7 @@ public class NotificationService extends Service {
      * Inner class adibita alla ricezione dei dati dopo la connessione a internet
      */
 
-    private class ResultListener extends AbstractListener<Train> {
+    private class ResultListener extends AbstractListener<Treno> {
 
         @Override
         public Context getDialogContext() {
@@ -129,7 +129,7 @@ public class NotificationService extends Service {
         }
 
         @Override
-        public void onRequestSuccess(Train train) {
+        public void onRequestSuccess(Treno train) {
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
             Notification not;
@@ -184,7 +184,7 @@ public class NotificationService extends Service {
          * @param train treno da controllare
          * @return true se è non partito, false se è partito
          */
-        private boolean notDeparted(Train train){
+        private boolean notDeparted(Treno train){
             return train.getFermate().get(0).getActualFermataType() == NOT_VISITED;
         }
 
@@ -193,7 +193,7 @@ public class NotificationService extends Service {
          * @param train treno da controllare
          * @return true sè è arrivato, false se non è arrivato
          */
-        private boolean isArrived(Train train){
+        private boolean isArrived(Treno train){
             return train.getFermate().get(train.getFermate().size()-1).getActualFermataType() != NOT_VISITED ;
         }
 

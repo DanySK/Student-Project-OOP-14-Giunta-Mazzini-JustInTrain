@@ -31,6 +31,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ *
+ */
 public class MainActivity extends ActionBarActivity implements INavgationDrawerUtils {
 
     private NavigationDrawerFragment navigationDrawerFragment;

@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
-import com.example.lisamazzini.train_app.Model.Treno.Train;
+import com.example.lisamazzini.train_app.Model.Treno.Treno;
 import com.example.lisamazzini.train_app.Model.Treno.Fermate;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -111,7 +111,7 @@ public class Utilities {
      * @param train treno da analizzare
      * @return stringa che descrive l'andamento
      */
-    public static String getProgress(Train train){
+    public static String getProgress(Treno train){
         Long delta = 0L;
         Long intermediateDelta = 0L;
         List<Fermate> visited = new LinkedList<>();

@@ -7,20 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
-import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.GUI.Activity.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Model.Treno.Train;
+import com.example.lisamazzini.train_app.Model.Treno.Treno;
 import com.example.lisamazzini.train_app.R;
 
 import java.util.List;
 
 public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTrainListAdapter.Holder> implements IAdapter<FavouriteTrainListAdapter.Holder> {
 
-    private List<Train> list;
+    private List<Treno> list;
 
-    public FavouriteTrainListAdapter(List<Train> list){
+    public FavouriteTrainListAdapter(List<Treno> list){
         this.list = list;
     }
 
@@ -34,7 +32,7 @@ public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTra
     @Override
     public void onBindViewHolder(Holder holder, final int position) {
 
-        final Train train = list.get(position);
+        final Treno train = list.get(position);
         holder.trainCategory.setText(train.getCategoria());
         holder.trainNumber.setText("" + train.getNumeroTreno());
 

@@ -14,7 +14,7 @@ import com.example.lisamazzini.train_app.Controller.FavouriteTrainListController
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.GUI.Adapter.FavouriteTrainListAdapter;
-import com.example.lisamazzini.train_app.Model.Treno.Train;
+import com.example.lisamazzini.train_app.Model.Treno.Treno;
 import com.example.lisamazzini.train_app.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
@@ -28,7 +28,7 @@ public class FavouriteTrainListFragment extends AbstractRobospiceFragment {
 
 
     private FavouriteTrainListController favouriteTrainListController;
-    private List<Train> favouriteTrainsList = new LinkedList<>();
+    private List<Treno> favouriteTrainsList = new LinkedList<>();
     private RecyclerView recyclerView;
     private LinearLayoutManager manager;
     private FavouriteTrainListAdapter adapter;
@@ -69,7 +69,7 @@ public class FavouriteTrainListFragment extends AbstractRobospiceFragment {
         }
     }
 
-    private class TrainRequestListener extends AbstractListener<Train> {
+    private class TrainRequestListener extends AbstractListener<Treno> {
 
         @Override
         public Context getDialogContext() {
@@ -77,7 +77,7 @@ public class FavouriteTrainListFragment extends AbstractRobospiceFragment {
         }
 
         @Override
-        public void onRequestSuccess(Train trainResponse) {
+        public void onRequestSuccess(Treno trainResponse) {
             favouriteTrainsList.add(trainResponse);
             adapter.notifyDataSetChanged();
         }
