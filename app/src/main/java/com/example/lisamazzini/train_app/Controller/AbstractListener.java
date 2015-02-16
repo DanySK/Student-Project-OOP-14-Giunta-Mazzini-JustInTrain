@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
 import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
+import com.example.lisamazzini.train_app.Exceptions.NoSolutionsAvailableException;
 import com.example.lisamazzini.train_app.GUI.Activity.MainActivity;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.octo.android.robospice.exception.NetworkException;
@@ -49,6 +50,16 @@ public abstract class AbstractListener<X> implements RequestListener<X> {
         } else if (spiceException.getCause() instanceof InvalidStationException) {
             dialogBuilder.setTitle(Constants.WRONG_STATION_TITLE)
                     .setMessage(Constants.WRONG_STATION)
+                    .setNeutralButton(Constants.OK_MSG, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent i = new Intent(getDialogContext(), MainActivity.class);
+                            getDialogContext().startActivity(i);
+                        }
+                    }).show();
+        }else if (spiceException.getCause() instanceof NoSolutionsAvailableException) {
+            dialogBuilder.setTitle(Constants.NO_AVAILABLE_SOLUTION_TITLE)
+                    .setMessage(Constants.NO_AVAILABLE_SOLUTION)
                     .setNeutralButton(Constants.OK_MSG, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

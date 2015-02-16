@@ -1,5 +1,6 @@
 package com.example.lisamazzini.train_app.Controller.TotalRequests;
 
+import com.example.lisamazzini.train_app.Exceptions.NoSolutionsAvailableException;
 import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
 import com.example.lisamazzini.train_app.Network.JourneyRestClient;
 import com.octo.android.robospice.request.SpiceRequest;
@@ -26,7 +27,11 @@ public class JourneyRequest extends SpiceRequest<Tragitto> {
 
     @Override
     public Tragitto loadDataFromNetwork() throws Exception {
-        return JourneyRestClient.get().getJourneys(departureID, arrivalID, requestedTime);
+        Tragitto tragitto = JourneyRestClient.get().getJourneys(departureID, arrivalID, requestedTime);
+        if (tragitto.getSoluzioni().size() == 0) {
+            throw new NoSolutionsAvailableException();
+        }
+        return tragitto;
     }
 
 }

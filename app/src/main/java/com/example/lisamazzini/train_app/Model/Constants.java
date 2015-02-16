@@ -46,8 +46,10 @@ public class Constants {
     public final static String WRONG_TRAIN= "Il numero inserito non corrisponde a nessun treno";
     public final static String WRONG_STATION_TITLE = "Stazione inesistente!";
     public final static String WRONG_STATION = "Il nome inserito non corrisponde a nessun risultato";
-    public final static String CONNECTION_ERROR_TITLE = "Problemi di connessione";
+    public final static String CONNECTION_ERROR_TITLE = "Problemi di connessione!";
     public final static String CONNECTION_ERROR = "Controllare la propria connessione internet";
+    public final static String NO_AVAILABLE_SOLUTION_TITLE = "Nessuna soluzione trovata!";
+    public final static String NO_AVAILABLE_SOLUTION= "Nessuna soluzione disponibile per la tratta selezionata";
 
     public final static String OK_MSG = "Ok";
 
