@@ -1,7 +1,10 @@
 package com.example.lisamazzini.train_app.Exceptions;
 
 /**
- * Created by lisamazzini on 11/02/15.
+ * Exception che rappresenta un inserimento di nome di stazione o numero di treno errato
+ *
+ * @author lisamazzini
+ * @author albertogiunta
  */
 public class InvalidInputException extends Exception {
 }

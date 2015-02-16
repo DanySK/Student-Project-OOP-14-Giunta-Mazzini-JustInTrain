@@ -15,6 +15,4 @@ public interface IFavouriteFragment {
     boolean onOptionsItemSelected(MenuItem item);
 
     FavouriteFragmentsUtils getFragmentUtils();
-
-
 }

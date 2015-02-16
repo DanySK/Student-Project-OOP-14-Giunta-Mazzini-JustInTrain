@@ -1,7 +1,6 @@
 package com.example.lisamazzini.train_app.GUI.Activity;
 
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,8 +23,6 @@ import com.example.lisamazzini.train_app.GUI.NavigationDrawerUtils;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Model.Constants;
 
-
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;

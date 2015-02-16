@@ -177,8 +177,8 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
             List<String> data = lista.getList();
 
             if (Utilities.isOneResult(data)) {
-                favouriteFragmentsUtils.toggleFavouriteIcon(departureID, arrivalID);
                 arrivalID = controller.splitData(lista.getList().get(0))[1];
+                favouriteFragmentsUtils.toggleFavouriteIcon(departureID, arrivalID);
                 spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
             } else {
                 final String[][] choices = controller.getTableForMultipleResults(data);

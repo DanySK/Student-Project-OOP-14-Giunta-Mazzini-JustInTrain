@@ -1,7 +1,10 @@
 package com.example.lisamazzini.train_app.Exceptions;
 
 /**
- * Created by lisamazzini on 07/02/15.
+ * Exception che rappresenta
+ *
+ * @author lisamazzini
+ * @author albertogiunta
  */
 public class FavouriteException extends Exception {
 }

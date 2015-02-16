@@ -36,14 +36,12 @@ public class FavouriteJourneyController extends AbstractFavouriteController{
     }
 
     @Override
-    public void addFavourite(String... strings) throws FavouriteException {
+    public void addFavourite(String... strings) {
         super.check();
         String key = buildKey(strings[0], strings[1]);
         if(!super.alreadyFavourite(key)) {
             editor.putString(key, buildKey(strings[2], strings[3]));
             editor.apply();
-        }else{
-            throw new FavouriteException();
         }
     }
 

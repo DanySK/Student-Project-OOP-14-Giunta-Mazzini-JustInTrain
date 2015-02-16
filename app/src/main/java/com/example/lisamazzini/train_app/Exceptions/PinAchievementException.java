@@ -1,7 +1,9 @@
 package com.example.lisamazzini.train_app.Exceptions;
 
 /**
- * Created by lisamazzini on 08/02/15.
+ * Exception che rappresenta
+ *
+ * @author lisamazzini
  */
 public class PinAchievementException extends AchievementException{
 

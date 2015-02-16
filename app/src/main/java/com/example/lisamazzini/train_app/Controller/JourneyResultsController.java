@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * Classe che modella un controller per la visualizzazione e l'elaborazione di tratte.
  *
+ * @author albertogiunta
  */
 public class JourneyResultsController {
 
@@ -86,8 +87,8 @@ public class JourneyResultsController {
     /**
      * Metodo che controlla se il treno in questione è il primo "prendibile",
      * ovvero se è il primo treno con orario di partenza successivo all'orario stabilito precedentemente.
-     * @param vehicle
-     * @return
+     * @param vehicle: il vehicle da cui trarre informazioni
+     * @return boolean
      * @throws ParseException
      */
     private boolean checkIsFirstTakeable(Vehicle vehicle) throws ParseException {
@@ -98,8 +99,8 @@ public class JourneyResultsController {
      * Metodo che controlla se il treno in questione è deve ancora partire,
      * infatti insorgono conflitti qualora un treno del giorno successivo (viene restituito il treno con i dati relativi al giorno stesso)
      *
-     * @param vehicle
-     * @return
+     * @param vehicle: il vehicle da cui trarre informazioni
+     * @return boolean
      * @throws ParseException
      */
     private boolean checkIsTomorrow(Vehicle vehicle) throws ParseException {
@@ -109,7 +110,7 @@ public class JourneyResultsController {
     /**
      * Metodo che restituisce una lista parziale di plainsolution,
      * che varia a seconda che si faccia una richiesta con orario "custom" o rispetto all'ora corrente
-     * @param isCustom
+     * @param isCustom: booleano che rappresenta la modalità di richiesta
      * @return la lista parziale di plainsolutions
      */
     public List<PlainSolution> getPlainSolutions(boolean isCustom) {
@@ -132,8 +133,8 @@ public class JourneyResultsController {
     /**
      * Metodo che restituisce una matrice per righe fatta di stazioni e relativi id (nella stessa colonna)
      * da far scegliere nel caso si cerchi una stazione e vengano restituiti più di un risultato.
-     * @param list
-     * @return
+     * @param list: una List<String> dei risultati restituiti dal server
+     * @return una matrice per righe in cui ogni colonna è fatta di stazione e codice
      */
     public String[][] getTableForMultipleResults(List<String> list) {
         final String[][] dataMatrix = new String[2][list.size()];
@@ -147,8 +148,9 @@ public class JourneyResultsController {
 
     /**
      * Metodo di utility che restituisce un codice stazione di tipo 01234 (e non S01234)
-     * @param s
-     * @return
+     * data in input una stringa di tipo STAZIONE|S01234
+     * @param s: stringa di tipo STAZIONE|S01234
+     * @return String[] contenente la stazione e il codice
      */
     public String[] splitData(String s) {
         return Utilities.splitStationForJourneySearch(s);
