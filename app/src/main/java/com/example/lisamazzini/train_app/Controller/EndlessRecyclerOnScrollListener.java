@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI;
+package com.example.lisamazzini.train_app.Controller;
 
 
 import android.support.v7.widget.LinearLayoutManager;

@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Controller;
+package com.example.lisamazzini.train_app.Network;
 
 import android.app.AlertDialog;
 import android.content.Context;

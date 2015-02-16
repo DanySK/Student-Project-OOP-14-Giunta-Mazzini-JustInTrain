@@ -14,7 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.example.lisamazzini.train_app.Controller.AbstractListener;
+import com.example.lisamazzini.train_app.Network.AbstractListener;
+import com.example.lisamazzini.train_app.Controller.FavouriteFragmentController;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.Controller.StationListController;
@@ -40,7 +41,7 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
 
     private StationListController listController;
     private IFavouriteController favController = FavouriteTrainController.getInstance();
-    private FavouriteFragmentsUtils favouriteFragmentsUtils;
+    private FavouriteFragmentController favouriteFragmentController;
 
     private String[] trainDetails;
     private String trainNumber;
@@ -99,8 +100,8 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
         this.recyclerView.setAdapter(adapter);
         this.recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        this.favouriteFragmentsUtils = new FavouriteFragmentsUtils(FavouriteTrainController.getInstance());
-        this.favouriteFragmentsUtils.setContext(getActivity());
+        this.favouriteFragmentController = new FavouriteFragmentController(FavouriteTrainController.getInstance());
+        this.favouriteFragmentController.setContext(getActivity());
 
         this.favController.setContext(getActivity().getApplicationContext());
 
@@ -111,19 +112,19 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
         this.menu = menu;
-        favouriteFragmentsUtils.setMenu(this.menu);
+        favouriteFragmentController.setMenu(this.menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        menu = favouriteFragmentsUtils.onOptionsItemSelected(item, trainDetails, getActivity());
+        menu = favouriteFragmentController.onOptionsItemSelected(item, trainDetails, getActivity());
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public FavouriteFragmentsUtils getFragmentUtils() {
-        return this.favouriteFragmentsUtils;
+    public FavouriteFragmentController getFragmentUtils() {
+        return this.favouriteFragmentController;
     }
 
     public void makeRequest(String trainNumber, String stationCode) {
@@ -146,7 +147,7 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
                 trainDetails = listController.computeData(data.get(0));
                 listController.setCode(trainDetails[1]);
                 stationCode = trainDetails[1];
-                favouriteFragmentsUtils.toggleFavouriteIcon(trainNumber, stationCode);
+                favouriteFragmentController.toggleFavouriteIcon(trainNumber, stationCode);
                 spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
             }else{
                 final String[][] dataMatrix = listController.computeMatrix(data);
@@ -157,7 +158,7 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
                         trainDetails = dataMatrix[which];
                         listController.setCode(dataMatrix[which][1]);
                         spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
-                        favouriteFragmentsUtils.toggleFavouriteIcon(trainNumber, stationCode);
+                        favouriteFragmentController.toggleFavouriteIcon(trainNumber, stationCode);
                         dialog.dismiss();
                     }
                 }).show();
@@ -185,7 +186,7 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
             trainDetails = new String[2];
             trainDetails[0] = trainResponse.getNumeroTreno().toString();
             trainDetails[1] = trainResponse.getIdOrigine();
-            favouriteFragmentsUtils.toggleFavouriteIcon(trainNumber, stationCode);
+            favouriteFragmentController.toggleFavouriteIcon(trainNumber, stationCode);
 
             for (Fermate f : trainResponse.getFermate()) {
                 fermateNamesList.add(f.getStazione());

@@ -15,7 +15,7 @@ import com.example.lisamazzini.train_app.R;
 /**
  * Created by lisamazzini on 10/02/15.
  */
-public class AchievementListFragment extends Fragment{
+public class AchievementListFragment extends Fragment implements IBaseFragment{
     private RecyclerView recyclerView;
     private LinearLayoutManager manager;
     private AchievementListAdapter adapter;

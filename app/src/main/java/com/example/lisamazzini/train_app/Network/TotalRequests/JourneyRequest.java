@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Controller.TotalRequests;
+package com.example.lisamazzini.train_app.Network.TotalRequests;
 
 import com.example.lisamazzini.train_app.Exceptions.NoSolutionsAvailableException;
 import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;

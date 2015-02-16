@@ -14,15 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.lisamazzini.train_app.Controller.AbstractListener;
+import com.example.lisamazzini.train_app.Network.AbstractListener;
+import com.example.lisamazzini.train_app.Controller.FavouriteFragmentController;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
-import com.example.lisamazzini.train_app.Controller.DataRequests.JourneyDataRequest;
-import com.example.lisamazzini.train_app.Controller.TotalRequests.JourneyRequest;
+import com.example.lisamazzini.train_app.Network.DataRequests.JourneyDataRequest;
+import com.example.lisamazzini.train_app.Network.TotalRequests.JourneyRequest;
 import com.example.lisamazzini.train_app.Controller.JourneyResultsController;
-import com.example.lisamazzini.train_app.Controller.TotalRequests.JourneyTrainRequest;
+import com.example.lisamazzini.train_app.Network.TotalRequests.JourneyTrainRequest;
 import com.example.lisamazzini.train_app.GUI.Adapter.JourneyResultsAdapter;
-import com.example.lisamazzini.train_app.GUI.EndlessRecyclerOnScrollListener;
+import com.example.lisamazzini.train_app.Controller.EndlessRecyclerOnScrollListener;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolutionWrapper;
@@ -36,7 +37,7 @@ import com.octo.android.robospice.UncachedSpiceService;
 import java.util.LinkedList;
 import java.util.List;
 
-public class JourneyResultsFragment extends AbstractRobospiceFragment implements IBaseFragment, IFavouriteFragment {
+public class JourneyResultsFragment extends AbstractRobospiceFragment implements IFavouriteFragment {
 
     private Menu menu;
     private RecyclerView recyclerView;
@@ -45,7 +46,7 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
     private JourneyResultsAdapter adapter = new JourneyResultsAdapter(plainSolutionList);
 
     private final JourneyResultsController controller = new JourneyResultsController();
-    private final FavouriteFragmentsUtils favouriteFragmentsUtils = new FavouriteFragmentsUtils(FavouriteJourneyController.getInstance());
+    private final FavouriteFragmentController favouriteFragmentController = new FavouriteFragmentController(FavouriteJourneyController.getInstance());
     private final IFavouriteController favouriteController = FavouriteJourneyController.getInstance();
 
     private boolean isCustomTime;
@@ -95,14 +96,14 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
         this.menu = menu;
-        this.favouriteFragmentsUtils.setMenu(this.menu);
+        this.favouriteFragmentController.setMenu(this.menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        favouriteFragmentsUtils.setContext(getActivity());
-        this.menu = favouriteFragmentsUtils.onOptionsItemSelected(item, new String[]{departureID, arrivalID, departureStation, arrivalStation}, getActivity());
+        favouriteFragmentController.setContext(getActivity());
+        this.menu = favouriteFragmentController.onOptionsItemSelected(item, new String[]{departureID, arrivalID, departureStation, arrivalStation}, getActivity());
         return super.onOptionsItemSelected(item);
     }
 
@@ -128,8 +129,8 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
         }
     }
 
-    public FavouriteFragmentsUtils getFragmentUtils() {
-        return favouriteFragmentsUtils;
+    public FavouriteFragmentController getFragmentUtils() {
+        return favouriteFragmentController;
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -177,8 +178,8 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
             List<String> data = lista.getList();
 
             if (Utilities.isOneResult(data)) {
+                favouriteFragmentController.toggleFavouriteIcon(departureID, arrivalID);
                 arrivalID = controller.splitData(lista.getList().get(0))[1];
-                favouriteFragmentsUtils.toggleFavouriteIcon(departureID, arrivalID);
                 spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
             } else {
                 final String[][] choices = controller.getTableForMultipleResults(data);
@@ -187,7 +188,7 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
                     public void onClick(DialogInterface dialog, int which) {
                         arrivalID = choices[1][which];
                         spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
-                        favouriteFragmentsUtils.toggleFavouriteIcon(departureID, arrivalID);
+                        favouriteFragmentController.toggleFavouriteIcon(departureID, arrivalID);
                         dialog.dismiss();
                     }
                 }).show();

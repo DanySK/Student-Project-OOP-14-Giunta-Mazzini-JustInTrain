@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI;
+package com.example.lisamazzini.train_app.Controller;
 
 
 import android.support.v4.app.FragmentActivity;
@@ -11,7 +11,7 @@ import com.example.lisamazzini.train_app.GUI.Fragment.NavigationDrawerFragment;
 import com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers.TimePickerFragment;
 import com.example.lisamazzini.train_app.R;
 
-public class NavigationDrawerUtils implements INavgationDrawerUtils {
+public class NavigationDrawerUtils implements INavigationDrawerUtils {
 
     private FragmentActivity activity;
     private NavigationDrawerFragment fragment;

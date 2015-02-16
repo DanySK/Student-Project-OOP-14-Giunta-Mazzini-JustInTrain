@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI.Fragment;
+package com.example.lisamazzini.train_app.Controller;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,7 +12,7 @@ import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
 import com.example.lisamazzini.train_app.R;
 
 
-public class FavouriteFragmentsUtils {
+public class FavouriteFragmentController {
 
     private final IFavouriteController favouriteController;
     private Menu menu;
@@ -21,7 +21,7 @@ public class FavouriteFragmentsUtils {
     private Context context;
 
 
-    public FavouriteFragmentsUtils(IFavouriteController controller) {
+    public FavouriteFragmentController(IFavouriteController controller) {
         this.favouriteController = controller;
     }
 
@@ -47,15 +47,11 @@ public class FavouriteFragmentsUtils {
     public void setAsFavouriteIcon(boolean b) {
         this.favItem.setVisible(b);
         this.notFavItem.setVisible(!b);
-//        menu.getItem(0).setVisible(!b);
-//        menu.getItem(1).setVisible(b);
     }
 
     public void setAllEnabled(boolean b) {
         this.favItem.setVisible(b);
         this.notFavItem.setVisible(b);
-//        menu.getItem(0).setVisible(b);
-//        menu.getItem(1).setVisible(b);
     }
 
     public Menu onOptionsItemSelected(MenuItem item, String[] details, Activity activity) {

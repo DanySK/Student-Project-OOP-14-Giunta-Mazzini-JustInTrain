@@ -16,12 +16,13 @@ import android.widget.TimePicker;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
+import com.example.lisamazzini.train_app.Controller.INavigationDrawerUtils;
 import com.example.lisamazzini.train_app.GUI.Fragment.JourneyResultsFragment;
 import com.example.lisamazzini.train_app.GUI.Fragment.NavigationDrawerFragment;
-import com.example.lisamazzini.train_app.GUI.INavgationDrawerUtils;
-import com.example.lisamazzini.train_app.GUI.NavigationDrawerUtils;
+import com.example.lisamazzini.train_app.Controller.NavigationDrawerUtils;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Model.Constants;
+
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,10 +32,10 @@ import java.util.Map;
 /**
  *
  */
-public class MainActivity extends ActionBarActivity implements INavgationDrawerUtils {
+public class MainActivity extends ActionBarActivity implements INavigationDrawerUtils {
 
     private NavigationDrawerFragment navigationDrawerFragment;
-    private INavgationDrawerUtils navgationDrawerUtils;
+    private INavigationDrawerUtils navgationDrawerUtils;
     private JourneyResultsFragment fragment;
     private IFavouriteController favouriteJourneyController = FavouriteJourneyController.getInstance();
 

@@ -6,7 +6,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public interface IFavouriteFragment {
+import com.example.lisamazzini.train_app.Controller.FavouriteFragmentController;
+
+public interface IFavouriteFragment extends IBaseFragment {
 
     void onCreate(Bundle savedInstanceState);
 
@@ -14,5 +16,9 @@ public interface IFavouriteFragment {
 
     boolean onOptionsItemSelected(MenuItem item);
 
+    FavouriteFragmentController getFragmentUtils();
+
+
+}
     FavouriteFragmentsUtils getFragmentUtils();
 }

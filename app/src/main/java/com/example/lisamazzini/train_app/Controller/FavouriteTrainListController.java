@@ -1,6 +1,6 @@
 package com.example.lisamazzini.train_app.Controller;
 
-import com.example.lisamazzini.train_app.Controller.TotalRequests.TrainRequest;
+import com.example.lisamazzini.train_app.Network.TotalRequests.TrainRequest;
 import com.example.lisamazzini.train_app.Model.Constants;
 
 import java.util.*;

@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 
 import com.octo.android.robospice.SpiceManager;
 
-public abstract class AbstractRobospiceFragment extends Fragment {
+public abstract class AbstractRobospiceFragment extends Fragment implements IBaseFragment {
 
     protected SpiceManager spiceManager;
 

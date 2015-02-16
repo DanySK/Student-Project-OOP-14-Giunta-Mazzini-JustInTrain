@@ -9,8 +9,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
-import com.example.lisamazzini.train_app.Controller.AbstractListener;
-import com.example.lisamazzini.train_app.Controller.TotalRequests.TrainRequest;
+import com.example.lisamazzini.train_app.Network.AbstractListener;
+import com.example.lisamazzini.train_app.Network.TotalRequests.TrainRequest;
 import com.example.lisamazzini.train_app.GUI.Activity.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Treno.Treno;

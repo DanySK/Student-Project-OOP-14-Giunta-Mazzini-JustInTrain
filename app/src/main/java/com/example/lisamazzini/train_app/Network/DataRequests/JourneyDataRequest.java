@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Controller.DataRequests;
+package com.example.lisamazzini.train_app.Network.DataRequests;
 
 import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
 import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
