@@ -1,19 +1,60 @@
 package com.example.lisamazzini.train_app.Controller;
 
+import com.example.lisamazzini.train_app.Model.Treno.Fermate;
 import com.example.lisamazzini.train_app.Network.DataRequests.TrainDataRequest;
 import com.example.lisamazzini.train_app.Network.TotalRequests.TrainRequest;
 import com.example.lisamazzini.train_app.Model.Treno.Treno;
 import com.example.lisamazzini.train_app.Utilities;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class StationListController {
 
-    private final String trainNumber;
-    private String trainCode;
+//    private final String trainNumber;
+//    private String trainCode;
 
-    public StationListController(String trainNumber){
+
+    private String trainNumber;
+    private String[] trainDetails;
+    private String trainCode;
+    private List<Fermate> fermateList = new LinkedList<>();
+
+    public String[] getTrainDetails() {
+        return trainDetails;
+    }
+
+    public void setTrainDetails(String[] trainDetails) {
+        this.trainDetails = trainDetails;
+    }
+
+    public String getTrainCode() {
+        return trainCode;
+    }
+
+    public void setTrainCode(String trainCode) {
+        this.trainCode = trainCode;
+    }
+
+    public String getTrainNumber() {
+        return trainNumber;
+    }
+
+    public void setTrainNumber(String trainNumber) {
         this.trainNumber = trainNumber;
+    }
+    public List<Fermate> getFermateList() {
+        return fermateList;
+    }
+
+    public void setFermateList(Treno trainResponse) {
+        fermateList.clear();
+        fermateList.addAll(trainResponse.getFermate());
+    }
+
+    public StationListController(){
+
     }
 
     /**
@@ -28,9 +69,6 @@ public class StationListController {
      * Metodo che setta il codice della stazione di origine del treno corrente
      * @param code codice della stazione di origine
      */
-    public void setCode(String code){
-        this.trainCode = code;
-    }
 
     /**
      * Metodo che restituisce l'istanza della Request da passare allo SpiceManager

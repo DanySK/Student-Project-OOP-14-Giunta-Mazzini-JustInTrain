@@ -1,5 +1,6 @@
 package com.example.lisamazzini.train_app.Controller;
 
+import com.example.lisamazzini.train_app.Model.Treno.Treno;
 import com.example.lisamazzini.train_app.Network.TotalRequests.TrainRequest;
 import com.example.lisamazzini.train_app.Model.Constants;
 
@@ -14,6 +15,9 @@ public class FavouriteTrainListController {
 
     private final Iterator<String> iterator;
 
+
+    private List<Treno> favouriteTrainsList = new LinkedList<>();
+
     public FavouriteTrainListController(Map<String, String> map){
         this.iterator = map.keySet().iterator();
     }
@@ -26,6 +30,21 @@ public class FavouriteTrainListController {
         return this.iterator.hasNext();
     }
 
+    /**
+     *
+     * @return
+     */
+    public List<Treno> getFavouriteTrainsList() {
+        return favouriteTrainsList;
+    }
+
+    /**
+     *
+     * @param train
+     */
+    public void addToFavouriteTrainList(Treno train){
+        favouriteTrainsList.add(train);
+    }
     /**
      * Metodo che restituisce il preferito successivo
      * @return il preferito

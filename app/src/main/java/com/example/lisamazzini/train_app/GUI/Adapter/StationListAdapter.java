@@ -30,24 +30,25 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
 
         Fermate f = list.get(i);
         viewHolder.stationName.setText(f.getStazione());
-        if(f.getOrientamento() == (null)){
+        if(f.getActualFermataType() == 3L){
             viewHolder.extraMessage.setText("CANCELLATA");
-        }else{
-            if(f.getActualFermataType() == 2L) {
+        }else if(f.getActualFermataType() == 2L) {
             viewHolder.extraMessage.setText("Fermata Straordinaria");
-            }
-            viewHolder.timeDifference.setText("" + f.getRitardo());
-            viewHolder.plannedTime.setText(Utilities.fromMsToTime(f.getProgrammata()));
-            viewHolder.plannedPlatform.setText(f.getBinarioEffettivoPartenzaDescrizione());
-            viewHolder.actualTime.setText(Utilities.fromMsToTime(f.getEffettiva()));
-            viewHolder.actualPlatform.setText(f.getBinarioProgrammatoPartenzaDescrizione());
-            if(f.getActualFermataType() == 1L ) {
-                viewHolder.itemView.setBackgroundColor(Color.rgb(196,230,255));
-            }else{
-                viewHolder.itemView.setBackgroundColor(Color.WHITE);
-            }
-
+        }else{
+            viewHolder.extraMessage.setText("");
         }
+        if(f.getActualFermataType() == 1L ) {
+            viewHolder.itemView.setBackgroundColor(Color.rgb(196,230,255));
+        }else{
+            viewHolder.itemView.setBackgroundColor(Color.WHITE);
+        }
+        viewHolder.timeDifference.setText("" + f.getRitardo());
+        viewHolder.plannedTime.setText(Utilities.fromMsToTime(f.getProgrammata()));
+        viewHolder.plannedPlatform.setText(f.getBinarioEffettivoPartenzaDescrizione());
+        viewHolder.actualTime.setText(Utilities.fromMsToTime(f.getEffettiva()));
+        viewHolder.actualPlatform.setText(f.getBinarioProgrammatoPartenzaDescrizione());
+
+
 
     }
 

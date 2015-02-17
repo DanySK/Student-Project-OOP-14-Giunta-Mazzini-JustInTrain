@@ -28,7 +28,6 @@ public class FavouriteTrainListFragment extends AbstractRobospiceFragment{
 
 
     private FavouriteTrainListController favouriteTrainListController;
-    private List<Treno> favouriteTrainsList = new LinkedList<>();
     private RecyclerView recyclerView;
     private LinearLayoutManager manager;
     private FavouriteTrainListAdapter adapter;
@@ -39,7 +38,6 @@ public class FavouriteTrainListFragment extends AbstractRobospiceFragment{
 
     public FavouriteTrainListFragment() {
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,7 +52,7 @@ public class FavouriteTrainListFragment extends AbstractRobospiceFragment{
 
         this.recyclerView = (RecyclerView)layoutInfalter.findViewById(R.id.favouriteRecycler);
         this.manager = new LinearLayoutManager(getActivity());
-        this.adapter = new FavouriteTrainListAdapter(favouriteTrainsList);
+        this.adapter = new FavouriteTrainListAdapter(favouriteTrainListController.getFavouriteTrainsList());
 
         this.recyclerView.setLayoutManager(this.manager);
         this.recyclerView.setAdapter(adapter);
@@ -78,7 +76,7 @@ public class FavouriteTrainListFragment extends AbstractRobospiceFragment{
 
         @Override
         public void onRequestSuccess(Treno trainResponse) {
-            favouriteTrainsList.add(trainResponse);
+            favouriteTrainListController.addToFavouriteTrainList(trainResponse);
             adapter.notifyDataSetChanged();
         }
     }

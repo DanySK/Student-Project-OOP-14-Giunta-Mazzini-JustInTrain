@@ -37,17 +37,10 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
     private RecyclerView recyclerView;
     private StationListAdapter adapter;
     private LinearLayoutManager manager;
-    private List<Fermate> fermateList = new LinkedList<>();
 
     private StationListController listController;
     private IFavouriteController favController = FavouriteTrainController.getInstance();
     private FavouriteFragmentController favouriteFragmentController;
-
-    private String[] trainDetails;
-    private String trainNumber;
-    private String stationCode;
-    private ArrayList<String> fermateNamesList = new ArrayList<>();
-    private ArrayList<String> fermateDelaysList = new ArrayList<>();
 
     private TextView info;
     private TextView delay;
@@ -57,7 +50,6 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
     private TextView textDelay;
     private TextView textProgress;
     private TextView textLastSeen;
-
     private Menu menu;
 
     public static StationListFragment newInstance() {
@@ -92,8 +84,9 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
         textLastSeen.setVisibility(View.INVISIBLE);
         textProgress.setVisibility(View.INVISIBLE);
 
+        this.listController = new StationListController();
         this.manager = new LinearLayoutManager(getActivity());
-        this.adapter = new StationListAdapter(fermateList);
+        this.adapter = new StationListAdapter(listController.getFermateList());
         adapter.notifyDataSetChanged();
 
         this.recyclerView.setLayoutManager(manager);
@@ -118,7 +111,7 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        menu = favouriteFragmentController.onOptionsItemSelected(item, trainDetails, getActivity());
+        menu = favouriteFragmentController.onOptionsItemSelected(item, listController.getTrainDetails(), getActivity());
         return super.onOptionsItemSelected(item);
     }
 
@@ -128,13 +121,11 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
     }
 
     public void makeRequest(String trainNumber, String stationCode) {
-        this.trainNumber = trainNumber;
-        this.stationCode = stationCode;
-        this.listController = new StationListController(this.trainNumber);
-        if(this.stationCode == null) {
+        listController.setTrainNumber(trainNumber);
+        if(stationCode == null) {
             spiceManager.execute(listController.getNumberRequest(), new StationCodeListener());
         }else{
-            listController.setCode(this.stationCode);
+            listController.setTrainCode(stationCode);
             spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
         }
     }
@@ -144,10 +135,9 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
         public void onRequestSuccess(final ListWrapper result) {
             List<String> data = result.getList();
             if(Utilities.isOneResult(data)){
-                trainDetails = listController.computeData(data.get(0));
-                listController.setCode(trainDetails[1]);
-                stationCode = trainDetails[1];
-                favouriteFragmentController.toggleFavouriteIcon(trainNumber, stationCode);
+                listController.setTrainDetails(listController.computeData(data.get(0)));
+                listController.setTrainCode(listController.getTrainDetails()[1]);
+                favouriteFragmentController.toggleFavouriteIcon(listController.getTrainNumber(), listController.getTrainCode());
                 spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
             }else{
                 final String[][] dataMatrix = listController.computeMatrix(data);
@@ -155,10 +145,10 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
                 dialogBuilder.setSingleChoiceItems(choices, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        trainDetails = dataMatrix[which];
-                        listController.setCode(dataMatrix[which][1]);
+                        listController.setTrainDetails(dataMatrix[which]);
+                        listController.setTrainCode(dataMatrix[which][1]);
                         spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
-                        favouriteFragmentController.toggleFavouriteIcon(trainNumber, stationCode);
+                        favouriteFragmentController.toggleFavouriteIcon(listController.getTrainNumber(), listController.getTrainCode());
                         dialog.dismiss();
                     }
                 }).show();
@@ -183,17 +173,13 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
 
             trainResponse.setProgress(listController.getProgress(trainResponse));
 
-            trainDetails = new String[2];
+            String[] trainDetails = new String[2];
             trainDetails[0] = trainResponse.getNumeroTreno().toString();
             trainDetails[1] = trainResponse.getIdOrigine();
-            favouriteFragmentController.toggleFavouriteIcon(trainNumber, stationCode);
+            listController.setTrainDetails(trainDetails);
+            favouriteFragmentController.toggleFavouriteIcon(listController.getTrainNumber(), listController.getTrainCode());
 
-            for (Fermate f : trainResponse.getFermate()) {
-                fermateNamesList.add(f.getStazione());
-                fermateDelaysList.add(f.getRitardo().toString());
-            }
-            fermateList.clear();
-            fermateList.addAll(trainResponse.getFermate());
+            listController.setFermateList(trainResponse);
             adapter.notifyDataSetChanged();
 
             textDelay.setVisibility(View.VISIBLE);
