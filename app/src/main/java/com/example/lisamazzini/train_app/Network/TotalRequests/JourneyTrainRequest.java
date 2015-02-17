@@ -1,5 +1,7 @@
 package com.example.lisamazzini.train_app.Network.TotalRequests;
 
+import android.util.Log;
+
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolutionWrapper;
 import com.example.lisamazzini.train_app.Model.Treno.Treno;
@@ -80,6 +82,7 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
      * @throws IOException
      */
     private String getID(String stationName) throws IOException {
+        Log.d("cazzi", "fermata: " + stationName);
         return Utilities.splitStationForTrainSearch
                 (Utilities.fetchData
                         (Utilities.generateStationAutocompleteURL(stationName))

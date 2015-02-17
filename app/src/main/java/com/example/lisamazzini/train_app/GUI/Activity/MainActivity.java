@@ -119,7 +119,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                     actualJourneyIDs.add(favouriteStationIDs.get(position));
                     actualJourneyIDs.add(favouriteStationNames.get(position));
                     fragment.getFragmentUtils().setAsFavouriteIcon(true);
-//                    fragment.makeRequest(Constants.WITH_IDS, navigationDrawerFragment.getActualTime(), false, favouriteStationIDs.get(position).split(Constants.SEPARATOR)[0], favouriteStationIDs.get(position).split(Constants.SEPARATOR)[1]);
+                    fragment.makeRequest(Constants.WITH_IDS, navigationDrawerFragment.getActualTime(), false, favouriteStationIDs.get(position).split(Constants.SEPARATOR)[0], favouriteStationIDs.get(position).split(Constants.SEPARATOR)[1]);
                     return true;
                 }
             };

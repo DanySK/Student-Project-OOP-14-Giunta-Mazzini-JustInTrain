@@ -392,6 +392,10 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
         return ((ActionBarActivity) getActivity()).getSupportActionBar();
     }
 
+    public String getActualTime() {
+        return this.actualTime;
+    }
+
     public static interface NavigationDrawerCallbacks {
         void onNavigationDrawerItemSelected(int position);
     }

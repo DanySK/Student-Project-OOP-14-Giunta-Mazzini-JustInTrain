@@ -49,7 +49,6 @@ public class StationListController {
     }
 
     public void setFermateList(Treno trainResponse) {
-        fermateList.clear();
         fermateList.addAll(trainResponse.getFermate());
     }
 

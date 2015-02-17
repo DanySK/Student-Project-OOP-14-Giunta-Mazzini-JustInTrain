@@ -39,18 +39,16 @@ import java.util.List;
 
 public class JourneyResultsFragment extends AbstractRobospiceFragment implements IFavouriteFragment {
 
-    private Menu menu;
-    private RecyclerView recyclerView;
-    private final List<PlainSolution> plainSolutionList = new LinkedList<>();
-    private final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-    private JourneyResultsAdapter adapter = new JourneyResultsAdapter(plainSolutionList);
+//    private final List<PlainSolution> plainSolutionList = new LinkedList<>();
 
     private final JourneyResultsController controller = new JourneyResultsController();
     private final FavouriteFragmentController favouriteFragmentController = new FavouriteFragmentController(FavouriteJourneyController.getInstance());
     private final IFavouriteController favouriteController = FavouriteJourneyController.getInstance();
 
-    private boolean isCustomTime;
-    private String departureID, departureStation, arrivalID, arrivalStation, requestedTime;
+    private Menu menu;
+    private RecyclerView recyclerView;
+    private final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+    private JourneyResultsAdapter adapter = new JourneyResultsAdapter(controller.getPartialPlainSolutions());
 
     public static JourneyResultsFragment newInstance() {
         return new JourneyResultsFragment();
@@ -103,28 +101,27 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         favouriteFragmentController.setContext(getActivity());
-        this.menu = favouriteFragmentController.onOptionsItemSelected(item, new String[]{departureID, arrivalID, departureStation, arrivalStation}, getActivity());
+        this.menu = favouriteFragmentController.onOptionsItemSelected(item, new String[]{controller.getDepartureID(), controller.getArrivalID(), controller.getDepartureStation(), controller.getArrivalStation()}, getActivity());
         return super.onOptionsItemSelected(item);
     }
 
 
     public void makeRequest(String userRequestType, String requestedTime, boolean isCustomTime, String... departureAndArrivalData) {
-        plainSolutionList.clear();
+        controller.clearPartialPlainSolutionList();
         adapter.notifyDataSetChanged();
         resetScrollListener();
-        this.requestedTime = requestedTime;
-        this.controller.setTime(this.requestedTime);
-        this.isCustomTime = isCustomTime;
+        controller.setRequestedTime(requestedTime);
+        controller.setCustomTime(isCustomTime);
         if (userRequestType.equals(Constants.WITH_IDS)) {
             super.resetRequests();
-            this.departureID = departureAndArrivalData[0];
-            this.arrivalID = departureAndArrivalData[1];
-            spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
+            controller.setDepartureID(departureAndArrivalData[0]);
+            controller.setArrivalID(departureAndArrivalData[1]);
+            spiceManager.execute(new JourneyRequest(controller.getDepartureID(), controller.getArrivalID(), requestedTime), new JourneyRequestListener());
             Toast.makeText(getActivity(), "Ricerca in corso...", Toast.LENGTH_SHORT).show();
         } else if (userRequestType.equals(Constants.WITH_STATIONS)) {
-            this.departureStation = departureAndArrivalData[0];
-            this.arrivalStation = departureAndArrivalData[1];
-            spiceManager.execute(new JourneyDataRequest(this.departureStation), new DepartureDataRequestListenter());
+            controller.setDepartureStation( departureAndArrivalData[0]);
+            controller.setArrivalStation(departureAndArrivalData[1]);
+            spiceManager.execute(new JourneyDataRequest(controller.getDepartureStation()), new DepartureDataRequestListenter());
             Toast.makeText(getActivity(), "Ricerca in corso...", Toast.LENGTH_SHORT).show();
         }
     }
@@ -147,15 +144,15 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
             List<String> data = lista.getList();
 
             if (Utilities.isOneResult(data)) {
-                departureID = controller.splitData(lista.getList().get(0))[1];
-                spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
+                controller.setDepartureID(controller.splitData(lista.getList().get(0))[1]);
+                spiceManager.execute(new JourneyDataRequest(controller.getArrivalStation()), new ArrivalDataRequestListener());
             } else {
                 final String[][] choices = controller.getTableForMultipleResults(data);
                 dialogBuilder.setSingleChoiceItems(choices[0], -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        departureID = choices[1][which];
-                        spiceManager.execute(new JourneyDataRequest(arrivalStation), new ArrivalDataRequestListener());
+                        controller.setDepartureID(choices[1][which]);
+                        spiceManager.execute(new JourneyDataRequest(controller.getArrivalStation()), new ArrivalDataRequestListener());
                         dialog.dismiss();
                     }
                 }).show();
@@ -178,17 +175,17 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
             List<String> data = lista.getList();
 
             if (Utilities.isOneResult(data)) {
-                arrivalID = controller.splitData(lista.getList().get(0))[1];
-                favouriteFragmentController.toggleFavouriteIcon(departureID, arrivalID);
-                spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
+                controller.setArrivalID(controller.splitData(lista.getList().get(0))[1]);
+                favouriteFragmentController.toggleFavouriteIcon(controller.getDepartureID(), controller.getArrivalID());
+                spiceManager.execute(new JourneyRequest(controller.getDepartureID(), controller.getArrivalID(), controller.getRequestedTime()), new JourneyRequestListener());
             } else {
                 final String[][] choices = controller.getTableForMultipleResults(data);
                 dialogBuilder.setSingleChoiceItems(choices[0], -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        arrivalID = choices[1][which];
-                        spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
-                        favouriteFragmentController.toggleFavouriteIcon(departureID, arrivalID);
+                        controller.setArrivalID(choices[1][which]);
+                        favouriteFragmentController.toggleFavouriteIcon(controller.getDepartureID(), controller.getArrivalID());
+                        spiceManager.execute(new JourneyRequest(controller.getDepartureID(), controller.getArrivalID(), controller.getRequestedTime()), new JourneyRequestListener());
                         dialog.dismiss();
                     }
                 }).show();
@@ -208,7 +205,7 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
         @Override
         public void onRequestSuccess(Tragitto tragitto) {
             controller.buildPlainSolutions(tragitto);
-            spiceManager.execute(new JourneyTrainRequest(controller.getPlainSolutions(isCustomTime)), new JourneyTrainRequestListener());
+            spiceManager.execute(new JourneyTrainRequest(controller.getPlainSolutions(controller.isCustomTime())), new JourneyTrainRequestListener());
         }
     }
 
@@ -223,7 +220,8 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
 
         @Override
         public void onRequestSuccess(PlainSolutionWrapper plainSolutions) {
-            plainSolutionList.addAll(plainSolutions.getList());
+            controller.addSolutions(plainSolutions.getList());
+//            plainSolutionList.addAll(plainSolutions.getList());
             adapter.notifyDataSetChanged();
         }
     }

@@ -22,12 +22,75 @@ import java.util.List;
 public class JourneyResultsController {
 
     private final SimpleDateFormat sdf = new SimpleDateFormat(Constants.SDF);
-    private final List<PlainSolution> plainSolutions = new LinkedList<>();
+    private final List<PlainSolution> totalPlainSolutions = new LinkedList<>();
     private int upperBound;
     private int lowerBound;
     private DateTime actualTime;
     private boolean foundFirstTakeable = false;
+    private boolean isCustomTime;
+    private String departureID, departureStation, arrivalID, arrivalStation, requestedTime;
+    private final List<PlainSolution> partialPlainSolutions = new LinkedList<>();
 
+    public List<PlainSolution> getPartialPlainSolutions() {
+        return partialPlainSolutions;
+    }
+
+    public void addSolutions(List<PlainSolution> list) {
+        this.partialPlainSolutions.addAll(list);
+    }
+
+    public void clearPartialPlainSolutionList() {
+        this.partialPlainSolutions.clear();
+    }
+
+    public boolean isCustomTime() {
+        return isCustomTime;
+    }
+
+    public void setCustomTime(boolean isCustomTime) {
+        this.isCustomTime = isCustomTime;
+    }
+
+    public String getDepartureID() {
+        return departureID;
+    }
+
+    public void setDepartureID(String departureID) {
+        this.departureID = departureID;
+    }
+
+    public String getDepartureStation() {
+        return departureStation;
+    }
+
+    public void setDepartureStation(String departureStation) {
+        this.departureStation = departureStation;
+    }
+
+    public String getArrivalID() {
+        return arrivalID;
+    }
+
+    public void setArrivalID(String arrivalID) {
+        this.arrivalID = arrivalID;
+    }
+
+    public String getArrivalStation() {
+        return arrivalStation;
+    }
+
+    public void setArrivalStation(String arrivalStation) {
+        this.arrivalStation = arrivalStation;
+    }
+
+    public String getRequestedTime() {
+        return requestedTime;
+    }
+
+    public void setRequestedTime(String requestedTime) {
+        this.requestedTime = requestedTime;
+        setTime(this.requestedTime);
+    }
 
     /**
      * Metodo che deve chiamare chi impelementa un JourneyResultsController per settare l'orario con cui fare le operazioni
@@ -61,7 +124,7 @@ public class JourneyResultsController {
      * @param tragitto: intera risposta del server, contiene al suo interno una lista di soluzioni, e a loro volta di vehicles
      */
     public void buildPlainSolutions(Tragitto tragitto) {
-        plainSolutions.clear();
+        totalPlainSolutions.clear();
         upperBound = 0;
         lowerBound = 0;
         int plainSolutionID = 0;
@@ -73,9 +136,9 @@ public class JourneyResultsController {
                 try {
                     if (checkIsFirstTakeable(vehicle)) {
                         foundFirstTakeable = true;
-                        lowerBound = plainSolutions.size() > 0 ? plainSolutions.size() - 1 : 0;
+                        lowerBound = totalPlainSolutions.size() > 0 ? totalPlainSolutions.size() - 1 : 0;
                     }
-                    plainSolutions.add(new PlainSolution(plainSolutionID, vehicle.getCategoriaDescrizione(), vehicle.getNumeroTreno(),
+                    totalPlainSolutions.add(new PlainSolution(plainSolutionID, vehicle.getCategoriaDescrizione(), vehicle.getNumeroTreno(),
                             vehicle.getOrigine(), vehicle.getOraPartenza(), vehicle.getDestinazione(), vehicle.getOraArrivo(),
                             sol.getDurata(), checkIsTomorrow(vehicle)));
                 } catch (ParseException e) {
@@ -89,6 +152,7 @@ public class JourneyResultsController {
     /**
      * Metodo che controlla se il treno in questione è il primo "prendibile",
      * ovvero se è il primo treno con orario di partenza successivo all'orario stabilito precedentemente.
+     *
      * @param vehicle: il vehicle da cui trarre informazioni
      * @return boolean
      * @throws ParseException
@@ -112,29 +176,32 @@ public class JourneyResultsController {
     /**
      * Metodo che restituisce una lista parziale di plainsolution,
      * che varia a seconda che si faccia una richiesta con orario "custom" o rispetto all'ora corrente
+     *
      * @param isCustom: booleano che rappresenta la modalità di richiesta
      * @return la lista parziale di plainsolutions
      */
     public List<PlainSolution> getPlainSolutions(boolean isCustom) {
-        List<PlainSolution> subList;
+        List<PlainSolution> temp = new LinkedList<>();
         if (isCustom) {
-            upperBound = plainSolutions.size() < 5 ? plainSolutions.size() : 5;
-            subList = this.plainSolutions.subList(0, upperBound);
+            upperBound = totalPlainSolutions.size() < 5 ? totalPlainSolutions.size() : 5;
+            temp = this.totalPlainSolutions.subList(0, upperBound);
         } else {
-            upperBound = lowerBound + 5 >= plainSolutions.size() ? plainSolutions.size()-1 : lowerBound + 5;
-            subList = this.plainSolutions.subList(lowerBound, upperBound);
+            upperBound = lowerBound + 5 >= totalPlainSolutions.size() ? totalPlainSolutions.size()-1 : lowerBound + 5;
+            temp = this.totalPlainSolutions.subList(lowerBound, upperBound);
         }
         lowerBound += 6;
-        if (lowerBound < plainSolutions.size()-1) {
-            return subList;
+        if (lowerBound < totalPlainSolutions.size()-1) {
+            return temp;
         } else {
             return new LinkedList<PlainSolution>();
         }
     }
 
+
     /**
      * Metodo che restituisce una matrice per righe fatta di stazioni e relativi id (nella stessa colonna)
      * da far scegliere nel caso si cerchi una stazione e vengano restituiti più di un risultato.
+     *
      * @param list: una List<String> dei risultati restituiti dal server
      * @return una matrice per righe in cui ogni colonna è fatta di stazione e codice
      */
@@ -151,6 +218,7 @@ public class JourneyResultsController {
     /**
      * Metodo di utility che restituisce un codice stazione di tipo 01234 (e non S01234)
      * data in input una stringa di tipo STAZIONE|S01234
+     *
      * @param s: stringa di tipo STAZIONE|S01234
      * @return String[] contenente la stazione e il codice
      */
