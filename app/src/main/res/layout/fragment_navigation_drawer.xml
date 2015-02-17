@@ -19,6 +19,8 @@
         android:ems="10"
         android:maxEms="10"
 
+        android:layout_centerVertical="true"
+
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
 
@@ -28,6 +30,19 @@
         android:hint="@string/train_number"
         android:singleLine="true"
         android:inputType="number"
+        />
+
+    <ImageButton
+        android:id="@+id/bTrainNumberSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_drawer"
+
+        android:layout_alignTop="@+id/eTrainNumber"
+        android:layout_alignBottom="@+id/eTrainNumber"
+        android:layout_alignRight="@+id/eTrainNumber"
+
+        android:background="#fff"
         />
 
     <!--////////////////////////////////////////////////////////////////////-->
@@ -74,7 +89,9 @@
 
         android:layout_below="@id/eArrivalStation"
 
-        android:onClick="showTimePickerDialog" />
+        android:text="@string/showTime"/>
+        <!--android:onClick="showTimePickerDialog"-->
+
 
     <Button
         android:id="@+id/bDatePicker"
@@ -84,7 +101,22 @@
         android:layout_below="@id/eArrivalStation"
         android:layout_toRightOf="@id/bTimePicker"
 
-        android:onClick="showDatePickerDialog" />
+
+        android:text="@string/showDate"/>
+        <!--android:onClick="showDatePickerDialog"-->
+
+    <ImageButton
+        android:id="@+id/bJourneySearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_drawer"
+
+        android:layout_alignTop="@+id/eArrivalStation"
+        android:layout_alignBottom="@+id/eArrivalStation"
+        android:layout_alignRight="@+id/eDepartureStation"
+
+        android:background="#fff"
+        />
 
     <!--////////////////////////////////////////////////////////////////////-->
 
@@ -98,23 +130,9 @@
         android:layout_marginTop="32dp"
     />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/bTrainNumberSearch"
-        android:src="@drawable/ic_drawer"
-        android:layout_toRightOf="@+id/eTrainNumber"
-        android:layout_alignBottom="@+id/eTrainNumber"
-    />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/bJourneySearch"
-        android:src="@drawable/ic_drawer"
-        android:layout_alignBottom="@+id/eArrivalStation"
-        android:layout_toRightOf="@+id/eDepartureStation"
-        android:layout_toEndOf="@+id/eDepartureStation" />
+
+
 
 
     <!--<ListView-->

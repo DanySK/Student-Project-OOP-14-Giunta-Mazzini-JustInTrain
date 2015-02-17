@@ -1,6 +1,10 @@
 package com.example.lisamazzini.train_app.GUI.Fragment;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -15,6 +19,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,14 +28,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.GUI.Activity.JourneyResultsActivity;
 import com.example.lisamazzini.train_app.GUI.Activity.StationListActivity;
 import com.example.lisamazzini.train_app.GUI.Adapter.DrawerListAdapter;
+import com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers.DatePickerFragment;
+import com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers.TimePickerFragment;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Utilities;
@@ -85,15 +94,18 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
     private int minute = 0;
     private int day;
     private int month;
-    private int year;
+    protected int year;
     private String actualTime;
     private boolean isCustomTime;
+
 
     private RecyclerView recyclerView;
     private DrawerListAdapter drawerListAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private Toolbar toolbar;
     private Menu menu;
+    private Button timePickerButton;
+    private Button datePickerButton;
 
     public NavigationDrawerFragment() {
     }
@@ -127,11 +139,10 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
         final ImageButton trainNumberSearchButton = (ImageButton) drawerView.findViewById(R.id.bTrainNumberSearch);
         final EditText departure = (EditText)drawerView.findViewById(R.id.eDepartureStation);
         final EditText arrival = (EditText)drawerView.findViewById(R.id.eArrivalStation);
+        timePickerButton = (Button)drawerView.findViewById(R.id.bTimePicker);
+        datePickerButton = (Button)drawerView.findViewById(R.id.bDatePicker);
         final ImageButton journeySearchButton = (ImageButton) drawerView.findViewById(R.id.bJourneySearch);
 
-        setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), false);
-        setTime(calendar.get(Calendar.HOUR_OF_DAY)-1, calendar.get(Calendar.MINUTE), false);
-        actualTime = buildDateTime();
 
         trainNumberSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +154,25 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
                 }
             }
         });
+
+
+        timePickerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePickerDialog(v);
+            }
+        });
+
+        datePickerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(v);
+            }
+        });
+
+        setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), false);
+        setTime(calendar.get(Calendar.HOUR_OF_DAY)-1, calendar.get(Calendar.MINUTE), false);
+        actualTime = buildDateTime();
 
         journeySearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,20 +200,53 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
         return drawerView;
     }
 
+    TimePickerDialog.OnTimeSetListener timeListener = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            if (view.isShown()) {
+                setTime(hourOfDay, minute, true);
+            }
+        }
+    };
 
+    DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            if (view.isShown()) {
+                setDate(year, monthOfYear, dayOfMonth, true);
+            }
+        }
+    };
+    ///////////////////////////////////////////////////////////////////////////////////////
 
-    public boolean getCustomTime() {
-        return this.isCustomTime;
+    public void showTimePickerDialog(View v) {
+        TimePickerFragment timeFragment = new TimePickerFragment();
+        Calendar calender = Calendar.getInstance();
+        Bundle args = new Bundle();
+        args.putInt("hour", calender.get(Calendar.HOUR_OF_DAY));
+        args.putInt("minute", calender.get(Calendar.MINUTE));
+        timeFragment.setArguments(args);
+        timeFragment.setCallback(timeListener);
+        timeFragment.show(getFragmentManager(), "Time Picker");
     }
 
-    public String getActualTime() {
-        return this.actualTime;
+    public void showDatePickerDialog(View v) {
+        DatePickerFragment dateFragment = new DatePickerFragment();
+        Calendar calender = Calendar.getInstance();
+        Bundle args = new Bundle();
+        args.putInt("year", calender.get(Calendar.YEAR));
+        args.putInt("month", calender.get(Calendar.MONTH));
+        args.putInt("day", calender.get(Calendar.DAY_OF_MONTH));
+        dateFragment.setArguments(args);
+        dateFragment.setCallback(dateListener);
+        dateFragment.show(getFragmentManager(), "Date Picker");
     }
 
     public void setTime(int hour, int minute, boolean isCustomTime) {
         this.hour = hour;
         this.minute = minute;
         this.isCustomTime = isCustomTime;
+        timePickerButton.setText(hour + ":" + minute);
     }
 
     public void setDate(int year, int month, int day, boolean isCustomTime) {
@@ -191,6 +254,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
         this.day = day;
         this.month = month;
         this.isCustomTime = isCustomTime;
+        datePickerButton.setText(day + "/" + month + "/" + year);
     }
 
     public String buildDateTime() {
@@ -324,7 +388,6 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
     }
 
 
-
     private ActionBar getActionBar() {
         return ((ActionBarActivity) getActivity()).getSupportActionBar();
     }
@@ -332,4 +395,5 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
     public static interface NavigationDrawerCallbacks {
         void onNavigationDrawerItemSelected(int position);
     }
+
 }

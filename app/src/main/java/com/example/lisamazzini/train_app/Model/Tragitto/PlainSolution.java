@@ -1,9 +1,8 @@
 package com.example.lisamazzini.train_app.Model.Tragitto;
 
-import java.util.LinkedList;
-
 public class PlainSolution {
 
+    private int plainSolutionID;
     private String categoria;
     private String numeroTreno;
     private String origine;
@@ -18,7 +17,8 @@ public class PlainSolution {
     private boolean isTomorrow = false;
 
 
-    public PlainSolution(String categoria, String numeroTreno, String origine, String orarioPartenza, String destinazione, String orarioArrivo, String durata, boolean isTomorrow) {
+    public PlainSolution(int plainSolutionID, String categoria, String numeroTreno, String origine, String orarioPartenza, String destinazione, String orarioArrivo, String durata, boolean isTomorrow) {
+        this.plainSolutionID = plainSolutionID;
         this.categoria = categoria;
         this.numeroTreno = numeroTreno;
         this.origine = origine;
@@ -27,6 +27,10 @@ public class PlainSolution {
         this.orarioArrivo = orarioArrivo;
         this.durata = durata;
         this.isTomorrow = isTomorrow;
+    }
+
+    public int getPlainSolutionID() {
+        return plainSolutionID;
     }
 
     public String getCategoria() {

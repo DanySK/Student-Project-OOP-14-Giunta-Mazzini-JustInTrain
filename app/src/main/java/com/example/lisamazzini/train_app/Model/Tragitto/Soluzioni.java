@@ -10,6 +10,7 @@ public class Soluzioni {
 
     private String durata;
     private List<Vehicle> vehicles = new ArrayList<Vehicle>();
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public String getDurata() {
         return durata;
@@ -25,5 +26,13 @@ public class Soluzioni {
 
     public void setVehicles(List<Vehicle> vehicles) {
         this.vehicles = vehicles;
+    }
+
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
     }
 }

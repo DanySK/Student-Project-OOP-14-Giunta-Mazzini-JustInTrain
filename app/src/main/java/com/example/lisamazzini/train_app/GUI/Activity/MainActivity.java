@@ -29,13 +29,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
-/**
- *
- */
-public class MainActivity extends ActionBarActivity implements INavigationDrawerUtils {
+public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks{
 
     private NavigationDrawerFragment navigationDrawerFragment;
-    private INavigationDrawerUtils navgationDrawerUtils;
     private JourneyResultsFragment fragment;
     private IFavouriteController favouriteJourneyController = FavouriteJourneyController.getInstance();
 
@@ -54,11 +50,7 @@ public class MainActivity extends ActionBarActivity implements INavigationDrawer
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-
-        navgationDrawerUtils = new NavigationDrawerUtils(MainActivity.this);
-        navigationDrawerFragment = navgationDrawerUtils.getNavigationDrawerFragment();
+        navigationDrawerFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         favouriteJourneyController.setContext(getApplicationContext());
 
         navigationDrawerFragment.setUp(
@@ -115,8 +107,6 @@ public class MainActivity extends ActionBarActivity implements INavigationDrawer
     }
 
     public void restoreActionBar(Menu menu) {
-        final MenuItem notFavItem= menu.findItem(R.id.action_prefere);
-        final MenuItem isFavItem = menu.findItem(R.id.action_deprefere);
 
         refreshLists();
         SpinnerAdapter spinnerAdapter = new ArrayAdapter<String>(getSupportActionBar().getThemedContext(), android.R.layout.simple_spinner_dropdown_item, favouriteStationNames);
@@ -128,10 +118,8 @@ public class MainActivity extends ActionBarActivity implements INavigationDrawer
                     actualJourneyIDs.clear();
                     actualJourneyIDs.add(favouriteStationIDs.get(position));
                     actualJourneyIDs.add(favouriteStationNames.get(position));
-//                    isFavItem.setVisible(true);
-//                    notFavItem.setVisible(false);
                     fragment.getFragmentUtils().setAsFavouriteIcon(true);
-                    fragment.makeRequest(Constants.WITH_IDS, navigationDrawerFragment.getActualTime(), false, favouriteStationIDs.get(position).split(Constants.SEPARATOR)[0], favouriteStationIDs.get(position).split(Constants.SEPARATOR)[1]);
+//                    fragment.makeRequest(Constants.WITH_IDS, navigationDrawerFragment.getActualTime(), false, favouriteStationIDs.get(position).split(Constants.SEPARATOR)[0], favouriteStationIDs.get(position).split(Constants.SEPARATOR)[1]);
                     return true;
                 }
             };
@@ -141,40 +129,11 @@ public class MainActivity extends ActionBarActivity implements INavigationDrawer
         } else {
             getSupportActionBar().setDisplayShowTitleEnabled(true);
             getSupportActionBar().setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_STANDARD);
-//            fragment.getFragmentUtils().setAllEnabled(false);
             getSupportActionBar().setTitle("Nessuna tratta favorita!");
         }
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    @Override
-    public NavigationDrawerFragment getNavigationDrawerFragment() {
-        return null;
-    }
-
-    @Override
-    public void showTimePickerDialog(View v) {
-        navgationDrawerUtils.showTimePickerDialog(v);
-    }
-
-    @Override
-    public void showDatePickerDialog(View v) {
-        navgationDrawerUtils.showDatePickerDialog(v);
-    }
-
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        navgationDrawerUtils.onTimeSet(view, hourOfDay, minute);
-    }
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        navgationDrawerUtils.onDateSet(view, year, monthOfYear, dayOfMonth);
-    }
-
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        navgationDrawerUtils.onNavigationDrawerItemSelected(position);
     }
 }

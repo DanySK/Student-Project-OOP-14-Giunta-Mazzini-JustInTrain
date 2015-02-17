@@ -64,6 +64,7 @@ public class JourneyResultsController {
         plainSolutions.clear();
         upperBound = 0;
         lowerBound = 0;
+        int plainSolutionID = 0;
         for (Soluzioni sol : tragitto.getSoluzioni()) {
             for (Vehicle vehicle : sol.getVehicles()) {
                 vehicle.setCategoriaDescrizione("" + setCategory(vehicle, "frecciabianca", "FB"));
@@ -74,13 +75,14 @@ public class JourneyResultsController {
                         foundFirstTakeable = true;
                         lowerBound = plainSolutions.size() > 0 ? plainSolutions.size() - 1 : 0;
                     }
-                    plainSolutions.add(new PlainSolution(vehicle.getCategoriaDescrizione(), vehicle.getNumeroTreno(),
+                    plainSolutions.add(new PlainSolution(plainSolutionID, vehicle.getCategoriaDescrizione(), vehicle.getNumeroTreno(),
                             vehicle.getOrigine(), vehicle.getOraPartenza(), vehicle.getDestinazione(), vehicle.getOraArrivo(),
                             sol.getDurata(), checkIsTomorrow(vehicle)));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
             }
+            plainSolutionID++;
         }
     }
 

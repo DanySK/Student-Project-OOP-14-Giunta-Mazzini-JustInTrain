@@ -18,7 +18,4 @@ public interface IFavouriteFragment extends IBaseFragment {
 
     FavouriteFragmentController getFragmentUtils();
 
-
-}
-    FavouriteFragmentsUtils getFragmentUtils();
 }

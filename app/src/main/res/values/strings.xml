@@ -22,5 +22,8 @@
     <string name="actual">REALE </string>
     <string name="time">Ore: </string>
     <string name="platform">Binario: </string>
+    <string name="showTime">Orario </string>
+    <string name="showDate">Data </string>
+
 
 </resources>

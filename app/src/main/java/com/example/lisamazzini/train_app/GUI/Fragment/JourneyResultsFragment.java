@@ -178,8 +178,8 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
             List<String> data = lista.getList();
 
             if (Utilities.isOneResult(data)) {
-                favouriteFragmentController.toggleFavouriteIcon(departureID, arrivalID);
                 arrivalID = controller.splitData(lista.getList().get(0))[1];
+                favouriteFragmentController.toggleFavouriteIcon(departureID, arrivalID);
                 spiceManager.execute(new JourneyRequest(departureID, arrivalID, requestedTime), new JourneyRequestListener());
             } else {
                 final String[][] choices = controller.getTableForMultipleResults(data);
@@ -202,7 +202,7 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
 
         @Override
         public Context getDialogContext() {
-            return getActivity().getApplicationContext();
+            return getActivity();
         }
 
         @Override

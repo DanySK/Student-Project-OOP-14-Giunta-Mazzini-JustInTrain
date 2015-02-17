@@ -42,9 +42,9 @@ public class NavigationDrawerUtils implements INavigationDrawerUtils {
     }
 
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        if (view.isShown()) {
-            fragment.setDate(year, monthOfYear, dayOfMonth, true);
-        }
+//        if (view.isShown()) {
+//            fragment.setDate(year, monthOfYear, dayOfMonth, true);
+//        }
     }
 
     public void onNavigationDrawerItemSelected(int position) {
