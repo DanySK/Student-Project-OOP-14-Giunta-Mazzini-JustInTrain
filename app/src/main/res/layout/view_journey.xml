@@ -85,23 +85,11 @@
 
         <!--android:text="9'"-->
 
-    <!--<Button-->
-    <!--android:id="@+id/bOptions"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-
-    <!--android:layout_below="@+id/tArrivalTime"-->
-
-    <!--style="?android:attr/buttonStyleSmall"-->
-
-    <!--android:text="lissa"-->
-    <!--/>-->
 
     <ImageButton
         android:id="@+id/bOptions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_alignParentRight="true"
         android:layout_marginTop="25dp"
         android:src="@drawable/ic_pin"
@@ -131,5 +119,18 @@
         android:layout_marginTop="12dp"
         android:layout_marginLeft="16dp" />
         <!--android:text="01:30"-->
+
+
+    <ImageView
+        android:id="@+id/iDivider"
+        android:layout_below="@id/tArrivalTime"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/accent_material_dark"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:src="@android:drawable/divider_horizontal_bright"
+        android:visibility="gone"/>
 
 </RelativeLayout>

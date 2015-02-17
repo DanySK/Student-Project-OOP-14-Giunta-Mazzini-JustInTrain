@@ -2,7 +2,8 @@ package com.example.lisamazzini.train_app.Model.Tragitto;
 
 public class PlainSolution {
 
-    private int plainSolutionID;
+    private boolean isLastVehicleOfJourney;
+
     private String categoria;
     private String numeroTreno;
     private String origine;
@@ -15,10 +16,8 @@ public class PlainSolution {
     private String IDpartenza = "";
     private String IDarrivo = "";
     private boolean isTomorrow = false;
-
-
-    public PlainSolution(int plainSolutionID, String categoria, String numeroTreno, String origine, String orarioPartenza, String destinazione, String orarioArrivo, String durata, boolean isTomorrow) {
-        this.plainSolutionID = plainSolutionID;
+    public PlainSolution(boolean isLastVehicleOfJourney, String categoria, String numeroTreno, String origine, String orarioPartenza, String destinazione, String orarioArrivo, String durata, boolean isTomorrow) {
+        this.isLastVehicleOfJourney = isLastVehicleOfJourney;
         this.categoria = categoria;
         this.numeroTreno = numeroTreno;
         this.origine = origine;
@@ -29,8 +28,9 @@ public class PlainSolution {
         this.isTomorrow = isTomorrow;
     }
 
-    public int getPlainSolutionID() {
-        return plainSolutionID;
+
+    public boolean isLastVehicleOfJourney() {
+        return isLastVehicleOfJourney;
     }
 
     public String getCategoria() {

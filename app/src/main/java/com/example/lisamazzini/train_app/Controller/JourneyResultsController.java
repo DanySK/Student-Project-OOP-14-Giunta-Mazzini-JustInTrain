@@ -11,6 +11,7 @@ import org.joda.time.DateTime;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -127,9 +128,11 @@ public class JourneyResultsController {
         totalPlainSolutions.clear();
         upperBound = 0;
         lowerBound = 0;
-        int plainSolutionID = 0;
         for (Soluzioni sol : tragitto.getSoluzioni()) {
-            for (Vehicle vehicle : sol.getVehicles()) {
+            Iterator<Vehicle> i = sol.getVehicles().iterator();
+            while(i.hasNext()) {
+                boolean isLastVehicleOfJourney = !i.hasNext();
+                Vehicle vehicle = i.next();
                 vehicle.setCategoriaDescrizione("" + setCategory(vehicle, "frecciabianca", "FB"));
                 vehicle.setCategoriaDescrizione("" + setCategory(vehicle, "frecciarossa", "FR"));
                 vehicle.setCategoriaDescrizione("" + setCategory(vehicle, "frecciaargento", "FA"));
@@ -138,14 +141,13 @@ public class JourneyResultsController {
                         foundFirstTakeable = true;
                         lowerBound = totalPlainSolutions.size() > 0 ? totalPlainSolutions.size() - 1 : 0;
                     }
-                    totalPlainSolutions.add(new PlainSolution(plainSolutionID, vehicle.getCategoriaDescrizione(), vehicle.getNumeroTreno(),
+                    totalPlainSolutions.add(new PlainSolution(isLastVehicleOfJourney, vehicle.getCategoriaDescrizione(), vehicle.getNumeroTreno(),
                             vehicle.getOrigine(), vehicle.getOraPartenza(), vehicle.getDestinazione(), vehicle.getOraArrivo(),
                             sol.getDurata(), checkIsTomorrow(vehicle)));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
             }
-            plainSolutionID++;
         }
     }
 

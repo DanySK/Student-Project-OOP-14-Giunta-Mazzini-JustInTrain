@@ -12,10 +12,13 @@ import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
 import com.example.lisamazzini.train_app.Exceptions.NoSolutionsAvailableException;
 import com.example.lisamazzini.train_app.GUI.Activity.MainActivity;
 import com.example.lisamazzini.train_app.Model.Constants;
+import com.google.gson.JsonSyntaxException;
 import com.octo.android.robospice.exception.NetworkException;
 import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
+
+import retrofit.RetrofitError;
 
 /**
  * Classe astratta per i RequestListener necessari per il funzionamento di Robospice.
@@ -37,51 +40,31 @@ public abstract class AbstractListener<X> implements RequestListener<X> {
      */
     public void onRequestFailure(SpiceException spiceException) {
         if(spiceException.getCause() instanceof InvalidTrainNumberException){
-            dialogBuilder.setTitle(Constants.WRONG_TRAIN_TITLE)
-                    .setMessage(Constants.WRONG_TRAIN)
-                    .setNeutralButton(Constants.OK_MSG, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(getDialogContext(), MainActivity.class);
-                            getDialogContext().startActivity(intent);
-                        }
-                    })
-                    .show();
+            showDialog(Constants.WRONG_TRAIN_TITLE, Constants.WRONG_TRAIN);
         } else if (spiceException.getCause() instanceof InvalidStationException) {
-            dialogBuilder.setTitle(Constants.WRONG_STATION_TITLE)
-                    .setMessage(Constants.WRONG_STATION)
-                    .setNeutralButton(Constants.OK_MSG, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent i = new Intent(getDialogContext(), MainActivity.class);
-                            getDialogContext().startActivity(i);
-                        }
-                    }).show();
+            showDialog(Constants.WRONG_STATION_TITLE, Constants.WRONG_STATION);
         }else if (spiceException.getCause() instanceof NoSolutionsAvailableException) {
-            dialogBuilder.setTitle(Constants.NO_AVAILABLE_SOLUTION_TITLE)
-                    .setMessage(Constants.NO_AVAILABLE_SOLUTION)
-                    .setNeutralButton(Constants.OK_MSG, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent i = new Intent(getDialogContext(), MainActivity.class);
-                            getDialogContext().startActivity(i);
-                        }
-                    }).show();
+            showDialog(Constants.NO_AVAILABLE_SOLUTION_TITLE, Constants.NO_AVAILABLE_SOLUTION);
+        } else if (spiceException.getCause() instanceof RetrofitError) {
+            showDialog(Constants.SERVICE_NOT_AVAILABLE_TITLE, Constants.SERVICE_NOT_AVAILABLE);
         } else {
-            dialogBuilder.setTitle(Constants.CONNECTION_ERROR_TITLE)
-                    .setMessage(Constants.CONNECTION_ERROR)
-                    .setNeutralButton(Constants.OK_MSG, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(getDialogContext(), MainActivity.class);
-                            getDialogContext().startActivity(intent);
-                        }
-                    }).show();
-
+            showDialog(Constants.CONNECTION_ERROR_TITLE, Constants.CONNECTION_ERROR);
             Toast.makeText(getDialogContext(),
                     "Error: " + spiceException.getMessage(), Toast.LENGTH_SHORT)
                     .show();
         }
+    }
+
+    private void showDialog(String title, String body) {
+        dialogBuilder.setTitle(title)
+                .setMessage(body)
+                .setNeutralButton(Constants.OK_MSG, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getDialogContext(), MainActivity.class);
+                        getDialogContext().startActivity(intent);
+                    }
+                }).show();
     }
 
     /**

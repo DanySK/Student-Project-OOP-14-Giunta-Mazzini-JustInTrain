@@ -49,7 +49,9 @@ public class Constants {
     public final static String CONNECTION_ERROR_TITLE = "Problemi di connessione!";
     public final static String CONNECTION_ERROR = "Controllare la propria connessione internet";
     public final static String NO_AVAILABLE_SOLUTION_TITLE = "Nessuna soluzione trovata!";
-    public final static String NO_AVAILABLE_SOLUTION= "Nessuna soluzione disponibile per la tratta selezionata";
+    public final static String NO_AVAILABLE_SOLUTION = "Nessuna soluzione disponibile per la tratta selezionata";
+    public final static String SERVICE_NOT_AVAILABLE_TITLE = "Servizio non disponibile!";
+    public final static String SERVICE_NOT_AVAILABLE = "Il servizio Viaggiatreno.com è offline o in manuetenzione";
 
     public final static String OK_MSG = "Ok";
 

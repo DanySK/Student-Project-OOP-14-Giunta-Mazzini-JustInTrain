@@ -35,9 +35,17 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         this.journeyList = list;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        int viewType = 0;
+        if (journeyList.get(position).isLastVehicleOfJourney()) {
+            viewType = 1;
+        }
+        return viewType;
+    }
 
     @Override
-    public JourneyViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
+    public JourneyViewHolder onCreateViewHolder(ViewGroup viewGroup, int index) {
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_journey, viewGroup, false);
         return new JourneyViewHolder(itemView);
     }
@@ -45,6 +53,9 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
     @Override
     public void onBindViewHolder(JourneyViewHolder journeyViewHolder, int position) {
         final PlainSolution journeyTrain = journeyList.get(position);
+        if (position == 1) {
+            journeyViewHolder.divider.setVisibility(View.VISIBLE);
+        }
         journeyViewHolder.category.setText(journeyTrain.getCategoria());
         journeyViewHolder.number.setText(journeyTrain.getNumeroTreno());
         journeyViewHolder.duration.setText(journeyTrain.getDurata());
@@ -93,6 +104,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         protected TextView delay;
         protected ImageButton pinButton;
         protected String stationCode;
+        protected View divider;
 
         public JourneyViewHolder(View v) {
             super(v);
@@ -107,6 +119,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
             delay = (TextView) v.findViewById(R.id.tTimeDifference);
             pinButton = (ImageButton)v.findViewById(R.id.bOptions);
             stationCode = "";
+            divider = (View)v.findViewById(R.id.iDivider);
         }
 
         @Override
