@@ -23,7 +23,7 @@ public class JourneyResultsActivity extends AbstractBaseActivity {
     private boolean isCustomTime;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey_search);

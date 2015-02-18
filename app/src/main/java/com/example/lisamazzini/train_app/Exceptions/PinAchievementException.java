@@ -7,7 +7,7 @@ package com.example.lisamazzini.train_app.Exceptions;
  */
 public class PinAchievementException extends AchievementException{
 
-    public PinAchievementException(String message) {
+    public PinAchievementException(final String message) {
         super(message);
     }
 }

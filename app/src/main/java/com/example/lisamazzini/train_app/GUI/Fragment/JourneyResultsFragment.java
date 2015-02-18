@@ -58,14 +58,14 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+                             final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View layoutInflater = inflater.inflate(R.layout.fragment_journey_results, container, false);
 
@@ -91,7 +91,7 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
         this.menu = menu;
         this.favouriteFragmentController.setMenu(this.menu);
@@ -99,14 +99,14 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         favouriteFragmentController.setContext(getActivity());
         this.menu = favouriteFragmentController.onOptionsItemSelected(item, new String[]{controller.getDepartureID(), controller.getArrivalID(), controller.getDepartureStation(), controller.getArrivalStation()}, getActivity());
         return super.onOptionsItemSelected(item);
     }
 
 
-    public void makeRequest(String userRequestType, String requestedTime, boolean isCustomTime, String... departureAndArrivalData) {
+    public void makeRequest(final String userRequestType, final String requestedTime, final boolean isCustomTime, final String... departureAndArrivalData) {
         controller.clearPartialPlainSolutionList();
         adapter.notifyDataSetChanged();
         resetScrollListener();
@@ -140,7 +140,7 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
         }
 
         @Override
-        public void onRequestSuccess(ListWrapper lista) {
+        public void onRequestSuccess(final ListWrapper lista) {
             List<String> data = lista.getList();
 
             if (Utilities.isOneResult(data)) {
@@ -150,7 +150,7 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
                 final String[][] choices = controller.getTableForMultipleResults(data);
                 dialogBuilder.setSingleChoiceItems(choices[0], -1, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(final DialogInterface dialog, final int which) {
                         controller.setDepartureID(choices[1][which]);
                         spiceManager.execute(new JourneyDataRequest(controller.getArrivalStation()), new ArrivalDataRequestListener());
                         dialog.dismiss();
@@ -170,7 +170,7 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
         }
 
         @Override
-        public void onRequestSuccess(ListWrapper lista) {
+        public void onRequestSuccess(final ListWrapper lista) {
 
             List<String> data = lista.getList();
 
@@ -182,7 +182,7 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
                 final String[][] choices = controller.getTableForMultipleResults(data);
                 dialogBuilder.setSingleChoiceItems(choices[0], -1, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(final DialogInterface dialog, final int which) {
                         controller.setArrivalID(choices[1][which]);
                         favouriteFragmentController.toggleFavouriteIcon(controller.getDepartureID(), controller.getArrivalID());
                         spiceManager.execute(new JourneyRequest(controller.getDepartureID(), controller.getArrivalID(), controller.getRequestedTime()), new JourneyRequestListener());
@@ -203,7 +203,7 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
         }
 
         @Override
-        public void onRequestSuccess(Tragitto tragitto) {
+        public void onRequestSuccess(final Tragitto tragitto) {
             controller.buildPlainSolutions(tragitto);
             spiceManager.execute(new JourneyTrainRequest(controller.getPlainSolutions(controller.isCustomTime())), new JourneyTrainRequestListener());
         }
@@ -219,7 +219,7 @@ public class JourneyResultsFragment extends AbstractRobospiceFragment implements
         }
 
         @Override
-        public void onRequestSuccess(PlainSolutionWrapper plainSolutions) {
+        public void onRequestSuccess(final PlainSolutionWrapper plainSolutions) {
             controller.addSolutions(plainSolutions.getList());
 //            plainSolutionList.addAll(plainSolutions.getList());
             adapter.notifyDataSetChanged();

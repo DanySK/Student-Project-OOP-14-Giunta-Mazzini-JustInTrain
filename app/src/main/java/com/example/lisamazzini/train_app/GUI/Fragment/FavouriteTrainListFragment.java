@@ -40,8 +40,8 @@ public class FavouriteTrainListFragment extends AbstractRobospiceFragment{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+                             final Bundle savedInstanceState) {
 
         View layoutInfalter = inflater.inflate(R.layout.fragment_favourite_train_list, container, false);
         super.spiceManager = new SpiceManager(UncachedSpiceService.class);
@@ -75,7 +75,7 @@ public class FavouriteTrainListFragment extends AbstractRobospiceFragment{
         }
 
         @Override
-        public void onRequestSuccess(Treno trainResponse) {
+        public void onRequestSuccess(final Treno trainResponse) {
             favouriteTrainListController.addToFavouriteTrainList(trainResponse);
             adapter.notifyDataSetChanged();
         }

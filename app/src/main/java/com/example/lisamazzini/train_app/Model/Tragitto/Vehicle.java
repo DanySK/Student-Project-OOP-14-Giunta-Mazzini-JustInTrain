@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class Vehicle {
 
+    private static final int FIRST_INDEX = 11;
+    private static final int SECOND_INDEX = 16;
     private String origine;
     private String destinazione;
     private String orarioPartenza;
@@ -17,93 +19,93 @@ public class Vehicle {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
     private boolean isTomorrow;
 
-    public boolean isTomorrow() {
+    public final boolean isTomorrow() {
         return isTomorrow;
     }
 
-    public void setTomorrow(boolean isTomorrow) {
+    public final void setTomorrow(final boolean isTomorrow) {
         this.isTomorrow = isTomorrow;
     }
 
-    public String getOrigine() {
+    public final String getOrigine() {
         return origine;
     }
 
-    public void setOrigine(String origine) {
+    public final void setOrigine(final String origine) {
         this.origine = origine;
     }
 
-    public String getDestinazione() {
+    public final String getDestinazione() {
         return destinazione;
     }
 
-    public void setDestinazione(String destinazione) {
+    public final void setDestinazione(final String destinazione) {
         this.destinazione = destinazione;
     }
 
-    public String getOrarioPartenza() {
+    public final String getOrarioPartenza() {
         return orarioPartenza;
     }
 
-    public void setOrarioPartenza(String orarioPartenza) {
+    public final void setOrarioPartenza(final String orarioPartenza) {
         this.orarioPartenza = orarioPartenza;
     }
 
-    public String getOraPartenza() {
+    public final String getOraPartenza() {
         setOraPartenza();
         return oraPartenza;
     }
 
-    public void setOraPartenza() {
-        this.oraPartenza = getOrarioPartenza().substring(11, 16);
+    public final void setOraPartenza() {
+        this.oraPartenza = getOrarioPartenza().substring(FIRST_INDEX, SECOND_INDEX);
     }
 
-    public String getOrarioArrivo() {
+    public final String getOrarioArrivo() {
         return orarioArrivo;
     }
 
-    public void setOrarioArrivo(String orarioArrivo) {
+    public final void setOrarioArrivo(final String orarioArrivo) {
         this.orarioArrivo = orarioArrivo;
     }
 
-    public String getOraArrivo() {
+    public final String getOraArrivo() {
         setOraArrivo();
         return oraArrivo;
     }
 
-    public void setOraArrivo() {
-        this.oraArrivo = getOrarioArrivo().substring(11, 16);
+    public final void setOraArrivo() {
+        this.oraArrivo = getOrarioArrivo().substring(FIRST_INDEX, SECOND_INDEX);
     }
 
-    public String getCategoria() {
+    public final String getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public final void setCategoria(final String categoria) {
         this.categoria = categoria;
     }
 
-    public String getCategoriaDescrizione() {
+    public final String getCategoriaDescrizione() {
         return categoriaDescrizione;
     }
 
-    public void setCategoriaDescrizione(String categoriaDescrizione) {
+    public final void setCategoriaDescrizione(final String categoriaDescrizione) {
         this.categoriaDescrizione = categoriaDescrizione;
     }
 
-    public String getNumeroTreno() {
+    public final String getNumeroTreno() {
         return numeroTreno;
     }
 
-    public void setNumeroTreno(String numeroTreno) {
+    public final void setNumeroTreno(final String numeroTreno) {
         this.numeroTreno = numeroTreno;
     }
 
-    public Map<String, Object> getAdditionalProperties() {
+    public final Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
     }
 
-    public void setAdditionalProperty(String name, Object value) {
+    public final void setAdditionalProperty(final String name, final Object value) {
         this.additionalProperties.put(name, value);
     }
 }

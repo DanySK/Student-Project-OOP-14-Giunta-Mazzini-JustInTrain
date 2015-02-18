@@ -21,21 +21,21 @@ public class FavouriteFragmentController {
     private Context context;
 
 
-    public FavouriteFragmentController(IFavouriteController controller) {
+    public FavouriteFragmentController(final IFavouriteController controller) {
         this.favouriteController = controller;
     }
 
-    public void setMenu(Menu menu) {
+    public void setMenu(final Menu menu) {
         this.menu = menu;
         this.favItem = menu.findItem(R.id.action_deprefere);
         this.notFavItem = menu.findItem(R.id.action_prefere);
     }
 
-    public void setContext(Context context){
+    public void setContext(final Context context){
         this.context = context;
     }
 
-    public Menu toggleFavouriteIcon(String reqData1, String reqData2) {
+    public Menu toggleFavouriteIcon(final String reqData1, final String reqData2) {
         if (favouriteController.isFavourite(reqData1, reqData2)) {
             setAsFavouriteIcon(true);
         } else {
@@ -44,17 +44,17 @@ public class FavouriteFragmentController {
         return this.menu;
     }
 
-    public void setAsFavouriteIcon(boolean b) {
+    public void setAsFavouriteIcon(final boolean b) {
         this.favItem.setVisible(b);
         this.notFavItem.setVisible(!b);
     }
 
-    public void setAllEnabled(boolean b) {
+    public void setAllEnabled(final boolean b) {
         this.favItem.setVisible(b);
         this.notFavItem.setVisible(b);
     }
 
-    public Menu onOptionsItemSelected(MenuItem item, String[] details, Activity activity) {
+    public Menu onOptionsItemSelected(final MenuItem item, final String[] details, final Activity activity) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             activity.finish();
@@ -74,11 +74,11 @@ public class FavouriteFragmentController {
         return this.menu;
     }
 
-    private void removeFavourite(String[] details) {
+    private void removeFavourite(final String[] details) {
         favouriteController.removeFavourite(details[0], details[1]);
     }
 
-    private void addFavourite(String[] details) throws FavouriteException {
+    private void addFavourite(final String[] details) throws FavouriteException {
         if (details.length == 2) {
             favouriteController.addFavourite(details[0], details[1]);
         } else if (details.length == 4) {

@@ -19,14 +19,14 @@ public class FavouriteTrainController extends AbstractFavouriteController {
         return ADDER;
     }
 
-    public void setContext(Context context){
+    public void setContext(final Context context){
         super.sharedPref = context.getSharedPreferences(Constants.TRAIN_PREF_FILE, Context.MODE_APPEND);
         super.editor = sharedPref.edit();
         editor.apply();
     }
 
     @Override
-    protected String buildKey(String... strings) {
+    protected String buildKey(final String... strings) {
         return strings[0] + Constants.SEPARATOR + strings[1];
     }
 }

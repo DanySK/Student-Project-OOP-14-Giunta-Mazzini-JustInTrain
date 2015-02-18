@@ -1,12 +1,9 @@
 package com.example.lisamazzini.train_app.Model.Treno;
 
 
-    import com.example.lisamazzini.train_app.Model.Treno.Fermate;
 
     import java.util.ArrayList;
-    import java.util.HashMap;
     import java.util.List;
-    import java.util.Map;
 
 /**
  * Created by lisamazzini on 01/02/15.
@@ -24,92 +21,92 @@ public class Treno {
     private Long ritardo;
 
 
-    public List<Fermate> getFermate() {
+    public final List<Fermate> getFermate() {
         return fermate;
     }
 
 
-    public void setFermate(List<Fermate> fermate) {
+    public final void setFermate(final List<Fermate> fermate) {
         this.fermate = fermate;
     }
 
 
-    public String getStazioneUltimoRilevamento() {
+    public final String getStazioneUltimoRilevamento() {
         return stazioneUltimoRilevamento;
     }
 
 
-    public void setStazioneUltimoRilevamento(String stazioneUltimoRilevamento) {
+    public final void setStazioneUltimoRilevamento(final String stazioneUltimoRilevamento) {
         this.stazioneUltimoRilevamento = stazioneUltimoRilevamento;
     }
 
 
-    public String getIdOrigine() {
+    public final String getIdOrigine() {
         return idOrigine;
     }
 
 
-    public void setIdOrigine(String idOrigine) {
+    public final void setIdOrigine(final String idOrigine) {
         this.idOrigine = idOrigine;
     }
 
 
-    public String getCompOraUltimoRilevamento() {
+    public final String getCompOraUltimoRilevamento() {
         return compOraUltimoRilevamento;
     }
 
 
-    public void setCompOraUltimoRilevamento(String compOraUltimoRilevamento) {
+    public final void setCompOraUltimoRilevamento(final String compOraUltimoRilevamento) {
         this.compOraUltimoRilevamento = compOraUltimoRilevamento;
     }
 
 
-    public Long getNumeroTreno() {
+    public final Long getNumeroTreno() {
         return numeroTreno;
     }
 
 
-    public void setNumeroTreno(Long numeroTreno) {
+    public final void setNumeroTreno(final Long numeroTreno) {
         this.numeroTreno = numeroTreno;
     }
 
 
-    public String getCategoria() {
+    public final String getCategoria() {
         return categoria;
     }
 
 
-    public void setCategoria(String categoria) {
+    public final void setCategoria(final String categoria) {
         this.categoria = categoria;
     }
 
 
-    public String getSubTitle() {
+    public final String getSubTitle() {
         return subTitle;
     }
 
 
-    public void setSubTitle(String subTitle) {
+    public final void setSubTitle(final String subTitle) {
         this.subTitle = subTitle;
     }
 
 
-    public String getProgress() {
+    public final String getProgress() {
         return progress;
     }
 
 
-    public void setProgress(String progress) {
+    public final void setProgress(final String progress) {
         this.progress = progress;
     }
 
 
-    public Long getRitardo() {
+    public final Long getRitardo() {
         return ritardo;
     }
 
 
-    public void setRitardo(Long ritardo) {
+    public final void setRitardo(final Long ritardo) {
         this.ritardo = ritardo;
     }
 

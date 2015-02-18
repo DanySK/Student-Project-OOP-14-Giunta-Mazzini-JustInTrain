@@ -16,18 +16,18 @@ public class AchievementListAdapter  extends RecyclerView.Adapter<AchievementLis
 
     private List<String> achievements = new LinkedList<>();
 
-    public AchievementListAdapter(List<String> achievements){
+    public AchievementListAdapter(final List<String> achievements){
         this.achievements = achievements;
     }
 
     @Override
-    public AchievementViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AchievementViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_achievement, parent, false);
         return new AchievementViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(AchievementViewHolder holder, int position) {
+    public void onBindViewHolder(final AchievementViewHolder holder, final int position) {
         holder.text.setText(achievements.get(position));
     }
 
@@ -39,7 +39,7 @@ public class AchievementListAdapter  extends RecyclerView.Adapter<AchievementLis
     public static class AchievementViewHolder extends RecyclerView.ViewHolder{
         protected TextView text;
 
-        public AchievementViewHolder(View v){
+        public AchievementViewHolder(final View v){
             super(v);
             text = (TextView)v.findViewById(R.id.ach_text);
         }

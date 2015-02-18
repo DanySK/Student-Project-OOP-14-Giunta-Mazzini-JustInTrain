@@ -29,14 +29,14 @@ public class FavouriteJourneyController extends AbstractFavouriteController{
     }
 
     @Override
-    public void setContext(Context context) {
+    public void setContext(final Context context) {
         super.sharedPref = context.getSharedPreferences(Constants.JOURNEY_PREF_FILE, Context.MODE_APPEND);
         super.editor = sharedPref.edit();
         editor.apply();
     }
 
     @Override
-    public void addFavourite(String... strings) {
+    public void addFavourite(final String... strings) {
         super.check();
         String key = buildKey(strings[0], strings[1]);
         if(!super.alreadyFavourite(key)) {
@@ -45,7 +45,7 @@ public class FavouriteJourneyController extends AbstractFavouriteController{
         }
     }
 
-    protected String buildKey(String... strings) {
+    protected String buildKey(final String... strings) {
         String finalString = "";
         for (String s : strings) {
             finalString = finalString.concat(s).concat(Constants.SEPARATOR);

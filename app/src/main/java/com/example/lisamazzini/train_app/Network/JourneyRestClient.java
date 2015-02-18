@@ -7,7 +7,7 @@ import com.squareup.okhttp.OkHttpClient;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 
-public class JourneyRestClient {
+public final class JourneyRestClient {
 
     private static JourneyAPI REST_CLIENT;
 

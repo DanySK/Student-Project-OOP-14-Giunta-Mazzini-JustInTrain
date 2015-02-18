@@ -18,19 +18,19 @@ public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTra
 
     private List<Treno> list;
 
-    public FavouriteTrainListAdapter(List<Treno> list){
+    public FavouriteTrainListAdapter(final List<Treno> list){
         this.list = list;
     }
 
     @Override
-    public Holder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public Holder onCreateViewHolder(final ViewGroup viewGroup, final int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View itemView = inflater.inflate(R.layout.view_favourite_train, viewGroup, false);
         return new Holder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(Holder holder, final int position) {
+    public void onBindViewHolder(final Holder holder, final int position) {
 
         final Treno train = list.get(position);
         holder.trainCategory.setText(train.getCategoria());
@@ -68,7 +68,7 @@ public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTra
         protected TextView extra;
         protected String stationCode;
 
-        public Holder(View itemView) {
+        public Holder(final View itemView) {
 
             super(itemView);
             itemView.setOnClickListener(this);
@@ -82,7 +82,7 @@ public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTra
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(final View v) {
             Intent i = new Intent(v.getContext(), StationListActivity.class);
             i.putExtra(Constants.ID_ORIGIN_EXTRA, this.stationCode);
             i.putExtra(Constants.TRAIN_N_EXTRA, this.trainNumber.getText().toString());

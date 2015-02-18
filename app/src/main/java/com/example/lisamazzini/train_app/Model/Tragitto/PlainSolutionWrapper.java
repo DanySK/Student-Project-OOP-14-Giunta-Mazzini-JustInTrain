@@ -7,11 +7,11 @@ public class PlainSolutionWrapper extends LinkedList<PlainSolution> {
 
     private final List<PlainSolution> plainSolutions;
 
-    public PlainSolutionWrapper(List<PlainSolution> plainSolutionList) {
+    public PlainSolutionWrapper(final List<PlainSolution> plainSolutionList) {
         this.plainSolutions = plainSolutionList;
     }
 
-    public List<PlainSolution> getList() {
+    public final List<PlainSolution> getList() {
         return this.plainSolutions;
     }
 }

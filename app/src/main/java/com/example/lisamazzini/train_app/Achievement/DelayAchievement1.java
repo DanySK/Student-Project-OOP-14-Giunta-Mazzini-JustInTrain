@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Achievement;
+package com.example.lisamazzini.train_app.achievement;
 
 import com.example.lisamazzini.train_app.Exceptions.DelayAchievementException;
 import com.example.lisamazzini.train_app.Model.Constants;
@@ -16,15 +16,15 @@ import android.content.Context;
 public class DelayAchievement1 extends BasicAchievement {
 
 
-    public DelayAchievement1(Context context){
+    public DelayAchievement1(final Context context){
         super(0L, new Strategy() {
             @Override
-            public Long compute(PlainSolution train, Long value) {
+            public Long compute(final PlainSolution train, final Long value) {
                 return value + Long.parseLong(train.getDelay());
             }
 
             @Override
-            public void control(Long value) throws DelayAchievementException {
+            public void control(final Long value) throws DelayAchievementException {
                 if(value > 60L){
                     throw new DelayAchievementException(Constants.DELAY_ACH);
                 }

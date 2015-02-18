@@ -10,7 +10,7 @@ import com.example.lisamazzini.train_app.R;
 public class FavouriteTrainListActivity extends AbstractBaseActivity{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_train_list);
 

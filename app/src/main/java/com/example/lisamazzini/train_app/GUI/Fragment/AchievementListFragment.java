@@ -30,8 +30,8 @@ public class AchievementListFragment extends Fragment implements IBaseFragment{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+                             final Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_achievement_list, container, false);
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_list);

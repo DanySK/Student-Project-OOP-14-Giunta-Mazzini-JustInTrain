@@ -16,21 +16,21 @@ import com.example.lisamazzini.train_app.R;
 
 public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.DrawerListViewHolder> implements IAdapter<DrawerListAdapter.DrawerListViewHolder>{
 
-    private String TITLES[];
+    private final String[] TITLES;
 
 
-    public DrawerListAdapter(String[] TITLES) {
+    public DrawerListAdapter(final String[] TITLES) {
         this.TITLES = TITLES;
     }
 
     @Override
-    public DrawerListAdapter.DrawerListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DrawerListAdapter.DrawerListViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_drawer_list_item, parent, false);
         return new DrawerListViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(DrawerListAdapter.DrawerListViewHolder holder, int position) {
+    public void onBindViewHolder(final DrawerListAdapter.DrawerListViewHolder holder, final int position) {
         holder.navItem.setText(TITLES[position]);
     }
 
@@ -43,7 +43,7 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Dr
 
         protected TextView navItem;
 
-        public DrawerListViewHolder(View v) {
+        public DrawerListViewHolder(final View v) {
             super(v);
             v.setClickable(true);
             v.setOnClickListener(this);
@@ -51,7 +51,7 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Dr
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(final View v) {
             switch (getPosition()) {
                 case 0 :
                     Intent i = new Intent(v.getContext(), FavouriteTrainListActivity.class);

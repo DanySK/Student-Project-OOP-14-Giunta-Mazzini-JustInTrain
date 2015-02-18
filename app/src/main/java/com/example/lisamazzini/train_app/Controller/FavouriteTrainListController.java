@@ -18,7 +18,7 @@ public class FavouriteTrainListController {
 
     private List<Treno> favouriteTrainsList = new LinkedList<>();
 
-    public FavouriteTrainListController(Map<String, String> map){
+    public FavouriteTrainListController(final Map<String, String> map){
         this.iterator = map.keySet().iterator();
     }
 
@@ -42,7 +42,7 @@ public class FavouriteTrainListController {
      *
      * @param train
      */
-    public void addToFavouriteTrainList(Treno train){
+    public void addToFavouriteTrainList(final Treno train){
         favouriteTrainsList.add(train);
     }
     /**

@@ -20,7 +20,7 @@ import java.util.List;
  */
 public abstract class AbstractDataRequest extends SpiceRequest<ListWrapper>{
 
-    public AbstractDataRequest(Class<ListWrapper> clazz) {
+    public AbstractDataRequest(final Class<ListWrapper> clazz) {
         super(clazz);
     }
 

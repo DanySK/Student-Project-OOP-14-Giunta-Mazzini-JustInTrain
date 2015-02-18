@@ -25,7 +25,7 @@ public class StationListController {
         return trainDetails;
     }
 
-    public void setTrainDetails(String[] trainDetails) {
+    public void setTrainDetails(final String[] trainDetails) {
         this.trainDetails = trainDetails;
     }
 
@@ -33,7 +33,7 @@ public class StationListController {
         return trainCode;
     }
 
-    public void setTrainCode(String trainCode) {
+    public void setTrainCode(final String trainCode) {
         this.trainCode = trainCode;
     }
 
@@ -41,14 +41,14 @@ public class StationListController {
         return trainNumber;
     }
 
-    public void setTrainNumber(String trainNumber) {
+    public void setTrainNumber(final String trainNumber) {
         this.trainNumber = trainNumber;
     }
     public List<Fermate> getFermateList() {
         return fermateList;
     }
 
-    public void setFermateList(Treno trainResponse) {
+    public void setFermateList(final Treno trainResponse) {
         fermateList.addAll(trainResponse.getFermate());
     }
 
@@ -88,7 +88,7 @@ public class StationListController {
      * @param data lista di stringhe con i dati
      * @return matrice con i dati suddivisi
      */
-    public String[][] computeMatrix(List<String> data){
+    public String[][] computeMatrix(final List<String> data){
         final String[][] dataMatrix = new String[data.size()][3];
         for (int i = 0 ; i < data.size(); i++){
             dataMatrix[i] = computeData(data.get(i));
@@ -103,7 +103,7 @@ public class StationListController {
      * @return l'array di stringhe
      */
 
-    public String[] computeChoices(String[][] dataMatrix){
+    public String[] computeChoices(final String[][] dataMatrix){
         String[] choices = new String[dataMatrix.length];
         for (int i = 0 ; i < dataMatrix.length; i++){
             choices[i] = computeSingleChoice(dataMatrix[i]);
@@ -116,7 +116,7 @@ public class StationListController {
      * @param first array da cui prendere i dati
      * @return stringa che descrive la scelta
      */
-    private String computeSingleChoice(String[] first){
+    private String computeSingleChoice(final String[] first){
         final String result= "Treno " + first[0] + " in partenza da " + first[2];
         return result;
     }
@@ -126,11 +126,11 @@ public class StationListController {
      * @param train treno da analizzare
      * @return stringa che descrive l'andamento del treno
      */
-    public String getProgress(Treno train){
+    public String getProgress(final Treno train){
         return Utilities.getProgress(train);
     }
 
-    public String[] computeData(String s) {
+    public String[] computeData(final String s) {
         return Utilities.splitString(s);
     }
 }

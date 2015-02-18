@@ -20,7 +20,7 @@ public class AchievementListController  {
     private SharedPreferences data;
     private List<String> achievements = new LinkedList<>();
 
-    public AchievementListController(Context context){
+    public AchievementListController(final Context context){
         data = context.getSharedPreferences(Constants.ACH_STORE_FILE, Context.MODE_APPEND);
     }
 

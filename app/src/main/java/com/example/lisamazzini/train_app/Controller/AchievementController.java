@@ -4,19 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.example.lisamazzini.train_app.Achievement.DelayAchievement1;
-import com.example.lisamazzini.train_app.Achievement.IAchievement;
-import com.example.lisamazzini.train_app.Achievement.PinAchievement1;
+import com.example.lisamazzini.train_app.achievement.DelayAchievement1;
+import com.example.lisamazzini.train_app.achievement.IAchievement;
+import com.example.lisamazzini.train_app.achievement.PinAchievement1;
 import com.example.lisamazzini.train_app.Exceptions.AchievementException;
-import com.example.lisamazzini.train_app.Exceptions.DelayAchievementException;
-import com.example.lisamazzini.train_app.Exceptions.PinAchievementException;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+
 import java.util.*;
 
 /**
@@ -35,7 +30,7 @@ public class AchievementController {
     private final SharedPreferences.Editor editor;
 
 
-    public AchievementController(Context context){
+    public AchievementController(final Context context){
         this.context = context;
         achievements.put("Delay", new DelayAchievement1(context));
         achievements.put("Pin", new PinAchievement1(context));
@@ -49,7 +44,7 @@ public class AchievementController {
      * @param train treno da cui estrarre i dati
      * @throws AchievementException se un nuovo achievement viene sbloccato
      */
-    public void updateAchievements(PlainSolution train) throws AchievementException {
+    public void updateAchievements(final PlainSolution train) throws AchievementException {
         try {
             for (IAchievement a : achievements.values()) {
                 a.addData(train);

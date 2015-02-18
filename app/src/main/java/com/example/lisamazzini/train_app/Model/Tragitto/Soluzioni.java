@@ -12,27 +12,27 @@ public class Soluzioni {
     private List<Vehicle> vehicles = new ArrayList<Vehicle>();
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    public String getDurata() {
+    public final String getDurata() {
         return durata;
     }
 
-    public void setDurata(String durata) {
+    public final void setDurata(final String durata) {
         this.durata = durata;
     }
 
-    public List<Vehicle> getVehicles() {
+    public final List<Vehicle> getVehicles() {
         return vehicles;
     }
 
-    public void setVehicles(List<Vehicle> vehicles) {
+    public final void setVehicles(final List<Vehicle> vehicles) {
         this.vehicles = vehicles;
     }
 
-    public Map<String, Object> getAdditionalProperties() {
+    public final Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
     }
 
-    public void setAdditionalProperty(String name, Object value) {
+    public final void setAdditionalProperty(final String name, final Object value) {
         this.additionalProperties.put(name, value);
     }
 }

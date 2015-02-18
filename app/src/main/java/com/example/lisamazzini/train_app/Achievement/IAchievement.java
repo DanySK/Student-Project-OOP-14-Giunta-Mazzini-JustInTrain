@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Achievement;
+package com.example.lisamazzini.train_app.achievement;
 
 import com.example.lisamazzini.train_app.Exceptions.AchievementException;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;

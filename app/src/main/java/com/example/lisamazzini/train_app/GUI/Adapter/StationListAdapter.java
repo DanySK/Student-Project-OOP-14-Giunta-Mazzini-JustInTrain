@@ -14,19 +14,19 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
 
     private final List<Fermate> list;
 
-    public StationListAdapter(List<Fermate> list){
+    public StationListAdapter(final List<Fermate> list){
         this.list = list;
     }
 
     @Override
-    public RecyclerViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public RecyclerViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View itemView = inflater.inflate(R.layout.view_station, viewGroup, false);
         return new RecyclerViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewHolder viewHolder, int i) {
+    public void onBindViewHolder(final RecyclerViewHolder viewHolder, final int i) {
 
         Fermate f = list.get(i);
         viewHolder.stationName.setText(f.getStazione());
@@ -66,7 +66,7 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
         protected TextView actualPlatform;
         protected TextView plannedPlatform;
 
-        public RecyclerViewHolder(View itemView) {
+        public RecyclerViewHolder(final View itemView) {
             super(itemView);
             stationName = (TextView) itemView.findViewById(R.id.tStationName);
             timeDifference = (TextView) itemView.findViewById(R.id.tTimeDifference);

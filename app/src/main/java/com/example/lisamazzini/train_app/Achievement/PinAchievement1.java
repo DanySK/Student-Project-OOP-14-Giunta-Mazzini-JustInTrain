@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Achievement;
+package com.example.lisamazzini.train_app.achievement;
 
 import com.example.lisamazzini.train_app.Exceptions.AchievementException;
 import com.example.lisamazzini.train_app.Exceptions.PinAchievementException;
@@ -14,14 +14,14 @@ import android.util.Log;
  * @author Lisa Mazzini
  */
 public class PinAchievement1 extends BasicAchievement {
-    public PinAchievement1(Context context) {
+    public PinAchievement1(final Context context) {
         super(0L, new Strategy() {
             @Override
-            public Long compute(PlainSolution train, Long value) {
+            public Long compute(final PlainSolution train, final Long value) {
                 return value + 1L;
             }
             @Override
-            public void control(Long value) throws AchievementException {
+            public void control(final Long value) throws AchievementException {
                 if(value == 10L){
                     throw new PinAchievementException(Constants.PIN_ACH);
                 }

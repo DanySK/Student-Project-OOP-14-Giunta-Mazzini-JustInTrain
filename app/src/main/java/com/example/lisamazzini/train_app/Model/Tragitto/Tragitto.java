@@ -10,46 +10,37 @@ public class Tragitto {
     private List<Soluzioni> soluzioni = new ArrayList<Soluzioni>();
     private String origine;
     private String destinazione;
-    private Object errore;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    public List<Soluzioni> getSoluzioni() {
+    public final List<Soluzioni> getSoluzioni() {
         return soluzioni;
     }
 
-    public void setSoluzioni(java.util.List<Soluzioni> soluzioni) {
+    public final void setSoluzioni(final List<Soluzioni> soluzioni) {
         this.soluzioni = soluzioni;
     }
 
-    public String getOrigine() {
+    public final String getOrigine() {
         return origine;
     }
 
-    public void setOrigine(String origine) {
+    public final void setOrigine(final String origine) {
         this.origine = origine;
     }
 
-    public String getDestinazione() {
+    public final String getDestinazione() {
         return destinazione;
     }
 
-    public void setDestinazione(String destinazione) {
+    public final void setDestinazione(final String destinazione) {
         this.destinazione = destinazione;
     }
 
-    public Object getErrore() {
-        return errore;
-    }
-
-    public void setErrore(Object errore) {
-        this.errore = errore;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
+    public final Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
     }
 
-    public void setAdditionalProperty(String name, Object value) {
+    public final void setAdditionalProperty(final String name, final Object value) {
         this.additionalProperties.put(name, value);
     }
 }

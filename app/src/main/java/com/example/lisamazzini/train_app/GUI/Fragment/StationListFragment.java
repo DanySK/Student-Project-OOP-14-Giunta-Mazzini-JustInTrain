@@ -59,14 +59,14 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
     public StationListFragment() {
     }
 
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
+                             final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.spiceManager = new SpiceManager(UncachedSpiceService.class);
         View layoutInflater = inflater.inflate(R.layout.fragment_station_list, container, false);
@@ -102,7 +102,7 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
         this.menu = menu;
         favouriteFragmentController.setMenu(this.menu);
@@ -110,7 +110,7 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         menu = favouriteFragmentController.onOptionsItemSelected(item, listController.getTrainDetails(), getActivity());
         return super.onOptionsItemSelected(item);
     }
@@ -120,7 +120,7 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
         return this.favouriteFragmentController;
     }
 
-    public void makeRequest(String trainNumber, String stationCode) {
+    public void makeRequest(final String trainNumber, final String stationCode) {
         listController.setTrainNumber(trainNumber);
         if(stationCode == null) {
             spiceManager.execute(listController.getNumberRequest(), new StationCodeListener());
@@ -144,7 +144,7 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
                 String[] choices = listController.computeChoices(dataMatrix);
                 dialogBuilder.setSingleChoiceItems(choices, -1, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(final DialogInterface dialog, final int which) {
                         listController.setTrainDetails(dataMatrix[which]);
                         listController.setTrainCode(dataMatrix[which][1]);
                         spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
@@ -168,7 +168,7 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
         }
 
         @Override
-        public void onRequestSuccess(Treno trainResponse) {
+        public void onRequestSuccess(final Treno trainResponse) {
             ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(trainResponse.getCategoria() + " " + trainResponse.getNumeroTreno());
 
             trainResponse.setProgress(listController.getProgress(trainResponse));

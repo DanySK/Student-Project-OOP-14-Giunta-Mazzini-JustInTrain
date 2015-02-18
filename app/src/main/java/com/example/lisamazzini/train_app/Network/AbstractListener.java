@@ -38,7 +38,7 @@ public abstract class AbstractListener<X> implements RequestListener<X> {
      * in base al tipo di Exception che viene lanciata
      * @param spiceException
      */
-    public void onRequestFailure(SpiceException spiceException) {
+    public void onRequestFailure(final SpiceException spiceException) {
         if(spiceException.getCause() instanceof InvalidTrainNumberException){
             showDialog(Constants.WRONG_TRAIN_TITLE, Constants.WRONG_TRAIN);
         } else if (spiceException.getCause() instanceof InvalidStationException) {
@@ -55,7 +55,7 @@ public abstract class AbstractListener<X> implements RequestListener<X> {
         }
     }
 
-    private void showDialog(String title, String body) {
+    private void showDialog(final String title, final String body) {
         dialogBuilder.setTitle(title)
                 .setMessage(body)
                 .setNeutralButton(Constants.OK_MSG, new DialogInterface.OnClickListener() {
@@ -79,7 +79,7 @@ public abstract class AbstractListener<X> implements RequestListener<X> {
      * @param result
      */
     @Override
-    public abstract void onRequestSuccess(X result);
+    public abstract void onRequestSuccess(final X result);
 
 }
 

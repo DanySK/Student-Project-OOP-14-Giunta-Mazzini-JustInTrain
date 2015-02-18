@@ -15,7 +15,7 @@ public class StationListActivity extends AbstractBaseActivity {
     private String stationCode;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station_list);
         overridePendingTransition(R.transition.pull_in_right, R.transition.pull_out_left);

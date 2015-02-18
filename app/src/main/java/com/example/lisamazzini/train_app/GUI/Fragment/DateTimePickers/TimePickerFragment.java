@@ -20,12 +20,12 @@ public class TimePickerFragment extends DialogFragment implements IPicker {
     public TimePickerFragment() {
     }
 
-    public void setCallback(TimePickerDialog.OnTimeSetListener timeListener) {
+    public void setCallback(final TimePickerDialog.OnTimeSetListener timeListener) {
         this.timeListener = timeListener;
     }
 
     @Override
-    public void setArguments(Bundle args) {
+    public void setArguments(final Bundle args) {
         super.setArguments(args);
         this.hour = args.getInt("hour");
         this.minute = args.getInt("minute");
@@ -33,7 +33,7 @@ public class TimePickerFragment extends DialogFragment implements IPicker {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(final Bundle savedInstanceState) {
         return new TimePickerDialog(getActivity(), timeListener, hour, minute, DateFormat.is24HourFormat(getActivity()));
     }
 }

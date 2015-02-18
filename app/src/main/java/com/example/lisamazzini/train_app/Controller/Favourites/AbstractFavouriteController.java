@@ -27,7 +27,7 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     public abstract void setContext(Context context);
 
     @Override
-    public void addFavourite(String... strings) throws FavouriteException {
+    public void addFavourite(final String... strings) throws FavouriteException {
         check();
         if(!alreadyFavourite(buildKey(strings))) {
             editor.putString(buildKey(strings), "");
@@ -38,7 +38,7 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     }
 
     @Override
-    public void removeFavourite(String... data) {
+    public void removeFavourite(final String... data) {
         check();
         editor.remove(buildKey(data));
         editor.apply();
@@ -63,7 +63,7 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
         return new ArrayList<>(getFavouritesAsMap().keySet());
     }
 
-    public boolean isFavourite(String... strings) {
+    public boolean isFavourite(final String... strings) {
         return alreadyFavourite(buildKey(strings));
     }
 
@@ -73,10 +73,10 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
         }
     }
 
-    protected boolean alreadyFavourite(String string){
+    protected boolean alreadyFavourite(final String string){
         return getFavouritesAsMap().containsKey(string);
     }
 
-    protected abstract String buildKey(String... strings);
+    protected abstract String buildKey(final String... strings);
 
 }

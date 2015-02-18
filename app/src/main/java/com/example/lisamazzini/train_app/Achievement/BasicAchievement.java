@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Achievement;
+package com.example.lisamazzini.train_app.achievement;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -34,7 +34,7 @@ public class BasicAchievement implements IAchievement {
      * @param strategy oggetto Strategy che ne descrive il funzionamento
      * @param context il Context necessario per prendere le SharedPreferences
      */
-    public BasicAchievement(Long value, Strategy strategy, Context context){
+    public BasicAchievement(final Long value, final Strategy strategy, final Context context){
         this.value = value;
         this.strategy = strategy;
         data = context.getSharedPreferences(Constants.ACH_DATA_FILE, Context.MODE_APPEND);
@@ -50,7 +50,7 @@ public class BasicAchievement implements IAchievement {
      * @throws AchievementException se si sblocca un achievement
      */
     @Override
-    public void addData(PlainSolution train) throws AchievementException {
+    public void addData(final PlainSolution train) throws AchievementException {
 
         // prendo il valore dal file
         this.value = data.getLong(strategy.getKey(), 0L);

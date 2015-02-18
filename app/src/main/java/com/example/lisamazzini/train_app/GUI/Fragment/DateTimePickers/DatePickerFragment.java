@@ -21,7 +21,7 @@ public class DatePickerFragment extends DialogFragment implements IPicker {
     }
 
 
-    public void setCallback(DatePickerDialog.OnDateSetListener dateListener) {
+    public final void setCallback(final DatePickerDialog.OnDateSetListener dateListener) {
         this.dateListener = dateListener;
     }
 
@@ -35,7 +35,7 @@ public class DatePickerFragment extends DialogFragment implements IPicker {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(final Bundle savedInstanceState) {
         return new DatePickerDialog(getActivity(), dateListener, year, month, day);
     }
 }

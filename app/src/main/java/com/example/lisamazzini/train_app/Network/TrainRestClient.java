@@ -6,7 +6,7 @@ import com.squareup.okhttp.OkHttpClient;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 
-public class TrainRestClient {
+public final class TrainRestClient {
 
 
         private static TrainAPI REST_CLIENT;

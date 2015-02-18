@@ -33,7 +33,7 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
     private Iterator<String> iterator;
     private Treno train;
 
-    public JourneyTrainRequest(List<PlainSolution> plainSolutions) {
+    public JourneyTrainRequest(final List<PlainSolution> plainSolutions) {
         super(PlainSolutionWrapper.class);
         this.plainSolutions = plainSolutions;
     }
@@ -44,8 +44,8 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
         List<String> result;
 
         for (PlainSolution p : plainSolutions) {
-            p.setIDpartenza(getID(p.getOrigine()));
-            p.setIDarrivo(getID(p.getDestinazione()));
+            p.setIdPartenza(getID(p.getOrigine()));
+            p.setIdArrivo(getID(p.getDestinazione()));
 
             result = Utilities.fetchData(Utilities.generateTrainAutocompleteURL(p.getNumeroTreno())).getList();
             if (result.size() == 0) {
@@ -53,15 +53,15 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
             }
             iterator = result.iterator();
             this.makeRequest(p);
-            p.setIDorigine(train.getIdOrigine());
+            p.setIdOrigine(train.getIdOrigine());
             p.setDelay(train.getRitardo());
             if (result.size() > 1) {
                 boolean containsDepartureStation = false;
                 while (!containsDepartureStation && iterator.hasNext()) {
                     this.makeRequest(p);
                     for(Fermate f : train.getFermate()){
-                        if(f.getId().equals(p.getIDpartenza())){
-                            p.setIDorigine(train.getIdOrigine());
+                        if(f.getId().equals(p.getIdPartenza())){
+                            p.setIdOrigine(train.getIdOrigine());
                             p.setDelay(train.getRitardo());
                             containsDepartureStation = true;
                             break;
@@ -81,7 +81,7 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
      * sarà sicuramente univoco.
      * @throws IOException
      */
-    private String getID(String stationName) throws IOException {
+    private String getID(final String stationName) throws IOException {
         Log.d("cazzi", "fermata: " + stationName);
         return Utilities.splitStationForTrainSearch
                 (Utilities.fetchData
@@ -96,7 +96,7 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
      *
      * @param p: la plainSolution di cui ottenere un oggetto di tipo Treno
      */
-    private void makeRequest(PlainSolution p) {
+    private void makeRequest(final PlainSolution p) {
         String[] trainData = iterator.next().split("\\|")[1].split("-");
         train = TrainRestClient.get().getTrain(trainData[0], trainData[1]);
         if (p.isTomorrow()) {

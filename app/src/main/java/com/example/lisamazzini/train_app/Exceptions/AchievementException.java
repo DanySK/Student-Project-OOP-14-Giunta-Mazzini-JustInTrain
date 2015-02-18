@@ -7,7 +7,7 @@ package com.example.lisamazzini.train_app.Exceptions;
  */
 public class AchievementException extends Exception {
 
-    public AchievementException(String message){
+    public AchievementException(final String message){
         super(message);
     }
 }

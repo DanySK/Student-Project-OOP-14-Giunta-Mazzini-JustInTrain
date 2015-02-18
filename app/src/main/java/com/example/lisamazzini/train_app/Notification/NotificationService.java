@@ -54,7 +54,7 @@ public class NotificationService extends Service {
     }
 
     @Override
-    public int onStartCommand (Intent intent, int flags, int startId){
+    public int onStartCommand (final Intent intent, final int flags, final int startId){
         super.onStartCommand(intent, flags, startId);
 
         this.numeroTreno = intent.getStringExtra(Constants.TRAIN_N_EXTRA);
@@ -89,7 +89,7 @@ public class NotificationService extends Service {
     }
 
     @Override
-    public IBinder onBind(Intent intent) {
+    public IBinder onBind(final Intent intent) {
         return null;
     }
 
@@ -129,7 +129,7 @@ public class NotificationService extends Service {
         }
 
         @Override
-        public void onRequestSuccess(Treno train) {
+        public void onRequestSuccess(final Treno train) {
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
             Notification not;
@@ -184,7 +184,7 @@ public class NotificationService extends Service {
          * @param train treno da controllare
          * @return true se è non partito, false se è partito
          */
-        private boolean notDeparted(Treno train){
+        private boolean notDeparted(final Treno train){
             return train.getFermate().get(0).getActualFermataType() == NOT_VISITED;
         }
 
@@ -193,7 +193,7 @@ public class NotificationService extends Service {
          * @param train treno da controllare
          * @return true sè è arrivato, false se non è arrivato
          */
-        private boolean isArrived(Treno train){
+        private boolean isArrived(final Treno train){
             return train.getFermate().get(train.getFermate().size()-1).getActualFermataType() != NOT_VISITED ;
         }
 

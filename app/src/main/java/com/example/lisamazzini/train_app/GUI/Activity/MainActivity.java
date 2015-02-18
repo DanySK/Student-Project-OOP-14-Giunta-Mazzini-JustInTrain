@@ -42,7 +42,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     private Menu menu;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         if (!navigationDrawerFragment.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
             this.menu = menu;
@@ -76,7 +76,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         int id = item.getItemId();
         if (navigationDrawerFragment.onOptionsItemSelected(item)) {
             return true;
@@ -106,7 +106,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         }
     }
 
-    public void restoreActionBar(Menu menu) {
+    public void restoreActionBar(final Menu menu) {
 
         refreshLists();
         SpinnerAdapter spinnerAdapter = new ArrayAdapter<String>(getSupportActionBar().getThemedContext(), android.R.layout.simple_spinner_dropdown_item, favouriteStationNames);
@@ -114,7 +114,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             ActionBar action = getSupportActionBar();
             ActionBar.OnNavigationListener navigationListener = new ActionBar.OnNavigationListener() {
                 @Override
-                public boolean onNavigationItemSelected(int position, long l) {
+                public boolean onNavigationItemSelected(final int position, final long l) {
                     actualJourneyIDs.clear();
                     actualJourneyIDs.add(favouriteStationIDs.get(position));
                     actualJourneyIDs.add(favouriteStationNames.get(position));
@@ -134,6 +134,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     }
 
     @Override
-    public void onNavigationDrawerItemSelected(int position) {
+    public void onNavigationDrawerItemSelected(final int position) {
     }
 }

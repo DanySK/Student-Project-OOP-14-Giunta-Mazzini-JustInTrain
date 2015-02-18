@@ -7,7 +7,7 @@ package com.example.lisamazzini.train_app.Exceptions;
  */
 public class DelayAchievementException extends AchievementException {
 
-    public DelayAchievementException(String message){
+    public DelayAchievementException(final String message){
         super(message);
     }
 }

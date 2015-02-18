@@ -1,9 +1,5 @@
 package com.example.lisamazzini.train_app.Model.Treno;
 
-import java.util.HashMap;
-import java.util.Map;
-
-
 
 public class Fermate {
 
@@ -18,92 +14,92 @@ public class Fermate {
     private String binarioProgrammatoPartenzaDescrizione;
 
 
-    public String getStazione() {
+    public final String getStazione() {
         return stazione;
     }
 
 
-    public void setStazione(String stazione) {
+    public final void setStazione(final String stazione) {
         this.stazione = stazione;
     }
 
 
-    public String getId() {
+    public final String getId() {
         return id;
     }
 
 
-    public void setId(String id) {
+    public final void setId(final String id) {
         this.id = id;
     }
 
 
-    public Long getActualFermataType() {
+    public final Long getActualFermataType() {
         return actualFermataType;
     }
 
 
-    public void setActualFermataType(Long actualFermataType) {
+    public final void setActualFermataType(final Long actualFermataType) {
         this.actualFermataType = actualFermataType;
     }
 
 
-    public String getOrientamento() {
+    public final String getOrientamento() {
         return orientamento;
     }
 
 
-    public void setOrientamento(String orientamento) {
+    public final void setOrientamento(final String orientamento) {
         this.orientamento = orientamento;
     }
 
 
-    public Long getProgrammata() {
+    public final Long getProgrammata() {
         return programmata;
     }
 
 
-    public void setProgrammata(Long programmata) {
+    public final void setProgrammata(final Long programmata) {
         this.programmata = programmata;
     }
 
 
-    public Long getEffettiva() {
+    public final Long getEffettiva() {
         return effettiva;
     }
 
 
-    public void setEffettiva(Long effettiva) {
+    public final void setEffettiva(final Long effettiva) {
         this.effettiva = effettiva;
     }
 
 
-    public Long getRitardo() {
+    public final Long getRitardo() {
         return ritardo;
     }
 
 
-    public void setRitardo(Long ritardo) {
+    public final void setRitardo(final Long ritardo) {
         this.ritardo = ritardo;
     }
 
 
-    public String getBinarioEffettivoPartenzaDescrizione() {
+    public final String getBinarioEffettivoPartenzaDescrizione() {
         return binarioEffettivoPartenzaDescrizione;
     }
 
 
-    public void setBinarioEffettivoPartenzaDescrizione(String binarioEffettivoPartenzaDescrizione) {
+    public final void setBinarioEffettivoPartenzaDescrizione(final String binarioEffettivoPartenzaDescrizione) {
         this.binarioEffettivoPartenzaDescrizione = binarioEffettivoPartenzaDescrizione;
     }
 
 
-    public String getBinarioProgrammatoPartenzaDescrizione() {
+    public final String getBinarioProgrammatoPartenzaDescrizione() {
         return binarioProgrammatoPartenzaDescrizione;
     }
 
 
-    public void setBinarioProgrammatoPartenzaDescrizione(String binarioProgrammatoPartenzaDescrizione) {
+    public final void setBinarioProgrammatoPartenzaDescrizione(final String binarioProgrammatoPartenzaDescrizione) {
         this.binarioProgrammatoPartenzaDescrizione = binarioProgrammatoPartenzaDescrizione;
     }
 

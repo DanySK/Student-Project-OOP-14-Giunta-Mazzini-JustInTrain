@@ -15,7 +15,7 @@ public class TrainRequest extends SpiceRequest<Treno> {
     private final String code;
     private final String number;
 
-    public TrainRequest(String number, String code){
+    public TrainRequest(final String number, final String code){
         super(Treno.class);
         this.code = code;
         this.number = number;

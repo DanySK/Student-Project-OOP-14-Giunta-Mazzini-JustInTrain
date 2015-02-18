@@ -34,7 +34,7 @@ public class Utilities {
      * @param millis millisecondi da convertire
      * @return la stringa che rappresenta l'ora in formato HH:mm
      */
-    public static String fromMsToTime(Long millis){
+    public static String fromMsToTime(final Long millis){
         if(millis == null){
             return "--";
         }
@@ -51,7 +51,7 @@ public class Utilities {
      * @param data stringa dei dati
      * @return String[] con i dati divisi
      */
-    public static String[] splitString(String data){
+    public static String[] splitString(final String data){
         final String[] result = new String[3];
         result[0] = data.split("\\|")[1].split("-")[0];    //numero
         result[1] = data.split("\\|")[1].split("-")[1];    //codice
@@ -66,7 +66,7 @@ public class Utilities {
      * @param data stringa dei dati
      * @return String[] con i dati divisi
      */
-    public static String[] splitStationForJourneySearch(String data) {
+    public static String[] splitStationForJourneySearch(final String data) {
         return data.split("\\|S");
     }
 
@@ -77,13 +77,13 @@ public class Utilities {
      * @param data stringa dei dati
      * @return String[] con i dati divisi
      */
-    public static String[] splitStationForTrainSearch(String data) {
+    public static String[] splitStationForTrainSearch(final String data) {
         return data.split("\\|");
     }
 
 
 
-    public static String trimAndCapitalizeString(String s) {
+    public static String trimAndCapitalizeString(final String s) {
         return WordUtils.capitalize(s).replaceAll("\\s+$", "");
     }
 
@@ -94,7 +94,7 @@ public class Utilities {
      * @param time stringa indicante l'ora
      * @return MutableDateTime impostato al giorno corrente e alla determinata ora
      */
-    public static MutableDateTime getDate(String time){
+    public static MutableDateTime getDate(final String time){
         DateTime now = new DateTime(Calendar.getInstance().getTime());
         String[] arrTime = time.split(":");
         MutableDateTime date = now.toMutableDateTime();
@@ -111,7 +111,7 @@ public class Utilities {
      * @param train treno da analizzare
      * @return stringa che descrive l'andamento
      */
-    public static String getProgress(Treno train){
+    public static String getProgress(final Treno train){
         Long delta = 0L;
         Long intermediateDelta = 0L;
         List<Fermate> visited = new LinkedList<>();
@@ -148,11 +148,11 @@ public class Utilities {
         return "Costante";
     }
 
-    public static URL generateStationAutocompleteURL(String stationName) throws MalformedURLException {
+    public static URL generateStationAutocompleteURL(final String stationName) throws MalformedURLException {
         return new URL(Constants.ROOT + Constants.STATION_AUTOCOMPLETE + stationName + "?q=" + stationName);
     }
 
-    public static URL generateTrainAutocompleteURL(String trainNumber) throws MalformedURLException {
+    public static URL generateTrainAutocompleteURL(final String trainNumber) throws MalformedURLException {
         return new URL(Constants.ROOT + Constants.TRAIN_AUTOCOMPLETE + trainNumber);
     }
 
@@ -168,7 +168,7 @@ public class Utilities {
      * @return ListWrapper con le stringhe
      * @throws IOException
      */
-    public static ListWrapper fetchData(URL url) throws IOException {
+    public static ListWrapper fetchData(final URL url) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
         String inputLine;
         List<String> result = new LinkedList<>();
@@ -185,7 +185,7 @@ public class Utilities {
      * @param list lista da controllare
      * @return true se ha un solo elemento, false altrimenti
      */
-    public static boolean isOneResult(List<String> list) {
+    public static boolean isOneResult(final List<String> list) {
         return list.size() == 1;
     }
 

@@ -18,7 +18,7 @@ public class JourneyDataRequest extends AbstractDataRequest {
 
     private final String station;
 
-    public JourneyDataRequest(String station){
+    public JourneyDataRequest(final String station){
         super(ListWrapper.class);
         this.station = station;
     }
@@ -27,7 +27,7 @@ public class JourneyDataRequest extends AbstractDataRequest {
         return Utilities.generateStationAutocompleteURL(this.station);
     }
 
-    protected void check(List result) throws InvalidStationException {
+    protected void check(final List result) throws InvalidStationException {
         if(result.size()==0) {
             throw new InvalidStationException();
         }

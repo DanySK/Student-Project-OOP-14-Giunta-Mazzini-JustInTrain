@@ -36,7 +36,7 @@ public class JourneyResultsController {
         return partialPlainSolutions;
     }
 
-    public void addSolutions(List<PlainSolution> list) {
+    public void addSolutions(final List<PlainSolution> list) {
         this.partialPlainSolutions.addAll(list);
     }
 
@@ -48,7 +48,7 @@ public class JourneyResultsController {
         return isCustomTime;
     }
 
-    public void setCustomTime(boolean isCustomTime) {
+    public void setCustomTime(final boolean isCustomTime) {
         this.isCustomTime = isCustomTime;
     }
 
@@ -56,7 +56,7 @@ public class JourneyResultsController {
         return departureID;
     }
 
-    public void setDepartureID(String departureID) {
+    public void setDepartureID(final String departureID) {
         this.departureID = departureID;
     }
 
@@ -64,7 +64,7 @@ public class JourneyResultsController {
         return departureStation;
     }
 
-    public void setDepartureStation(String departureStation) {
+    public void setDepartureStation(final String departureStation) {
         this.departureStation = departureStation;
     }
 
@@ -72,7 +72,7 @@ public class JourneyResultsController {
         return arrivalID;
     }
 
-    public void setArrivalID(String arrivalID) {
+    public void setArrivalID(final String arrivalID) {
         this.arrivalID = arrivalID;
     }
 
@@ -80,7 +80,7 @@ public class JourneyResultsController {
         return arrivalStation;
     }
 
-    public void setArrivalStation(String arrivalStation) {
+    public void setArrivalStation(final String arrivalStation) {
         this.arrivalStation = arrivalStation;
     }
 
@@ -88,7 +88,7 @@ public class JourneyResultsController {
         return requestedTime;
     }
 
-    public void setRequestedTime(String requestedTime) {
+    public void setRequestedTime(final String requestedTime) {
         this.requestedTime = requestedTime;
         setTime(this.requestedTime);
     }
@@ -97,7 +97,7 @@ public class JourneyResultsController {
      * Metodo che deve chiamare chi impelementa un JourneyResultsController per settare l'orario con cui fare le operazioni
      * @param time: orario come stringa, in formato yyyy-MM-dd'T'HH:mm:ss
      */
-    public void setTime(String time) {
+    public void setTime(final String time) {
         try {
             actualTime = new DateTime(sdf.parse(time));
         } catch (ParseException e) {
@@ -112,7 +112,7 @@ public class JourneyResultsController {
      * @param abbr: nome abbreviato della categoria
      * @return
      */
-    private String setCategory(Vehicle vehicle, String category, String abbr) {
+    private String setCategory(final Vehicle vehicle, final String category, final String abbr) {
         if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equalsIgnoreCase(category)) {
             return abbr;
         }
@@ -124,7 +124,7 @@ public class JourneyResultsController {
      * Esso infatti aggiunge supporto al ritardo ed altre informazioni utili altrimenti non accessibili.
      * @param tragitto: intera risposta del server, contiene al suo interno una lista di soluzioni, e a loro volta di vehicles
      */
-    public void buildPlainSolutions(Tragitto tragitto) {
+    public void buildPlainSolutions(final Tragitto tragitto) {
         totalPlainSolutions.clear();
         upperBound = 0;
         lowerBound = 0;
@@ -159,7 +159,7 @@ public class JourneyResultsController {
      * @return boolean
      * @throws ParseException
      */
-    private boolean checkIsFirstTakeable(Vehicle vehicle) throws ParseException {
+    private boolean checkIsFirstTakeable(final Vehicle vehicle) throws ParseException {
         return (!foundFirstTakeable && vehicle.getOrarioPartenza() != null && new DateTime(sdf.parse(vehicle.getOrarioPartenza())).isAfter(actualTime));
     }
 
@@ -171,7 +171,7 @@ public class JourneyResultsController {
      * @return boolean
      * @throws ParseException
      */
-    private boolean checkIsTomorrow(Vehicle vehicle) throws ParseException {
+    private boolean checkIsTomorrow(final Vehicle vehicle) throws ParseException {
         return (foundFirstTakeable && vehicle.getOraPartenza() != null && new DateTime(sdf.parse(vehicle.getOrarioPartenza())).isAfter(new DateTime().plusDays(1).toDateMidnight()));
     }
 
@@ -182,7 +182,7 @@ public class JourneyResultsController {
      * @param isCustom: booleano che rappresenta la modalità di richiesta
      * @return la lista parziale di plainsolutions
      */
-    public List<PlainSolution> getPlainSolutions(boolean isCustom) {
+    public List<PlainSolution> getPlainSolutions(final boolean isCustom) {
         List<PlainSolution> temp = new LinkedList<>();
         if (isCustom) {
             upperBound = totalPlainSolutions.size() < 5 ? totalPlainSolutions.size() : 5;
@@ -207,7 +207,7 @@ public class JourneyResultsController {
      * @param list: una List<String> dei risultati restituiti dal server
      * @return una matrice per righe in cui ogni colonna è fatta di stazione e codice
      */
-    public String[][] getTableForMultipleResults(List<String> list) {
+    public String[][] getTableForMultipleResults(final List<String> list) {
         final String[][] dataMatrix = new String[2][list.size()];
         for (int i = 0 ; i < list.size(); i++) {
             String[] temp = splitData(list.get(i));
@@ -224,7 +224,7 @@ public class JourneyResultsController {
      * @param s: stringa di tipo STAZIONE|S01234
      * @return String[] contenente la stazione e il codice
      */
-    public String[] splitData(String s) {
+    public String[] splitData(final String s) {
         return Utilities.splitStationForJourneySearch(s);
     }
 }

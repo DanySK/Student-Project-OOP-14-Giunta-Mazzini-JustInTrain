@@ -111,7 +111,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -125,13 +125,13 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated(final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
 
         final View drawerView = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
@@ -146,7 +146,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
 
         trainNumberSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 if (trainNumber.length() > 0) {
                     Intent i = new Intent(getActivity(), StationListActivity.class);
                     i.putExtra(Constants.TRAIN_N_EXTRA, Utilities.trimAndCapitalizeString(trainNumber.getText().toString()));
@@ -158,14 +158,14 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
 
         timePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 showTimePickerDialog(v);
             }
         });
 
         datePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 showDatePickerDialog(v);
             }
         });
@@ -176,7 +176,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
 
         journeySearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 if (departure.length() > 0 && arrival.length() > 0) {
                     Intent i = new Intent(getActivity(), JourneyResultsActivity.class);
                     i.putExtra(Constants.DEPARTURE_STAT_EXTRA, Utilities.trimAndCapitalizeString(departure.getText().toString()));
@@ -202,7 +202,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
 
     TimePickerDialog.OnTimeSetListener timeListener = new TimePickerDialog.OnTimeSetListener() {
         @Override
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        public void onTimeSet(final TimePicker view, final int hourOfDay, final int minute) {
             if (view.isShown()) {
                 setTime(hourOfDay, minute, true);
             }
@@ -211,7 +211,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
 
     DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener() {
         @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        public void onDateSet(final DatePicker view, final int year, final int monthOfYear, final int dayOfMonth) {
             if (view.isShown()) {
                 setDate(year, monthOfYear, dayOfMonth, true);
             }
@@ -219,7 +219,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
     };
     ///////////////////////////////////////////////////////////////////////////////////////
 
-    public void showTimePickerDialog(View v) {
+    public void showTimePickerDialog(final View v) {
         TimePickerFragment timeFragment = new TimePickerFragment();
         Calendar calender = Calendar.getInstance();
         Bundle args = new Bundle();
@@ -230,7 +230,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
         timeFragment.show(getFragmentManager(), "Time Picker");
     }
 
-    public void showDatePickerDialog(View v) {
+    public void showDatePickerDialog(final View v) {
         DatePickerFragment dateFragment = new DatePickerFragment();
         Calendar calender = Calendar.getInstance();
         Bundle args = new Bundle();
@@ -242,14 +242,14 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
         dateFragment.show(getFragmentManager(), "Date Picker");
     }
 
-    public void setTime(int hour, int minute, boolean isCustomTime) {
+    public void setTime(final int hour, final int minute, final boolean isCustomTime) {
         this.hour = hour;
         this.minute = minute;
         this.isCustomTime = isCustomTime;
         timePickerButton.setText(hour + ":" + minute);
     }
 
-    public void setDate(int year, int month, int day, boolean isCustomTime) {
+    public void setDate(final int year, final int month, final int day, final boolean isCustomTime) {
         this.year = year;
         this.day = day;
         this.month = month;
@@ -266,7 +266,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
 
-    public void setUp(int fragmentId, DrawerLayout drawerLayout) {
+    public void setUp(final int fragmentId, final DrawerLayout drawerLayout) {
         mFragmentContainerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
 
@@ -288,7 +288,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
                 R.string.navigation_drawer_close  /* "close drawer" description for accessibility */
         ) {
             @Override
-            public void onDrawerClosed(View drawerView) {
+            public void onDrawerClosed(final View drawerView) {
                 super.onDrawerClosed(drawerView);
                 if (!isAdded()) {
                     return;
@@ -297,7 +297,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
             }
 
             @Override
-            public void onDrawerOpened(View drawerView) {
+            public void onDrawerOpened(final View drawerView) {
                 super.onDrawerOpened(drawerView);
                 if (!isAdded()) {
                     return;
@@ -335,7 +335,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
 
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(final Activity activity) {
         super.onAttach(activity);
         try {
             mCallbacks = (NavigationDrawerCallbacks) activity;
@@ -351,20 +351,20 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(final Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         // Forward the new configuration the drawer toggle component.
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         // If the drawer is open, show the global app actions in the action bar. See also
         // showGlobalContextActionBar, which controls the top-left area of the action bar.
         if (mDrawerLayout != null && isDrawerOpen()) {
@@ -380,7 +380,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }

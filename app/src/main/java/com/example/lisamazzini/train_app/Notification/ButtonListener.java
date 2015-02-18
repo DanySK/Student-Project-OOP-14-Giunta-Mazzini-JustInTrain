@@ -17,7 +17,7 @@ public class ButtonListener extends BroadcastReceiver {
 
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, final Intent intent) {
         Intent i = new Intent(context, NotificationService.class);
 
         if(intent.getAction().equals(Constants.ACTION_REFRESH)){

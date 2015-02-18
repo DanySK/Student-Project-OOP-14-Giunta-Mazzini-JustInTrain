@@ -19,7 +19,7 @@ public class TrainDataRequest extends AbstractDataRequest {
 
     private final String trainNumber;
 
-    public TrainDataRequest(String searchQuery){
+    public TrainDataRequest(final String searchQuery){
         super(ListWrapper.class);
         this.trainNumber = searchQuery;
     }
@@ -31,7 +31,7 @@ public class TrainDataRequest extends AbstractDataRequest {
     }
 
     @Override
-    protected void check(List result) throws InvalidTrainNumberException {
+    protected void check(final List result) throws InvalidTrainNumberException {
         if(result.size()==0) {
             throw new InvalidTrainNumberException();
         }
