@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class StationListFragment extends AbstractRobospiceFragment implements IBaseFragment, IFavouriteFragment {
+public class StationListFragment extends AbstractFavouriteFragment {
 
     private RecyclerView recyclerView;
     private StationListAdapter adapter;
@@ -59,15 +59,22 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
     public StationListFragment() {
     }
 
-    public void onCreate(final Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
-                             final Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setFavouriteController(new FavouriteControllerStrategy() {
+            @Override
+            public IFavouriteController getController() {
+                return FavouriteTrainController.getInstance();
+            }
+        });
+
         super.spiceManager = new SpiceManager(UncachedSpiceService.class);
         View layoutInflater = inflater.inflate(R.layout.fragment_station_list, container, false);
         this.recyclerView = (RecyclerView)layoutInflater.findViewById(R.id.recycler);
@@ -93,31 +100,46 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
         this.recyclerView.setAdapter(adapter);
         this.recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        this.favouriteFragmentController = new FavouriteFragmentController(FavouriteTrainController.getInstance());
-        this.favouriteFragmentController.setContext(getActivity());
+//        this.favouriteFragmentController = new FavouriteFragmentController(FavouriteTrainController.getInstance());
+//        this.favouriteFragmentController.setContext(getActivity());
 
         this.favController.setContext(getActivity().getApplicationContext());
 
         return layoutInflater;
     }
 
-    @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_main, menu);
-        this.menu = menu;
-        favouriteFragmentController.setMenu(this.menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.menu_main, menu);
+//        this.menu = menu;
+//        favouriteFragmentController.setMenu(this.menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        menu = favouriteFragmentController.onOptionsItemSelected(item, listController.getTrainDetails(), getActivity());
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        menu = favouriteFragmentController.onOptionsItemSelected(item, listController.getTrainDetails(), getActivity());
-        return super.onOptionsItemSelected(item);
+    public String[] getFavouriteForAdding() {
+        return listController.getTrainDetails();
     }
 
+//    @Override
+//    public String[] getFavouriteForRemoving() {
+//        return listController.getTrainDetails();
+//    }
+
+//    @Override
+//    public FavouriteFragmentController getFragmentUtils() {
+//        return this.favouriteFragmentController;
+//    }
+
     @Override
-    public FavouriteFragmentController getFragmentUtils() {
-        return this.favouriteFragmentController;
+    public String[] getFavouriteForRemoving() {
+        return listController.getTrainDetails();
     }
 
     public void makeRequest(final String trainNumber, final String stationCode) {
@@ -137,18 +159,18 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
             if(Utilities.isOneResult(data)){
                 listController.setTrainDetails(listController.computeData(data.get(0)));
                 listController.setTrainCode(listController.getTrainDetails()[1]);
-                favouriteFragmentController.toggleFavouriteIcon(listController.getTrainNumber(), listController.getTrainCode());
+                toggleFavouriteIcon(listController.getTrainNumber(), listController.getTrainCode());
                 spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
             }else{
                 final String[][] dataMatrix = listController.computeMatrix(data);
                 String[] choices = listController.computeChoices(dataMatrix);
                 dialogBuilder.setSingleChoiceItems(choices, -1, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(final DialogInterface dialog, final int which) {
+                    public void onClick(DialogInterface dialog, int which) {
                         listController.setTrainDetails(dataMatrix[which]);
                         listController.setTrainCode(dataMatrix[which][1]);
                         spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
-                        favouriteFragmentController.toggleFavouriteIcon(listController.getTrainNumber(), listController.getTrainCode());
+                        toggleFavouriteIcon(listController.getTrainNumber(), listController.getTrainCode());
                         dialog.dismiss();
                     }
                 }).show();
@@ -177,7 +199,7 @@ public class StationListFragment extends AbstractRobospiceFragment implements IB
             trainDetails[0] = trainResponse.getNumeroTreno().toString();
             trainDetails[1] = trainResponse.getIdOrigine();
             listController.setTrainDetails(trainDetails);
-            favouriteFragmentController.toggleFavouriteIcon(listController.getTrainNumber(), listController.getTrainCode());
+            toggleFavouriteIcon(listController.getTrainNumber(), listController.getTrainCode());
 
             listController.setFermateList(trainResponse);
             adapter.notifyDataSetChanged();

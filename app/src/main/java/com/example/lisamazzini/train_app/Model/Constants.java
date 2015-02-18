@@ -43,6 +43,9 @@ public final class Constants {
     public static final String ACH_STORE_FILE = "ACHIEVEMENT_STORE";
     public static final String ACH_DATA_FILE = "ACHIEVEMENT_DATA";
 
+    public final static String JOURNEY_FAVOURITE = "journey favourite";
+    public final static String STATION_FAVOURITE = "station favourite";
+
 
     public static final String WRONG_TRAIN_TITLE = "Numero treno non valido!";
     public static final String WRONG_TRAIN = "Il numero inserito non corrisponde a nessun treno";

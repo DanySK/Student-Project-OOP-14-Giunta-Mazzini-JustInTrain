@@ -5,10 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,31 +31,19 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
     private final List<PlainSolution> journeyList;
     private AchievementController achievementController;
 
-    public JourneyResultsAdapter(final List<PlainSolution> list) {
+    public JourneyResultsAdapter(List<PlainSolution> list) {
         this.journeyList = list;
     }
 
     @Override
-    public int getItemViewType(final int position) {
-        int viewType = 0;
-        if (journeyList.get(position).isLastVehicleOfJourney()) {
-            viewType = 1;
-        }
-        return viewType;
-    }
-
-    @Override
-    public JourneyViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int index) {
+    public JourneyViewHolder onCreateViewHolder(ViewGroup viewGroup, int index) {
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_journey, viewGroup, false);
         return new JourneyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final JourneyViewHolder journeyViewHolder, final int position) {
+    public void onBindViewHolder(JourneyViewHolder journeyViewHolder, int position) {
         final PlainSolution journeyTrain = journeyList.get(position);
-        if (position == 1) {
-            journeyViewHolder.divider.setVisibility(View.VISIBLE);
-        }
         journeyViewHolder.category.setText(journeyTrain.getCategoria());
         journeyViewHolder.number.setText(journeyTrain.getNumeroTreno());
         journeyViewHolder.duration.setText(journeyTrain.getDurata());
@@ -60,16 +52,16 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         journeyViewHolder.arrivalStation.setText(journeyTrain.getDestinazione());
         journeyViewHolder.arrivalTime.setText(journeyTrain.getOrarioArrivo());
         journeyViewHolder.delay.setText(journeyTrain.getDelay());
-        journeyViewHolder.stationCode = journeyTrain.getIdOrigine();
+        journeyViewHolder.stationCode = journeyTrain.getIDorigine();
         journeyViewHolder.pinButton.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             @Override
-            public void onClick(final View v) {
+            public void onClick(View v) {
                 final Intent intent = new Intent(v.getContext(), NotificationService.class);
                 final Context ctx = v.getContext();
                 Toast.makeText(ctx, "Notifica impostata", Toast.LENGTH_SHORT).show();
                 intent.putExtra(Constants.TRAIN_N_EXTRA, journeyTrain.getNumeroTreno());
-                intent.putExtra(Constants.ID_ORIGIN_EXTRA, journeyTrain.getIdOrigine());
+                intent.putExtra(Constants.ID_ORIGIN_EXTRA, journeyTrain.getIDorigine());
                 intent.putExtra(Constants.DEPARTURE_TIME_EXTRA, journeyTrain.getOrarioPartenza());
                 ctx.startService(intent);
                 achievementController = new AchievementController(ctx);
@@ -80,6 +72,11 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
                 }
             }
         });
+        if (journeyTrain.isLastVehicleOfJourney()) {
+            journeyViewHolder.divider.setVisibility(View.VISIBLE);
+        } else {
+            journeyViewHolder.divider.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -102,7 +99,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         protected String stationCode;
         protected View divider;
 
-        public JourneyViewHolder(final View v) {
+        public JourneyViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
             category = (TextView)v.findViewById(R.id.tTrainCategory);
@@ -119,7 +116,7 @@ public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAd
         }
 
         @Override
-        public void onClick(final View v) {
+        public void onClick(View v) {
             Intent i = new Intent(v.getContext(), StationListActivity.class);
             i.putExtra(Constants.TRAIN_N_EXTRA, this.number.getText().toString());
             i.putExtra(Constants.ID_ORIGIN_EXTRA, this.stationCode);

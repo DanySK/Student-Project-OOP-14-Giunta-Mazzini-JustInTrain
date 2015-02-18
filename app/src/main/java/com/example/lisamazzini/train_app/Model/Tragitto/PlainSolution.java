@@ -3,7 +3,6 @@ package com.example.lisamazzini.train_app.Model.Tragitto;
 public class PlainSolution {
 
     private boolean isLastVehicleOfJourney;
-
     private String categoria;
     private String numeroTreno;
     private String origine;
@@ -30,71 +29,71 @@ public class PlainSolution {
     }
 
 
-    public final boolean isLastVehicleOfJourney() {
+    public boolean isLastVehicleOfJourney() {
         return isLastVehicleOfJourney;
     }
 
-    public final String getCategoria() {
+    public String getCategoria() {
         return categoria;
     }
 
-    public final String getNumeroTreno() {
+    public String getNumeroTreno() {
         return numeroTreno;
     }
 
-    public final String getOrigine() {
+    public String getOrigine() {
         return origine;
     }
 
-    public final String getOrarioPartenza() {
+    public String getOrarioPartenza() {
         return orarioPartenza;
     }
 
-    public final String getDestinazione() {
+    public String getDestinazione() {
         return destinazione;
     }
 
-    public final String getOrarioArrivo() {
+    public String getOrarioArrivo() {
         return orarioArrivo;
     }
 
-    public final String getDurata() {
+    public String getDurata() {
         return durata;
     }
 
-    public final void setDelay(final Long delay) {
+    public void setDelay (Long delay) {
         this.delay = delay.toString();
     }
 
-    public final String getDelay() {
+    public String getDelay() {
         return this.delay;
     }
 
-    public final String getIdOrigine() {
+    public String getIDorigine() {
         return idOrigine;
     }
 
-    public final void setIdOrigine(final String idOrigine) {
-        this.idOrigine = idOrigine;
+    public void setIdOrigine(String idOrigine) {
+        this.idOrigine= idOrigine;
     }
 
-    public final String getIdPartenza() {
+    public String getIdPartenza() {
         return idPartenza;
     }
 
-    public final void setIdPartenza(final String idPartenza) {
-        this.idPartenza = idPartenza;
+    public void setIdPartenza(String idPartenza) {
+        this.idPartenza= idPartenza;
     }
 
-    public final String getIdArrivo() {
+    public String getIdArrivo() {
         return idArrivo;
     }
 
-    public final void setIdArrivo(final String idArrivo) {
-        this.idArrivo = idArrivo;
+    public void setIdArrivo(String idarrivo) {
+        this.idArrivo = idarrivo;
     }
 
-    public final boolean isTomorrow() {
+    public boolean isTomorrow() {
         return this.tomorrow;
     }
 

@@ -11,43 +11,43 @@ import com.example.lisamazzini.train_app.GUI.Fragment.NavigationDrawerFragment;
 import com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers.TimePickerFragment;
 import com.example.lisamazzini.train_app.R;
 
-public class NavigationDrawerUtils implements INavigationDrawerUtils {
+public class NavigationDrawerUtils {
 
-    private FragmentActivity activity;
-    private NavigationDrawerFragment fragment;
-
-    public NavigationDrawerUtils(final FragmentActivity activity) {
-        this.activity = activity;
-        this.fragment = (NavigationDrawerFragment)activity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-    }
-
-    public NavigationDrawerFragment getNavigationDrawerFragment() {
-        return this.fragment;
-    }
-
-    public void showTimePickerDialog(final View v) {
-        TimePickerFragment timeFragment = new TimePickerFragment();
-        timeFragment.show(activity.getSupportFragmentManager(), "timePicker");
-    }
-
-    public void showDatePickerDialog(final View v) {
-        DatePickerFragment dateFragment = new DatePickerFragment();
-        dateFragment.show(activity.getSupportFragmentManager(), "datePicker");
-    }
-
-    public void onTimeSet(final TimePicker view, final int hourOfDay, final int minute) {
-        if (view.isShown()) {
-           fragment.setTime(hourOfDay, minute, true);
-        }
-    }
-
-    public void onDateSet(final DatePicker view, final int year, final int monthOfYear, final int dayOfMonth) {
+//    private FragmentActivity activity;
+//    private NavigationDrawerFragment fragment;
+//
+//    public NavigationDrawerUtils(FragmentActivity activity) {
+//        this.activity = activity;
+//        this.fragment = (NavigationDrawerFragment)activity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+//    }
+//
+//    public NavigationDrawerFragment getNavigationDrawerFragment() {
+//        return this.fragment;
+//    }
+//
+//    public void showTimePickerDialog(View v) {
+//        TimePickerFragment timeFragment = new TimePickerFragment();
+//        timeFragment.show(activity.getSupportFragmentManager(), "timePicker");
+//    }
+//
+//    public void showDatePickerDialog(View v) {
+//        DatePickerFragment dateFragment = new DatePickerFragment();
+//        dateFragment.show(activity.getSupportFragmentManager(), "datePicker");
+//    }
+//
+//    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//        if (view.isShown()) {
+//           fragment.setTime(hourOfDay, minute, true);
+//        }
+//    }
+//
+//    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 //        if (view.isShown()) {
 //            fragment.setDate(year, monthOfYear, dayOfMonth, true);
 //        }
-    }
-
-    public void onNavigationDrawerItemSelected(final int position) {
-
-    }
+//    }
+//
+//    public void onNavigationDrawerItemSelected(int position) {
+//
+//    }
 }

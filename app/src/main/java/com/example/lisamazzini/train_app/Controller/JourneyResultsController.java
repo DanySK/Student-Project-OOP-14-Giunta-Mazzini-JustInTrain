@@ -1,5 +1,8 @@
 package com.example.lisamazzini.train_app.Controller;
 
+import android.util.Log;
+
+import com.example.lisamazzini.train_app.Controller.Favourites.*;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.Soluzioni;
@@ -20,7 +23,7 @@ import java.util.List;
  *
  * @author albertogiunta
  */
-public class JourneyResultsController {
+public class JourneyResultsController extends AbstractFavouriteController{
 
     private final SimpleDateFormat sdf = new SimpleDateFormat(Constants.SDF);
     private final List<PlainSolution> totalPlainSolutions = new LinkedList<>();
@@ -131,8 +134,9 @@ public class JourneyResultsController {
         for (Soluzioni sol : tragitto.getSoluzioni()) {
             Iterator<Vehicle> i = sol.getVehicles().iterator();
             while(i.hasNext()) {
-                boolean isLastVehicleOfJourney = !i.hasNext();
                 Vehicle vehicle = i.next();
+                boolean isLastVehicleOfJourney = !i.hasNext();
+                Log.d("cazzi", vehicle.getOrigine() + " " + isLastVehicleOfJourney);
                 vehicle.setCategoriaDescrizione("" + setCategory(vehicle, "frecciabianca", "FB"));
                 vehicle.setCategoriaDescrizione("" + setCategory(vehicle, "frecciarossa", "FR"));
                 vehicle.setCategoriaDescrizione("" + setCategory(vehicle, "frecciaargento", "FA"));
@@ -184,19 +188,56 @@ public class JourneyResultsController {
      */
     public List<PlainSolution> getPlainSolutions(final boolean isCustom) {
         List<PlainSolution> temp = new LinkedList<>();
+
         if (isCustom) {
-            upperBound = totalPlainSolutions.size() < 5 ? totalPlainSolutions.size() : 5;
-            temp = this.totalPlainSolutions.subList(0, upperBound);
-        } else {
-            upperBound = lowerBound + 5 >= totalPlainSolutions.size() ? totalPlainSolutions.size()-1 : lowerBound + 5;
-            temp = this.totalPlainSolutions.subList(lowerBound, upperBound);
+            lowerBound = 0;
         }
-        lowerBound += 6;
-        if (lowerBound < totalPlainSolutions.size()-1) {
+        upperBound = getIndexForNSolutions(5);
+        Log.d("cazzi", "lower " + lowerBound + " e upper " + upperBound);
+        temp = this.totalPlainSolutions.subList(lowerBound, upperBound);
+        lowerBound = upperBound + 1;
+        Log.d("cazzi", "emmò lower vale " + lowerBound + "size " + this.totalPlainSolutions.size());
+        if (lowerBound < totalPlainSolutions.size()) {
             return temp;
         } else {
             return new LinkedList<PlainSolution>();
         }
+
+//        if (isCustom) {
+//            upperBound = totalPlainSolutions.size() < 5 ? totalPlainSolutions.size() : 5;
+//            while(!this.totalPlainSolutions.get(upperBound).isLastVehicleOfJourney()) {
+//                upperBound++;
+//            }
+//            temp = this.totalPlainSolutions.subList(0, upperBound);
+//        } else {
+//            upperBound = lowerBound + 5 >= totalPlainSolutions.size() ? totalPlainSolutions.size()-1 : lowerBound + 5;
+//            while(!this.totalPlainSolutions.get(upperBound).isLastVehicleOfJourney()) {
+//                upperBound++;
+//            }
+//            temp = this.totalPlainSolutions.subList(lowerBound, upperBound);
+//        }
+//        lowerBound += upperBound+1;
+//        if (lowerBound < totalPlainSolutions.size()-1) {
+//            return temp;
+//        } else {
+//            return new LinkedList<PlainSolution>();
+//        }
+    }
+
+    public int getIndexForNSolutions(int n) {
+        int index = lowerBound;
+        int vehicles = 0;
+        for (int i = 0; i < n; i++) {
+            boolean isAvailableSpace = false;
+            while(this.totalPlainSolutions.size() > lowerBound+vehicles && !this.totalPlainSolutions.get(lowerBound+vehicles).isLastVehicleOfJourney()) {
+                vehicles++;
+                Log.d("cazzi", "sono entrato " + index);
+            }
+            vehicles++;
+            index = totalPlainSolutions.size() > lowerBound+vehicles ? lowerBound+vehicles : index;
+            Log.d("cazzi", "index dopo il while " + index);
+        }
+        return index;
     }
 
 

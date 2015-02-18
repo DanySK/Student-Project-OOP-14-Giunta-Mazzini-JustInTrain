@@ -42,7 +42,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     private Menu menu;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -63,12 +63,13 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     }
 
     @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {
         if (!navigationDrawerFragment.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
             this.menu = menu;
-            fragment.getFragmentUtils().setMenu(menu);
-            restoreActionBar(menu);
+//            fragment.getFragmentUtils().setMenu(menu);
+            fragment.setMenu(menu);
+            restoreActionBar();
             return true;
         }
         return super.onCreateOptionsMenu(menu);
@@ -76,7 +77,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (navigationDrawerFragment.onOptionsItemSelected(item)) {
             return true;
@@ -87,7 +88,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             return true;
         } else if (id == R.id.action_deprefere) {
             favouriteJourneyController.removeFavourite(actualJourneyIDs.get(0).split(Constants.SEPARATOR)[0], actualJourneyIDs.get(0).split(Constants.SEPARATOR)[1]);
-            restoreActionBar(menu);
+            restoreActionBar();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -106,7 +107,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         }
     }
 
-    public void restoreActionBar(final Menu menu) {
+    public void restoreActionBar() {
 
         refreshLists();
         SpinnerAdapter spinnerAdapter = new ArrayAdapter<String>(getSupportActionBar().getThemedContext(), android.R.layout.simple_spinner_dropdown_item, favouriteStationNames);
@@ -114,11 +115,12 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             ActionBar action = getSupportActionBar();
             ActionBar.OnNavigationListener navigationListener = new ActionBar.OnNavigationListener() {
                 @Override
-                public boolean onNavigationItemSelected(final int position, final long l) {
+                public boolean onNavigationItemSelected(int position, long l) {
                     actualJourneyIDs.clear();
                     actualJourneyIDs.add(favouriteStationIDs.get(position));
                     actualJourneyIDs.add(favouriteStationNames.get(position));
-                    fragment.getFragmentUtils().setAsFavouriteIcon(true);
+//                    fragment.getFragmentUtils().setAsFavouriteIcon(true);
+                    fragment.setAsFavouriteIcon(true);
                     fragment.makeRequest(Constants.WITH_IDS, navigationDrawerFragment.getActualTime(), false, favouriteStationIDs.get(position).split(Constants.SEPARATOR)[0], favouriteStationIDs.get(position).split(Constants.SEPARATOR)[1]);
                     return true;
                 }
@@ -134,6 +136,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     }
 
     @Override
-    public void onNavigationDrawerItemSelected(final int position) {
+    public void onNavigationDrawerItemSelected(int position) {
     }
 }

@@ -123,14 +123,18 @@
 
     <ImageView
         android:id="@+id/iDivider"
-        android:layout_below="@id/tArrivalTime"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
-        android:background="@color/accent_material_dark"
-        android:layout_height="wrap_content"
         android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/tDuration"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="center_horizontal"
+
+        android:visibility="gone"
+
+        android:background="@color/accent_material_dark"
         android:src="@android:drawable/divider_horizontal_bright"
-        android:visibility="gone"/>
+        />
 
 </RelativeLayout>
