@@ -1,13 +1,11 @@
-package com.example.lisamazzini.train_app.GUI.Activity;
+package com.example.lisamazzini.train_app.GUI.activity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
 
 import com.example.lisamazzini.train_app.GUI.Fragment.FavouriteTrainListFragment;
 import com.example.lisamazzini.train_app.R;
 
-public class FavouriteTrainListActivity extends AbstractBaseActivity {
+public class xFavouriteTrainListActivity extends AbstractBaseActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -16,9 +14,9 @@ public class FavouriteTrainListActivity extends AbstractBaseActivity {
 
         super.getToolbar();
 
-        FragmentManager fragmentMan = getSupportFragmentManager();
+        final FragmentManager fragmentMan = getSupportFragmentManager();
         fragmentMan.beginTransaction().replace(R.id.container, FavouriteTrainListFragment.newInstance());
-        FavouriteTrainListFragment fragment = (FavouriteTrainListFragment) getSupportFragmentManager().findFragmentById(R.id.favouriteTrainListFragment);
+        final FavouriteTrainListFragment fragment = (FavouriteTrainListFragment) getSupportFragmentManager().findFragmentById(R.id.favouriteTrainListFragment);
         fragment.makeRequest();
     }
 
@@ -28,5 +26,5 @@ public class FavouriteTrainListActivity extends AbstractBaseActivity {
     }
 
     @Override
-    protected void getIntents() {}
+    protected void getIntents() { }
 }

@@ -14,7 +14,7 @@ import java.util.Calendar;
 
 public class TimePickerFragment extends DialogFragment implements IPicker {
 
-    TimePickerDialog.OnTimeSetListener timeListener;
+    private TimePickerDialog.OnTimeSetListener timeListener;
     private int hour, minute;
 
     public TimePickerFragment() {

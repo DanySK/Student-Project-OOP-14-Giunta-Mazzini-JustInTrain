@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI.Activity;
+package com.example.lisamazzini.train_app.GUI.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,9 +23,9 @@ public class StationListActivity extends AbstractBaseActivity {
         getIntents();
         super.getToolbar();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        final FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, StationListFragment.newInstance());
-        StationListFragment fragment = (StationListFragment) fragmentManager.findFragmentById(R.id.stationListFragment);
+        final StationListFragment fragment = (StationListFragment) fragmentManager.findFragmentById(R.id.stationListFragment);
         fragment.makeRequest(trainNumber, stationCode);
         Toast.makeText(this, "Ricerca in corso...", Toast.LENGTH_LONG).show();
     }
@@ -37,7 +37,7 @@ public class StationListActivity extends AbstractBaseActivity {
 
     @Override
     protected void getIntents() {
-        Intent i = getIntent();
+        final Intent i = getIntent();
         trainNumber = i.getStringExtra(Constants.TRAIN_N_EXTRA);
         stationCode = i.getStringExtra(Constants.ID_ORIGIN_EXTRA);
     }

@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI.Activity;
+package com.example.lisamazzini.train_app.GUI.activity;
 
 import android.os.Bundle;
 import android.content.Intent;
@@ -24,9 +24,9 @@ public class JourneyListActivity extends AbstractBaseActivity {
         getIntents();
         super.getToolbar();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        final FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, JourneyResultsFragment.newInstance());
-        JourneyResultsFragment fragment = (JourneyResultsFragment) fragmentManager.findFragmentById(R.id.journeyResultsFragment);
+        final JourneyResultsFragment fragment = (JourneyResultsFragment) fragmentManager.findFragmentById(R.id.journeyResultsFragment);
         fragment.makeRequest(Constants.WITH_STATIONS, requestedTime, isCustomTime, departureStation, arrivalStation);
         Toast.makeText(this, "Ricerca in corso...", Toast.LENGTH_LONG).show();
 
@@ -39,7 +39,7 @@ public class JourneyListActivity extends AbstractBaseActivity {
 
     @Override
     protected void getIntents() {
-        Intent i = getIntent();
+        final Intent i = getIntent();
         departureStation = i.getStringExtra(Constants.DEPARTURE_STAT_EXTRA);
         arrivalStation = i.getStringExtra(Constants.ARRIVAL_STAT_EXTRA);
         requestedTime = i.getStringExtra(Constants.REQUESTED_TIME_EXTRA);

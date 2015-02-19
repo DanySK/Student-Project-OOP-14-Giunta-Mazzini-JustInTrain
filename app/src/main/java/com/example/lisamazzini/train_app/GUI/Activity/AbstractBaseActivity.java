@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI.Activity;
+package com.example.lisamazzini.train_app.GUI.activity;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,13 +13,11 @@ import com.example.lisamazzini.train_app.R;
  */
 public abstract class AbstractBaseActivity extends ActionBarActivity {
 
-    protected Toolbar toolbar;
-
     /**
-     * Metodo che va chiamato nel onCreate() dell'activity, se si vuole che questa disponga della suddetta toolbar
+     * Metodo che va chiamato nel onCreate() dell'activity, se si vuole che questa disponga della suddetta toolbar.
      */
     protected void getToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle(setToolbarTitle());
@@ -29,12 +27,12 @@ public abstract class AbstractBaseActivity extends ActionBarActivity {
 
     /**
      * Metodo astratto da implementare per settare un titolo specifico per l'activity (è il titolo prima che il fragment esegua una qualsiavoglia richiesta)
-     * @return String: il titolo dell'activity
+     * @return String: il titolo dell'activity.
      */
     protected abstract String setToolbarTitle();
 
     /**
-     * Metodo astratto da implementare per ricevere gli specifici intent dell'activity
+     * Metodo astratto da implementare per ricevere gli specifici intent dell'activity.
      */
     protected abstract void getIntents();
 }

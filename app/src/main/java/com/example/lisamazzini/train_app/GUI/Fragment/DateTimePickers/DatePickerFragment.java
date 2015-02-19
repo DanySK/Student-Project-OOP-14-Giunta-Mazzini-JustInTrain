@@ -14,7 +14,7 @@ import java.util.Calendar;
 
 public class DatePickerFragment extends DialogFragment implements IPicker {
 
-    DatePickerDialog.OnDateSetListener dateListener;
+    private DatePickerDialog.OnDateSetListener dateListener;
     private int year, month, day;
 
     public DatePickerFragment() {
@@ -31,7 +31,6 @@ public class DatePickerFragment extends DialogFragment implements IPicker {
         this.year = args.getInt("year");
         this.month = args.getInt("month");
         this.day = args.getInt("day");
-
     }
 
     @Override

@@ -29,8 +29,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
 
-import com.example.lisamazzini.train_app.GUI.Activity.JourneyListActivity;
-import com.example.lisamazzini.train_app.GUI.Activity.StationListActivity;
+import com.example.lisamazzini.train_app.GUI.activity.JourneyListActivity;
+import com.example.lisamazzini.train_app.GUI.activity.StationListActivity;
 import com.example.lisamazzini.train_app.GUI.Adapter.DrawerListAdapter;
 import com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers.DatePickerFragment;
 import com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers.TimePickerFragment;
