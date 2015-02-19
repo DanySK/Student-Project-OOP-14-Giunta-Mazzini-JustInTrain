@@ -24,6 +24,7 @@
     <string name="platform">Binario: </string>
     <string name="showTime">Orario </string>
     <string name="showDate">Data </string>
+    <string name="duration">Durata: </string>
 
 
 </resources>

@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author albertogiunta
  */
-public class JourneyResultsController extends AbstractFavouriteController{
+public class JourneyListController {
 
     private final SimpleDateFormat sdf = new SimpleDateFormat(Constants.SDF);
     private final List<PlainSolution> totalPlainSolutions = new LinkedList<>();

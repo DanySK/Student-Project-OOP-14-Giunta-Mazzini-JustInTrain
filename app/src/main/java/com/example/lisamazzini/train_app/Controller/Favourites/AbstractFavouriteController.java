@@ -24,20 +24,6 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     protected SharedPreferences.Editor editor;
 
     @Override
-    public abstract void setContext(Context context);
-
-    @Override
-    public void addFavourite(final String... strings) throws FavouriteException {
-        check();
-        if(!alreadyFavourite(buildKey(strings))) {
-            editor.putString(buildKey(strings), "");
-            editor.apply();
-        }else{
-            throw new FavouriteException();
-        }
-    }
-
-    @Override
     public void removeFavourite(final String... data) {
         check();
         editor.remove(buildKey(data));
@@ -76,6 +62,10 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     protected boolean alreadyFavourite(final String string){
         return getFavouritesAsMap().containsKey(string);
     }
+
+    public abstract void setContext(Context context);
+
+    public abstract void addFavourite(final String... strings) throws FavouriteException;
 
     protected abstract String buildKey(final String... strings);
 

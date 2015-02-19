@@ -2,6 +2,7 @@ package com.example.lisamazzini.train_app.Controller.Favourites;
 
 import android.content.Context;
 
+import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
 import com.example.lisamazzini.train_app.Model.Constants;
 
 /**
@@ -17,6 +18,17 @@ public class FavouriteTrainController extends AbstractFavouriteController {
 
     public static IFavouriteController getInstance() {
         return ADDER;
+    }
+
+    @Override
+    public void addFavourite(String... strings) throws FavouriteException {
+        check();
+        if(!alreadyFavourite(buildKey(strings))) {
+            editor.putString(buildKey(strings), "");
+            editor.apply();
+        }else{
+            throw new FavouriteException();
+        }
     }
 
     public void setContext(final Context context){

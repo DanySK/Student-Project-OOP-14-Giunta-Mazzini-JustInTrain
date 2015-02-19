@@ -109,15 +109,29 @@
         />
 
     <TextView
-        android:id="@+id/tDuration"
+        android:id="@+id/lDuration"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:layout_below="@+id/tArrivalTime"
 
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="8dp"
+        android:text="@string/duration"
+        />
+
+    <TextView
+        android:id="@+id/tDuration"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/tArrivalTime"
+        android:layout_toRightOf="@id/lDuration"
+
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="8dp" />
         <!--android:text="01:30"-->
 
 
@@ -126,9 +140,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
 
-        android:layout_below="@id/tDuration"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="8dp"
+        android:layout_below="@id/lDuration"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
         android:layout_gravity="center_horizontal"
 
         android:visibility="gone"

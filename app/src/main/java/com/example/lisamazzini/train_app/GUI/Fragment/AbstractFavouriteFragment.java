@@ -1,22 +1,28 @@
 package com.example.lisamazzini.train_app.GUI.Fragment;
 
 
-import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteControllerStrategy;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
 import com.example.lisamazzini.train_app.R;
 
-public abstract class AbstractFavouriteFragment extends AbstractRobospiceFragment {
+public abstract class AbstractFavouriteFragment extends AbstractRobospiceFragment implements IFavouriteFragment {
 
     private MenuItem favItem;
     private MenuItem notFavItem;
     private IFavouriteController favouriteController;
 
+    @Override
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

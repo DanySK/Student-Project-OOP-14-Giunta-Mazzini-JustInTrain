@@ -12,9 +12,7 @@ import com.example.lisamazzini.train_app.Controller.AchievementListController;
 import com.example.lisamazzini.train_app.GUI.Adapter.AchievementListAdapter;
 import com.example.lisamazzini.train_app.R;
 
-/**
- * Created by lisamazzini on 10/02/15.
- */
+
 public class AchievementListFragment extends Fragment implements IBaseFragment{
 
     private RecyclerView recyclerView;

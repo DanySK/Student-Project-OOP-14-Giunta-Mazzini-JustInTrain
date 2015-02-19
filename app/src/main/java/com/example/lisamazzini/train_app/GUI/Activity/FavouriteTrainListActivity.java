@@ -7,7 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import com.example.lisamazzini.train_app.GUI.Fragment.FavouriteTrainListFragment;
 import com.example.lisamazzini.train_app.R;
 
-public class FavouriteTrainListActivity extends AbstractBaseActivity{
+public class FavouriteTrainListActivity extends AbstractBaseActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {

@@ -1,10 +1,8 @@
 package com.example.lisamazzini.train_app.GUI.Fragment;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -19,8 +17,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,11 +27,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
-import com.example.lisamazzini.train_app.GUI.Activity.JourneyResultsActivity;
+import com.example.lisamazzini.train_app.GUI.Activity.JourneyListActivity;
 import com.example.lisamazzini.train_app.GUI.Activity.StationListActivity;
 import com.example.lisamazzini.train_app.GUI.Adapter.DrawerListAdapter;
 import com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers.DatePickerFragment;
@@ -43,8 +37,6 @@ import com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers.TimePicker
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Utilities;
-
-import org.apache.commons.lang3.text.WordUtils;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -178,7 +170,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
             @Override
             public void onClick(final View v) {
                 if (departure.length() > 0 && arrival.length() > 0) {
-                    Intent i = new Intent(getActivity(), JourneyResultsActivity.class);
+                    Intent i = new Intent(getActivity(), JourneyListActivity.class);
                     i.putExtra(Constants.DEPARTURE_STAT_EXTRA, Utilities.trimAndCapitalizeString(departure.getText().toString()));
                     i.putExtra(Constants.ARRIVAL_STAT_EXTRA, Utilities.trimAndCapitalizeString(arrival.getText().toString()));
                     i.putExtra(Constants.REQUESTED_TIME_EXTRA, buildDateTime());
@@ -246,7 +238,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
         this.hour = hour;
         this.minute = minute;
         this.isCustomTime = isCustomTime;
-        timePickerButton.setText(hour + ":" + minute);
+        timePickerButton.setText(String.format("%02d:%02d", hour, minute));
     }
 
     public void setDate(final int year, final int month, final int day, final boolean isCustomTime) {
@@ -254,7 +246,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
         this.day = day;
         this.month = month;
         this.isCustomTime = isCustomTime;
-        datePickerButton.setText(day + "/" + month + "/" + year);
+        datePickerButton.setText(String.format("%02d/%02d/%02d", day, month, year));
     }
 
     public String buildDateTime() {
@@ -399,5 +391,4 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
     public static interface NavigationDrawerCallbacks {
         void onNavigationDrawerItemSelected(int position);
     }
-
 }

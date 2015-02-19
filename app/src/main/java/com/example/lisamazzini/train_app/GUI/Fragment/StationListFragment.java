@@ -9,27 +9,23 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteControllerStrategy;
 import com.example.lisamazzini.train_app.Network.AbstractListener;
-import com.example.lisamazzini.train_app.Controller.FavouriteFragmentController;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.Controller.StationListController;
 import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
 import com.example.lisamazzini.train_app.Model.Treno.Treno;
-import com.example.lisamazzini.train_app.Model.Treno.Fermate;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class StationListFragment extends AbstractFavouriteFragment {
@@ -40,7 +36,6 @@ public class StationListFragment extends AbstractFavouriteFragment {
 
     private StationListController listController;
     private IFavouriteController favController = FavouriteTrainController.getInstance();
-    private FavouriteFragmentController favouriteFragmentController;
 
     private TextView info;
     private TextView delay;

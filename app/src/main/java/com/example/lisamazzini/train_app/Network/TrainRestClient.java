@@ -8,7 +8,6 @@ import retrofit.client.OkClient;
 
 public final class TrainRestClient {
 
-
         private static TrainAPI REST_CLIENT;
 
         static {

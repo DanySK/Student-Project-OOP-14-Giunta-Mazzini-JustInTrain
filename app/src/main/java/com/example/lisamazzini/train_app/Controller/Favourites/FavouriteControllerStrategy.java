@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI.Fragment;
+package com.example.lisamazzini.train_app.Controller.Favourites;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 

@@ -47,7 +47,7 @@
             android:parentActivityName=".GUI.Activity.MainActivity" >
         </activity>
         <activity
-            android:name=".GUI.Activity.JourneyResultsActivity"
+            android:name=".GUI.Activity.JourneyListActivity"
             android:parentActivityName=".GUI.Activity.MainActivity" >
         </activity>
         <activity

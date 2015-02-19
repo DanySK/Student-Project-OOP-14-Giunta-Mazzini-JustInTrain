@@ -4,25 +4,20 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.SpinnerAdapter;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
-import android.widget.TimePicker;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
-import com.example.lisamazzini.train_app.Controller.INavigationDrawerUtils;
 import com.example.lisamazzini.train_app.GUI.Fragment.JourneyResultsFragment;
 import com.example.lisamazzini.train_app.GUI.Fragment.NavigationDrawerFragment;
-import com.example.lisamazzini.train_app.Controller.NavigationDrawerUtils;
+import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Model.Constants;
-
 
 import java.util.LinkedList;
 import java.util.List;
@@ -38,8 +33,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     private final List<String> favouriteStationNames = new LinkedList<>();
     private final List<String> favouriteStationIDs = new LinkedList<>();
     private final List<String> actualJourneyIDs = new ArrayList<>();
-
-    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +59,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!navigationDrawerFragment.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
-            this.menu = menu;
 //            fragment.getFragmentUtils().setMenu(menu);
             fragment.setMenu(menu);
             restoreActionBar();
@@ -119,7 +111,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                     actualJourneyIDs.clear();
                     actualJourneyIDs.add(favouriteStationIDs.get(position));
                     actualJourneyIDs.add(favouriteStationNames.get(position));
-//                    fragment.getFragmentUtils().setAsFavouriteIcon(true);
                     fragment.setAsFavouriteIcon(true);
                     fragment.makeRequest(Constants.WITH_IDS, navigationDrawerFragment.getActualTime(), false, favouriteStationIDs.get(position).split(Constants.SEPARATOR)[0], favouriteStationIDs.get(position).split(Constants.SEPARATOR)[1]);
                     return true;
@@ -132,6 +123,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             getSupportActionBar().setDisplayShowTitleEnabled(true);
             getSupportActionBar().setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_STANDARD);
             getSupportActionBar().setTitle("Nessuna tratta favorita!");
+            fragment.resetGui(new LinkedList<PlainSolution>());
         }
     }
 

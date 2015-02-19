@@ -7,22 +7,19 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteControllerStrategy;
+import com.example.lisamazzini.train_app.Controller.JourneyListController;
+import com.example.lisamazzini.train_app.GUI.Adapter.JourneyListAdapter;
 import com.example.lisamazzini.train_app.Network.AbstractListener;
-import com.example.lisamazzini.train_app.Controller.FavouriteFragmentController;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.Network.DataRequests.JourneyDataRequest;
 import com.example.lisamazzini.train_app.Network.TotalRequests.JourneyRequest;
-import com.example.lisamazzini.train_app.Controller.JourneyResultsController;
 import com.example.lisamazzini.train_app.Network.TotalRequests.JourneyTrainRequest;
-import com.example.lisamazzini.train_app.GUI.Adapter.JourneyResultsAdapter;
 import com.example.lisamazzini.train_app.Controller.EndlessRecyclerOnScrollListener;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
@@ -34,19 +31,18 @@ import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class JourneyResultsFragment extends AbstractFavouriteFragment {
 
 //    private final List<PlainSolution> plainSolutionList = new LinkedList<>();
 
-    private final JourneyResultsController controller = new JourneyResultsController();
+    private final JourneyListController controller = new JourneyListController();
 //    private final FavouriteFragmentController favouriteFragmentController = new FavouriteFragmentController(FavouriteJourneyController.getInstance());
 
     private RecyclerView recyclerView;
     private final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-    private JourneyResultsAdapter adapter = new JourneyResultsAdapter(controller.getPartialPlainSolutions());
+    private JourneyListAdapter adapter = new JourneyListAdapter(controller.getPartialPlainSolutions());
 
     public static JourneyResultsFragment newInstance() {
         return new JourneyResultsFragment();

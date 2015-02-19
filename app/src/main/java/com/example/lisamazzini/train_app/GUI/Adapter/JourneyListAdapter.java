@@ -5,14 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,12 +22,12 @@ import com.example.lisamazzini.train_app.R;
 
 import java.util.List;
 
-public class JourneyResultsAdapter extends RecyclerView.Adapter<JourneyResultsAdapter.JourneyViewHolder> implements IAdapter<JourneyResultsAdapter.JourneyViewHolder>{
+public class JourneyListAdapter extends RecyclerView.Adapter<JourneyListAdapter.JourneyViewHolder> implements IAdapter<JourneyListAdapter.JourneyViewHolder>{
 
     private final List<PlainSolution> journeyList;
     private AchievementController achievementController;
 
-    public JourneyResultsAdapter(List<PlainSolution> list) {
+    public JourneyListAdapter(List<PlainSolution> list) {
         this.journeyList = list;
     }
 
