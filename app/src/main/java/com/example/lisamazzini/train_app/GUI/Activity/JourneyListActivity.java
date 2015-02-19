@@ -28,23 +28,14 @@ public class JourneyListActivity extends AbstractBaseActivity {
         fragmentManager.beginTransaction().replace(R.id.container, JourneyResultsFragment.newInstance());
         JourneyResultsFragment fragment = (JourneyResultsFragment) fragmentManager.findFragmentById(R.id.journeyResultsFragment);
         fragment.makeRequest(Constants.WITH_STATIONS, requestedTime, isCustomTime, departureStation, arrivalStation);
-
-        //TODO astrai
         Toast.makeText(this, "Ricerca in corso...", Toast.LENGTH_LONG).show();
 
     }
 
     @Override
     protected String setToolbarTitle() {
-
-        //TODO astrai
         return "Cerco...";
     }
-
-//    @Override
-//    protected String setToolbarTitle() {
-//        return (departureStation + " " + arrivalStation);
-//    }
 
     @Override
     protected void getIntents() {

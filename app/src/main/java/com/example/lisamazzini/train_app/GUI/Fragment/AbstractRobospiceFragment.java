@@ -28,5 +28,4 @@ public abstract class AbstractRobospiceFragment extends Fragment implements IBas
             spiceManager.start(getActivity());
         }
     }
-
 }

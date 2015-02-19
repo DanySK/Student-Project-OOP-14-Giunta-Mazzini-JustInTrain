@@ -95,7 +95,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             getSupportActionBar().setDisplayShowTitleEnabled(true);
             getSupportActionBar().setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_STANDARD);
             getSupportActionBar().setTitle("Nessuna tratta favorita!");
-            fragment.resetGui(new LinkedList<PlainSolution>());
+            fragment.resetGui();
         }
     }
 

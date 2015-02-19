@@ -29,7 +29,5 @@ public class AchievementListActivity extends AbstractBaseActivity {
     }
 
     @Override
-    protected void getIntents() {
-
-    }
+    protected void getIntents() {}
 }

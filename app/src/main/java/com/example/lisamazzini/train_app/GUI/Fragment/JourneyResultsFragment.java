@@ -35,10 +35,7 @@ import java.util.List;
 
 public class JourneyResultsFragment extends AbstractFavouriteFragment {
 
-//    private final List<PlainSolution> plainSolutionList = new LinkedList<>();
-
     private final JourneyListController controller = new JourneyListController();
-//    private final FavouriteFragmentController favouriteFragmentController = new FavouriteFragmentController(FavouriteJourneyController.getInstance());
 
     private RecyclerView recyclerView;
     private final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
@@ -90,23 +87,6 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
 
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.menu_main, menu);
-//        this.menu = menu;
-//        this.favouriteFragmentController.setMenu(this.menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        favouriteFragmentController.setContext(getActivity());
-//        this.menu = favouriteFragmentController.onOptionsItemSelected(item, new String[]{controller.getDepartureID(), controller.getArrivalID(), controller.getDepartureStation(), controller.getArrivalStation()}, getActivity());
-//        return super.onOptionsItemSelected(item);
-//    }
-
-
-
     public void makeRequest(final String userRequestType, final String requestedTime, final boolean isCustomTime, final String... departureAndArrivalData) {
         controller.clearPartialPlainSolutionList();
         adapter.notifyDataSetChanged();
@@ -127,9 +107,6 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
         }
     }
 
-//    public FavouriteFragmentController getFragmentUtils() {
-//        return favouriteFragmentController;
-//    }
 
     @Override
     public String[] getFavouriteForAdding() {
@@ -236,13 +213,9 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
         }
     }
 
-    public void resetGui(List<PlainSolution> list) {
-        if (spiceManager.isStarted()) {
-            controller.clearPartialPlainSolutionList();
-            adapter.notifyDataSetChanged();
-            spiceManager.dontNotifyAnyRequestListeners();
-            spiceManager.shouldStop();
-        }
-        spiceManager.start(getActivity());
+    public void resetGui() {
+        super.onStop();
+        controller.clearPartialPlainSolutionList();
+        adapter.notifyDataSetChanged();
     }
 }
