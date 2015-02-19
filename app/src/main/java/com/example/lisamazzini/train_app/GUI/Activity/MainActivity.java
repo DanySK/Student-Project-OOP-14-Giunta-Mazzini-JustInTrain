@@ -11,8 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 
-import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
-import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
+import com.example.lisamazzini.train_app.Controller.MainController;
 import com.example.lisamazzini.train_app.GUI.Fragment.JourneyResultsFragment;
 import com.example.lisamazzini.train_app.GUI.Fragment.NavigationDrawerFragment;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
@@ -20,19 +19,12 @@ import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Model.Constants;
 
 import java.util.LinkedList;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks{
 
     private NavigationDrawerFragment navigationDrawerFragment;
     private JourneyResultsFragment fragment;
-    private IFavouriteController favouriteJourneyController = FavouriteJourneyController.getInstance();
-
-    private final List<String> favouriteStationNames = new LinkedList<>();
-    private final List<String> favouriteStationIDs = new LinkedList<>();
-    private final List<String> actualJourneyIDs = new ArrayList<>();
+    private MainController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +36,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             setSupportActionBar(toolbar);
         }
         navigationDrawerFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        favouriteJourneyController.setContext(getApplicationContext());
+
+        this.controller = new MainController(MainActivity.this);
 
         navigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
@@ -59,9 +52,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!navigationDrawerFragment.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
-//            fragment.getFragmentUtils().setMenu(menu);
             fragment.setMenu(menu);
-            restoreActionBar();
+            restoreToolbar();
             return true;
         }
         return super.onCreateOptionsMenu(menu);
@@ -74,45 +66,25 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         if (navigationDrawerFragment.onOptionsItemSelected(item)) {
             return true;
         }
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.action_prefere) {
-            return true;
-        } else if (id == R.id.action_deprefere) {
-            favouriteJourneyController.removeFavourite(actualJourneyIDs.get(0).split(Constants.SEPARATOR)[0], actualJourneyIDs.get(0).split(Constants.SEPARATOR)[1]);
-            restoreActionBar();
+        if (id == R.id.action_deprefere) {
+            controller.removeFavourite();
+            restoreToolbar();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void refreshLists() {
-        favouriteStationIDs.clear();
-        favouriteStationNames.clear();
+    public void restoreToolbar() {
 
-        Map<String, String> favouriteJourneysMap;
-        for (String s : (favouriteJourneysMap = (Map<String, String>) favouriteJourneyController.getFavouritesAsMap()).keySet()) {
-            favouriteStationIDs.add(s);
-        }
-
-        for (String s : favouriteStationIDs) {
-            favouriteStationNames.add(favouriteJourneysMap.get(s).replaceAll(Constants.SEPARATOR, " "));
-        }
-    }
-
-    public void restoreActionBar() {
-
-        refreshLists();
-        SpinnerAdapter spinnerAdapter = new ArrayAdapter<String>(getSupportActionBar().getThemedContext(), android.R.layout.simple_spinner_dropdown_item, favouriteStationNames);
-        if (favouriteStationNames.size() > 0 ) {
+        controller.refreshLists();
+        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(getSupportActionBar().getThemedContext(), android.R.layout.simple_spinner_dropdown_item, controller.getFavouriteStationNames());
+        if (controller.isPresentAnyFavourite()) {
             ActionBar action = getSupportActionBar();
             ActionBar.OnNavigationListener navigationListener = new ActionBar.OnNavigationListener() {
                 @Override
                 public boolean onNavigationItemSelected(int position, long l) {
-                    actualJourneyIDs.clear();
-                    actualJourneyIDs.add(favouriteStationIDs.get(position));
-                    actualJourneyIDs.add(favouriteStationNames.get(position));
+                    controller.setCurrentJourney(position);
                     fragment.setAsFavouriteIcon(true);
-                    fragment.makeRequest(Constants.WITH_IDS, navigationDrawerFragment.getActualTime(), false, favouriteStationIDs.get(position).split(Constants.SEPARATOR)[0], favouriteStationIDs.get(position).split(Constants.SEPARATOR)[1]);
+                    fragment.makeRequest(Constants.WITH_IDS, navigationDrawerFragment.getActualTime(), false, controller.getActualDepartureId(), controller.getActualArrivalId());
                     return true;
                 }
             };

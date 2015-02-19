@@ -1,9 +1,9 @@
 package com.example.lisamazzini.train_app.GUI.Activity;
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
+import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.GUI.Fragment.JourneyResultsFragment;
 import com.example.lisamazzini.train_app.Model.Constants;
@@ -29,12 +29,22 @@ public class JourneyListActivity extends AbstractBaseActivity {
         JourneyResultsFragment fragment = (JourneyResultsFragment) fragmentManager.findFragmentById(R.id.journeyResultsFragment);
         fragment.makeRequest(Constants.WITH_STATIONS, requestedTime, isCustomTime, departureStation, arrivalStation);
 
+        //TODO astrai
+        Toast.makeText(this, "Ricerca in corso...", Toast.LENGTH_LONG).show();
+
     }
 
     @Override
     protected String setToolbarTitle() {
-        return (departureStation + " " + arrivalStation);
+
+        //TODO astrai
+        return "Cerco...";
     }
+
+//    @Override
+//    protected String setToolbarTitle() {
+//        return (departureStation + " " + arrivalStation);
+//    }
 
     @Override
     protected void getIntents() {

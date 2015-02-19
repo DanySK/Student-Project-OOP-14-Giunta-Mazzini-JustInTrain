@@ -232,7 +232,6 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
         @Override
         public void onRequestSuccess(final PlainSolutionWrapper plainSolutions) {
             controller.addSolutions(plainSolutions.getList());
-//            plainSolutionList.addAll(plainSolutions.getList());
             adapter.notifyDataSetChanged();
         }
     }

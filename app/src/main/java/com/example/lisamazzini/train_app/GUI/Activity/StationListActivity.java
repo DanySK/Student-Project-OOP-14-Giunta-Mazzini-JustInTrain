@@ -27,11 +27,15 @@ public class StationListActivity extends AbstractBaseActivity {
         fragmentManager.beginTransaction().replace(R.id.container, StationListFragment.newInstance());
         StationListFragment fragment = (StationListFragment) fragmentManager.findFragmentById(R.id.stationListFragment);
         fragment.makeRequest(trainNumber, stationCode);
+
+        //TODO astrai
         Toast.makeText(this, "Ricerca in corso...", Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected String setToolbarTitle() {
+
+        //TODO astrai
         return "Cerco...";
     }
 
