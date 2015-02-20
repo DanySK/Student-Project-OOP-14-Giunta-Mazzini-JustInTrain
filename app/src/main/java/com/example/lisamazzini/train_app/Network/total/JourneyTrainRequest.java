@@ -1,11 +1,11 @@
-package com.example.lisamazzini.train_app.Network.TotalRequests;
+package com.example.lisamazzini.train_app.network.total;
 
 import android.util.Log;
 
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolutionWrapper;
 import com.example.lisamazzini.train_app.model.treno.Treno;
-import com.example.lisamazzini.train_app.Network.TrainRestClient;
+import com.example.lisamazzini.train_app.network.TrainRestClient;
 import com.example.lisamazzini.train_app.model.treno.Fermate;
 import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.request.SpiceRequest;
@@ -29,17 +29,23 @@ import java.util.List;
  */
 public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
 
-    private List<PlainSolution> plainSolutions;
+    private static final int ONE_SOL = 1;
+
+    private final List<PlainSolution> plainSolutions;
     private Iterator<String> iterator;
     private Treno train;
 
-    public JourneyTrainRequest(final List<PlainSolution> plainSolutions) {
+    /**
+     * Costruttore.
+     * @param pPlainSolutions la lista di plainsolution
+     */
+    public JourneyTrainRequest(final List<PlainSolution> pPlainSolutions) {
         super(PlainSolutionWrapper.class);
-        this.plainSolutions = plainSolutions;
+        this.plainSolutions = pPlainSolutions;
     }
 
     @Override
-    public PlainSolutionWrapper loadDataFromNetwork() throws Exception {
+    public final PlainSolutionWrapper loadDataFromNetwork() throws IOException {
 
         List<String> result;
 
@@ -48,19 +54,19 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
             p.setIdArrivo(getID(p.getDestinazione()));
 
             result = Utilities.fetchData(Utilities.generateTrainAutocompleteURL(p.getNumeroTreno())).getList();
-            if (result.size() == 0) {
+            if (result.isEmpty()) {
                 return new PlainSolutionWrapper(new LinkedList<PlainSolution>());
             }
             iterator = result.iterator();
             this.makeRequest(p);
             p.setIdOrigine(train.getIdOrigine());
             p.setDelay(train.getRitardo());
-            if (result.size() > 1) {
+            if (result.size() > ONE_SOL) {
                 boolean containsDepartureStation = false;
                 while (!containsDepartureStation && iterator.hasNext()) {
                     this.makeRequest(p);
-                    for(Fermate f : train.getFermate()){
-                        if(f.getId().equals(p.getIdPartenza())){
+                    for (Fermate f : train.getFermate()) {
+                        if (f.getId().equals(p.getIdPartenza())) {
                             p.setIdOrigine(train.getIdOrigine());
                             p.setDelay(train.getRitardo());
                             containsDepartureStation = true;
@@ -83,9 +89,9 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
      */
     private String getID(final String stationName) throws IOException {
         Log.d("cazzi", "fermata: " + stationName);
-        return Utilities.splitStationForTrainSearch
-                (Utilities.fetchData
-                        (Utilities.generateStationAutocompleteURL(stationName))
+        return Utilities.splitStationForTrainSearch(
+                Utilities.fetchData(
+                        Utilities.generateStationAutocompleteURL(stationName))
                         .getList()
                         .get(0))
                 [1];
@@ -97,7 +103,7 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
      * @param p: la plainSolution di cui ottenere un oggetto di tipo Treno
      */
     private void makeRequest(final PlainSolution p) {
-        String[] trainData = iterator.next().split("\\|")[1].split("-");
+        final String[] trainData = iterator.next().split("\\|")[1].split("-");
         train = TrainRestClient.get().getTrain(trainData[0], trainData[1]);
         if (p.isTomorrow()) {
             train.setRitardo(0L);

@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteControllerStrategy;
-import com.example.lisamazzini.train_app.Network.AbstractListener;
+import com.example.lisamazzini.train_app.network.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.Controller.StationListController;

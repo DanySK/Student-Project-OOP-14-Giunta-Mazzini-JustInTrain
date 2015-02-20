@@ -1,8 +1,8 @@
-package com.example.lisamazzini.train_app.Network.TotalRequests;
+package com.example.lisamazzini.train_app.network.total;
 
 import com.example.lisamazzini.train_app.Exceptions.NoSolutionsAvailableException;
 import com.example.lisamazzini.train_app.model.tragitto.Tragitto;
-import com.example.lisamazzini.train_app.Network.JourneyRestClient;
+import com.example.lisamazzini.train_app.network.JourneyRestClient;
 import com.octo.android.robospice.request.SpiceRequest;
 
 /**
@@ -14,21 +14,30 @@ import com.octo.android.robospice.request.SpiceRequest;
  */
 public class JourneyRequest extends SpiceRequest<Tragitto> {
 
+    private static final int EMPTY = 0;
+
     private final String departureID;
     private final String arrivalID;
     private final String requestedTime;
 
-    public JourneyRequest(final String departureID, final String arrivalID, final String requestedTime) {
+
+    /**
+     * Costruttore.
+     * @param pDepartureID id della stazione di partenza
+     * @param pArrivalID id della stazione di arrivo
+     * @param pRequestedTime orario di ricerca
+     */
+    public JourneyRequest(final String pDepartureID, final String pArrivalID, final String pRequestedTime) {
         super(Tragitto.class);
-        this.departureID = departureID;
-        this.arrivalID = arrivalID;
-        this.requestedTime = requestedTime;
+        this.departureID = pDepartureID;
+        this.arrivalID = pArrivalID;
+        this.requestedTime = pRequestedTime;
     }
 
     @Override
-    public Tragitto loadDataFromNetwork() throws Exception {
-        Tragitto tragitto = JourneyRestClient.get().getJourneys(departureID, arrivalID, requestedTime);
-        if (tragitto.getSoluzioni().size() == 0) {
+    public final Tragitto loadDataFromNetwork() throws NoSolutionsAvailableException {
+        final Tragitto tragitto = JourneyRestClient.get().getJourneys(departureID, arrivalID, requestedTime);
+        if (tragitto.getSoluzioni().size() == EMPTY) {
             throw new NoSolutionsAvailableException();
         }
         return tragitto;

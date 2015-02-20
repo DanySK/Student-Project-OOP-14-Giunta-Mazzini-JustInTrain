@@ -1,8 +1,8 @@
 package com.example.lisamazzini.train_app.Controller;
 
 import com.example.lisamazzini.train_app.model.treno.Fermate;
-import com.example.lisamazzini.train_app.Network.DataRequests.TrainDataRequest;
-import com.example.lisamazzini.train_app.Network.TotalRequests.TrainRequest;
+import com.example.lisamazzini.train_app.network.data.TrainDataRequest;
+import com.example.lisamazzini.train_app.network.total.TrainRequest;
 import com.example.lisamazzini.train_app.model.treno.Treno;
 import com.example.lisamazzini.train_app.Utilities;
 

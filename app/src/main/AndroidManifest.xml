@@ -18,13 +18,13 @@
             android:name="com.octo.android.robospice.UncachedSpiceService"
             android:exported="false" />
         <service
-            android:name=".Notification.NotificationService"
+            android:name=".notification.NotificationService"
             android:exported="false" />
 
         <!-- <service android:name=".Controller.DoubleTrainService" android:exported="false"/> -->
 
         <receiver
-            android:name=".Notification.ButtonListener"
+            android:name=".notification.ButtonListener"
             android:exported="true" />
 
         <!-- <activity -->

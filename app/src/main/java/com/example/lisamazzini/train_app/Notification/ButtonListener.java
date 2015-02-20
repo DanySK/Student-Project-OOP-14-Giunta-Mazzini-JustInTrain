@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Notification;
+package com.example.lisamazzini.train_app.notification;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

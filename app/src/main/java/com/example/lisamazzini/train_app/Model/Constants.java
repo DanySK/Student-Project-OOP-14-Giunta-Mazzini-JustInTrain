@@ -56,6 +56,8 @@ public final class Constants {
     public static final String SERVICE_NOT_AVAILABLE = "Il servizio Viaggiatreno.com è offline o in manuetenzione";
     public static final String OK_MSG = "Ok";
 
+    public static final int EMPTY = 0;
+
     private Constants() {
     }
 }

@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Network.DataRequests;
+package com.example.lisamazzini.train_app.network.data;
 
 import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
 import com.example.lisamazzini.train_app.model.treno.ListWrapper;
@@ -18,17 +18,23 @@ public class JourneyDataRequest extends AbstractDataRequest {
 
     private final String station;
 
-    public JourneyDataRequest(final String station){
+    /**
+     * Costruttore.
+     * @param pStation la stazione con cui effettuare la richiesta
+     */
+    public JourneyDataRequest(final String pStation) {
         super(ListWrapper.class);
-        this.station = station;
+        this.station = pStation;
     }
 
-    protected URL generateURL() throws MalformedURLException {
+    @Override
+    protected final URL generateURL() throws MalformedURLException {
         return Utilities.generateStationAutocompleteURL(this.station);
     }
 
-    protected void check(final List result) throws InvalidStationException {
-        if(result.size()==0) {
+    @Override
+    protected final void check(final List result) throws InvalidStationException {
+        if (result.isEmpty()) {
             throw new InvalidStationException();
         }
     }

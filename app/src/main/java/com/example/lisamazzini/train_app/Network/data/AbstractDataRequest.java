@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Network.DataRequests;
+package com.example.lisamazzini.train_app.network.data;
 
 import com.example.lisamazzini.train_app.Exceptions.InvalidInputException;
 import com.example.lisamazzini.train_app.model.treno.ListWrapper;
@@ -18,8 +18,12 @@ import java.util.List;
  *
  * @author albertogiunta
  */
-public abstract class AbstractDataRequest extends SpiceRequest<ListWrapper>{
+public abstract class AbstractDataRequest extends SpiceRequest<ListWrapper> {
 
+    /**
+     * Costuttore.
+     * @param clazz listWrapper di string
+     */
     public AbstractDataRequest(final Class<ListWrapper> clazz) {
         super(clazz);
     }
@@ -28,21 +32,20 @@ public abstract class AbstractDataRequest extends SpiceRequest<ListWrapper>{
      * Non chiamare questo metodo esplicitamente, viene chiamato automaticamente da robospice.
      *
      * @return ListWrapper di stringhe (ogni elemento è una riga stazione|codice
-     * @throws IOException
-     * @throws InvalidInputException
+     * @throws IOException IOException
+     * @throws InvalidInputException InvalidInputException
      */
-    public ListWrapper loadDataFromNetwork() throws IOException, InvalidInputException{
-        ListWrapper result = Utilities.fetchData(generateURL());
+    public final ListWrapper loadDataFromNetwork() throws IOException, InvalidInputException {
+        final ListWrapper result = Utilities.fetchData(generateURL());
         check(result.getList());
         return result;
     }
 
     /**
-     * Genera l'url con cui poi fare le ricerche di tipo "autocomplete"
-     * Di norma è fatto in maniera:
+     * Genera l'url con cui poi fare le ricerche di tipo "autocomplete".
      *
      * @return URL: url con cui effettuare le ricerche
-     * @throws MalformedURLException
+     * @throws MalformedURLException MalformedURLException
      */
     protected abstract URL generateURL() throws MalformedURLException;
 
@@ -52,7 +55,7 @@ public abstract class AbstractDataRequest extends SpiceRequest<ListWrapper>{
      * quindi il numero inserito non corrisponde a nessun treno (idem per stazioni).
      *
      * @param result List<String> contenenete i risultati della loadDataFromNetwork
-     * @throws com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException
+     * @throws com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException InvalidTrainNumberException
      */
     protected abstract void check(List<String> result) throws InvalidInputException;
 

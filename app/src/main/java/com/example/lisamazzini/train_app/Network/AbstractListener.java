@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Network;
+package com.example.lisamazzini.train_app.network;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -33,21 +33,21 @@ public abstract class AbstractListener<X> implements RequestListener<X> {
      * Getter per il dialogBuilder.
      * @return Ritorna il dialogBuilder
      */
-    public AlertDialog.Builder getDialogBuilder() {
+    public final AlertDialog.Builder getDialogBuilder() {
         return dialogBuilder;
     }
 
     /**
      * Metodo implementato che mostra un Dialog di errore se la richiesta non è andata a buon fine, diverso
-     * in base al tipo di Exception che viene lanciata
-     * @param spiceException
+     * in base al tipo di Exception che viene lanciata.
+     * @param spiceException spiceException
      */
-    public void onRequestFailure(final SpiceException spiceException) {
-        if(spiceException.getCause() instanceof InvalidTrainNumberException){
+    public final void onRequestFailure(final SpiceException spiceException) {
+        if (spiceException.getCause() instanceof InvalidTrainNumberException) {
             showDialog(Constants.WRONG_TRAIN_TITLE, Constants.WRONG_TRAIN);
         } else if (spiceException.getCause() instanceof InvalidStationException) {
             showDialog(Constants.WRONG_STATION_TITLE, Constants.WRONG_STATION);
-        }else if (spiceException.getCause() instanceof NoSolutionsAvailableException) {
+        } else if (spiceException.getCause() instanceof NoSolutionsAvailableException) {
             showDialog(Constants.NO_AVAILABLE_SOLUTION_TITLE, Constants.NO_AVAILABLE_SOLUTION);
         } else if (spiceException.getCause() instanceof RetrofitError) {
             showDialog(Constants.SERVICE_NOT_AVAILABLE_TITLE, Constants.SERVICE_NOT_AVAILABLE);
@@ -64,8 +64,8 @@ public abstract class AbstractListener<X> implements RequestListener<X> {
                 .setMessage(body)
                 .setNeutralButton(Constants.OK_MSG, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getDialogContext(), MainActivity.class);
+                    public void onClick(final DialogInterface dialog, final int which) {
+                        final Intent intent = new Intent(getDialogContext(), MainActivity.class);
                         getDialogContext().startActivity(intent);
                     }
                 }).show();
@@ -73,14 +73,14 @@ public abstract class AbstractListener<X> implements RequestListener<X> {
 
     /**
      * Metodo da implementare che restituisca il Context in cui si trova il Listener, necessario per
-     * mostrare il Dialog
+     * mostrare il Dialog.
      * @return context
      */
     public abstract Context getDialogContext();
 
     /**
-     * Metodo da implementare che esegue azioni con il risultato della Request
-     * @param result
+     * Metodo da implementare che esegue azioni con il risultato della Request.
+     * @param result il tipo di risultato della request
      */
     @Override
     public abstract void onRequestSuccess(final X result);

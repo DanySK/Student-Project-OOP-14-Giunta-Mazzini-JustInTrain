@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.lisamazzini.train_app.Network.AbstractListener;
+import com.example.lisamazzini.train_app.network.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.FavouriteTrainListController;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;

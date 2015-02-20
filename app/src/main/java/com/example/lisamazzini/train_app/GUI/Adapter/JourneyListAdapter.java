@@ -17,7 +17,7 @@ import com.example.lisamazzini.train_app.Exceptions.AchievementException;
 import com.example.lisamazzini.train_app.gui.activity.StationListActivity;
 import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
-import com.example.lisamazzini.train_app.Notification.NotificationService;
+import com.example.lisamazzini.train_app.notification.NotificationService;
 import com.example.lisamazzini.train_app.R;
 
 import java.util.List;

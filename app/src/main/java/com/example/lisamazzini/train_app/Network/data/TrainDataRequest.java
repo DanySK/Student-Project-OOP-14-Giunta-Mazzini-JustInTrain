@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Network.DataRequests;
+package com.example.lisamazzini.train_app.network.data;
 
 import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
 import com.example.lisamazzini.train_app.model.treno.ListWrapper;
@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * Prima Request da effettuare, per ottenere, dato un numero di treno, le informazioni riguardanti
- * la stazione di origine
+ * la stazione di origine.
  *
  * @author lisamazzini
  */
@@ -20,20 +20,24 @@ public class TrainDataRequest extends AbstractDataRequest {
 
     private final String trainNumber;
 
-    public TrainDataRequest(final String searchQuery){
+    /**
+     * Costruttore.
+     * @param pTrainNumber il numero del treno
+     */
+    public TrainDataRequest(final String pTrainNumber) {
         super(ListWrapper.class);
-        this.trainNumber = searchQuery;
+        this.trainNumber = pTrainNumber;
     }
 
 
     @Override
-    protected URL generateURL() throws MalformedURLException, MalformedURLException {
+    protected final URL generateURL() throws MalformedURLException {
         return Utilities.generateTrainAutocompleteURL(this.trainNumber);
     }
 
     @Override
-    protected void check(final List result) throws InvalidTrainNumberException {
-        if(result.size()==0) {
+    protected final void check(final List result) throws InvalidTrainNumberException {
+        if (result.isEmpty()) {
             throw new InvalidTrainNumberException();
         }
     }

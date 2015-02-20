@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Notification;
+package com.example.lisamazzini.train_app.notification;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -9,8 +9,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
-import com.example.lisamazzini.train_app.Network.AbstractListener;
-import com.example.lisamazzini.train_app.Network.TotalRequests.TrainRequest;
+import com.example.lisamazzini.train_app.network.AbstractListener;
+import com.example.lisamazzini.train_app.network.total.TrainRequest;
 import com.example.lisamazzini.train_app.gui.activity.StationListActivity;
 import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.model.treno.Treno;
