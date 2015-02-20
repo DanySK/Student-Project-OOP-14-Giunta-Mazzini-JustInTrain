@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.lisamazzini.train_app.gui.activity.StationListActivity;
-import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Model.Treno.Treno;
+import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.treno.Treno;
 import com.example.lisamazzini.train_app.R;
 
 import java.util.List;

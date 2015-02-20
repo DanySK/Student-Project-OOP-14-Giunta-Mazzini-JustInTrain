@@ -2,15 +2,10 @@ package com.example.lisamazzini.train_app.achievement;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.example.lisamazzini.train_app.Exceptions.AchievementException;
-import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
-
-import java.io.ObjectOutputStream;
-import java.util.HashMap;
-import java.util.Map;
+import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 
 /**
  * Questa classe rappresenta l'implementazione generica di un Achievement;

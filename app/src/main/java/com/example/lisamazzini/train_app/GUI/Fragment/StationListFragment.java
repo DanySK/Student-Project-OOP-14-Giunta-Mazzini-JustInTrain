@@ -19,8 +19,8 @@ import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainCon
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.Controller.StationListController;
 import com.example.lisamazzini.train_app.gui.Adapter.StationListAdapter;
-import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
-import com.example.lisamazzini.train_app.Model.Treno.Treno;
+import com.example.lisamazzini.train_app.model.treno.ListWrapper;
+import com.example.lisamazzini.train_app.model.treno.Treno;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.SpiceManager;
@@ -135,7 +135,7 @@ public class StationListFragment extends AbstractFavouriteFragment {
             }else{
                 final String[][] dataMatrix = listController.computeMatrix(data);
                 String[] choices = listController.computeChoices(dataMatrix);
-                dialogBuilder.setSingleChoiceItems(choices, -1, new DialogInterface.OnClickListener() {
+                getDialogBuilder().setSingleChoiceItems(choices, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         listController.setTrainDetails(dataMatrix[which]);

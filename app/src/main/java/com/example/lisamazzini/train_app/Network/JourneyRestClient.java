@@ -1,7 +1,7 @@
 package com.example.lisamazzini.train_app.Network;
 
 
-import com.example.lisamazzini.train_app.Model.Constants;
+import com.example.lisamazzini.train_app.model.Constants;
 import com.squareup.okhttp.OkHttpClient;
 
 import retrofit.RestAdapter;

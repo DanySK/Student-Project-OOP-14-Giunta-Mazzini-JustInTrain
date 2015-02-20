@@ -1,7 +1,7 @@
 package com.example.lisamazzini.train_app.achievement;
 
 import com.example.lisamazzini.train_app.Exceptions.AchievementException;
-import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
+import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 
 /**
  * Interfaccia che identifica il comportamento di ogni achievement

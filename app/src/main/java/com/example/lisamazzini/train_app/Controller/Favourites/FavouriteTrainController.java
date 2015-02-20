@@ -3,7 +3,7 @@ package com.example.lisamazzini.train_app.Controller.Favourites;
 import android.content.Context;
 
 import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
-import com.example.lisamazzini.train_app.Model.Constants;
+import com.example.lisamazzini.train_app.model.Constants;
 
 /**
  * Classe che modella un controller per i treni favoriti.

@@ -2,15 +2,8 @@ package com.example.lisamazzini.train_app.Controller.Favourites;
 
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
 
-import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
-import com.example.lisamazzini.train_app.Model.Constants;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.example.lisamazzini.train_app.model.Constants;
 
 /**
  * Classe che modella un controller per le tratte favorite.

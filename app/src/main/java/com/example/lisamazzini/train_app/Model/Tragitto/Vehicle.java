@@ -1,12 +1,15 @@
-package com.example.lisamazzini.train_app.Model.Tragitto;
+package com.example.lisamazzini.train_app.model.tragitto;
 
-import java.util.HashMap;
-import java.util.Map;
-
+/**
+ * Classe che modella un oggetto Vehicle, necessaria per il parsing json.
+ *
+ * @author albertogiunta
+ */
 public class Vehicle {
 
     private static final int FIRST_INDEX = 11;
     private static final int SECOND_INDEX = 16;
+
     private String origine;
     private String destinazione;
     private String orarioPartenza;
@@ -16,39 +19,38 @@ public class Vehicle {
     private String categoria;
     private String categoriaDescrizione;
     private String numeroTreno;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-    private boolean isTomorrow;
+    private boolean tomorrow;
 
     public final boolean isTomorrow() {
-        return isTomorrow;
+        return tomorrow;
     }
 
-    public final void setTomorrow(final boolean isTomorrow) {
-        this.isTomorrow = isTomorrow;
+    public final void setTomorrow(final boolean pIsTomorrow) {
+        this.tomorrow = pIsTomorrow;
     }
 
     public final String getOrigine() {
         return origine;
     }
 
-    public final void setOrigine(final String origine) {
-        this.origine = origine;
+    public final void setOrigine(final String pOrigine) {
+        this.origine = pOrigine;
     }
 
     public final String getDestinazione() {
         return destinazione;
     }
 
-    public final void setDestinazione(final String destinazione) {
-        this.destinazione = destinazione;
+    public final void setDestinazione(final String pDestinazione) {
+        this.destinazione = pDestinazione;
     }
 
     public final String getOrarioPartenza() {
         return orarioPartenza;
     }
 
-    public final void setOrarioPartenza(final String orarioPartenza) {
-        this.orarioPartenza = orarioPartenza;
+    public final void setOrarioPartenza(final String pOrarioPartenza) {
+        this.orarioPartenza = pOrarioPartenza;
     }
 
     public final String getOraPartenza() {
@@ -64,8 +66,8 @@ public class Vehicle {
         return orarioArrivo;
     }
 
-    public final void setOrarioArrivo(final String orarioArrivo) {
-        this.orarioArrivo = orarioArrivo;
+    public final void setOrarioArrivo(final String pOrarioArrivo) {
+        this.orarioArrivo = pOrarioArrivo;
     }
 
     public final String getOraArrivo() {
@@ -81,31 +83,23 @@ public class Vehicle {
         return categoria;
     }
 
-    public final void setCategoria(final String categoria) {
-        this.categoria = categoria;
+    public final void setCategoria(final String pCategoria) {
+        this.categoria = pCategoria;
     }
 
     public final String getCategoriaDescrizione() {
         return categoriaDescrizione;
     }
 
-    public final void setCategoriaDescrizione(final String categoriaDescrizione) {
-        this.categoriaDescrizione = categoriaDescrizione;
+    public final void setCategoriaDescrizione(final String pCategoriaDescrizione) {
+        this.categoriaDescrizione = pCategoriaDescrizione;
     }
 
     public final String getNumeroTreno() {
         return numeroTreno;
     }
 
-    public final void setNumeroTreno(final String numeroTreno) {
-        this.numeroTreno = numeroTreno;
-    }
-
-    public final Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public final void setAdditionalProperty(final String name, final Object value) {
-        this.additionalProperties.put(name, value);
+    public final void setNumeroTreno(final String pNumeroTreno) {
+        this.numeroTreno = pNumeroTreno;
     }
 }

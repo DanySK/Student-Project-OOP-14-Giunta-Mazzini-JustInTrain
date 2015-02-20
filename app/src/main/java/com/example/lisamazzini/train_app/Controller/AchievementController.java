@@ -2,14 +2,13 @@ package com.example.lisamazzini.train_app.Controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.example.lisamazzini.train_app.achievement.DelayAchievement1;
 import com.example.lisamazzini.train_app.achievement.IAchievement;
 import com.example.lisamazzini.train_app.achievement.PinAchievement1;
 import com.example.lisamazzini.train_app.Exceptions.AchievementException;
-import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
+import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 
 
 import java.util.*;

@@ -1,36 +1,56 @@
-package com.example.lisamazzini.train_app.Model.Tragitto;
+package com.example.lisamazzini.train_app.model.tragitto;
 
-public class PlainSolution {
+/**
+ * Classe che modella un oggetto "soluzione", che raccoglie e fornisce le informazioni in maniera più efficace
+ * rispetto al model necessario per il parsing del json.
+ *
+ * @author albertogiunta
+ */
+public final class PlainSolution {
 
-    private boolean isLastVehicleOfJourney;
-    private String categoria;
-    private String numeroTreno;
-    private String origine;
-    private String orarioPartenza;
-    private String destinazione;
-    private String orarioArrivo;
-    private String durata;
+    private final boolean lastVehicleOfJourney;
+    private final String categoria;
+    private final String numeroTreno;
+    private final String origine;
+    private final String orarioPartenza;
+    private final String destinazione;
+    private final String orarioArrivo;
+    private final String durata;
     private String delay = "";
     private String idOrigine = "";
     private String idPartenza = "";
     private String idArrivo = "";
-    private boolean tomorrow = false;
-    public  PlainSolution(final boolean isLastVehicleOfJourney, final String categoria, final String numeroTreno, final String origine, final String orarioPartenza,
-                         final String destinazione, final String orarioArrivo, final String durata, final boolean tomorrow) {
-        this.isLastVehicleOfJourney = isLastVehicleOfJourney;
-        this.categoria = categoria;
-        this.numeroTreno = numeroTreno;
-        this.origine = origine;
-        this.orarioPartenza = orarioPartenza;
-        this.destinazione = destinazione;
-        this.orarioArrivo = orarioArrivo;
-        this.durata = durata;
-        this.tomorrow = tomorrow;
+    private final boolean tomorrow;
+
+    /**
+     * Construttore necessario alla costruzione dell'oggetto.
+     *
+     * @param pIsLastVehicleOfJourney
+     * @param pCategoria
+     * @param pNumeroTreno
+     * @param pOrigine
+     * @param pOrarioPartenza
+     * @param pDestinazione
+     * @param pOrarioArrivo
+     * @param pDurata
+     * @param pTomorrow
+     */
+    public  PlainSolution(final boolean pIsLastVehicleOfJourney, final String pCategoria, final String pNumeroTreno, final String pOrigine, final String pOrarioPartenza,
+                         final String pDestinazione, final String pOrarioArrivo, final String pDurata, final boolean pTomorrow) {
+        this.lastVehicleOfJourney = pIsLastVehicleOfJourney;
+        this.categoria = pCategoria;
+        this.numeroTreno = pNumeroTreno;
+        this.origine = pOrigine;
+        this.orarioPartenza = pOrarioPartenza;
+        this.destinazione = pDestinazione;
+        this.orarioArrivo = pOrarioArrivo;
+        this.durata = pDurata;
+        this.tomorrow = pTomorrow;
     }
 
 
     public boolean isLastVehicleOfJourney() {
-        return isLastVehicleOfJourney;
+        return lastVehicleOfJourney;
     }
 
     public String getCategoria() {
@@ -61,8 +81,8 @@ public class PlainSolution {
         return durata;
     }
 
-    public void setDelay (Long delay) {
-        this.delay = delay.toString();
+    public void setDelay(final Long pDelay) {
+        this.delay = pDelay.toString();
     }
 
     public String getDelay() {
@@ -73,24 +93,24 @@ public class PlainSolution {
         return idOrigine;
     }
 
-    public void setIdOrigine(String idOrigine) {
-        this.idOrigine= idOrigine;
+    public void setIdOrigine(final String pIdOrigine) {
+        this.idOrigine = pIdOrigine;
     }
 
     public String getIdPartenza() {
         return idPartenza;
     }
 
-    public void setIdPartenza(String idPartenza) {
-        this.idPartenza= idPartenza;
+    public void setIdPartenza(final String pIdPartenza) {
+        this.idPartenza = pIdPartenza;
     }
 
     public String getIdArrivo() {
         return idArrivo;
     }
 
-    public void setIdArrivo(String idarrivo) {
-        this.idArrivo = idarrivo;
+    public void setIdArrivo(final String pIdArrivo) {
+        this.idArrivo = pIdArrivo;
     }
 
     public boolean isTomorrow() {

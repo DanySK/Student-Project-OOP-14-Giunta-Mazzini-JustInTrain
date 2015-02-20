@@ -1,7 +1,7 @@
 package com.example.lisamazzini.train_app.Network.TotalRequests;
 
 import com.example.lisamazzini.train_app.Exceptions.NoSolutionsAvailableException;
-import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
+import com.example.lisamazzini.train_app.model.tragitto.Tragitto;
 import com.example.lisamazzini.train_app.Network.JourneyRestClient;
 import com.octo.android.robospice.request.SpiceRequest;
 

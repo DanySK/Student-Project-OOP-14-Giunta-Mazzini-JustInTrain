@@ -2,9 +2,8 @@ package com.example.lisamazzini.train_app.Controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
-import com.example.lisamazzini.train_app.Model.Constants;
+import com.example.lisamazzini.train_app.model.Constants;
 
 import java.util.LinkedList;
 import java.util.List;

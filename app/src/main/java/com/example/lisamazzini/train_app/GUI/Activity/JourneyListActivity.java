@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.gui.Fragment.JourneyResultsFragment;
-import com.example.lisamazzini.train_app.Model.Constants;
+import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.R;
 
 /**

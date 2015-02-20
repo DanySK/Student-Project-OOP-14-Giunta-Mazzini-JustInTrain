@@ -3,9 +3,8 @@ package com.example.lisamazzini.train_app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
-import com.example.lisamazzini.train_app.Model.Constants;
+import com.example.lisamazzini.train_app.model.Constants;
 
 /**
  * Listener per il broadcast inviato dal NotificationService alla pressione dei pulsanti della notifica

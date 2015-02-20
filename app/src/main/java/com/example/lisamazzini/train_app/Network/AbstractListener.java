@@ -10,7 +10,7 @@ import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
 import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
 import com.example.lisamazzini.train_app.Exceptions.NoSolutionsAvailableException;
 import com.example.lisamazzini.train_app.gui.activity.MainActivity;
-import com.example.lisamazzini.train_app.Model.Constants;
+import com.example.lisamazzini.train_app.model.Constants;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
@@ -27,7 +27,15 @@ import retrofit.RetrofitError;
  */
 public abstract class AbstractListener<X> implements RequestListener<X> {
 
-    protected final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getDialogContext());
+    private final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getDialogContext());
+
+    /**
+     * Getter per il dialogBuilder.
+     * @return Ritorna il dialogBuilder
+     */
+    public AlertDialog.Builder getDialogBuilder() {
+        return dialogBuilder;
+    }
 
     /**
      * Metodo implementato che mostra un Dialog di errore se la richiesta non è andata a buon fine, diverso

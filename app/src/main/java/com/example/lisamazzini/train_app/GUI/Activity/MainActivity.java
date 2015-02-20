@@ -15,7 +15,7 @@ import com.example.lisamazzini.train_app.Controller.MainController;
 import com.example.lisamazzini.train_app.gui.Fragment.JourneyResultsFragment;
 import com.example.lisamazzini.train_app.gui.Fragment.NavigationDrawerFragment;
 import com.example.lisamazzini.train_app.R;
-import com.example.lisamazzini.train_app.Model.Constants;
+import com.example.lisamazzini.train_app.model.Constants;
 
 /**
  * Classe che ospita il fragment per la visualizzazione di una lista di journey, è la main activity,

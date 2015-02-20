@@ -2,12 +2,11 @@ package com.example.lisamazzini.train_app.Controller;
 
 import android.util.Log;
 
-import com.example.lisamazzini.train_app.Controller.Favourites.*;
-import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
-import com.example.lisamazzini.train_app.Model.Tragitto.Soluzioni;
-import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
-import com.example.lisamazzini.train_app.Model.Tragitto.Vehicle;
+import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
+import com.example.lisamazzini.train_app.model.tragitto.Soluzioni;
+import com.example.lisamazzini.train_app.model.tragitto.Tragitto;
+import com.example.lisamazzini.train_app.model.tragitto.Vehicle;
 import com.example.lisamazzini.train_app.Utilities;
 
 import org.joda.time.DateTime;

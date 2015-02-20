@@ -3,10 +3,10 @@ package com.example.lisamazzini.train_app;
 
 import android.util.Log;
 
-import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
-import com.example.lisamazzini.train_app.Model.Treno.Treno;
-import com.example.lisamazzini.train_app.Model.Treno.Fermate;
+import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.treno.ListWrapper;
+import com.example.lisamazzini.train_app.model.treno.Treno;
+import com.example.lisamazzini.train_app.model.treno.Fermate;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;

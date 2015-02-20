@@ -34,7 +34,7 @@ import com.example.lisamazzini.train_app.gui.activity.StationListActivity;
 import com.example.lisamazzini.train_app.gui.Adapter.DrawerListAdapter;
 import com.example.lisamazzini.train_app.gui.Fragment.DateTimePickers.DatePickerFragment;
 import com.example.lisamazzini.train_app.gui.Fragment.DateTimePickers.TimePickerFragment;
-import com.example.lisamazzini.train_app.Model.Constants;
+import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Utilities;
 

@@ -1,7 +1,7 @@
 package com.example.lisamazzini.train_app.Network.DataRequests;
 
 import com.example.lisamazzini.train_app.Exceptions.InvalidInputException;
-import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
+import com.example.lisamazzini.train_app.model.treno.ListWrapper;
 import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.request.SpiceRequest;
 

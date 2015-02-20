@@ -2,10 +2,9 @@ package com.example.lisamazzini.train_app.achievement;
 
 import com.example.lisamazzini.train_app.Exceptions.AchievementException;
 import com.example.lisamazzini.train_app.Exceptions.PinAchievementException;
-import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
+import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 import android.content.Context;
-import android.util.Log;
 
 /**
  * Questa classe rappresenta l'achievement che si basa sul numero di treni su cui

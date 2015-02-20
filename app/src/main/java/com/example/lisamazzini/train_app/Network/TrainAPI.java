@@ -1,14 +1,16 @@
 package com.example.lisamazzini.train_app.Network;
 
+import com.example.lisamazzini.train_app.model.treno.Treno;
 
-
-import com.example.lisamazzini.train_app.Model.Treno.Treno;
-
-import retrofit.http.*;
+import retrofit.http.GET;
+import retrofit.http.Path;
 
 
 /**
- * Created by lisamazzini on 02/02/15.
+ * Interfaccia per la richiesta http per ottenere informazioni riguardo un treno.
+ *
+ * @author albertogiunta
+ * @author lisamazzini
  */
 public interface TrainAPI {
 

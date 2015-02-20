@@ -1,12 +1,13 @@
-package com.example.lisamazzini.train_app.Model.Treno;
+package com.example.lisamazzini.train_app.model.treno;
 
-
-
-    import java.util.ArrayList;
-    import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by lisamazzini on 01/02/15.
+ * Classe che modella un oggetto Treno, necessaria per il parsing json.
+ * Ha una lista di fermate e altre informazioni.
+ *
+ * @author lisamazzini
  */
 public class Treno {
 
@@ -26,8 +27,8 @@ public class Treno {
     }
 
 
-    public final void setFermate(final List<Fermate> fermate) {
-        this.fermate = fermate;
+    public final void setFermate(final List<Fermate> pFermate) {
+        this.fermate = pFermate;
     }
 
 
@@ -36,8 +37,8 @@ public class Treno {
     }
 
 
-    public final void setStazioneUltimoRilevamento(final String stazioneUltimoRilevamento) {
-        this.stazioneUltimoRilevamento = stazioneUltimoRilevamento;
+    public final void setStazioneUltimoRilevamento(final String pStazioneUltimoRilevamento) {
+        this.stazioneUltimoRilevamento = pStazioneUltimoRilevamento;
     }
 
 
@@ -46,8 +47,8 @@ public class Treno {
     }
 
 
-    public final void setIdOrigine(final String idOrigine) {
-        this.idOrigine = idOrigine;
+    public final void setIdOrigine(final String pIdOrigine) {
+        this.idOrigine = pIdOrigine;
     }
 
 
@@ -56,8 +57,8 @@ public class Treno {
     }
 
 
-    public final void setCompOraUltimoRilevamento(final String compOraUltimoRilevamento) {
-        this.compOraUltimoRilevamento = compOraUltimoRilevamento;
+    public final void setCompOraUltimoRilevamento(final String pCompOraUltimoRilevamento) {
+        this.compOraUltimoRilevamento = pCompOraUltimoRilevamento;
     }
 
 
@@ -66,8 +67,8 @@ public class Treno {
     }
 
 
-    public final void setNumeroTreno(final Long numeroTreno) {
-        this.numeroTreno = numeroTreno;
+    public final void setNumeroTreno(final Long pNumeroTreno) {
+        this.numeroTreno = pNumeroTreno;
     }
 
 
@@ -76,8 +77,8 @@ public class Treno {
     }
 
 
-    public final void setCategoria(final String categoria) {
-        this.categoria = categoria;
+    public final void setCategoria(final String pCategoria) {
+        this.categoria = pCategoria;
     }
 
 
@@ -86,8 +87,8 @@ public class Treno {
     }
 
 
-    public final void setSubTitle(final String subTitle) {
-        this.subTitle = subTitle;
+    public final void setSubTitle(final String pSubTitle) {
+        this.subTitle = pSubTitle;
     }
 
 
@@ -96,8 +97,8 @@ public class Treno {
     }
 
 
-    public final void setProgress(final String progress) {
-        this.progress = progress;
+    public final void setProgress(final String pProgress) {
+        this.progress = pProgress;
     }
 
 
@@ -106,8 +107,8 @@ public class Treno {
     }
 
 
-    public final void setRitardo(final Long ritardo) {
-        this.ritardo = ritardo;
+    public final void setRitardo(final Long pRitardo) {
+        this.ritardo = pRitardo;
     }
 
 }

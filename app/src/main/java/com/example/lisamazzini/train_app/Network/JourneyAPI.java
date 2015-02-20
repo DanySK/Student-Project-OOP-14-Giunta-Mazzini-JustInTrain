@@ -1,9 +1,8 @@
 package com.example.lisamazzini.train_app.Network;
 
 
-import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
+import com.example.lisamazzini.train_app.model.tragitto.Tragitto;
 
-import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Path;
 

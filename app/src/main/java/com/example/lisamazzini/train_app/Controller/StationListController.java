@@ -1,12 +1,11 @@
 package com.example.lisamazzini.train_app.Controller;
 
-import com.example.lisamazzini.train_app.Model.Treno.Fermate;
+import com.example.lisamazzini.train_app.model.treno.Fermate;
 import com.example.lisamazzini.train_app.Network.DataRequests.TrainDataRequest;
 import com.example.lisamazzini.train_app.Network.TotalRequests.TrainRequest;
-import com.example.lisamazzini.train_app.Model.Treno.Treno;
+import com.example.lisamazzini.train_app.model.treno.Treno;
 import com.example.lisamazzini.train_app.Utilities;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

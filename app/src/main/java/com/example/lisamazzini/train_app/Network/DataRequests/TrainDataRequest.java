@@ -1,10 +1,11 @@
 package com.example.lisamazzini.train_app.Network.DataRequests;
 
 import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
-import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
+import com.example.lisamazzini.train_app.model.treno.ListWrapper;
 import com.example.lisamazzini.train_app.Utilities;
 
-import java.net.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 
@@ -26,7 +27,7 @@ public class TrainDataRequest extends AbstractDataRequest {
 
 
     @Override
-    protected URL generateURL() throws MalformedURLException {
+    protected URL generateURL() throws MalformedURLException, MalformedURLException {
         return Utilities.generateTrainAutocompleteURL(this.trainNumber);
     }
 

@@ -1,9 +1,8 @@
 package com.example.lisamazzini.train_app.achievement;
 
 import com.example.lisamazzini.train_app.Exceptions.DelayAchievementException;
-import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
-import com.example.lisamazzini.train_app.R;
+import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 
 import android.content.Context;
 

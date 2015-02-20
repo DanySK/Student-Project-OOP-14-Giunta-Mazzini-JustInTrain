@@ -22,10 +22,10 @@ import com.example.lisamazzini.train_app.Network.DataRequests.JourneyDataRequest
 import com.example.lisamazzini.train_app.Network.TotalRequests.JourneyRequest;
 import com.example.lisamazzini.train_app.Network.TotalRequests.JourneyTrainRequest;
 import com.example.lisamazzini.train_app.Controller.EndlessRecyclerOnScrollListener;
-import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolutionWrapper;
-import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
-import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
+import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.tragitto.PlainSolutionWrapper;
+import com.example.lisamazzini.train_app.model.tragitto.Tragitto;
+import com.example.lisamazzini.train_app.model.treno.ListWrapper;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Utilities;
 import com.octo.android.robospice.SpiceManager;
@@ -135,7 +135,7 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
                 spiceManager.execute(new JourneyDataRequest(controller.getArrivalStation()), new ArrivalDataRequestListener());
             } else {
                 final String[][] choices = controller.getTableForMultipleResults(data);
-                dialogBuilder.setSingleChoiceItems(choices[0], -1, new DialogInterface.OnClickListener() {
+                getDialogBuilder().setSingleChoiceItems(choices[0], -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface dialog, final int which) {
                         controller.setDepartureID(choices[1][which]);
@@ -168,7 +168,7 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
                 spiceManager.execute(new JourneyRequest(controller.getDepartureID(), controller.getArrivalID(), controller.getRequestedTime()), new JourneyRequestListener());
             } else {
                 final String[][] choices = controller.getTableForMultipleResults(data);
-                dialogBuilder.setSingleChoiceItems(choices[0], -1, new DialogInterface.OnClickListener() {
+                getDialogBuilder().setSingleChoiceItems(choices[0], -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface dialog, final int which) {
                         controller.setArrivalID(choices[1][which]);

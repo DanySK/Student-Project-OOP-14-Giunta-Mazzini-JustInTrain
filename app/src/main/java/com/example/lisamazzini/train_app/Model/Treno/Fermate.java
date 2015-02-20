@@ -1,6 +1,10 @@
-package com.example.lisamazzini.train_app.Model.Treno;
+package com.example.lisamazzini.train_app.model.treno;
 
-
+/**
+ * Classe che modella un oggetto "fermata", necessario per il parsing del json.
+ *
+ * @author lisamazzini
+ */
 public class Fermate {
 
     private String stazione;
@@ -13,14 +17,13 @@ public class Fermate {
     private String binarioEffettivoPartenzaDescrizione;
     private String binarioProgrammatoPartenzaDescrizione;
 
-
     public final String getStazione() {
         return stazione;
     }
 
 
-    public final void setStazione(final String stazione) {
-        this.stazione = stazione;
+    public final void setStazione(final String pStazione) {
+        this.stazione = pStazione;
     }
 
 
@@ -29,8 +32,8 @@ public class Fermate {
     }
 
 
-    public final void setId(final String id) {
-        this.id = id;
+    public final void setId(final String pId) {
+        this.id = pId;
     }
 
 
@@ -39,8 +42,8 @@ public class Fermate {
     }
 
 
-    public final void setActualFermataType(final Long actualFermataType) {
-        this.actualFermataType = actualFermataType;
+    public final void setActualFermataType(final Long pActualFermataType) {
+        this.actualFermataType = pActualFermataType;
     }
 
 
@@ -49,8 +52,8 @@ public class Fermate {
     }
 
 
-    public final void setOrientamento(final String orientamento) {
-        this.orientamento = orientamento;
+    public final void setOrientamento(final String pOrientamento) {
+        this.orientamento = pOrientamento;
     }
 
 
@@ -59,8 +62,8 @@ public class Fermate {
     }
 
 
-    public final void setProgrammata(final Long programmata) {
-        this.programmata = programmata;
+    public final void setProgrammata(final Long pProgrammata) {
+        this.programmata = pProgrammata;
     }
 
 
@@ -69,8 +72,8 @@ public class Fermate {
     }
 
 
-    public final void setEffettiva(final Long effettiva) {
-        this.effettiva = effettiva;
+    public final void setEffettiva(final Long oEffettiva) {
+        this.effettiva = oEffettiva;
     }
 
 
@@ -79,8 +82,8 @@ public class Fermate {
     }
 
 
-    public final void setRitardo(final Long ritardo) {
-        this.ritardo = ritardo;
+    public final void setRitardo(final Long pRitardo) {
+        this.ritardo = pRitardo;
     }
 
 
@@ -89,8 +92,8 @@ public class Fermate {
     }
 
 
-    public final void setBinarioEffettivoPartenzaDescrizione(final String binarioEffettivoPartenzaDescrizione) {
-        this.binarioEffettivoPartenzaDescrizione = binarioEffettivoPartenzaDescrizione;
+    public final void setBinarioEffettivoPartenzaDescrizione(final String pBinarioEffettivoPartenzaDescrizione) {
+        this.binarioEffettivoPartenzaDescrizione = pBinarioEffettivoPartenzaDescrizione;
     }
 
 
@@ -99,8 +102,8 @@ public class Fermate {
     }
 
 
-    public final void setBinarioProgrammatoPartenzaDescrizione(final String binarioProgrammatoPartenzaDescrizione) {
-        this.binarioProgrammatoPartenzaDescrizione = binarioProgrammatoPartenzaDescrizione;
+    public final void setBinarioProgrammatoPartenzaDescrizione(final String pBinarioProgrammatoPartenzaDescrizione) {
+        this.binarioProgrammatoPartenzaDescrizione = pBinarioProgrammatoPartenzaDescrizione;
     }
 
 }
