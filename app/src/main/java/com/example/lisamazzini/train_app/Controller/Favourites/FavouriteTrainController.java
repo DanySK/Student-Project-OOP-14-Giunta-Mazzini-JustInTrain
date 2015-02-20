@@ -14,7 +14,7 @@ public final class FavouriteTrainController extends AbstractFavouriteController 
 
     private static final FavouriteTrainController ADDER = new FavouriteTrainController();
 
-    private FavouriteTrainController() {}
+    private FavouriteTrainController() { }
 
     public static IFavouriteController getInstance() {
         return ADDER;
@@ -23,15 +23,15 @@ public final class FavouriteTrainController extends AbstractFavouriteController 
     @Override
     public void addFavourite(final String... strings) throws FavouriteException {
         check();
-        if(!alreadyFavourite(buildKey(strings))) {
+        if (!alreadyFavourite(buildKey(strings))) {
             getEditor().putString(buildKey(strings), "");
             getEditor().apply();
-        }else{
+        } else {
             throw new FavouriteException();
         }
     }
 
-    public void setContext(final Context context){
+    public void setContext(final Context context) {
         setSharedPref(context.getSharedPreferences(Constants.TRAIN_PREF_FILE, Context.MODE_APPEND));
         setEditor(getSharedPref().edit());
         getEditor().apply();

@@ -4,7 +4,10 @@ import com.example.lisamazzini.train_app.model.treno.Treno;
 import com.example.lisamazzini.train_app.network.total.TrainRequest;
 import com.example.lisamazzini.train_app.model.Constants;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Classe che funge da controller per il FavouriteTrainListFragment.
@@ -17,7 +20,7 @@ public class FavouriteTrainListController {
 
     private List<Treno> favouriteTrainsList = new LinkedList<>();
 
-    public FavouriteTrainListController(final Map<String, String> map){
+    public FavouriteTrainListController(final Map<String, String> map) {
         this.iterator = map.keySet().iterator();
     }
 
@@ -25,7 +28,7 @@ public class FavouriteTrainListController {
      * Metodo che stabilisce se ci sono altri preferiti.
      * @return true se ha un altro preferito, false altrimenti
      */
-    public final boolean hasAnotherFavourite(){
+    public final boolean hasAnotherFavourite() {
         return this.iterator.hasNext();
     }
 
@@ -41,14 +44,14 @@ public class FavouriteTrainListController {
      * Metodo che aggiunge un treno alla lista dei preferiti.
      * @param train da aggiungere
      */
-    public final void addToFavouriteTrainList(final Treno train){
+    public final void addToFavouriteTrainList(final Treno train) {
         favouriteTrainsList.add(train);
     }
     /**
      * Metodo che restituisce il preferito successivo.
      * @return il preferito
      */
-    private String getFavourite(){
+    private String getFavourite() {
         return iterator.next();
     }
 

@@ -186,7 +186,7 @@ public class NotificationService extends Service {
          * @return true se è non partito, false se è partito
          */
         private boolean notDeparted(final Treno train) {
-            return !train.getFermate().get(0).getActualFermataType().equals(NOT_VISITED);
+            return train.getFermate().get(0).getActualFermataType().equals(NOT_VISITED);
         }
 
         /**

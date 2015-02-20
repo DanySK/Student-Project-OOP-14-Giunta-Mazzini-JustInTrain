@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Interfaccia che modella il concetto controller dei preferiti con metodi per aggiungere, togliere e restituire i preferiti
+ * Interfaccia che modella il concetto controller dei preferiti con metodi per aggiungere, togliere e restituire i preferiti.
  *
  * @author albertogiunta
  * @author lisamazzini
@@ -45,12 +45,6 @@ import java.util.Map;
      * @return la mappa con i preferiti
      */
      Map<String, ?> getFavouritesAsMap();
-
-    /**
-     * Restituisce i preferiti come lista di valori (solo le chiavi).
-     * @return il keyset della mappa dei preferiti
-     */
-     List<String> getFavouritesAsList();
 
     /**
      * Metodo per sapere se la combinazione di certi dati sono già presenti tra i preferiti.

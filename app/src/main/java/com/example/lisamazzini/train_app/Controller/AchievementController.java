@@ -10,8 +10,9 @@ import com.example.lisamazzini.train_app.exceptions.AchievementException;
 import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 
+import java.util.HashMap;
+import java.util.Map;
 
-import java.util.*;
 
 /**
  * Classe che gestisce l'aggiornamento e lo sblocco di achievement; si appoggia su delle SharedPreferences su cui
@@ -28,7 +29,11 @@ public class AchievementController {
     private final SharedPreferences.Editor editor;
 
 
-    public AchievementController(final Context context){
+    /**
+     * Costruttore.
+     * @param context Context per le sharedpreferences
+     */
+    public AchievementController(final Context context) {
         achievements.put("Delay", new DelayAchievement1(context));
         achievements.put("Pin", new PinAchievement1(context));
         data = context.getSharedPreferences(Constants.ACH_STORE_FILE, Context.MODE_APPEND);
@@ -47,11 +52,10 @@ public class AchievementController {
             for (IAchievement a : achievements.values()) {
                 a.addData(train);
             }
-        }catch (AchievementException e){
-            if(data.contains(e.getMessage())){
-                //do nothing
+        } catch (AchievementException e) {
+            if (data.contains(e.getMessage())) {
                 return;
-            }else{
+            } else {
                 editor.putString(e.getMessage(), e.getMessage());
                 editor.apply();
                 throw e;

@@ -11,24 +11,28 @@ import java.util.List;
 /**
  * Classe che funge da Controller per l'AchievementListFragment; gli achievement vengono collezionati
  * come semplice lista di stringhe, che viene aggiornata in base agli achievement sbloccati segnati all'interno
- * delle SharedPreferences
+ * delle SharedPreferences.
  *
- * @author Lisa Mazzini
+ * @author lisamazzini
  */
 public class AchievementListController  {
     private SharedPreferences data;
     private List<String> achievements = new LinkedList<>();
 
-    public AchievementListController(final Context context){
+    /**
+     * Costruttore.
+     * @param context per le sharedpreferences
+     */
+    public AchievementListController(final Context context) {
         data = context.getSharedPreferences(Constants.ACH_STORE_FILE, Context.MODE_APPEND);
     }
 
     /**
-     * Metodo che aggiorna la lista, scorrendo le informazioni salvate nelle SharedPreferences
+     * Metodo che aggiorna la lista, scorrendo le informazioni salvate nelle SharedPreferences.
      * @return la lista aggiornata
      */
-    public final List<String> computeAchievement(){
-        for(String s : data.getAll().keySet()) {
+    public final List<String> computeAchievement() {
+        for (String s : data.getAll().keySet()) {
             switch (s) {
                 case Constants.DELAY_ACH:
                     achievements.add("Ritardatario! (60 minuti)");

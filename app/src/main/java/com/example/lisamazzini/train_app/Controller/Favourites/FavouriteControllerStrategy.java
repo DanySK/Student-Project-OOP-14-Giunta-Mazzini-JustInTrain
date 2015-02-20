@@ -1,11 +1,13 @@
 package com.example.lisamazzini.train_app.controller.favourites;
 
-import com.example.lisamazzini.train_app.controller.favourites.IFavouriteController;
-
 /**
- * Created by albertogiunta on 18/02/15.
+ * @author albertogiunta
  */
 public interface FavouriteControllerStrategy {
 
+    /**
+     * Getter per il controller.
+     * @return IFavouriteController
+     */
     IFavouriteController getController();
 }

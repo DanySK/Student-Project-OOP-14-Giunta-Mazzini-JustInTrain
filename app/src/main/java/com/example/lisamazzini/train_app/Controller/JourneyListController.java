@@ -22,6 +22,7 @@ import java.util.List;
  */
 public class JourneyListController {
 
+    private static final int SOLUTION = 5;
     private final SimpleDateFormat sdf = new SimpleDateFormat(Constants.SDF);
     private final List<PlainSolution> totalPlainSolutions = new LinkedList<>();
     private int upperBound;
@@ -94,7 +95,7 @@ public class JourneyListController {
     }
 
     /**
-     * Metodo che deve chiamare chi impelementa un JourneyResultsController per settare l'orario con cui fare le operazioni
+     * Metodo che deve chiamare chi impelementa un JourneyResultsController per settare l'orario con cui fare le operazioni.
      * @param time: orario come stringa, in formato yyyy-MM-dd'T'HH:mm:ss
      */
     public final void setTime(final String time) {
@@ -106,7 +107,7 @@ public class JourneyListController {
     }
 
     /**
-     * Meotod per settare la categoria di un treno da nome esteso a abbreviativo
+     * Metodo per settare la categoria di un treno da nome esteso a abbreviato.
      * @param vehicle: oggetto su cui fare le operazioni
      * @param category: nome esteso della categoria da sostituire
      * @param abbr: nome abbreviato della categoria
@@ -130,7 +131,7 @@ public class JourneyListController {
         lowerBound = 0;
         for (Soluzioni sol : tragitto.getSoluzioni()) {
             Iterator<Vehicle> i = sol.getVehicles().iterator();
-            while(i.hasNext()) {
+            while (i.hasNext()) {
                 Vehicle vehicle = i.next();
                 boolean isLastVehicleOfJourney = !i.hasNext();
                 vehicle.setCategoriaDescrizione("" + setCategory(vehicle, "frecciabianca", "FB"));
@@ -165,7 +166,7 @@ public class JourneyListController {
 
     /**
      * Metodo che controlla se il treno in questione è deve ancora partire,
-     * infatti insorgono conflitti qualora un treno del giorno successivo (viene restituito il treno con i dati relativi al giorno stesso)
+     * infatti insorgono conflitti qualora un treno del giorno successivo (viene restituito il treno con i dati relativi al giorno stesso).
      *
      * @param vehicle: il vehicle da cui trarre informazioni
      * @return boolean
@@ -177,7 +178,7 @@ public class JourneyListController {
 
     /**
      * Metodo che restituisce una lista parziale di plainsolution,
-     * che varia a seconda che si faccia una richiesta con orario "custom" o rispetto all'ora corrente
+     * che varia a seconda che si faccia una richiesta con orario "custom" o rispetto all'ora corrente.
      *
      * @param isCustom: booleano che rappresenta la modalità di richiesta
      * @return la lista parziale di plainsolutions
@@ -188,7 +189,7 @@ public class JourneyListController {
         if (isCustom) {
             lowerBound = 0;
         }
-        upperBound = getIndexForNSolutions(5);
+        upperBound = getIndexForNSolutions(SOLUTION);
         temp = this.totalPlainSolutions.subList(lowerBound, upperBound);
         lowerBound = upperBound + 1;
         if (lowerBound < totalPlainSolutions.size()) {
@@ -202,11 +203,11 @@ public class JourneyListController {
         int index = lowerBound;
         int vehicles = 0;
         for (int i = 0; i < n; i++) {
-            while(this.totalPlainSolutions.size() > lowerBound+vehicles && !this.totalPlainSolutions.get(lowerBound+vehicles).isLastVehicleOfJourney()) {
+            while (this.totalPlainSolutions.size() > lowerBound + vehicles && !this.totalPlainSolutions.get(lowerBound + vehicles).isLastVehicleOfJourney()) {
                 vehicles++;
             }
             vehicles++;
-            index = totalPlainSolutions.size() > lowerBound+vehicles ? lowerBound+vehicles : index;
+            index = totalPlainSolutions.size() > lowerBound + vehicles ? lowerBound + vehicles : index;
         }
         return index;
     }
@@ -221,7 +222,7 @@ public class JourneyListController {
      */
     public final String[][] getTableForMultipleResults(final List<String> list) {
         final String[][] dataMatrix = new String[2][list.size()];
-        for (int i = 0 ; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             String[] temp = splitData(list.get(i));
             dataMatrix[0][i] = temp[0];
             dataMatrix[1][i] = temp[1];
@@ -231,7 +232,7 @@ public class JourneyListController {
 
     /**
      * Metodo di utility che restituisce un codice stazione di tipo 01234 (e non S01234)
-     * data in input una stringa di tipo STAZIONE|S01234
+     * data in input una stringa di tipo STAZIONE|S01234.
      *
      * @param s: stringa di tipo STAZIONE|S01234
      * @return String[] contenente la stazione e il codice

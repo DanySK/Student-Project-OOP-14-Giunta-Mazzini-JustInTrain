@@ -11,12 +11,16 @@ import com.example.lisamazzini.train_app.model.Constants;
  *
  * @author albertogiunta
  */
-public final class FavouriteJourneyController extends AbstractFavouriteController{
+public final class FavouriteJourneyController extends AbstractFavouriteController {
 
     private static final FavouriteJourneyController ADDER = new FavouriteJourneyController();
 
-    private FavouriteJourneyController() {}
+    private FavouriteJourneyController() { }
 
+    /**
+     * Metodo che ritorna un'istanza del controller
+     * @return IFavouriteController
+     */
     public static IFavouriteController getInstance() {
         return ADDER;
     }
@@ -32,7 +36,7 @@ public final class FavouriteJourneyController extends AbstractFavouriteControlle
     public void addFavourite(final String... strings) {
         super.check();
         String key = buildKey(strings[0], strings[1]);
-        if(!super.alreadyFavourite(key)) {
+        if (!super.alreadyFavourite(key)) {
             getEditor().putString(key, buildKey(strings[2], strings[3]));
             getEditor().apply();
         }
