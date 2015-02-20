@@ -10,9 +10,9 @@ import com.example.lisamazzini.train_app.model.Constants;
  *
  * @author lisamazzini
  */
-public class FavouriteTrainController extends AbstractFavouriteController {
+public final class FavouriteTrainController extends AbstractFavouriteController {
 
-    private final static FavouriteTrainController ADDER = new FavouriteTrainController();
+    private static final FavouriteTrainController ADDER = new FavouriteTrainController();
 
     private FavouriteTrainController() {}
 
@@ -21,20 +21,20 @@ public class FavouriteTrainController extends AbstractFavouriteController {
     }
 
     @Override
-    public void addFavourite(String... strings) throws FavouriteException {
+    public void addFavourite(final String... strings) throws FavouriteException {
         check();
         if(!alreadyFavourite(buildKey(strings))) {
-            editor.putString(buildKey(strings), "");
-            editor.apply();
+            getEditor().putString(buildKey(strings), "");
+            getEditor().apply();
         }else{
             throw new FavouriteException();
         }
     }
 
     public void setContext(final Context context){
-        super.sharedPref = context.getSharedPreferences(Constants.TRAIN_PREF_FILE, Context.MODE_APPEND);
-        super.editor = sharedPref.edit();
-        editor.apply();
+        setSharedPref(context.getSharedPreferences(Constants.TRAIN_PREF_FILE, Context.MODE_APPEND));
+        setEditor(getSharedPref().edit());
+        getEditor().apply();
     }
 
     @Override

@@ -11,7 +11,7 @@ import com.example.lisamazzini.train_app.model.Constants;
  *
  * @author albertogiunta
  */
-public class FavouriteJourneyController extends AbstractFavouriteController{
+public final class FavouriteJourneyController extends AbstractFavouriteController{
 
     private static final FavouriteJourneyController ADDER = new FavouriteJourneyController();
 
@@ -23,9 +23,9 @@ public class FavouriteJourneyController extends AbstractFavouriteController{
 
     @Override
     public void setContext(final Context context) {
-        super.sharedPref = context.getSharedPreferences(Constants.JOURNEY_PREF_FILE, Context.MODE_APPEND);
-        super.editor = sharedPref.edit();
-        editor.apply();
+        setSharedPref(context.getSharedPreferences(Constants.JOURNEY_PREF_FILE, Context.MODE_APPEND));
+        setEditor((getSharedPref().edit()));
+        getEditor().apply();
     }
 
     @Override
@@ -33,8 +33,8 @@ public class FavouriteJourneyController extends AbstractFavouriteController{
         super.check();
         String key = buildKey(strings[0], strings[1]);
         if(!super.alreadyFavourite(key)) {
-            editor.putString(key, buildKey(strings[2], strings[3]));
-            editor.apply();
+            getEditor().putString(key, buildKey(strings[2], strings[3]));
+            getEditor().apply();
         }
     }
 

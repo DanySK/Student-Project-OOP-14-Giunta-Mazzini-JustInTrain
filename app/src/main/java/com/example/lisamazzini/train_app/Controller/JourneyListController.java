@@ -1,7 +1,5 @@
 package com.example.lisamazzini.train_app.controller;
 
-import android.util.Log;
-
 import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.model.tragitto.Soluzioni;
@@ -34,64 +32,64 @@ public class JourneyListController {
     private String departureID, departureStation, arrivalID, arrivalStation, requestedTime;
     private final List<PlainSolution> partialPlainSolutions = new LinkedList<>();
 
-    public List<PlainSolution> getPartialPlainSolutions() {
+    public final List<PlainSolution> getPartialPlainSolutions() {
         return partialPlainSolutions;
     }
 
-    public void addSolutions(final List<PlainSolution> list) {
+    public final void addSolutions(final List<PlainSolution> list) {
         this.partialPlainSolutions.addAll(list);
     }
 
-    public void clearPartialPlainSolutionList() {
+    public final void clearPartialPlainSolutionList() {
         this.partialPlainSolutions.clear();
     }
 
-    public boolean isCustomTime() {
+    public final boolean isCustomTime() {
         return isCustomTime;
     }
 
-    public void setCustomTime(final boolean isCustomTime) {
-        this.isCustomTime = isCustomTime;
+    public final void setCustomTime(final boolean pIsCustomTime) {
+        this.isCustomTime = pIsCustomTime;
     }
 
-    public String getDepartureID() {
+    public final String getDepartureID() {
         return departureID;
     }
 
-    public void setDepartureID(final String departureID) {
-        this.departureID = departureID;
+    public final void setDepartureID(final String pDepartureID) {
+        this.departureID = pDepartureID;
     }
 
-    public String getDepartureStation() {
+    public final String getDepartureStation() {
         return departureStation;
     }
 
-    public void setDepartureStation(final String departureStation) {
-        this.departureStation = departureStation;
+    public final void setDepartureStation(final String pDepartureStation) {
+        this.departureStation = pDepartureStation;
     }
 
-    public String getArrivalID() {
+    public final String getArrivalID() {
         return arrivalID;
     }
 
-    public void setArrivalID(final String arrivalID) {
-        this.arrivalID = arrivalID;
+    public final void setArrivalID(final String pArrivalID) {
+        this.arrivalID = pArrivalID;
     }
 
-    public String getArrivalStation() {
+    public final String getArrivalStation() {
         return arrivalStation;
     }
 
-    public void setArrivalStation(final String arrivalStation) {
-        this.arrivalStation = arrivalStation;
+    public final void setArrivalStation(final String pArrivalStation) {
+        this.arrivalStation = pArrivalStation;
     }
 
-    public String getRequestedTime() {
+    public final String getRequestedTime() {
         return requestedTime;
     }
 
-    public void setRequestedTime(final String requestedTime) {
-        this.requestedTime = requestedTime;
+    public final void setRequestedTime(final String pRequestedTime) {
+        this.requestedTime = pRequestedTime;
         setTime(this.requestedTime);
     }
 
@@ -99,7 +97,7 @@ public class JourneyListController {
      * Metodo che deve chiamare chi impelementa un JourneyResultsController per settare l'orario con cui fare le operazioni
      * @param time: orario come stringa, in formato yyyy-MM-dd'T'HH:mm:ss
      */
-    public void setTime(final String time) {
+    public final void setTime(final String time) {
         try {
             actualTime = new DateTime(sdf.parse(time));
         } catch (ParseException e) {
@@ -126,7 +124,7 @@ public class JourneyListController {
      * Esso infatti aggiunge supporto al ritardo ed altre informazioni utili altrimenti non accessibili.
      * @param tragitto: intera risposta del server, contiene al suo interno una lista di soluzioni, e a loro volta di vehicles
      */
-    public void buildPlainSolutions(final Tragitto tragitto) {
+    public final void buildPlainSolutions(final Tragitto tragitto) {
         totalPlainSolutions.clear();
         upperBound = 0;
         lowerBound = 0;
@@ -135,7 +133,6 @@ public class JourneyListController {
             while(i.hasNext()) {
                 Vehicle vehicle = i.next();
                 boolean isLastVehicleOfJourney = !i.hasNext();
-                Log.d("cazzi", vehicle.getOrigine() + " " + isLastVehicleOfJourney);
                 vehicle.setCategoriaDescrizione("" + setCategory(vehicle, "frecciabianca", "FB"));
                 vehicle.setCategoriaDescrizione("" + setCategory(vehicle, "frecciarossa", "FR"));
                 vehicle.setCategoriaDescrizione("" + setCategory(vehicle, "frecciaargento", "FA"));
@@ -185,56 +182,31 @@ public class JourneyListController {
      * @param isCustom: booleano che rappresenta la modalità di richiesta
      * @return la lista parziale di plainsolutions
      */
-    public List<PlainSolution> getPlainSolutions(final boolean isCustom) {
+    public final List<PlainSolution> getPlainSolutions(final boolean isCustom) {
         List<PlainSolution> temp = new LinkedList<>();
 
         if (isCustom) {
             lowerBound = 0;
         }
         upperBound = getIndexForNSolutions(5);
-        Log.d("cazzi", "lower " + lowerBound + " e upper " + upperBound);
         temp = this.totalPlainSolutions.subList(lowerBound, upperBound);
         lowerBound = upperBound + 1;
-        Log.d("cazzi", "emmò lower vale " + lowerBound + "size " + this.totalPlainSolutions.size());
         if (lowerBound < totalPlainSolutions.size()) {
             return temp;
         } else {
-            return new LinkedList<PlainSolution>();
+            return new LinkedList<>();
         }
-
-//        if (isCustom) {
-//            upperBound = totalPlainSolutions.size() < 5 ? totalPlainSolutions.size() : 5;
-//            while(!this.totalPlainSolutions.get(upperBound).isLastVehicleOfJourney()) {
-//                upperBound++;
-//            }
-//            temp = this.totalPlainSolutions.subList(0, upperBound);
-//        } else {
-//            upperBound = lowerBound + 5 >= totalPlainSolutions.size() ? totalPlainSolutions.size()-1 : lowerBound + 5;
-//            while(!this.totalPlainSolutions.get(upperBound).isLastVehicleOfJourney()) {
-//                upperBound++;
-//            }
-//            temp = this.totalPlainSolutions.subList(lowerBound, upperBound);
-//        }
-//        lowerBound += upperBound+1;
-//        if (lowerBound < totalPlainSolutions.size()-1) {
-//            return temp;
-//        } else {
-//            return new LinkedList<PlainSolution>();
-//        }
     }
 
-    public int getIndexForNSolutions(int n) {
+    public final int getIndexForNSolutions(final int n) {
         int index = lowerBound;
         int vehicles = 0;
         for (int i = 0; i < n; i++) {
-            boolean isAvailableSpace = false;
             while(this.totalPlainSolutions.size() > lowerBound+vehicles && !this.totalPlainSolutions.get(lowerBound+vehicles).isLastVehicleOfJourney()) {
                 vehicles++;
-                Log.d("cazzi", "sono entrato " + index);
             }
             vehicles++;
             index = totalPlainSolutions.size() > lowerBound+vehicles ? lowerBound+vehicles : index;
-            Log.d("cazzi", "index dopo il while " + index);
         }
         return index;
     }
@@ -247,7 +219,7 @@ public class JourneyListController {
      * @param list: una List<String> dei risultati restituiti dal server
      * @return una matrice per righe in cui ogni colonna è fatta di stazione e codice
      */
-    public String[][] getTableForMultipleResults(final List<String> list) {
+    public final String[][] getTableForMultipleResults(final List<String> list) {
         final String[][] dataMatrix = new String[2][list.size()];
         for (int i = 0 ; i < list.size(); i++) {
             String[] temp = splitData(list.get(i));
@@ -264,7 +236,7 @@ public class JourneyListController {
      * @param s: stringa di tipo STAZIONE|S01234
      * @return String[] contenente la stazione e il codice
      */
-    public String[] splitData(final String s) {
+    public final String[] splitData(final String s) {
         return Utilities.splitStationForJourneySearch(s);
     }
 }

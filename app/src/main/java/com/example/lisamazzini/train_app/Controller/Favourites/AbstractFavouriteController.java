@@ -19,17 +19,33 @@ import java.util.Map;
  */
 public abstract class AbstractFavouriteController implements IFavouriteController {
 
-    protected SharedPreferences sharedPref;
-    protected SharedPreferences.Editor editor;
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
+
+    public final SharedPreferences getSharedPref() {
+        return sharedPref;
+    }
+
+    public final void setSharedPref(final SharedPreferences pSharedPref) {
+        this.sharedPref = pSharedPref;
+    }
+
+    public final SharedPreferences.Editor getEditor() {
+        return editor;
+    }
+
+    public final void setEditor(final SharedPreferences.Editor pEditor) {
+        this.editor = pEditor;
+    }
 
     @Override
-    public void removeFavourite(final String... data) {
+    public final void removeFavourite(final String... data) {
         check();
         editor.remove(buildKey(data));
         editor.apply();
     }
 
-    public void removeFavourites() {
+    public final void removeFavourites() {
         check();
         for (String s : this.getFavouritesAsList()) {
             editor.remove(s);
@@ -38,27 +54,27 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     }
 
     @Override
-    public Map<String, ?> getFavouritesAsMap() {
+    public final  Map<String, ?> getFavouritesAsMap() {
         check();
         return sharedPref.getAll();
     }
 
     @Override
-    public List<String> getFavouritesAsList() {
+    public final List<String> getFavouritesAsList() {
         return new ArrayList<>(getFavouritesAsMap().keySet());
     }
 
-    public boolean isFavourite(final String... strings) {
+    public final boolean isFavourite(final String... strings) {
         return alreadyFavourite(buildKey(strings));
     }
 
-    protected void check() {
+    protected final void check() {
         if (sharedPref == null) {
             throw new UnsupportedOperationException("Set your context first");
         }
     }
 
-    protected boolean alreadyFavourite(final String string){
+    protected final boolean alreadyFavourite(final String string){
         return getFavouritesAsMap().containsKey(string);
     }
 

@@ -27,7 +27,7 @@ public class AchievementListController  {
      * Metodo che aggiorna la lista, scorrendo le informazioni salvate nelle SharedPreferences
      * @return la lista aggiornata
      */
-    public List<String> computeAchievement(){
+    public final List<String> computeAchievement(){
         for(String s : data.getAll().keySet()) {
             switch (s) {
                 case Constants.DELAY_ACH:

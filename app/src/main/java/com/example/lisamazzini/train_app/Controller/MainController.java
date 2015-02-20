@@ -21,38 +21,38 @@ public class MainController {
     private final List<String> favouriteStationIDs = new LinkedList<>();
     private final List<String> actualJourneyIds = new ArrayList<>();
 
-    public MainController(Context context) {
+    public MainController(final Context context) {
        favouriteJourneyController.setContext(context);
     }
 
-    public void setCurrentJourney(int position) {
+    public final void setCurrentJourney(final int position) {
         actualJourneyIds.clear();
         Collections.addAll(actualJourneyIds, favouriteStationIDs.get(position).split(Constants.SEPARATOR));
     }
 
-    public void removeFavourite() {
+    public final void removeFavourite() {
         favouriteJourneyController.removeFavourite(getActualDepartureId(), getActualArrivalId());
     }
 
-    public List<String> getFavouriteStationNames() {
+    public final List<String> getFavouriteStationNames() {
         return new LinkedList<>(favouriteStationNames);
     }
 
-    public String getActualDepartureId() {
+    public final String getActualDepartureId() {
         return actualJourneyIds.get(0);
     }
 
-    public String getActualArrivalId() {
+    public final String getActualArrivalId() {
         return actualJourneyIds.get(1);
     }
 
 
-    public void refreshLists() {
+    public final void refreshLists() {
         favouriteStationIDs.clear();
         favouriteStationNames.clear();
 
-        Map<String, String> favouriteJourneysMap;
-        for (String s : (favouriteJourneysMap = (Map<String, String>) favouriteJourneyController.getFavouritesAsMap()).keySet()) {
+        Map<String, String> favouriteJourneysMap = (Map<String, String>) favouriteJourneyController.getFavouritesAsMap();
+        for (String s : (favouriteJourneysMap.keySet())) {
             favouriteStationIDs.add(s);
         }
 
@@ -61,7 +61,7 @@ public class MainController {
         }
     }
 
-    public boolean isPresentAnyFavourite() {
+    public final boolean isPresentAnyFavourite() {
         return favouriteStationIDs.size() > 0;
     }
 }

@@ -24,17 +24,16 @@ import java.util.*;
 public class AchievementController {
 
     private final Map<String, IAchievement> achievements = new HashMap<>();
-    private Context context;
     private final SharedPreferences data;
     private final SharedPreferences.Editor editor;
 
 
     public AchievementController(final Context context){
-        this.context = context;
         achievements.put("Delay", new DelayAchievement1(context));
         achievements.put("Pin", new PinAchievement1(context));
         data = context.getSharedPreferences(Constants.ACH_STORE_FILE, Context.MODE_APPEND);
         editor = data.edit();
+        editor.apply();;
     }
 
     /**
@@ -43,7 +42,7 @@ public class AchievementController {
      * @param train treno da cui estrarre i dati
      * @throws AchievementException se un nuovo achievement viene sbloccato
      */
-    public void updateAchievements(final PlainSolution train) throws AchievementException {
+    public final void updateAchievements(final PlainSolution train) throws AchievementException {
         try {
             for (IAchievement a : achievements.values()) {
                 a.addData(train);

@@ -7,5 +7,5 @@ import com.example.lisamazzini.train_app.controller.favourites.IFavouriteControl
  */
 public interface FavouriteControllerStrategy {
 
-    public IFavouriteController getController();
+    IFavouriteController getController();
 }

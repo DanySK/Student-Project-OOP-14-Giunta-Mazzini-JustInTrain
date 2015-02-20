@@ -20,46 +20,42 @@ public class StationListController {
     private String trainCode;
     private List<Fermate> fermateList = new LinkedList<>();
 
-    public String[] getTrainDetails() {
-        return trainDetails;
+    public final String[] getTrainDetails() {
+        return trainDetails.clone();
     }
 
-    public void setTrainDetails(final String[] trainDetails) {
-        this.trainDetails = trainDetails;
+    public final void setTrainDetails(final String[] pTrainDetails) {
+        this.trainDetails = pTrainDetails;
     }
 
-    public String getTrainCode() {
+    public final String getTrainCode() {
         return trainCode;
     }
 
-    public void setTrainCode(final String trainCode) {
-        this.trainCode = trainCode;
+    public final void setTrainCode(final String pTrainCode) {
+        this.trainCode = pTrainCode;
     }
 
-    public String getTrainNumber() {
+    public final String getTrainNumber() {
         return trainNumber;
     }
 
-    public void setTrainNumber(final String trainNumber) {
-        this.trainNumber = trainNumber;
+    public final void setTrainNumber(final String pTrainNumber) {
+        this.trainNumber = pTrainNumber;
     }
-    public List<Fermate> getFermateList() {
+    public final List<Fermate> getFermateList() {
         return fermateList;
     }
 
-    public void setFermateList(final Treno trainResponse) {
+    public final void setFermateList(final Treno trainResponse) {
         fermateList.addAll(trainResponse.getFermate());
-    }
-
-    public StationListController(){
-
     }
 
     /**
      * Metodo che restituisce l'istanza della Request da passare allo SpiceManager
      * @return TrainDataRequest relativa al trainNumber corrente
      */
-    public TrainDataRequest getNumberRequest(){
+    public final TrainDataRequest getNumberRequest(){
         return new TrainDataRequest(this.trainNumber);
     }
 
@@ -74,7 +70,7 @@ public class StationListController {
      *
      * @throws java.lang.IllegalStateException se il codice non è stato settato
      */
-    public TrainRequest getNumberAndCodeRequest(){
+    public final TrainRequest getNumberAndCodeRequest(){
         if(this.trainCode == null){
             throw new IllegalStateException("Settare il codice della stazione di origine");
         }
@@ -87,7 +83,7 @@ public class StationListController {
      * @param data lista di stringhe con i dati
      * @return matrice con i dati suddivisi
      */
-    public String[][] computeMatrix(final List<String> data){
+    public final String[][] computeMatrix(final List<String> data){
         final String[][] dataMatrix = new String[data.size()][3];
         for (int i = 0 ; i < data.size(); i++){
             dataMatrix[i] = computeData(data.get(i));
@@ -102,7 +98,7 @@ public class StationListController {
      * @return l'array di stringhe
      */
 
-    public String[] computeChoices(final String[][] dataMatrix){
+    public final String[] computeChoices(final String[][] dataMatrix){
         String[] choices = new String[dataMatrix.length];
         for (int i = 0 ; i < dataMatrix.length; i++){
             choices[i] = computeSingleChoice(dataMatrix[i]);
@@ -116,8 +112,7 @@ public class StationListController {
      * @return stringa che descrive la scelta
      */
     private String computeSingleChoice(final String[] first){
-        final String result= "Treno " + first[0] + " in partenza da " + first[2];
-        return result;
+        return "Treno " + first[0] + " in partenza da " + first[2];
     }
 
     /**
@@ -125,11 +120,11 @@ public class StationListController {
      * @param train treno da analizzare
      * @return stringa che descrive l'andamento del treno
      */
-    public String getProgress(final Treno train){
+    public final String getProgress(final Treno train){
         return Utilities.getProgress(train);
     }
 
-    public String[] computeData(final String s) {
+    public final String[] computeData(final String s) {
         return Utilities.splitString(s);
     }
 }

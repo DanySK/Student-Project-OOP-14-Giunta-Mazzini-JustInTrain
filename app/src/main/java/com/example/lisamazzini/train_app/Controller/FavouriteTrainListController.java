@@ -7,14 +7,13 @@ import com.example.lisamazzini.train_app.model.Constants;
 import java.util.*;
 
 /**
- * Classe che funge da controller per il FavouriteTrainListFragment
+ * Classe che funge da controller per il FavouriteTrainListFragment.
  *
  * @author lisamazzini
  */
 public class FavouriteTrainListController {
 
     private final Iterator<String> iterator;
-
 
     private List<Treno> favouriteTrainsList = new LinkedList<>();
 
@@ -23,30 +22,30 @@ public class FavouriteTrainListController {
     }
 
     /**
-     * Metodo che stabilisce se ci sono altri preferiti
-     * @return
+     * Metodo che stabilisce se ci sono altri preferiti.
+     * @return true se ha un altro preferito, false altrimenti
      */
-    public boolean hasAnotherFavourite(){
+    public final boolean hasAnotherFavourite(){
         return this.iterator.hasNext();
     }
 
     /**
-     *
-     * @return
+     * Metodo che restituisce la lista dei treni preferiti.
+     * @return lista dei treni
      */
-    public List<Treno> getFavouriteTrainsList() {
+    public final List<Treno> getFavouriteTrainsList() {
         return favouriteTrainsList;
     }
 
     /**
-     *
-     * @param train
+     * Metodo che aggiunge un treno alla lista dei preferiti.
+     * @param train da aggiungere
      */
-    public void addToFavouriteTrainList(final Treno train){
+    public final void addToFavouriteTrainList(final Treno train){
         favouriteTrainsList.add(train);
     }
     /**
-     * Metodo che restituisce il preferito successivo
+     * Metodo che restituisce il preferito successivo.
      * @return il preferito
      */
     private String getFavourite(){
@@ -54,10 +53,10 @@ public class FavouriteTrainListController {
     }
 
     /**
-     *Meotodo che fa la richiesta a partire dal numero e id stazione di origine del treno.
+     * Metodo che fa la richiesta a partire dal numero e id stazione di origine del treno.
      * @return TrainRequest
      */
-    public TrainRequest getRequest() {
+    public final TrainRequest getRequest() {
         String[] favData = getFavourite().split(Constants.SEPARATOR);
         return new TrainRequest(favData[0], favData[1]);
     }
