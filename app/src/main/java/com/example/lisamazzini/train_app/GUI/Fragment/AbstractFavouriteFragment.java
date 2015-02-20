@@ -36,7 +36,7 @@ public abstract class AbstractFavouriteFragment extends AbstractRobospiceFragmen
         try {
             int id = item.getItemId();
             if (id == android.R.id.home) {
-                getActivity().finish();
+                getActivity().onBackPressed();
             } else if (id == R.id.action_prefere) {
                 Toast.makeText(getActivity().getApplicationContext(), "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show();
                 favouriteController.addFavourite(getFavouriteForAdding());

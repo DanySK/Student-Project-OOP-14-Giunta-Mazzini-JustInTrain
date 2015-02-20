@@ -163,7 +163,9 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
         });
 
         setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), false);
-        setTime(calendar.get(Calendar.HOUR_OF_DAY)-1, calendar.get(Calendar.MINUTE), false);
+        calendar.add(Calendar.HOUR_OF_DAY, -1);
+        // TODO se sono le 00:20 per esempio lui va alle 23:20 ma dello stesso giorno (dovrebbe essere di quello prima)
+        setTime(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
         actualTime = buildDateTime();
 
         journeySearchButton.setOnClickListener(new View.OnClickListener() {
@@ -373,10 +375,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
 

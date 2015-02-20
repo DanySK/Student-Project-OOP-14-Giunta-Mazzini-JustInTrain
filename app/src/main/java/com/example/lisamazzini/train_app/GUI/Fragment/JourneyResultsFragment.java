@@ -214,7 +214,7 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
     }
 
     public void resetGui() {
-        super.onStop();
+        super.resetRequests();
         controller.clearPartialPlainSolutionList();
         adapter.notifyDataSetChanged();
     }

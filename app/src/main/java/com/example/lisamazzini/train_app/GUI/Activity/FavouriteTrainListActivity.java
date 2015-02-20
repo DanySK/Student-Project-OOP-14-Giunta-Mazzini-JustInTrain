@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import com.example.lisamazzini.train_app.GUI.Fragment.FavouriteTrainListFragment;
 import com.example.lisamazzini.train_app.R;
 
-public class xFavouriteTrainListActivity extends AbstractBaseActivity {
+public class FavouriteTrainListActivity extends AbstractBaseActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
