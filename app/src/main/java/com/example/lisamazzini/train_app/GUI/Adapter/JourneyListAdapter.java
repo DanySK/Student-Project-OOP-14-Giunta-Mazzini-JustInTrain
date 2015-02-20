@@ -22,23 +22,31 @@ import com.example.lisamazzini.train_app.R;
 
 import java.util.List;
 
-public class JourneyListAdapter extends RecyclerView.Adapter<JourneyListAdapter.JourneyViewHolder> implements IAdapter<JourneyListAdapter.JourneyViewHolder>{
+/**
+ * Adapter per una lista di soluzioni.
+ *
+ * @author albertogiunta
+ */
+public class JourneyListAdapter extends RecyclerView.Adapter<JourneyListAdapter.JourneyViewHolder> implements IAdapter<JourneyListAdapter.JourneyViewHolder> {
 
     private final List<PlainSolution> journeyList;
-    private AchievementController achievementController;
 
-    public JourneyListAdapter(List<PlainSolution> list) {
+    /**
+     * Costruttore.
+     * @param list la lista di plain solution da mostrare a video
+     */
+    public JourneyListAdapter(final List<PlainSolution> list) {
         this.journeyList = list;
     }
 
     @Override
-    public JourneyViewHolder onCreateViewHolder(ViewGroup viewGroup, int index) {
-        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_journey, viewGroup, false);
+    public final JourneyViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int index) {
+        final View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_journey, viewGroup, false);
         return new JourneyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(JourneyViewHolder journeyViewHolder, int position) {
+    public final void onBindViewHolder(final JourneyViewHolder journeyViewHolder, final int position) {
         final PlainSolution journeyTrain = journeyList.get(position);
         journeyViewHolder.category.setText(journeyTrain.getCategoria());
         journeyViewHolder.number.setText(journeyTrain.getNumeroTreno());
@@ -52,15 +60,15 @@ public class JourneyListAdapter extends RecyclerView.Adapter<JourneyListAdapter.
         journeyViewHolder.pinButton.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 final Intent intent = new Intent(v.getContext(), NotificationService.class);
                 final Context ctx = v.getContext();
+                final AchievementController achievementController = new AchievementController(ctx);
                 Toast.makeText(ctx, "Notifica impostata", Toast.LENGTH_SHORT).show();
                 intent.putExtra(Constants.TRAIN_N_EXTRA, journeyTrain.getNumeroTreno());
                 intent.putExtra(Constants.ID_ORIGIN_EXTRA, journeyTrain.getIDorigine());
                 intent.putExtra(Constants.DEPARTURE_TIME_EXTRA, journeyTrain.getOrarioPartenza());
                 ctx.startService(intent);
-                achievementController = new AchievementController(ctx);
                 try {
                     achievementController.updateAchievements(journeyTrain);
                 } catch (AchievementException e) {
@@ -76,29 +84,37 @@ public class JourneyListAdapter extends RecyclerView.Adapter<JourneyListAdapter.
     }
 
     @Override
-    public int getItemCount() {
+    public final int getItemCount() {
         return journeyList.size();
     }
 
-
+    /**
+     * Viewholder per una soluzione.
+     *
+     * @author albertogiunta
+     */
     public static class JourneyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        protected TextView category;
-        protected TextView number;
-        protected TextView duration;
-        protected TextView departureStation;
-        protected TextView departureTime;
-        protected TextView arrivalStation;
-        protected TextView arrivalTime;
-        protected TextView delay;
-        protected ImageButton pinButton;
-        protected String stationCode;
-        protected View divider;
+        private final TextView category;
+        private final TextView number;
+        private final TextView duration;
+        private final TextView departureStation;
+        private final TextView departureTime;
+        private final TextView arrivalStation;
+        private final TextView arrivalTime;
+        private final TextView delay;
+        private final ImageButton pinButton;
+        private final View divider;
+        private String stationCode;
 
-        public JourneyViewHolder(View v) {
+        /**
+         * Costruttore.
+         * @param v la view da costruire
+         */
+        public JourneyViewHolder(final View v) {
             super(v);
             v.setOnClickListener(this);
-            category = (TextView)v.findViewById(R.id.tTrainCategory);
+            category = (TextView) v.findViewById(R.id.tTrainCategory);
             number = (TextView) v.findViewById(R.id.tTrainNumber);
             duration = (TextView) v.findViewById(R.id.tDuration);
             departureStation = (TextView) v.findViewById(R.id.tDepartureStation);
@@ -106,14 +122,14 @@ public class JourneyListAdapter extends RecyclerView.Adapter<JourneyListAdapter.
             arrivalStation = (TextView) v.findViewById(R.id.tArrivalStation);
             arrivalTime = (TextView) v.findViewById(R.id.tArrivalTime);
             delay = (TextView) v.findViewById(R.id.tTimeDifference);
-            pinButton = (ImageButton)v.findViewById(R.id.bOptions);
+            pinButton = (ImageButton) v.findViewById(R.id.bOptions);
+            divider = (View) v.findViewById(R.id.iDivider);
             stationCode = "";
-            divider = (View)v.findViewById(R.id.iDivider);
         }
 
         @Override
-        public void onClick(View v) {
-            Intent i = new Intent(v.getContext(), StationListActivity.class);
+        public final void onClick(final View v) {
+            final Intent i = new Intent(v.getContext(), StationListActivity.class);
             i.putExtra(Constants.TRAIN_N_EXTRA, this.number.getText().toString());
             i.putExtra(Constants.ID_ORIGIN_EXTRA, this.stationCode);
             v.getContext().startActivity(i);

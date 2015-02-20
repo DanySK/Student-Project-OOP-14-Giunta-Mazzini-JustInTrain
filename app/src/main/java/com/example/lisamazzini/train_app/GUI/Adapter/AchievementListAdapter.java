@@ -11,36 +11,55 @@ import com.example.lisamazzini.train_app.R;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AchievementListAdapter  extends RecyclerView.Adapter<AchievementListAdapter.AchievementViewHolder> implements IAdapter<AchievementListAdapter.AchievementViewHolder>{
+/**
+ * Adapter per la lista di achievements.
+ *
+ * @author lisamazzini
+ */
+public class AchievementListAdapter  extends RecyclerView.Adapter<AchievementListAdapter.AchievementViewHolder> implements IAdapter<AchievementListAdapter.AchievementViewHolder> {
 
-    private List<String> achievements = new LinkedList<>();
+    private final List<String> achievements = new LinkedList<>();
 
-    public AchievementListAdapter(final List<String> achievements){
-        this.achievements = achievements;
+    /**
+     * Costruttore.
+     * @param pAchievements lista di achievements
+     */
+    public AchievementListAdapter(final List<String> pAchievements) {
+        this.achievements.addAll(pAchievements);
     }
 
     @Override
-    public AchievementViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_achievement, parent, false);
+    public final AchievementViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+        final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_achievement, parent, false);
         return new AchievementViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final AchievementViewHolder holder, final int position) {
+    public final void onBindViewHolder(final AchievementViewHolder holder, final int position) {
         holder.text.setText(achievements.get(position));
     }
 
     @Override
-    public int getItemCount() {
+    public final int getItemCount() {
         return achievements.size();
     }
 
-    public static class AchievementViewHolder extends RecyclerView.ViewHolder{
-        protected TextView text;
 
-        public AchievementViewHolder(final View v){
+    /**
+     * ViewHolder di achievements.
+     *
+     * @author albertogiunta
+     */
+    public static class AchievementViewHolder extends RecyclerView.ViewHolder {
+        private final TextView text;
+
+        /**
+         * Viewholder per gli elementi della view di una lista di achievemnents.
+         * @param v la view da costruire
+         */
+        public AchievementViewHolder(final View v) {
             super(v);
-            text = (TextView)v.findViewById(R.id.ach_text);
+            text = (TextView) v.findViewById(R.id.ach_text);
         }
     }
 }

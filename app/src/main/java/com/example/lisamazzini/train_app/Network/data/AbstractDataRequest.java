@@ -55,7 +55,7 @@ public abstract class AbstractDataRequest extends SpiceRequest<ListWrapper> {
      * quindi il numero inserito non corrisponde a nessun treno (idem per stazioni).
      *
      * @param result List<String> contenenete i risultati della loadDataFromNetwork
-     * @throws com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException InvalidTrainNumberException
+     * @throws com.example.lisamazzini.train_app.exceptions.InvalidTrainNumberException InvalidTrainNumberException
      */
     protected abstract void check(List<String> result) throws InvalidInputException;
 

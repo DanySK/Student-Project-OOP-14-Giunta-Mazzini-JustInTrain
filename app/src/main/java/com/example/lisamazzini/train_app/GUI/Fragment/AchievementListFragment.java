@@ -6,9 +6,10 @@ import android.support.v7.widget.*;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.*;
-import com.example.lisamazzini.train_app.R;
+
 import com.example.lisamazzini.train_app.controller.AchievementListController;
 import com.example.lisamazzini.train_app.gui.adapter.AchievementListAdapter;
+import com.example.lisamazzini.train_app.R;
 
 
 public class AchievementListFragment extends Fragment implements IBaseFragment{

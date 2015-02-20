@@ -14,35 +14,44 @@ import com.example.lisamazzini.train_app.R;
 
 import java.util.List;
 
-public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTrainListAdapter.Holder> implements IAdapter<FavouriteTrainListAdapter.Holder> {
+/**
+ * Adapter per una lista di treni preferiti.
+ *
+ * @author lisamazzini
+ */
+public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTrainListAdapter.FavouriteTrainsViewHolder> implements IAdapter<FavouriteTrainListAdapter.FavouriteTrainsViewHolder> {
 
-    private List<Treno> list;
+    private final List<Treno> list;
 
-    public FavouriteTrainListAdapter(final List<Treno> list){
-        this.list = list;
+    /**
+     * Costruttore.
+     * @param pList la lista di elementi da mostrare a video
+     */
+    public FavouriteTrainListAdapter(final List<Treno> pList) {
+        this.list = pList;
     }
 
     @Override
-    public Holder onCreateViewHolder(final ViewGroup viewGroup, final int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View itemView = inflater.inflate(R.layout.view_favourite_train, viewGroup, false);
-        return new Holder(itemView);
+    public final FavouriteTrainsViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int viewType) {
+        final LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+        final View itemView = inflater.inflate(R.layout.view_favourite_train, viewGroup, false);
+        return new FavouriteTrainsViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final Holder holder, final int position) {
+    public final void onBindViewHolder(final FavouriteTrainsViewHolder holder, final int position) {
 
         final Treno train = list.get(position);
         holder.trainCategory.setText(train.getCategoria());
-        holder.trainNumber.setText("" + train.getNumeroTreno());
+        holder.trainNumber.setText(train.getNumeroTreno().toString());
 
-        if(train.getFermate().size() == 0  || !train.getSubTitle().equals("")){
+        if (train.getFermate().isEmpty()  || !train.getSubTitle().equals("")) {
             holder.extra.setText(train.getSubTitle());
-        }else{
-            if (train.getRitardo() > 0) {
+        } else {
+            if (train.getRitardo() > Constants.ON_TIME) {
                 holder.delay.setText("  •  " + train.getRitardo() + "'  RITARDO");
-            } else if (train.getRitardo() < 0) {
-                holder.delay.setText("  •  " + train.getRitardo()*(-1) + "'  ANTICIPO");
+            } else if (train.getRitardo() < Constants.ON_TIME) {
+                holder.delay.setText("  •  " + train.getRitardo() * (-1) + "'  ANTICIPO");
             } else {
                 holder.delay.setText("  • IN ORARIO");
             }
@@ -53,22 +62,28 @@ public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTra
     }
 
     @Override
-    public int getItemCount() {
+    public final int getItemCount() {
         return list.size();
     }
 
-    public static class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    /**
+     *
+     */
+    public static class FavouriteTrainsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        protected TextView trainCategory;
-        protected TextView trainNumber;
-        protected TextView delay;
-        protected TextView lastSeemTime;
-        protected TextView lastSeenStation;
-        protected TextView progress;
-        protected TextView extra;
-        protected String stationCode;
+        private final TextView trainCategory;
+        private final TextView trainNumber;
+        private final TextView delay;
+        private final TextView lastSeemTime;
+        private final TextView lastSeenStation;
+        private final TextView extra;
+        private String stationCode;
 
-        public Holder(final View itemView) {
+        /**
+         * Costruttore.
+         * @param itemView la view da costruire
+         */
+        public FavouriteTrainsViewHolder(final View itemView) {
 
             super(itemView);
             itemView.setOnClickListener(this);
@@ -77,13 +92,12 @@ public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTra
             delay = (TextView) itemView.findViewById(R.id.tFavDelay);
             lastSeemTime = (TextView) itemView.findViewById(R.id.tFavLastSeenTime);
             lastSeenStation = (TextView) itemView.findViewById(R.id.tFavLastSeenStation);
-            progress = (TextView) itemView.findViewById(R.id.tFavProgress);
             extra = (TextView) itemView.findViewById(R.id.tFavExtraMessage);
         }
 
         @Override
-        public void onClick(final View v) {
-            Intent i = new Intent(v.getContext(), StationListActivity.class);
+        public final void onClick(final View v) {
+            final Intent i = new Intent(v.getContext(), StationListActivity.class);
             i.putExtra(Constants.ID_ORIGIN_EXTRA, this.stationCode);
             i.putExtra(Constants.TRAIN_N_EXTRA, this.trainNumber.getText().toString());
             v.getContext().startActivity(i);

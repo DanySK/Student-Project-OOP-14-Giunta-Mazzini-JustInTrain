@@ -13,35 +13,53 @@ import com.example.lisamazzini.train_app.gui.activity.AchievementListActivity;
 import com.example.lisamazzini.train_app.gui.activity.FavouriteTrainListActivity;
 import com.example.lisamazzini.train_app.R;
 
-public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.DrawerListViewHolder> implements IAdapter<DrawerListAdapter.DrawerListViewHolder>{
 
-    private final String[] TITLES;
+/**
+ * Adapter per la lista di opzioni del navigation drawer.
+ *
+ * @author albertogiunta
+ */
+public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.DrawerListViewHolder> implements IAdapter<DrawerListAdapter.DrawerListViewHolder> {
 
+    private final String[] titles;
 
-    public DrawerListAdapter(final String[] TITLES) {
-        this.TITLES = TITLES;
+    /**
+     * Costruttore.
+     * @param pTitles l'array di stringhe corrispondenti ognuna a un elemento della lista del navigation drawer.
+     */
+    public DrawerListAdapter(final String[] pTitles) {
+          this.titles = pTitles;
     }
 
     @Override
-    public DrawerListAdapter.DrawerListViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_drawer_list_item, parent, false);
+    public final DrawerListAdapter.DrawerListViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+        final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_drawer_list_item, parent, false);
         return new DrawerListViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final DrawerListAdapter.DrawerListViewHolder holder, final int position) {
-        holder.navItem.setText(TITLES[position]);
+    public final void onBindViewHolder(final DrawerListAdapter.DrawerListViewHolder holder, final int position) {
+        holder.navItem.setText(titles[position]);
     }
 
     @Override
-    public int getItemCount() {
-        return TITLES.length;
+    public final int getItemCount() {
+        return titles.length;
     }
 
-    public class DrawerListViewHolder  extends RecyclerView.ViewHolder implements View.OnClickListener{
+    /**
+     * Viewholder di stringhe.
+     *
+     * @author albertogiunta
+     */
+    public class DrawerListViewHolder  extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        protected TextView navItem;
+        private final TextView navItem;
 
+        /**
+         * Costruttore.
+         * @param v la view da costruire
+         */
         public DrawerListViewHolder(final View v) {
             super(v);
             v.setClickable(true);
@@ -50,23 +68,22 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Dr
         }
 
         @Override
-        public void onClick(final View v) {
+        public final void onClick(final View v) {
             switch (getPosition()) {
                 case 0 :
-                    Intent i = new Intent(v.getContext(), FavouriteTrainListActivity.class);
+                    final Intent i = new Intent(v.getContext(), FavouriteTrainListActivity.class);
                     v.getContext().startActivity(i);
                     break;
-
                 case 1:
-                    IFavouriteController fc = FavouriteTrainController.getInstance();
+                    final IFavouriteController fc = FavouriteTrainController.getInstance();
                     fc.setContext(v.getContext());
                     fc.removeFavourites();
                     break;
-
                 case 2:
-                    Intent intent = new Intent(v.getContext(), AchievementListActivity.class);
+                    final Intent intent = new Intent(v.getContext(), AchievementListActivity.class);
                     v.getContext().startActivity(intent);
-
+                default:
+                    break;
             }
         }
     }

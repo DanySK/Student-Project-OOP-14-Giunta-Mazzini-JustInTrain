@@ -25,7 +25,7 @@
             android:layout_height="match_parent" >
 
             <fragment
-                android:name="com.example.lisamazzini.train_app.gui.Fragment.JourneyResultsFragment"
+                android:name="com.example.lisamazzini.train_app.gui.fragment.JourneyResultsFragment"
                 android:id="@+id/journeyResultsFragment"
 
                 android:layout_width="fill_parent"
@@ -39,7 +39,7 @@
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:name="com.example.lisamazzini.train_app.gui.Fragment.NavigationDrawerFragment"
+            android:name="com.example.lisamazzini.train_app.gui.fragment.NavigationDrawerFragment"
             tools:layout="@layout/fragment_navigation_drawer" >
         </fragment>
 
