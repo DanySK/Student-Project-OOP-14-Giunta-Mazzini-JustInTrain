@@ -1,6 +1,6 @@
 package com.example.lisamazzini.train_app.network.total;
 
-import com.example.lisamazzini.train_app.Exceptions.NoSolutionsAvailableException;
+import com.example.lisamazzini.train_app.exceptions.NoSolutionsAvailableException;
 import com.example.lisamazzini.train_app.model.tragitto.Tragitto;
 import com.example.lisamazzini.train_app.network.JourneyRestClient;
 import com.octo.android.robospice.request.SpiceRequest;

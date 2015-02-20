@@ -3,7 +3,7 @@ package com.example.lisamazzini.train_app.achievement;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.lisamazzini.train_app.Exceptions.AchievementException;
+import com.example.lisamazzini.train_app.exceptions.AchievementException;
 import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 
@@ -12,7 +12,7 @@ import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
  * Utilizza delle SharedPreferences per leggere e aggiornare i dati relativi all'achievement e
  * un oggetto Strategy per identificare come aggiornare i dati e quando sbloccare l'achievement.
  *
- * @author Lisa Mazzini
+ * @author lisamazzini
  */
 
 public class BasicAchievement implements IAchievement {
@@ -23,29 +23,23 @@ public class BasicAchievement implements IAchievement {
     private final SharedPreferences.Editor editor;
 
     /**
-     * Costruttore
+     * Costruttore.
      *
-     * @param value valore da aggiornare
-     * @param strategy oggetto Strategy che ne descrive il funzionamento
+     * @param pValue valore da aggiornare
+     * @param pStrategy oggetto Strategy che ne descrive il funzionamento
      * @param context il Context necessario per prendere le SharedPreferences
      */
-    public BasicAchievement(final Long value, final Strategy strategy, final Context context){
-        this.value = value;
-        this.strategy = strategy;
+    public BasicAchievement(final Long pValue, final Strategy pStrategy, final Context context) {
+        this.value = pValue;
+        this.strategy = pStrategy;
         data = context.getSharedPreferences(Constants.ACH_DATA_FILE, Context.MODE_APPEND);
         editor = data.edit();
         editor.apply();
     }
 
-    /**
-     * Metodo che aggiorna i dati dell'achievement
-     *
-     *
-     * @param train il treno da cui prendere i dati
-     * @throws AchievementException se si sblocca un achievement
-     */
+
     @Override
-    public void addData(final PlainSolution train) throws AchievementException {
+    public final void addData(final PlainSolution train) throws AchievementException {
 
         // prendo il valore dal file
         this.value = data.getLong(strategy.getKey(), 0L);

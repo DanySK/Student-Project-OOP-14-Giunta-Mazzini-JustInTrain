@@ -6,9 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
-import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
-import com.example.lisamazzini.train_app.Exceptions.NoSolutionsAvailableException;
+import com.example.lisamazzini.train_app.exceptions.InvalidStationException;
+import com.example.lisamazzini.train_app.exceptions.InvalidTrainNumberException;
+import com.example.lisamazzini.train_app.exceptions.NoSolutionsAvailableException;
 import com.example.lisamazzini.train_app.gui.activity.MainActivity;
 import com.example.lisamazzini.train_app.model.Constants;
 import com.octo.android.robospice.persistence.exception.SpiceException;

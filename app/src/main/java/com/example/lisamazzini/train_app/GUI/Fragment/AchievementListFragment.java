@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.gui.Fragment;
+package com.example.lisamazzini.train_app.gui.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.*;
@@ -6,10 +6,9 @@ import android.support.v7.widget.*;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.*;
-
-import com.example.lisamazzini.train_app.Controller.AchievementListController;
-import com.example.lisamazzini.train_app.gui.Adapter.AchievementListAdapter;
 import com.example.lisamazzini.train_app.R;
+import com.example.lisamazzini.train_app.controller.AchievementListController;
+import com.example.lisamazzini.train_app.gui.adapter.AchievementListAdapter;
 
 
 public class AchievementListFragment extends Fragment implements IBaseFragment{

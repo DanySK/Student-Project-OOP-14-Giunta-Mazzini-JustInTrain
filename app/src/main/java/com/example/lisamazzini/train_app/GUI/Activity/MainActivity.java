@@ -11,9 +11,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 
-import com.example.lisamazzini.train_app.Controller.MainController;
-import com.example.lisamazzini.train_app.gui.Fragment.JourneyResultsFragment;
-import com.example.lisamazzini.train_app.gui.Fragment.NavigationDrawerFragment;
+import com.example.lisamazzini.train_app.controller.MainController;
+import com.example.lisamazzini.train_app.gui.fragment.JourneyResultsFragment;
+import com.example.lisamazzini.train_app.gui.fragment.NavigationDrawerFragment;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.model.Constants;
 

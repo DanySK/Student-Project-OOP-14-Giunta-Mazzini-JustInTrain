@@ -2,7 +2,7 @@ package com.example.lisamazzini.train_app.gui.activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
-import com.example.lisamazzini.train_app.gui.Fragment.FavouriteTrainListFragment;
+import com.example.lisamazzini.train_app.gui.fragment.FavouriteTrainListFragment;
 import com.example.lisamazzini.train_app.R;
 
 public class FavouriteTrainListActivity extends AbstractBaseActivity {

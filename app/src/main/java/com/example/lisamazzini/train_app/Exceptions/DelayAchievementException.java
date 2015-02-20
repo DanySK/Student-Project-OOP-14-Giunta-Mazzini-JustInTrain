@@ -1,4 +1,5 @@
-package com.example.lisamazzini.train_app.Exceptions;
+package com.example.lisamazzini.train_app.exceptions;
+
 
 /**
  * Exception che rappresenta

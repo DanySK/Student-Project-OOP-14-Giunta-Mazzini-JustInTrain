@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Exceptions;
+package com.example.lisamazzini.train_app.exceptions;
 
 /**
  * Exception throwed when no exception is found

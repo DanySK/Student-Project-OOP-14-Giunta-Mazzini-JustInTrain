@@ -1,6 +1,6 @@
 package com.example.lisamazzini.train_app.network.data;
 
-import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
+import com.example.lisamazzini.train_app.exceptions.InvalidStationException;
 import com.example.lisamazzini.train_app.model.treno.ListWrapper;
 import com.example.lisamazzini.train_app.Utilities;
 

@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Exceptions;
+package com.example.lisamazzini.train_app.exceptions;
 
 /**
  * Exception che rappresenta l'inserimento di una stazione errata

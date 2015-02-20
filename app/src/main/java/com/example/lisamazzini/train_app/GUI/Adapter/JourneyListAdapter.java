@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.gui.Adapter;
+package com.example.lisamazzini.train_app.gui.adapter;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -12,8 +12,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lisamazzini.train_app.Controller.AchievementController;
-import com.example.lisamazzini.train_app.Exceptions.AchievementException;
+import com.example.lisamazzini.train_app.controller.AchievementController;
+import com.example.lisamazzini.train_app.exceptions.AchievementException;
 import com.example.lisamazzini.train_app.gui.activity.StationListActivity;
 import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;

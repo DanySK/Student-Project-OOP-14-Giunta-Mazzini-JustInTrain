@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.gui.Fragment;
+package com.example.lisamazzini.train_app.gui.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

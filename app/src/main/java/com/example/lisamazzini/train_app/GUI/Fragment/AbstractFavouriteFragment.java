@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.gui.Fragment;
+package com.example.lisamazzini.train_app.gui.fragment;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -6,9 +6,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteControllerStrategy;
-import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
-import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
+import com.example.lisamazzini.train_app.controller.favourites.FavouriteControllerStrategy;
+import com.example.lisamazzini.train_app.controller.favourites.IFavouriteController;
+import com.example.lisamazzini.train_app.exceptions.FavouriteException;
 import com.example.lisamazzini.train_app.R;
 
 public abstract class AbstractFavouriteFragment extends AbstractRobospiceFragment implements IFavouriteFragment {

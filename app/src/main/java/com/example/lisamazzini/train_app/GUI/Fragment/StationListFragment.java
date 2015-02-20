@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.gui.Fragment;
+package com.example.lisamazzini.train_app.gui.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,12 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteControllerStrategy;
+import com.example.lisamazzini.train_app.controller.StationListController;
+import com.example.lisamazzini.train_app.controller.favourites.FavouriteControllerStrategy;
+import com.example.lisamazzini.train_app.controller.favourites.FavouriteTrainController;
+import com.example.lisamazzini.train_app.controller.favourites.IFavouriteController;
+import com.example.lisamazzini.train_app.gui.adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.network.AbstractListener;
-import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
-import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
-import com.example.lisamazzini.train_app.Controller.StationListController;
-import com.example.lisamazzini.train_app.gui.Adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.model.treno.ListWrapper;
 import com.example.lisamazzini.train_app.model.treno.Treno;
 import com.example.lisamazzini.train_app.R;

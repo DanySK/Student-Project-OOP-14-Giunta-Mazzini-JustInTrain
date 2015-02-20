@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.gui.Fragment;
+package com.example.lisamazzini.train_app.gui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,11 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.lisamazzini.train_app.controller.FavouriteTrainListController;
+import com.example.lisamazzini.train_app.controller.favourites.FavouriteTrainController;
+import com.example.lisamazzini.train_app.controller.favourites.IFavouriteController;
+import com.example.lisamazzini.train_app.gui.adapter.FavouriteTrainListAdapter;
 import com.example.lisamazzini.train_app.network.AbstractListener;
-import com.example.lisamazzini.train_app.Controller.FavouriteTrainListController;
-import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
-import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
-import com.example.lisamazzini.train_app.gui.Adapter.FavouriteTrainListAdapter;
 import com.example.lisamazzini.train_app.model.treno.Treno;
 import com.example.lisamazzini.train_app.R;
 import com.octo.android.robospice.SpiceManager;

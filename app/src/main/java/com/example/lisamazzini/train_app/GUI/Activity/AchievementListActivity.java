@@ -3,7 +3,7 @@ package com.example.lisamazzini.train_app.gui.activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
-import com.example.lisamazzini.train_app.gui.Fragment.AchievementListFragment;
+import com.example.lisamazzini.train_app.gui.fragment.AchievementListFragment;
 import com.example.lisamazzini.train_app.R;
 
 public class AchievementListActivity extends AbstractBaseActivity {

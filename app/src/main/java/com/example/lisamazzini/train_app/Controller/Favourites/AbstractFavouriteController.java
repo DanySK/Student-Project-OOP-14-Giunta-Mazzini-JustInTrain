@@ -1,10 +1,9 @@
-package com.example.lisamazzini.train_app.Controller.Favourites;
+package com.example.lisamazzini.train_app.controller.favourites;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
-import com.example.lisamazzini.train_app.Exceptions.FavouriteException;
+import com.example.lisamazzini.train_app.exceptions.FavouriteException;
 
 import java.util.ArrayList;
 import java.util.List;

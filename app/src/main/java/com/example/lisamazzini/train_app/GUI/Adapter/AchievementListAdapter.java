@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.gui.Adapter;
+package com.example.lisamazzini.train_app.gui.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

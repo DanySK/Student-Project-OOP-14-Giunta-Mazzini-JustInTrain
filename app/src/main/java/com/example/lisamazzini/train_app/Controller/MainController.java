@@ -1,10 +1,10 @@
-package com.example.lisamazzini.train_app.Controller;
+package com.example.lisamazzini.train_app.controller;
 
 
 import android.content.Context;
 
-import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
-import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
+import com.example.lisamazzini.train_app.controller.favourites.FavouriteJourneyController;
+import com.example.lisamazzini.train_app.controller.favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.model.Constants;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Controller.Favourites;
+package com.example.lisamazzini.train_app.controller.favourites;
 
 
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.gui.Adapter;
+package com.example.lisamazzini.train_app.gui.adapter;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
-import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
+import com.example.lisamazzini.train_app.controller.favourites.FavouriteTrainController;
+import com.example.lisamazzini.train_app.controller.favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.gui.activity.AchievementListActivity;
 import com.example.lisamazzini.train_app.gui.activity.FavouriteTrainListActivity;
 import com.example.lisamazzini.train_app.R;

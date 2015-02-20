@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
 
-import com.example.lisamazzini.train_app.gui.Fragment.StationListFragment;
+import com.example.lisamazzini.train_app.gui.fragment.StationListFragment;
 import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.R;
 

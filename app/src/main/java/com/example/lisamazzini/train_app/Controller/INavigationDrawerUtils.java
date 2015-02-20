@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Controller;
+package com.example.lisamazzini.train_app.controller;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
-import com.example.lisamazzini.train_app.gui.Fragment.NavigationDrawerFragment;
+import com.example.lisamazzini.train_app.gui.fragment.NavigationDrawerFragment;
 
 public interface INavigationDrawerUtils extends NavigationDrawerFragment.NavigationDrawerCallbacks, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 

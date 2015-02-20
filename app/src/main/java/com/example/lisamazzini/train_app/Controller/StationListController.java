@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.Controller;
+package com.example.lisamazzini.train_app.controller;
 
 import com.example.lisamazzini.train_app.model.treno.Fermate;
 import com.example.lisamazzini.train_app.network.data.TrainDataRequest;
