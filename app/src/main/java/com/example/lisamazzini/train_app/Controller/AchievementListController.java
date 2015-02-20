@@ -16,8 +16,8 @@ import java.util.List;
  * @author lisamazzini
  */
 public class AchievementListController  {
-    private SharedPreferences data;
-    private List<String> achievements = new LinkedList<>();
+    private final SharedPreferences data;
+    private final List<String> achievements = new LinkedList<>();
 
     /**
      * Costruttore.
@@ -32,7 +32,7 @@ public class AchievementListController  {
      * @return la lista aggiornata
      */
     public final List<String> computeAchievement() {
-        for (String s : data.getAll().keySet()) {
+        for (final String s : data.getAll().keySet()) {
             switch (s) {
                 case Constants.DELAY_ACH:
                     achievements.add("Ritardatario! (60 minuti)");

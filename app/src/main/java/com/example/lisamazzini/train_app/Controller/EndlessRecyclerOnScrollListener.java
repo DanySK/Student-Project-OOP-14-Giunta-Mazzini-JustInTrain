@@ -7,13 +7,13 @@ import android.support.v7.widget.RecyclerView;
 public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
 
     private static final int N_SOL_LOAD = 5;
-    private int previousTotal = 0; // The total number of items in the dataset after the last load
+    private int previousTotal; // The total number of items in the dataset after the last load
     private boolean loading = true; // True if we are still waiting for the last set of data to load.
 
 
     private int currentPage = 1;
 
-    private LinearLayoutManager mLinearLayoutManager;
+    private final LinearLayoutManager mLinearLayoutManager;
 
     /**
      * Costruttore.
@@ -27,10 +27,10 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
     public final void onScrolled(final RecyclerView recyclerView, final int dx, final int dy) {
         super.onScrolled(recyclerView, dx, dy);
 
-        int visibleThreshold = N_SOL_LOAD; // The minimum amount of items to have below your current scroll position before loading more.
-        int visibleItemCount = recyclerView.getChildCount();
-        int totalItemCount = mLinearLayoutManager.getItemCount();
-        int firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+        final int visibleThreshold = N_SOL_LOAD; // The minimum amount of items to have below your current scroll position before loading more.
+        final int visibleItemCount = recyclerView.getChildCount();
+        final int totalItemCount = mLinearLayoutManager.getItemCount();
+        final int firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
 
         if (loading && totalItemCount > previousTotal) {
             loading = false;

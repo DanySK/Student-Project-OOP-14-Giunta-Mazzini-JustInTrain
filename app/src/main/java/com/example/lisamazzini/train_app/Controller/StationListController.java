@@ -6,6 +6,7 @@ import com.example.lisamazzini.train_app.network.total.TrainRequest;
 import com.example.lisamazzini.train_app.model.treno.Treno;
 import com.example.lisamazzini.train_app.Utilities;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,35 +21,68 @@ public class StationListController {
     private String trainNumber;
     private String[] trainDetails;
     private String trainCode;
-    private List<Fermate> fermateList = new LinkedList<>();
+    private final List<Fermate> fermateList = new LinkedList<>();
 
+    /**
+     * Getter per i dettagli del treno.
+     * @return array con i dettagli del treno
+     */
     public final String[] getTrainDetails() {
-        return trainDetails.clone();
+        return Arrays.copyOf(trainDetails, trainDetails.length);
     }
 
+    /**
+     * Setter per i dettagli del treno.
+     * @param pTrainDetails da settare
+     */
     public final void setTrainDetails(final String[] pTrainDetails) {
-        this.trainDetails = pTrainDetails;
+        this.trainDetails = pTrainDetails.clone();
     }
 
+    /**
+     * Getter per il codice della stazione di origine del treno.
+     * @return numero del treno
+     */
     public final String getTrainCode() {
         return trainCode;
     }
 
+    /**
+     * Setter per il codice della stazione di origine del treno.
+     * @param pTrainCode da settare
+     */
     public final void setTrainCode(final String pTrainCode) {
         this.trainCode = pTrainCode;
     }
 
+    /**
+     * Getter per il numero del treno.
+     * @return numero del treno
+     */
     public final String getTrainNumber() {
         return trainNumber;
     }
 
+    /**
+     * Setter per il numero del treno.
+     * @param pTrainNumber da settare
+     */
     public final void setTrainNumber(final String pTrainNumber) {
         this.trainNumber = pTrainNumber;
     }
+
+    /**
+     * Getter per la lista di Fermate.
+     * @return la lista di Fermate
+     */
     public final List<Fermate> getFermateList() {
         return fermateList;
     }
 
+    /**
+     * Setter per la lista di Fermate.
+     * @param trainResponse treno da cui prendere la lista di fermate
+     */
     public final void setFermateList(final Treno trainResponse) {
         fermateList.addAll(trainResponse.getFermate());
     }
@@ -62,15 +96,9 @@ public class StationListController {
     }
 
     /**
-     * Metodo che setta il codice della stazione di origine del treno corrente.
-     * @param code codice della stazione di origine
-     */
-
-    /**
      * Metodo che restituisce l'istanza della Request da passare allo SpiceManager.
      * @return TrainRequest relativa al numero e al codice di origine
      *
-     * @throws java.lang.IllegalStateException se il codice non è stato settato
      */
     public final TrainRequest getNumberAndCodeRequest() {
         if (this.trainCode == null) {
@@ -126,6 +154,11 @@ public class StationListController {
         return Utilities.getProgress(train);
     }
 
+    /**
+     * Metodo che elabora i dettagli di un treno spezzando una stringa in un array.
+     * @param s stringa con i dati
+     * @return array con i dati
+     */
     public final String[] computeData(final String s) {
         return Utilities.splitString(s);
     }

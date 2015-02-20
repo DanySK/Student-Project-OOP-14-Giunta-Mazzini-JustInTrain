@@ -16,6 +16,10 @@ public final class FavouriteTrainController extends AbstractFavouriteController 
 
     private FavouriteTrainController() { }
 
+    /**
+     * Metodo che restituisce un'istanza del controller.
+     * @return IFavouriteController
+     */
     public static IFavouriteController getInstance() {
         return ADDER;
     }
@@ -23,14 +27,15 @@ public final class FavouriteTrainController extends AbstractFavouriteController 
     @Override
     public void addFavourite(final String... strings) throws FavouriteException {
         check();
-        if (!alreadyFavourite(buildKey(strings))) {
+        if (alreadyFavourite(buildKey(strings))) {
+            throw new FavouriteException();
+        } else {
             getEditor().putString(buildKey(strings), "");
             getEditor().apply();
-        } else {
-            throw new FavouriteException();
         }
     }
 
+    @Override
     public void setContext(final Context context) {
         setSharedPref(context.getSharedPreferences(Constants.TRAIN_PREF_FILE, Context.MODE_APPEND));
         setEditor(getSharedPref().edit());

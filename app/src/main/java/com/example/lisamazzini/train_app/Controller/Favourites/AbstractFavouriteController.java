@@ -34,7 +34,7 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     @Override
     public final void removeFavourites() {
         check();
-        for (String s : this.getFavouritesAsList()) {
+        for (final String s : this.getFavouritesAsList()) {
             editor.remove(s);
         }
         editor.apply();
@@ -52,7 +52,7 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     }
 
     /**
-     * Getter per le SharedPreferences
+     * Getter per le SharedPreferences.
      * @return sharedPreferences
      */
     public final SharedPreferences getSharedPref() {
@@ -60,7 +60,7 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     }
 
     /**
-     * Setter per le SharedPreferences
+     * Setter per le SharedPreferences.
      * @param pSharedPref da settare
      */
     public final void setSharedPref(final SharedPreferences pSharedPref) {
@@ -68,14 +68,14 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     }
 
     /**
-     * Getter per l'Editor
+     * Getter per l'Editor.
      * @return editor
      */
     public final SharedPreferences.Editor getEditor() {
         return editor;
     }
     /**
-     * Setter per l'Editor
+     * Setter per l'Editor.
      * @param pEditor da settare
      */
     public final void setEditor(final SharedPreferences.Editor pEditor) {
@@ -88,7 +88,7 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     public abstract void setContext(Context context);
 
     /**
-     * Metodo che controlla che le SharedPreferences siano state inizializzate
+     * Metodo che controlla che le SharedPreferences siano state inizializzate.
      */
     protected final void check() {
         if (sharedPref == null) {
@@ -97,7 +97,7 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     }
 
     /**
-     * Metodo che controlla se un preferito è già salvato
+     * Metodo che controlla se un preferito è già salvato.
      * @param string preferito
      * @return true se è già preferito, false altrimenti
      */
@@ -106,14 +106,14 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     }
 
     /**
-     * Metodo che costruisce la chiave da salvare nelle SharedPreferences
+     * Metodo che costruisce la chiave da salvare nelle SharedPreferences.
      * @param strings che descrivono il preferito
      * @return la key
      */
     protected abstract String buildKey(final String... strings);
 
     /**
-     * Getter per la lista di key della mappa dei preferiti
+     * Getter per la lista di key della mappa dei preferiti.
      * @return lista di key
      */
     private List<String> getFavouritesAsList() {

@@ -18,8 +18,12 @@ public class FavouriteTrainListController {
 
     private final Iterator<String> iterator;
 
-    private List<Treno> favouriteTrainsList = new LinkedList<>();
+    private final List<Treno> favouriteTrainsList = new LinkedList<>();
 
+    /**
+     * Costruttore.
+     * @param map mappa dei preferiti
+     */
     public FavouriteTrainListController(final Map<String, String> map) {
         this.iterator = map.keySet().iterator();
     }
@@ -60,7 +64,7 @@ public class FavouriteTrainListController {
      * @return TrainRequest
      */
     public final TrainRequest getRequest() {
-        String[] favData = getFavourite().split(Constants.SEPARATOR);
+        final String[] favData = getFavourite().split(Constants.SEPARATOR);
         return new TrainRequest(favData[0], favData[1]);
     }
 }

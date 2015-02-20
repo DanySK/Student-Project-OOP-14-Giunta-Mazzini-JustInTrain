@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.lisamazzini.train_app.controller.EndlessRecyclerOnScrollListener;
 import com.example.lisamazzini.train_app.controller.favourites.FavouriteControllerStrategy;
 import com.example.lisamazzini.train_app.controller.JourneyListController;
 import com.example.lisamazzini.train_app.gui.adapter.JourneyListAdapter;
@@ -21,7 +22,6 @@ import com.example.lisamazzini.train_app.controller.favourites.IFavouriteControl
 import com.example.lisamazzini.train_app.network.data.JourneyDataRequest;
 import com.example.lisamazzini.train_app.network.total.JourneyRequest;
 import com.example.lisamazzini.train_app.network.total.JourneyTrainRequest;
-import com.example.lisamazzini.train_app.controller.EndlessRecyclerOnScrollListener;
 import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolutionWrapper;
 import com.example.lisamazzini.train_app.model.tragitto.Tragitto;

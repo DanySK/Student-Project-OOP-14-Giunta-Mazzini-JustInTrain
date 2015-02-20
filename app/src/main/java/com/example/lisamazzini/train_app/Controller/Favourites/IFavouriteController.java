@@ -2,7 +2,6 @@ package com.example.lisamazzini.train_app.controller.favourites;
 
 import android.content.Context;
 import com.example.lisamazzini.train_app.exceptions.FavouriteException;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,7 +21,7 @@ import java.util.Map;
     /**
      * Aggiunge un preferito.
      *
-     * @param data: sono le stringhe che combinate identificano la chiave per ottenere il preferito
+     * @param data sono le stringhe che combinate identificano la chiave per ottenere il preferito
      * @throws FavouriteException
      */
      void addFavourite(String... data) throws FavouriteException;
@@ -30,7 +29,7 @@ import java.util.Map;
     /**
      * Rimuove un preferito.
      *
-     * @param data: sono le stringhe che combinate identificano la chiave per rimuovere il preferito
+     * @param data sono le stringhe che combinate identificano la chiave per rimuovere il preferito
      */
      void removeFavourite(String... data);
 
@@ -49,7 +48,7 @@ import java.util.Map;
     /**
      * Metodo per sapere se la combinazione di certi dati sono già presenti tra i preferiti.
      *
-     * @param data: sono le stringhe che combinate identificano la chiave per ottenere il preferito
+     * @param data sono le stringhe che combinate identificano la chiave per ottenere il preferito
      * @return boolean: se l'oggetto è attualmente tra i preferiti o meno
      */
      boolean isFavourite(String... data);

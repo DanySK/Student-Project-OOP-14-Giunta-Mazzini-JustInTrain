@@ -38,7 +38,7 @@ public class AchievementController {
         achievements.put("Pin", new PinAchievement1(context));
         data = context.getSharedPreferences(Constants.ACH_STORE_FILE, Context.MODE_APPEND);
         editor = data.edit();
-        editor.apply();;
+        editor.apply();
     }
 
     /**
@@ -49,7 +49,7 @@ public class AchievementController {
      */
     public final void updateAchievements(final PlainSolution train) throws AchievementException {
         try {
-            for (IAchievement a : achievements.values()) {
+            for (final IAchievement a : achievements.values()) {
                 a.addData(train);
             }
         } catch (AchievementException e) {

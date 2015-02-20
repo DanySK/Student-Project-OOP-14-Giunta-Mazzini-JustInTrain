@@ -18,7 +18,7 @@ public final class FavouriteJourneyController extends AbstractFavouriteControlle
     private FavouriteJourneyController() { }
 
     /**
-     * Metodo che ritorna un'istanza del controller
+     * Metodo che ritorna un'istanza del controller.
      * @return IFavouriteController
      */
     public static IFavouriteController getInstance() {
@@ -28,23 +28,24 @@ public final class FavouriteJourneyController extends AbstractFavouriteControlle
     @Override
     public void setContext(final Context context) {
         setSharedPref(context.getSharedPreferences(Constants.JOURNEY_PREF_FILE, Context.MODE_APPEND));
-        setEditor((getSharedPref().edit()));
+        setEditor(getSharedPref().edit());
         getEditor().apply();
     }
 
     @Override
     public void addFavourite(final String... strings) {
         super.check();
-        String key = buildKey(strings[0], strings[1]);
+        final String key = buildKey(strings[0], strings[1]);
         if (!super.alreadyFavourite(key)) {
             getEditor().putString(key, buildKey(strings[2], strings[3]));
             getEditor().apply();
         }
     }
 
+    @Override
     protected String buildKey(final String... strings) {
         String finalString = "";
-        for (String s : strings) {
+        for (final String s : strings) {
             finalString = finalString.concat(s).concat(Constants.SEPARATOR);
         }
         return finalString;
