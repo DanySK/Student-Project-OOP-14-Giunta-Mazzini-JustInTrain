@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.example.lisamazzini.train_app.Exceptions.InvalidStationException;
 import com.example.lisamazzini.train_app.Exceptions.InvalidTrainNumberException;
 import com.example.lisamazzini.train_app.Exceptions.NoSolutionsAvailableException;
-import com.example.lisamazzini.train_app.GUI.activity.MainActivity;
+import com.example.lisamazzini.train_app.gui.activity.MainActivity;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;

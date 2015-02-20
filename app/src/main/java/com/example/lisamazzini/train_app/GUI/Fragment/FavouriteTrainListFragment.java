@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI.Fragment;
+package com.example.lisamazzini.train_app.gui.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,14 +13,12 @@ import com.example.lisamazzini.train_app.Network.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.FavouriteTrainListController;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
-import com.example.lisamazzini.train_app.GUI.Adapter.FavouriteTrainListAdapter;
+import com.example.lisamazzini.train_app.gui.Adapter.FavouriteTrainListAdapter;
 import com.example.lisamazzini.train_app.Model.Treno.Treno;
 import com.example.lisamazzini.train_app.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 

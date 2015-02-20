@@ -1,8 +1,9 @@
-package com.example.lisamazzini.train_app.GUI.Fragment;
+package com.example.lisamazzini.train_app.gui.Fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteControllerStrategy;
 import com.example.lisamazzini.train_app.Controller.JourneyListController;
-import com.example.lisamazzini.train_app.GUI.Adapter.JourneyListAdapter;
+import com.example.lisamazzini.train_app.gui.Adapter.JourneyListAdapter;
 import com.example.lisamazzini.train_app.Network.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteJourneyController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
@@ -22,7 +23,6 @@ import com.example.lisamazzini.train_app.Network.TotalRequests.JourneyRequest;
 import com.example.lisamazzini.train_app.Network.TotalRequests.JourneyTrainRequest;
 import com.example.lisamazzini.train_app.Controller.EndlessRecyclerOnScrollListener;
 import com.example.lisamazzini.train_app.Model.Constants;
-import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolutionWrapper;
 import com.example.lisamazzini.train_app.Model.Tragitto.Tragitto;
 import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
@@ -36,7 +36,6 @@ import java.util.List;
 public class JourneyResultsFragment extends AbstractFavouriteFragment {
 
     private final JourneyListController controller = new JourneyListController();
-
     private RecyclerView recyclerView;
     private final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
     private JourneyListAdapter adapter = new JourneyListAdapter(controller.getPartialPlainSolutions());
@@ -48,11 +47,11 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
     public JourneyResultsFragment() {
     }
 
-    @Override
-    public void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
+//    @Override
+//    public void onCreate(final Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setHasOptionsMenu(true);
+//    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
@@ -140,6 +139,7 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
                     @Override
                     public void onClick(final DialogInterface dialog, final int which) {
                         controller.setDepartureID(choices[1][which]);
+                        controller.setDepartureStation(choices[0][which]);
                         spiceManager.execute(new JourneyDataRequest(controller.getArrivalStation()), new ArrivalDataRequestListener());
                         dialog.dismiss();
                     }
@@ -172,12 +172,15 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
                     @Override
                     public void onClick(final DialogInterface dialog, final int which) {
                         controller.setArrivalID(choices[1][which]);
+                        controller.setArrivalStation(choices[0][which]);
                         toggleFavouriteIcon(controller.getDepartureID(), controller.getArrivalID());
                         spiceManager.execute(new JourneyRequest(controller.getDepartureID(), controller.getArrivalID(), controller.getRequestedTime()), new JourneyRequestListener());
                         dialog.dismiss();
                     }
                 }).show();
             }
+
+            ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(controller.getDepartureStation() + " -> " + controller.getArrivalStation());
         }
     }
 

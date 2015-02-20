@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI.Adapter;
+package com.example.lisamazzini.train_app.gui.Adapter;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;

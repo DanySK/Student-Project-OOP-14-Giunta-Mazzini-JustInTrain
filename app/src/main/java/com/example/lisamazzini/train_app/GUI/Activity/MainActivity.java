@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI.activity;
+package com.example.lisamazzini.train_app.gui.activity;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,11 +12,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 
 import com.example.lisamazzini.train_app.Controller.MainController;
-import com.example.lisamazzini.train_app.GUI.Fragment.JourneyResultsFragment;
-import com.example.lisamazzini.train_app.GUI.Fragment.NavigationDrawerFragment;
+import com.example.lisamazzini.train_app.gui.Fragment.JourneyResultsFragment;
+import com.example.lisamazzini.train_app.gui.Fragment.NavigationDrawerFragment;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Model.Constants;
 
+/**
+ * Classe che ospita il fragment per la visualizzazione di una lista di journey, è la main activity,
+ * e gestisce quindi anche la visualizzazione dei preferiti nella toolbar in forma di spinner, e ospita il
+ * navigation drawer.
+ */
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private NavigationDrawerFragment navigationDrawerFragment;
@@ -69,6 +74,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Metodo che aggiorna la toolbar nel caso siano stati aggiunti o rimossi preferiti.
+     * Viene chiamato alla creazione dell'activity.
+     */
     public void restoreToolbar() {
 
         controller.refreshLists();
@@ -95,6 +104,12 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         }
     }
 
+    /**
+     * Questa classe non prevede la gestione tradizionale del navigation drawer (in forma di sola lista di elementi),
+     * per cui questo metodo non ha senso di essere implementato (non verrà neanche chiamato), nonostante ne sia necessaria la presenza
+     * dovuta all'interfaccia implementata per poter disporre del navigation drawer.
+     * @param position
+     */
     @Override
     public void onNavigationDrawerItemSelected(final int position) { }
 }

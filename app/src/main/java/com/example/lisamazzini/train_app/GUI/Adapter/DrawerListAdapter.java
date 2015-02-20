@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI.Adapter;
+package com.example.lisamazzini.train_app.gui.Adapter;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
-import com.example.lisamazzini.train_app.GUI.activity.AchievementListActivity;
-import com.example.lisamazzini.train_app.GUI.activity.FavouriteTrainListActivity;
+import com.example.lisamazzini.train_app.gui.activity.AchievementListActivity;
+import com.example.lisamazzini.train_app.gui.activity.FavouriteTrainListActivity;
 import com.example.lisamazzini.train_app.R;
 
 public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.DrawerListViewHolder> implements IAdapter<DrawerListAdapter.DrawerListViewHolder>{

@@ -1,9 +1,9 @@
-package com.example.lisamazzini.train_app.GUI.activity;
+package com.example.lisamazzini.train_app.gui.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
-import com.example.lisamazzini.train_app.GUI.Fragment.AchievementListFragment;
+import com.example.lisamazzini.train_app.gui.Fragment.AchievementListFragment;
 import com.example.lisamazzini.train_app.R;
 
 public class AchievementListActivity extends AbstractBaseActivity {
@@ -26,6 +26,9 @@ public class AchievementListActivity extends AbstractBaseActivity {
         return "Achievement sbloccati!";
     }
 
+    /**
+     * Questa classe non prevede la ricezione di intent da altre parti dell'applicazione.
+     */
     @Override
     protected void getIntents() { }
 }

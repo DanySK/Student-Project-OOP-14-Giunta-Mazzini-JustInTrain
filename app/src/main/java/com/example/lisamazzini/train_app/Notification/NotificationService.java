@@ -11,7 +11,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.example.lisamazzini.train_app.Network.AbstractListener;
 import com.example.lisamazzini.train_app.Network.TotalRequests.TrainRequest;
-import com.example.lisamazzini.train_app.GUI.activity.StationListActivity;
+import com.example.lisamazzini.train_app.gui.activity.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Treno.Treno;
 import com.example.lisamazzini.train_app.R;

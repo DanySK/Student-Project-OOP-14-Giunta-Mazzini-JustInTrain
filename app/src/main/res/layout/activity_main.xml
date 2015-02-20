@@ -15,7 +15,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools" android:id="@+id/drawer_layout"
         android:layout_width="match_parent" android:layout_height="match_parent"
-        tools:context="com.example.lisamazzini.train_app.GUI.activity.MainActivity">
+        tools:context="com.example.lisamazzini.train_app.gui.activity.MainActivity">
 
         <!-- As the main content view, the view below consumes the entire
              space available using match_parent in both dimensions. -->
@@ -25,7 +25,7 @@
             android:layout_height="match_parent" >
 
             <fragment
-                android:name="com.example.lisamazzini.train_app.GUI.Fragment.JourneyResultsFragment"
+                android:name="com.example.lisamazzini.train_app.gui.Fragment.JourneyResultsFragment"
                 android:id="@+id/journeyResultsFragment"
 
                 android:layout_width="fill_parent"
@@ -39,7 +39,7 @@
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:name="com.example.lisamazzini.train_app.GUI.Fragment.NavigationDrawerFragment"
+            android:name="com.example.lisamazzini.train_app.gui.Fragment.NavigationDrawerFragment"
             tools:layout="@layout/fragment_navigation_drawer" >
         </fragment>
 

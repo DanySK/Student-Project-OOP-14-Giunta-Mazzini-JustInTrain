@@ -37,24 +37,24 @@
         <!-- &lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" />&ndash;&gt; -->
         <!-- &lt;!&ndash;</intent-filter>&ndash;&gt; -->
         <!-- </activity> -->
-        <activity android:name=".GUI.activity.StationListActivity" />
+        <activity android:name=".gui.activity.StationListActivity" />
         <!-- <activity -->
         <!-- android:name=".GUI.FavouriteJourneyListActivity" -->
         <!-- android:label="@string/title_activity_favourite_journey_list" > -->
         <!-- </activity> -->
         <activity
-            android:name=".GUI.activity.FavouriteTrainListActivity"
-            android:parentActivityName=".GUI.activity.MainActivity" >
+            android:name=".gui.activity.FavouriteTrainListActivity"
+            android:parentActivityName=".gui.activity.MainActivity" >
         </activity>
         <activity
-            android:name=".GUI.activity.JourneyListActivity"
-            android:parentActivityName=".GUI.activity.MainActivity" >
+            android:name=".gui.activity.JourneyListActivity"
+            android:parentActivityName=".gui.activity.MainActivity" >
         </activity>
         <activity
-            android:name=".GUI.activity.AchievementListActivity"
-            android:parentActivityName=".GUI.activity.MainActivity" >
+            android:name=".gui.activity.AchievementListActivity"
+            android:parentActivityName=".gui.activity.MainActivity" >
         </activity>
-        <activity android:name=".GUI.activity.MainActivity" >
+        <activity android:name=".gui.activity.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

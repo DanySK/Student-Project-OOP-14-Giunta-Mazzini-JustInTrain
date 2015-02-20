@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI.activity;
+package com.example.lisamazzini.train_app.gui.activity;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,7 +26,7 @@ public abstract class AbstractBaseActivity extends ActionBarActivity {
     }
 
     /**
-     * Metodo astratto da implementare per settare un titolo specifico per l'activity (è il titolo prima che il fragment esegua una qualsiavoglia richiesta)
+     * Metodo astratto da implementare per settare un titolo specifico per l'activity (è il titolo prima che il fragment esegua una qualsiavoglia richiesta).
      * @return String: il titolo dell'activity.
      */
     protected abstract String setToolbarTitle();

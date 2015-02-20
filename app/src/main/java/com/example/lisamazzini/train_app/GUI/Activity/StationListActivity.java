@@ -1,11 +1,11 @@
-package com.example.lisamazzini.train_app.GUI.activity;
+package com.example.lisamazzini.train_app.gui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
 
-import com.example.lisamazzini.train_app.GUI.Fragment.StationListFragment;
+import com.example.lisamazzini.train_app.gui.Fragment.StationListFragment;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.R;
 

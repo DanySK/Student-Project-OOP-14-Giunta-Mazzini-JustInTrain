@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers;
+package com.example.lisamazzini.train_app.gui.Fragment.DateTimePickers;
 
 import android.app.Dialog;
 import android.os.Bundle;

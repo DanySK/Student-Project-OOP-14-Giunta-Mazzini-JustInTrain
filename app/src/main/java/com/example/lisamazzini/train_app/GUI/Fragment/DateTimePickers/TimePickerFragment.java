@@ -1,16 +1,10 @@
-package com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers;
+package com.example.lisamazzini.train_app.gui.Fragment.DateTimePickers;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
-
-import com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers.IPicker;
-
-import java.util.Calendar;
 
 public class TimePickerFragment extends DialogFragment implements IPicker {
 

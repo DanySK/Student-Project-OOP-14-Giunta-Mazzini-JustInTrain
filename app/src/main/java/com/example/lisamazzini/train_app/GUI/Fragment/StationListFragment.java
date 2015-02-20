@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI.Fragment;
+package com.example.lisamazzini.train_app.gui.Fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,7 +18,7 @@ import com.example.lisamazzini.train_app.Network.AbstractListener;
 import com.example.lisamazzini.train_app.Controller.Favourites.FavouriteTrainController;
 import com.example.lisamazzini.train_app.Controller.Favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.Controller.StationListController;
-import com.example.lisamazzini.train_app.GUI.Adapter.StationListAdapter;
+import com.example.lisamazzini.train_app.gui.Adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.Model.Treno.ListWrapper;
 import com.example.lisamazzini.train_app.Model.Treno.Treno;
 import com.example.lisamazzini.train_app.R;
@@ -54,10 +54,10 @@ public class StationListFragment extends AbstractFavouriteFragment {
     public StationListFragment() {
     }
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setHasOptionsMenu(true);
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,6 +82,8 @@ public class StationListFragment extends AbstractFavouriteFragment {
         textDelay = (TextView)layoutInflater.findViewById(R.id.lDelay);
         textLastSeen = (TextView)layoutInflater.findViewById(R.id.lLastSeen);
         textProgress = (TextView)layoutInflater.findViewById(R.id.lProgress);
+
+        // TODO fa unico meodo per visible e invisible (toggler)
         textDelay.setVisibility(View.INVISIBLE);
         textLastSeen.setVisibility(View.INVISIBLE);
         textProgress.setVisibility(View.INVISIBLE);
@@ -95,42 +97,16 @@ public class StationListFragment extends AbstractFavouriteFragment {
         this.recyclerView.setAdapter(adapter);
         this.recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-//        this.favouriteFragmentController = new FavouriteFragmentController(FavouriteTrainController.getInstance());
-//        this.favouriteFragmentController.setContext(getActivity());
-
         this.favController.setContext(getActivity().getApplicationContext());
 
         return layoutInflater;
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.menu_main, menu);
-//        this.menu = menu;
-//        favouriteFragmentController.setMenu(this.menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        menu = favouriteFragmentController.onOptionsItemSelected(item, listController.getTrainDetails(), getActivity());
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @Override
     public String[] getFavouriteForAdding() {
         return listController.getTrainDetails();
     }
-
-//    @Override
-//    public String[] getFavouriteForRemoving() {
-//        return listController.getTrainDetails();
-//    }
-
-//    @Override
-//    public FavouriteFragmentController getFragmentUtils() {
-//        return this.favouriteFragmentController;
-//    }
 
     @Override
     public String[] getFavouriteForRemoving() {

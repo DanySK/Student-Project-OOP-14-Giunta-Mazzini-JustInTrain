@@ -1,16 +1,9 @@
-package com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers;
+package com.example.lisamazzini.train_app.gui.Fragment.DateTimePickers;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.text.format.DateFormat;
-
-import com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers.IPicker;
-
-import java.util.Calendar;
 
 public class DatePickerFragment extends DialogFragment implements IPicker {
 
@@ -19,7 +12,6 @@ public class DatePickerFragment extends DialogFragment implements IPicker {
 
     public DatePickerFragment() {
     }
-
 
     public final void setCallback(final DatePickerDialog.OnDateSetListener dateListener) {
         this.dateListener = dateListener;

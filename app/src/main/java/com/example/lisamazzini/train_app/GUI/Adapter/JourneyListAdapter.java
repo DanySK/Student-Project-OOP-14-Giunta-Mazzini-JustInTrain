@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI.Adapter;
+package com.example.lisamazzini.train_app.gui.Adapter;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.Controller.AchievementController;
 import com.example.lisamazzini.train_app.Exceptions.AchievementException;
-import com.example.lisamazzini.train_app.GUI.activity.StationListActivity;
+import com.example.lisamazzini.train_app.gui.activity.StationListActivity;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.Model.Tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.Notification.NotificationService;

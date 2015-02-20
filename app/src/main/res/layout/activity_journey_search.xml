@@ -8,7 +8,7 @@
         layout="@layout/toolbar"/>
 
     <fragment
-        android:name="com.example.lisamazzini.train_app.GUI.Fragment.JourneyResultsFragment"
+        android:name="com.example.lisamazzini.train_app.gui.Fragment.JourneyResultsFragment"
         android:id="@+id/journeyResultsFragment"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">

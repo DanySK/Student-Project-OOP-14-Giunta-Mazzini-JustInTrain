@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app.GUI.Fragment;
+package com.example.lisamazzini.train_app.gui.Fragment;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -29,11 +29,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
 
-import com.example.lisamazzini.train_app.GUI.activity.JourneyListActivity;
-import com.example.lisamazzini.train_app.GUI.activity.StationListActivity;
-import com.example.lisamazzini.train_app.GUI.Adapter.DrawerListAdapter;
-import com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers.DatePickerFragment;
-import com.example.lisamazzini.train_app.GUI.Fragment.DateTimePickers.TimePickerFragment;
+import com.example.lisamazzini.train_app.gui.activity.JourneyListActivity;
+import com.example.lisamazzini.train_app.gui.activity.StationListActivity;
+import com.example.lisamazzini.train_app.gui.Adapter.DrawerListAdapter;
+import com.example.lisamazzini.train_app.gui.Fragment.DateTimePickers.DatePickerFragment;
+import com.example.lisamazzini.train_app.gui.Fragment.DateTimePickers.TimePickerFragment;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.Utilities;

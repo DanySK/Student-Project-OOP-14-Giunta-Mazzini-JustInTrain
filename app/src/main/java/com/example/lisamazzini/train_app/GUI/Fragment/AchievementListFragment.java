@@ -1,6 +1,5 @@
-package com.example.lisamazzini.train_app.GUI.Fragment;
+package com.example.lisamazzini.train_app.gui.Fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.*;
 import android.support.v7.widget.*;
@@ -9,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.*;
 
 import com.example.lisamazzini.train_app.Controller.AchievementListController;
-import com.example.lisamazzini.train_app.GUI.Adapter.AchievementListAdapter;
+import com.example.lisamazzini.train_app.gui.Adapter.AchievementListAdapter;
 import com.example.lisamazzini.train_app.R;
 
 

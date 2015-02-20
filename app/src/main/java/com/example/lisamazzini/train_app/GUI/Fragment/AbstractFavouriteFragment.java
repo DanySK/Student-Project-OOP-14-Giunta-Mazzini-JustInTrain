@@ -1,5 +1,4 @@
-package com.example.lisamazzini.train_app.GUI.Fragment;
-
+package com.example.lisamazzini.train_app.gui.Fragment;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -83,7 +82,4 @@ public abstract class AbstractFavouriteFragment extends AbstractRobospiceFragmen
     public abstract String[] getFavouriteForAdding();
 
     public abstract String[] getFavouriteForRemoving();
-
-
-
 }

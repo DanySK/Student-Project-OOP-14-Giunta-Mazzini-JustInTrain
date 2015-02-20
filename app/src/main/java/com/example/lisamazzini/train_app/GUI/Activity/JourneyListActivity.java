@@ -1,14 +1,17 @@
-package com.example.lisamazzini.train_app.GUI.activity;
+package com.example.lisamazzini.train_app.gui.activity;
 
 import android.os.Bundle;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
 
-import com.example.lisamazzini.train_app.GUI.Fragment.JourneyResultsFragment;
+import com.example.lisamazzini.train_app.gui.Fragment.JourneyResultsFragment;
 import com.example.lisamazzini.train_app.Model.Constants;
 import com.example.lisamazzini.train_app.R;
 
+/**
+ * Classe che ospita il fragment per la visualizzazione di una lista di journey.
+ */
 public class JourneyListActivity extends AbstractBaseActivity {
 
     private String departureStation;
