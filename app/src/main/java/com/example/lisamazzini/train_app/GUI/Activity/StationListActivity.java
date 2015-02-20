@@ -9,13 +9,18 @@ import com.example.lisamazzini.train_app.gui.fragment.StationListFragment;
 import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.R;
 
+/**
+ * Classe che ospita il fragment per la visualizzazione di una lista di stazioni.
+ *
+ * @author lisamazzini
+ */
 public class StationListActivity extends AbstractBaseActivity {
 
     private String trainNumber;
     private String stationCode;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station_list);
         overridePendingTransition(R.transition.pull_in_right, R.transition.pull_out_left);
@@ -31,12 +36,12 @@ public class StationListActivity extends AbstractBaseActivity {
     }
 
     @Override
-    protected String setToolbarTitle() {
+    protected final String setToolbarTitle() {
         return "Cerco...";
     }
 
     @Override
-    protected void getIntents() {
+    protected final void getIntents() {
         final Intent i = getIntent();
         trainNumber = i.getStringExtra(Constants.TRAIN_N_EXTRA);
         stationCode = i.getStringExtra(Constants.ID_ORIGIN_EXTRA);

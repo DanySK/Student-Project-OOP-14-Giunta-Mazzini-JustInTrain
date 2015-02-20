@@ -16,7 +16,7 @@ public abstract class AbstractBaseActivity extends ActionBarActivity {
     /**
      * Metodo che va chiamato nel onCreate() dell'activity, se si vuole che questa disponga della suddetta toolbar.
      */
-    protected void getToolbar() {
+    protected final void getToolbar() {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);

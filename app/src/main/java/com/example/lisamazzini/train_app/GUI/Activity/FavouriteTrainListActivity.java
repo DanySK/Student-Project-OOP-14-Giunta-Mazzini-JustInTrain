@@ -5,10 +5,15 @@ import android.support.v4.app.FragmentManager;
 import com.example.lisamazzini.train_app.gui.fragment.FavouriteTrainListFragment;
 import com.example.lisamazzini.train_app.R;
 
+/**
+ * Classe che ospita il fragment per la visualizzazione della lista di treni favoriti.
+ *
+ * @author lisamazzini
+ */
 public class FavouriteTrainListActivity extends AbstractBaseActivity {
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_train_list);
 
@@ -21,13 +26,15 @@ public class FavouriteTrainListActivity extends AbstractBaseActivity {
     }
 
     @Override
-    protected String setToolbarTitle() {
+    protected final String setToolbarTitle() {
         return "Treni preferiti";
     }
 
     /**
-     * Questa classe non prevede la ricezione di intent da altre parti dell'applicazione.*
+     * Questa classe non prevede la ricezione di intent da altre parti dell'applicazione.
      */
     @Override
-    protected void getIntents() { }
+    protected final void getIntents() {
+        throw new UnsupportedOperationException();
+    }
 }

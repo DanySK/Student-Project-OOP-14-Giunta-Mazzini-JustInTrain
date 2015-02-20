@@ -21,6 +21,8 @@ import com.example.lisamazzini.train_app.model.Constants;
  * Classe che ospita il fragment per la visualizzazione di una lista di journey, è la main activity,
  * e gestisce quindi anche la visualizzazione dei preferiti nella toolbar in forma di spinner, e ospita il
  * navigation drawer.
+ *
+ * @author albertogiunta
  */
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -29,7 +31,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     private MainController controller;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -51,7 +53,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     }
 
     @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
+    public final boolean onCreateOptionsMenu(final Menu menu) {
         if (!navigationDrawerFragment.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
             fragment.setMenu(menu);
@@ -63,7 +65,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public final boolean onOptionsItemSelected(final MenuItem item) {
         if (navigationDrawerFragment.onOptionsItemSelected(item)) {
             return true;
         }
@@ -78,8 +80,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
      * Metodo che aggiorna la toolbar nel caso siano stati aggiunti o rimossi preferiti.
      * Viene chiamato alla creazione dell'activity.
      */
-    public void restoreToolbar() {
-
+    public final void restoreToolbar() {
         controller.refreshLists();
         final SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(getSupportActionBar().getThemedContext(), android.R.layout.simple_spinner_dropdown_item, controller.getFavouriteStationNames());
         if (controller.isPresentAnyFavourite()) {
@@ -108,8 +109,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
      * Questa classe non prevede la gestione tradizionale del navigation drawer (in forma di sola lista di elementi),
      * per cui questo metodo non ha senso di essere implementato (non verrà neanche chiamato), nonostante ne sia necessaria la presenza
      * dovuta all'interfaccia implementata per poter disporre del navigation drawer.
-     * @param position
+     * @param position posizione dell'elemento selezionato
      */
     @Override
-    public void onNavigationDrawerItemSelected(final int position) { }
+    public final void onNavigationDrawerItemSelected(final int position) {
+        throw new UnsupportedOperationException();
+    }
 }

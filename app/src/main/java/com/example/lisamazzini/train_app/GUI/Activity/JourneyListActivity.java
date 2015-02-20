@@ -11,6 +11,8 @@ import com.example.lisamazzini.train_app.R;
 
 /**
  * Classe che ospita il fragment per la visualizzazione di una lista di journey.
+ *
+ * @author albertogiunta
  */
 public class JourneyListActivity extends AbstractBaseActivity {
 
@@ -20,7 +22,7 @@ public class JourneyListActivity extends AbstractBaseActivity {
     private boolean isCustomTime;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey_search);
 
@@ -36,12 +38,12 @@ public class JourneyListActivity extends AbstractBaseActivity {
     }
 
     @Override
-    protected String setToolbarTitle() {
+    protected final String setToolbarTitle() {
         return "Cerco...";
     }
 
     @Override
-    protected void getIntents() {
+    protected final void getIntents() {
         final Intent i = getIntent();
         departureStation = i.getStringExtra(Constants.DEPARTURE_STAT_EXTRA);
         arrivalStation = i.getStringExtra(Constants.ARRIVAL_STAT_EXTRA);

@@ -25,7 +25,7 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
     /**
      * Costante per assegnare un colore a seconda che la stazione sia stata visitata, cancellata, straordinaria, o da visitare.
      */
-    public static final int[] RGB_COLORS = new int[]{196, 230, 255};
+    private final int[] rgbColors = new int[]{196, 230, 255};
 
     /**
      * Costruttore.
@@ -55,7 +55,7 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
             viewHolder.extraMessage.setText("");
         }
         if (f.getActualFermataType() == Constants.STATION_VISITED) {
-            viewHolder.itemView.setBackgroundColor(Color.rgb(RGB_COLORS[0], RGB_COLORS[1], RGB_COLORS[2]));
+            viewHolder.itemView.setBackgroundColor(Color.rgb(rgbColors[0], rgbColors[1], rgbColors[2]));
         } else {
             viewHolder.itemView.setBackgroundColor(Color.WHITE);
         }

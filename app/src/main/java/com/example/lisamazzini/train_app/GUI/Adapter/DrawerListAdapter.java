@@ -13,6 +13,8 @@ import com.example.lisamazzini.train_app.gui.activity.AchievementListActivity;
 import com.example.lisamazzini.train_app.gui.activity.FavouriteTrainListActivity;
 import com.example.lisamazzini.train_app.R;
 
+import java.util.Arrays;
+
 
 /**
  * Adapter per la lista di opzioni del navigation drawer.
@@ -28,7 +30,8 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Dr
      * @param pTitles l'array di stringhe corrispondenti ognuna a un elemento della lista del navigation drawer.
      */
     public DrawerListAdapter(final String[] pTitles) {
-          this.titles = pTitles;
+
+        this.titles = Arrays.copyOf(pTitles, pTitles.length);
     }
 
     @Override
