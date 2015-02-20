@@ -55,6 +55,7 @@ public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTra
             } else {
                 holder.delay.setText("  • IN ORARIO");
             }
+            holder.progress.setText(train.getProgress());
             holder.lastSeemTime.setText(train.getCompOraUltimoRilevamento());
             holder.lastSeenStation.setText(train.getStazioneUltimoRilevamento());
         }
@@ -77,6 +78,7 @@ public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTra
         private final TextView lastSeemTime;
         private final TextView lastSeenStation;
         private final TextView extra;
+        private final TextView progress;
         private String stationCode;
 
         /**
@@ -92,6 +94,7 @@ public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTra
             delay = (TextView) itemView.findViewById(R.id.tFavDelay);
             lastSeemTime = (TextView) itemView.findViewById(R.id.tFavLastSeenTime);
             lastSeenStation = (TextView) itemView.findViewById(R.id.tFavLastSeenStation);
+            progress = (TextView) itemView.findViewById(R.id.lFavProgress);
             extra = (TextView) itemView.findViewById(R.id.tFavExtraMessage);
         }
 

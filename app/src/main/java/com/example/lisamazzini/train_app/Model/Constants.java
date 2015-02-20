@@ -59,58 +59,149 @@ public final class Constants {
     public static final String SDF_NO_SECS = "yyyy-MM-dd'T'HH:mm:00";
 
     /**
-     *
+     * Chiave dell'extra per passare il numero del treno.
      */
     public static final String TRAIN_N_EXTRA = "trainNumber";
+
+    /**
+     * Chiave dell'extra per passare l'id della stazione di origine.
+     */
     public static final String ID_ORIGIN_EXTRA = "idOrigine";
 
+    /**
+     * Chiave dell'extra per passare l'ora di partenza.
+     */
     public static final String DEPARTURE_TIME_EXTRA = "oraPartenza";
+
+    /**
+     * Chiave dell'extra per passare il nome della stazione di partenza.
+     */
     public static final String DEPARTURE_STAT_EXTRA = "departureStation";
+
+    /**
+     * Chiave dell'extra per passare il nome della stazione di arrivo.
+     */
     public static final String ARRIVAL_STAT_EXTRA = "arrivalStation";
 
+    /**
+     * Chiave dell'extra per passare l'orario di ricerca.
+     */
     public static final String REQUESTED_TIME_EXTRA = "requestedTime";
+
+    /**
+     * Chiave dell'extra per passare il fatto che l'utente abbia selezionato un orario o meno.
+     */
     public static final String IS_CUSTOM_TIME_EXTRA = "isCustomTime";
+
+    /**
+     * Chiave dell'extra per passare l'azione di aggiornare al service della notifica.
+     */
     public static final String ACTION_REFRESH = "Aggiorna";
+
+    /**
+     * Chiave dell'extra per passare l'azione di annullare tutto al service della notifica.
+     */
     public static final String ACTION_DELETE = "Elimina";
+
+    /**
+     * Nome del file per salvare i dati degli achievements.
+     */
     public static final String ACH_STORE_FILE = "ACHIEVEMENT_STORE";
+
+    /**
+     * Nome del file per salvare i dati degli achievements.
+     */
     public static final String ACH_DATA_FILE = "ACHIEVEMENT_DATA";
 
-    public static final String JOURNEY_FAVOURITE = "journey favourite";
-    public static final String STATION_FAVOURITE = "station favourite";
-
-    public static final String WRONG_TRAIN_TITLE = "Numero treno non valido!";
-    public static final String WRONG_TRAIN = "Il numero inserito non corrisponde a nessun treno";
-
-    public static final String WRONG_STATION_TITLE = "Stazione inesistente!";
-    public static final String WRONG_STATION = "Il nome inserito non corrisponde a nessun risultato";
-    public static final String CONNECTION_ERROR_TITLE = "Problemi di connessione!";
-    public static final String CONNECTION_ERROR = "Controllare la propria connessione internet";
-    public static final String NO_AVAILABLE_SOLUTION_TITLE = "Nessuna soluzione trovata!";
-    public static final String NO_AVAILABLE_SOLUTION = "Nessuna soluzione disponibile per la tratta selezionata";
-    public static final String SERVICE_NOT_AVAILABLE_TITLE = "Servizio non disponibile!";
-    public static final String SERVICE_NOT_AVAILABLE = "Il servizio Viaggiatreno.com è offline o in manuetenzione";
-    public static final String OK_MSG = "Ok";
+    /**
+     * Costante "vuoto".
+     */
     public static final int EMPTY = 0;
 
+    /**
+     * Costante "in tempo".
+     */
     public static final int ON_TIME = 0;
+
+    /**
+     * Valore che assume il campo di una fermata cancellata.
+     */
     public static final long STATION_CANCELLED = 3L;
 
+    /**
+     * Valore che assume il campo di una fermata straordinaria.
+     */
     public static final long STATION_EXTRA = 2L;
+
+    /**
+     * Valore che assume il campo di una fermata visitata.
+     */
     public static final long STATION_VISITED = 1L;
 
-
-
-
-
-
-
-
-
-    public static final String DELAY_ACH = "Hai accumulato 60 minuti di ritardo!";
-
+    /**
+     * Testo per l'achievement.
+     */
     public static final String PIN_ACH = "Hai pinnato 10 treni!!";
 
+    /**
+     * Testo per l'achievement.
+     */
+    public static final String DELAY_ACH = "Hai accumulato 60 minuti di ritardo!";
 
+    /**
+     * Titolo per il dialog "treno sbagliato".
+     */
+    public static final String WRONG_TRAIN_TITLE = "Numero treno non valido!";
+
+    /**
+     * Testo per il dialog "treno sbagliato".
+     */
+    public static final String WRONG_TRAIN = "Il numero inserito non corrisponde a nessun treno";
+
+    /**
+     * Titolo per il dialog "stazione sbagliata".
+     */
+    public static final String WRONG_STATION_TITLE = "Stazione inesistente!";
+
+    /**
+     * Testo per il dialog "stazione sbagliato".
+     */
+    public static final String WRONG_STATION = "Il nome inserito non corrisponde a nessun risultato";
+
+    /**
+     * Titolo per il dialog "problemi di connessione".
+     */
+    public static final String CONNECTION_ERROR_TITLE = "Problemi di connessione!";
+
+    /**
+     * Testo per il dialog "problemi di connessione".
+     */
+    public static final String CONNECTION_ERROR = "Controllare la propria connessione internet";
+
+    /**
+     * Titolo per il dialog "nessuna soluzione".
+     */
+    public static final String NO_AVAILABLE_SOLUTION_TITLE = "Nessuna soluzione trovata!";
+
+    /**
+     * Testo per il dialog "nessuna soluzione".
+     */
+    public static final String NO_AVAILABLE_SOLUTION = "Nessuna soluzione disponibile per la tratta selezionata";
+
+    /**
+     * Titolo per il dialog "servizio down".
+     */
+    public static final String SERVICE_NOT_AVAILABLE_TITLE = "Servizio non disponibile!";
+
+    /**
+     * Testo per il dialog "servizio down".
+     */
+    public static final String SERVICE_NOT_AVAILABLE = "Il servizio Viaggiatreno.com è offline o in manuetenzione";
+
+    /**
+     * Messaggio d'accettazione.
+     */
+    public static final String OK_MSG = "Ok";
 
     private Constants() {
     }
