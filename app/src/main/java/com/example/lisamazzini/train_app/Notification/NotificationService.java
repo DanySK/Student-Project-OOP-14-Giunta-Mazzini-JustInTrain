@@ -117,13 +117,13 @@ public class NotificationService extends Service {
     }
 
 
-
     /**
      * Inner class adibita alla ricezione dei dati dopo la connessione a internet
      */
 
     private class ResultListener extends AbstractListener<Treno> {
 
+        private static final int ID_NOT = 1;
         @Override
         public Context getDialogContext() {
             return NotificationService.this;
@@ -176,7 +176,7 @@ public class NotificationService extends Service {
                         .build();
             }
             not.priority = Notification.PRIORITY_MAX;
-            startForeground(1, not);
+            startForeground(ID_NOT, not);
         }
 
         /**

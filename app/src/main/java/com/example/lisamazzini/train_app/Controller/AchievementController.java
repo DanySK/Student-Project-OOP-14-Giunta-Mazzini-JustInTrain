@@ -10,8 +10,8 @@ import com.example.lisamazzini.train_app.exceptions.AchievementException;
 import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -20,22 +20,21 @@ import java.util.Map;
  * sia già stato sbloccato in passato; se è così, non accade nulla, altrimenti viene lanciata un'eccezione che farà
  * apparire un Toast nell'applicazione e segnerà l'achievement fra quelli sbloccati
  *
- * @author Lisa Mazzini
+ * @author lisamazzini
  */
 public class AchievementController {
 
-    private final Map<String, IAchievement> achievements = new HashMap<>();
+    private final List<IAchievement> achievements = new LinkedList<>();
     private final SharedPreferences data;
     private final SharedPreferences.Editor editor;
-
 
     /**
      * Costruttore.
      * @param context Context per le sharedpreferences
      */
     public AchievementController(final Context context) {
-        achievements.put("Delay", new DelayAchievement1(context));
-        achievements.put("Pin", new PinAchievement1(context));
+        achievements.add(new DelayAchievement1(context));
+        achievements.add(new PinAchievement1(context));
         data = context.getSharedPreferences(Constants.ACH_STORE_FILE, Context.MODE_APPEND);
         editor = data.edit();
         editor.apply();
@@ -49,7 +48,7 @@ public class AchievementController {
      */
     public final void updateAchievements(final PlainSolution train) throws AchievementException {
         try {
-            for (final IAchievement a : achievements.values()) {
+            for (final IAchievement a : achievements) {
                 a.addData(train);
             }
         } catch (AchievementException e) {

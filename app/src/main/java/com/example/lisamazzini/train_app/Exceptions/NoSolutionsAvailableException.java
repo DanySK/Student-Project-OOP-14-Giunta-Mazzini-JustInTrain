@@ -1,7 +1,7 @@
 package com.example.lisamazzini.train_app.exceptions;
 
 /**
- * Exception throwed when no exception is found
+ * Eccezione lanciata quando non sono state trovate soluzioni.
  *
  * @author albertogiunta
  */

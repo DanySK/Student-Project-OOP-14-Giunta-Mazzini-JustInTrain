@@ -32,13 +32,16 @@ public class AchievementListFragment extends Fragment implements IBaseFragment{
 
         View view = inflater.inflate(R.layout.fragment_achievement_list, container, false);
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_list);
+
         achievementListController = new AchievementListController(getActivity());
         this.manager = new LinearLayoutManager(getActivity());
         adapter = new AchievementListAdapter(achievementListController.computeAchievement());
+
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         adapter.notifyDataSetChanged();
+
         return view;
     }
 

@@ -1,13 +1,17 @@
 package com.example.lisamazzini.train_app.exceptions;
 
 /**
- * Exception che rappresenta
+ * Exception che rappresenta lo sblocco di un Achievement.
  *
  * @author lisamazzini
  */
 public class AchievementException extends Exception {
 
-    public AchievementException(final String message){
+    /**
+     * Costruttore.
+     * @param message messaggio da mostrare
+     */
+    public AchievementException(final String message) {
         super(message);
     }
 }

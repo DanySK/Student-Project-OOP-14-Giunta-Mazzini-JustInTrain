@@ -1,7 +1,7 @@
 package com.example.lisamazzini.train_app.exceptions;
 
 /**
- * Exception che rappresenta
+ * Exception che rappresenta.
  *
  * @author lisamazzini
  * @author albertogiunta
