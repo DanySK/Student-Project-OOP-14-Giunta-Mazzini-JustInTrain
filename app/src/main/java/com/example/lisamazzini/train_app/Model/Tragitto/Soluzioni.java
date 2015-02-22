@@ -12,20 +12,36 @@ import java.util.List;
 public class Soluzioni {
 
     private String durata;
-    private List<Vehicle> vehicles = new ArrayList<Vehicle>();
+    private List<Vehicle> vehicles = new ArrayList<>();
 
+    /**
+     * Getter per la durata del percorso.
+     * @return durata
+     */
     public final String getDurata() {
         return durata;
     }
 
+    /**
+     * Setter per la durata del percorso.
+     * @param pDurata durata da settare
+     */
     public final void setDurata(final String pDurata) {
         this.durata = pDurata;
     }
 
+    /**
+     * Getter per la lista di Vehicles.
+     * @return lista di Vehicles
+     */
     public final List<Vehicle> getVehicles() {
         return vehicles;
     }
 
+    /**
+     * Setter per la lista di Vehicles.
+     * @param pVehicles lista da settare
+     */
     public final void setVehicles(final List<Vehicle> pVehicles) {
         this.vehicles = pVehicles;
     }

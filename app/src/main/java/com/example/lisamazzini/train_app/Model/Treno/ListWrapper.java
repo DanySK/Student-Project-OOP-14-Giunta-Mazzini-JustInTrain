@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Classe che fa da wrapper per una lista di String.
  *
- * @author albertogiunta
+ * @author lisamazzini
  */
 public class ListWrapper extends LinkedList<String> {
     private final List<String> list;

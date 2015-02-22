@@ -13,10 +13,18 @@ public class Tragitto {
 
     private List<Soluzioni> soluzioni = new ArrayList<Soluzioni>();
 
+    /**
+     * Getter per la lista di Soluzioni.
+     * @return la lista di Soluzioni
+     */
     public final List<Soluzioni> getSoluzioni() {
         return soluzioni;
     }
 
+    /**
+     * Setter per la lista di soluzioni.
+     * @param pSoluzioni lista da settare
+     */
     public final void setSoluzioni(final List<Soluzioni> pSoluzioni) {
         this.soluzioni = pSoluzioni;
     }
