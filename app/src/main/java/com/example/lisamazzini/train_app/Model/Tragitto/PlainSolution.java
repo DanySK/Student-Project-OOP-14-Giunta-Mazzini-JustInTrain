@@ -175,7 +175,7 @@ public final class PlainSolution {
     }
 
     /**
-     * Getter per il booleano tomorrow che indica se la soluzione è per i giorni successivi
+     * Getter per il booleano tomorrow che indica se la soluzione è per i giorni successivi.
      * @return true se è nei giorni successivi, false altrimenti
      */
     public boolean isTomorrow() {

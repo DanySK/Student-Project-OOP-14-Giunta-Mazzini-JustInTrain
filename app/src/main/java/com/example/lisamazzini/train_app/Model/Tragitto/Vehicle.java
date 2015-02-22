@@ -127,7 +127,7 @@ public class Vehicle {
     }
 
     /**
-     * Setter per l'orario di arrivo in formato HH:mm
+     * Setter per l'orario di arrivo in formato HH:mm.
      */
     public final void setOraArrivo() {
         this.oraArrivo = getOrarioArrivo().substring(FIRST_INDEX, SECOND_INDEX);

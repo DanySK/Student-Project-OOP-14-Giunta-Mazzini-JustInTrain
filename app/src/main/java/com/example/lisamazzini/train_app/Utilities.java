@@ -24,18 +24,25 @@ import java.util.List;
 
 /**
  * Classe per tutti i metodi necessari all'elaborazione di dati che viene richiesta in più punti del
- * dell'applicazione; per questo sono statici
- * Created by Lisa Mazzini
+ * dell'applicazione; per questo sono statici.
+ *
+ * @author lisamazzini
+ * @author albertogiunta
  */
-public class Utilities {
+public final class Utilities {
+
+    private static final int FIVE = 5;
+    private static final long TWO_MIN_DIFFERENCE = 2L;
+    private static final String SPLITTER = "\\|";
+    private Utilities() { }
 
     /**
-     * Metodo che converte i millisecondi in una stringa rappresentante l'ora
+     * Metodo che converte i millisecondi in una stringa rappresentante l'ora.
      * @param millis millisecondi da convertire
      * @return la stringa che rappresenta l'ora in formato HH:mm
      */
-    public static String fromMsToTime(final Long millis){
-        if(millis == null){
+    public static String fromMsToTime(final Long millis) {
+        if (millis == null) {
             return "--";
         }
         DateTime date = new DateTime(millis);
@@ -46,39 +53,39 @@ public class Utilities {
     /**
      * Metodo che elabora i dati ottenuti in risposta dal server dall'indirizzo
      * http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/*numeroTreno*
-     * che sono in formato "608 - LECCE|608-S11145", restituendoli in un array
+     * che sono in formato "608 - LECCE|608-S11145", restituendoli in un array.
      *
      * @param data stringa dei dati
      * @return String[] con i dati divisi
      */
-    public static String[] splitString(final String data){
+    public static String[] splitString(final String data) {
         final String[] result = new String[3];
-        result[0] = data.split("\\|")[1].split("-")[0];    //numero
-        result[1] = data.split("\\|")[1].split("-")[1];    //codice
-        result[2] = data.split("\\|")[0].split("-")[1];    //nome
+        result[0] = data.split(SPLITTER)[1].split("-")[0];    //numero
+        result[1] = data.split(SPLITTER)[1].split("-")[1];    //codice
+        result[2] = data.split(SPLITTER)[0].split("-")[1];    //nome
         return result;
     }
 
     /**
      * Metodo che elabora i dati ottenuti in risposta dal server dall'indirizzo
      * http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/autocompletaStazione/*stazione*
-     * che sono in formato "PESARO|S07104", restituendoli in un array fatto di [PESARO, 07104]
+     * che sono in formato "PESARO|S07104", restituendoli in un array fatto di [PESARO, 07104].
      * @param data stringa dei dati
      * @return String[] con i dati divisi
      */
     public static String[] splitStationForJourneySearch(final String data) {
-        return data.split("\\|S");
+        return data.split(SPLITTER + "S");
     }
 
     /**
      * Metodo che elabora i dati ottenuti in risposta dal server dall'indirizzo
      * http://www.viaggiatreno.it/viaggiatrenomobile/resteasy/viaggiatreno/autocompletaStazione/*stazione*
-     * che sono in formato "PESARO|S07104", restituendoli in un array fatto di [PESARO, S07104]
+     * che sono in formato "PESARO|S07104", restituendoli in un array fatto di [PESARO, S07104].
      * @param data stringa dei dati
      * @return String[] con i dati divisi
      */
     public static String[] splitStationForTrainSearch(final String data) {
-        return data.split("\\|");
+        return data.split(SPLITTER);
     }
 
 
@@ -94,7 +101,7 @@ public class Utilities {
      * @param time stringa indicante l'ora
      * @return MutableDateTime impostato al giorno corrente e alla determinata ora
      */
-    public static MutableDateTime getDate(final String time){
+    public static MutableDateTime getDate(final String time) {
         DateTime now = new DateTime(Calendar.getInstance().getTime());
         String[] arrTime = time.split(":");
         MutableDateTime date = now.toMutableDateTime();
@@ -111,54 +118,62 @@ public class Utilities {
      * @param train treno da analizzare
      * @return stringa che descrive l'andamento
      */
-    public static String getProgress(final Treno train){
+    public static String getProgress(final Treno train) {
         Long delta = 0L;
         Long intermediateDelta = 0L;
         List<Fermate> visited = new LinkedList<>();
 
-        for(Fermate f : train.getFermate()){
-            if(f.getActualFermataType() != 0){
+        for (Fermate f : train.getFermate()) {
+            if (f.getActualFermataType() != Constants.EMPTY) {
                 visited.add(f);
             }
         }
 
-        if(visited.size() <= 5) {
+        if (visited.size() <= FIVE) {
             for (int i = visited.size() - 2; i >= 0; i--) {
                 intermediateDelta = visited.get(i + 1).getRitardo() - visited.get(i).getRitardo();
-                Log.d(" A intermediate delta", "" + intermediateDelta);
                 delta += intermediateDelta;
             }
-        }else{
-            for (int i = visited.size()-2; i >= visited.size()-6; i--) {
+        } else {
+            for (int i = visited.size() - 2; i >= visited.size() - FIVE - 1; i--) {
                 intermediateDelta = visited.get(i + 1).getRitardo() - visited.get(i).getRitardo();
-                Log.d(" B intermediate delta", "" + intermediateDelta);
                 delta += intermediateDelta;
             }
         }
 
-        Log.d("delta", "" + delta);
-
-        if(delta > 2L){
+        if (delta > TWO_MIN_DIFFERENCE) {
             return "In rallentamento";
         }
-        if(delta < -2L){
+        if (delta < -TWO_MIN_DIFFERENCE) {
             return "In recupero";
         }
 
         return "Costante";
     }
 
+    /**
+     * Metodo che genera l'URL per la connessione all'autocomplete per le stazioni.
+     * @param stationName nome della stazione
+     * @return URL completo
+     * @throws MalformedURLException se l'URL è formato male
+     */
     public static URL generateStationAutocompleteURL(final String stationName) throws MalformedURLException {
         return new URL(Constants.ROOT + Constants.STATION_AUTOCOMPLETE + stationName + "?q=" + stationName);
     }
 
+    /**
+     * Metodo che genera l'URL per la connessione all'autocomplete per il numero di treno.
+     * @param trainNumber numero treno
+     * @return URL completo
+     * @throws MalformedURLException se l'URL è formato male
+     */
     public static URL generateTrainAutocompleteURL(final String trainNumber) throws MalformedURLException {
         return new URL(Constants.ROOT + Constants.TRAIN_AUTOCOMPLETE + trainNumber);
     }
 
     /**
      * Metodo che apre un BufferedReader su una pagina e crea un lista di String ("wrappata" poi in un ListWrapper)
-     * contenente tutte le righe presenti nella pagina
+     * contenente tutte le righe presenti nella pagina.
      *
      * es:
      *  31 - TARVISIO BOSCOVERDE|31-S03015

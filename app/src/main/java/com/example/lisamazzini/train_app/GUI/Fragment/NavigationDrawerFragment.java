@@ -181,7 +181,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
         return drawerView;
     }
 
-    private TimePickerDialog.OnTimeSetListener timeListener = new TimePickerDialog.OnTimeSetListener() {
+    private final TimePickerDialog.OnTimeSetListener timeListener = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(final TimePicker view, final int pHourOfDay, final int pMinute) {
             if (view.isShown()) {
@@ -190,7 +190,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
         }
     };
 
-    private DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener() {
+    private final DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(final DatePicker view, final int pYear, final int pMonthOfYear, final int pDayOfMonth) {
             if (view.isShown()) {
