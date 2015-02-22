@@ -21,47 +21,53 @@ import com.octo.android.robospice.UncachedSpiceService;
 
 import java.util.Map;
 
-
-public class FavouriteTrainListFragment extends AbstractRobospiceFragment{
+/**
+ * Fragment che mostra la lista di treni favoriti.
+ *
+ * @author lisamazzini
+ */
+public class FavouriteTrainListFragment extends AbstractRobospiceFragment {
 
 
     private FavouriteTrainListController favouriteTrainListController;
-    private RecyclerView recyclerView;
-    private LinearLayoutManager manager;
     private FavouriteTrainListAdapter adapter;
 
+    /**
+     * Metodo che restituisce una nuova istanza del fragment.
+     * @return fragment
+     */
     public static FavouriteTrainListFragment newInstance() {
         return new FavouriteTrainListFragment();
     }
 
-    public FavouriteTrainListFragment() {
-    }
-
     @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-                             final Bundle savedInstanceState) {
+    public final View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+                                   final Bundle savedInstanceState) {
 
-        View layoutInfalter = inflater.inflate(R.layout.fragment_favourite_train_list, container, false);
-        super.spiceManager = new SpiceManager(UncachedSpiceService.class);
+        final View layoutInfalter = inflater.inflate(R.layout.fragment_favourite_train_list, container, false);
+        setSpiceManager(new SpiceManager(UncachedSpiceService.class));
 
-        IFavouriteController favouriteController = FavouriteTrainController.getInstance();
+        final IFavouriteController favouriteController = FavouriteTrainController.getInstance();
         favouriteController.setContext(getActivity().getApplicationContext());
         this.favouriteTrainListController = new FavouriteTrainListController((Map<String, String>) favouriteController.getFavouritesAsMap());
 
-        this.recyclerView = (RecyclerView)layoutInfalter.findViewById(R.id.favouriteRecycler);
-        this.manager = new LinearLayoutManager(getActivity());
+        final RecyclerView recyclerView = (RecyclerView) layoutInfalter.findViewById(R.id.favouriteRecycler);
+        final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         this.adapter = new FavouriteTrainListAdapter(favouriteTrainListController.getFavouriteTrainsList());
 
-        this.recyclerView.setLayoutManager(this.manager);
-        this.recyclerView.setAdapter(adapter);
-        this.recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         return layoutInfalter;
     }
 
-    public void makeRequest() {
-        while(favouriteTrainListController.hasAnotherFavourite()) {
-            spiceManager.execute(favouriteTrainListController.getRequest(), new TrainRequestListener());
+    /**
+     * Metodo chiamato per effetturare una richiesta secondo i criteri selezionati.
+     */
+    public final void makeRequest() {
+        while (favouriteTrainListController.hasAnotherFavourite()) {
+            getSpiceManager().execute(favouriteTrainListController.getRequest(), new TrainRequestListener());
         }
     }
 

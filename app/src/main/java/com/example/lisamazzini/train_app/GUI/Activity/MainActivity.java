@@ -24,8 +24,8 @@ import com.example.lisamazzini.train_app.model.Constants;
  *
  * @author albertogiunta
  */
-public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
+public class MainActivity extends ActionBarActivity {
+    //implements NavigationDrawerFragment.NavigationDrawerCallbacks
     private NavigationDrawerFragment navigationDrawerFragment;
     private JourneyResultsFragment fragment;
     private MainController controller;
@@ -103,16 +103,5 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             getSupportActionBar().setTitle("Nessuna tratta favorita!");
             fragment.resetGui();
         }
-    }
-
-    /**
-     * Questa classe non prevede la gestione tradizionale del navigation drawer (in forma di sola lista di elementi),
-     * per cui questo metodo non ha senso di essere implementato (non verrà neanche chiamato), nonostante ne sia necessaria la presenza
-     * dovuta all'interfaccia implementata per poter disporre del navigation drawer.
-     * @param position posizione dell'elemento selezionato
-     */
-    @Override
-    public final void onNavigationDrawerItemSelected(final int position) {
-        throw new UnsupportedOperationException();
     }
 }

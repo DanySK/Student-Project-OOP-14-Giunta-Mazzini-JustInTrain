@@ -8,7 +8,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -28,14 +27,17 @@ import com.octo.android.robospice.UncachedSpiceService;
 
 import java.util.List;
 
+/**
+ * Fragment che mostra la lista di stazioni e i dettagli del treno selezionato.
+ *
+ * @author lisamazzini
+ */
 public class StationListFragment extends AbstractFavouriteFragment {
 
-    private RecyclerView recyclerView;
     private StationListAdapter adapter;
-    private LinearLayoutManager manager;
 
     private StationListController listController;
-    private IFavouriteController favController = FavouriteTrainController.getInstance();
+    private final IFavouriteController favController = FavouriteTrainController.getInstance();
 
     private TextView info;
     private TextView delay;
@@ -45,23 +47,18 @@ public class StationListFragment extends AbstractFavouriteFragment {
     private TextView textDelay;
     private TextView textProgress;
     private TextView textLastSeen;
-    private Menu menu;
 
+    /**
+     * Metodo che restituisce una nuova istanza del fragment.
+     * @return fragment
+     */
     public static StationListFragment newInstance() {
         return new StationListFragment();
     }
 
-    public StationListFragment() {
-    }
-
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
-//    }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public final View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+                                   final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setFavouriteController(new FavouriteControllerStrategy() {
             @Override
@@ -70,18 +67,18 @@ public class StationListFragment extends AbstractFavouriteFragment {
             }
         });
 
-        super.spiceManager = new SpiceManager(UncachedSpiceService.class);
-        View layoutInflater = inflater.inflate(R.layout.fragment_station_list, container, false);
-        this.recyclerView = (RecyclerView)layoutInflater.findViewById(R.id.recycler);
+        setSpiceManager(new SpiceManager(UncachedSpiceService.class));
+        final View layoutInflater = inflater.inflate(R.layout.fragment_station_list, container, false);
+        final RecyclerView recyclerView = (RecyclerView) layoutInflater.findViewById(R.id.recycler);
 
-        info = (TextView)layoutInflater.findViewById(R.id.tInfo);
-        delay = (TextView)layoutInflater.findViewById(R.id.tDelay);
-        progress = (TextView)layoutInflater.findViewById(R.id.tProgress);
-        lastSeenTime = (TextView)layoutInflater.findViewById(R.id.tLastSeenTime);
-        lastSeenStation = (TextView)layoutInflater.findViewById(R.id.tLastSeenStation);
-        textDelay = (TextView)layoutInflater.findViewById(R.id.lDelay);
-        textLastSeen = (TextView)layoutInflater.findViewById(R.id.lLastSeen);
-        textProgress = (TextView)layoutInflater.findViewById(R.id.lProgress);
+        info = (TextView) layoutInflater.findViewById(R.id.tInfo);
+        delay = (TextView) layoutInflater.findViewById(R.id.tDelay);
+        progress = (TextView) layoutInflater.findViewById(R.id.tProgress);
+        lastSeenTime = (TextView) layoutInflater.findViewById(R.id.tLastSeenTime);
+        lastSeenStation = (TextView) layoutInflater.findViewById(R.id.tLastSeenStation);
+        textDelay = (TextView) layoutInflater.findViewById(R.id.lDelay);
+        textLastSeen = (TextView) layoutInflater.findViewById(R.id.lLastSeen);
+        textProgress = (TextView) layoutInflater.findViewById(R.id.lProgress);
 
         // TODO fa unico meodo per visible e invisible (toggler)
         textDelay.setVisibility(View.INVISIBLE);
@@ -89,13 +86,13 @@ public class StationListFragment extends AbstractFavouriteFragment {
         textProgress.setVisibility(View.INVISIBLE);
 
         this.listController = new StationListController();
-        this.manager = new LinearLayoutManager(getActivity());
+        final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         this.adapter = new StationListAdapter(listController.getFermateList());
         adapter.notifyDataSetChanged();
 
-        this.recyclerView.setLayoutManager(manager);
-        this.recyclerView.setAdapter(adapter);
-        this.recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         this.favController.setContext(getActivity().getApplicationContext());
 
@@ -104,43 +101,48 @@ public class StationListFragment extends AbstractFavouriteFragment {
 
 
     @Override
-    public String[] getFavouriteForAdding() {
+    public final String[] getFavouriteForAdding() {
         return listController.getTrainDetails();
     }
 
     @Override
-    public String[] getFavouriteForRemoving() {
+    public final String[] getFavouriteForRemoving() {
         return listController.getTrainDetails();
     }
 
-    public void makeRequest(final String trainNumber, final String stationCode) {
+    /**
+     * Metodo che viene chiamato per eseguire una ricerca dati il numero del treno ed eventualmente il codice della stazione di origine.
+     * @param trainNumber numero del treno
+     * @param stationCode stazione di origine
+     */
+    public final void makeRequest(final String trainNumber, final String stationCode) {
         listController.setTrainNumber(trainNumber);
-        if(stationCode == null) {
-            spiceManager.execute(listController.getNumberRequest(), new StationCodeListener());
-        }else{
+        if (stationCode == null) {
+            getSpiceManager().execute(listController.getNumberRequest(), new StationCodeListener());
+        } else {
             listController.setTrainCode(stationCode);
-            spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
+            getSpiceManager().execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
         }
     }
 
     private class StationCodeListener extends AbstractListener<ListWrapper> {
         @Override
         public void onRequestSuccess(final ListWrapper result) {
-            List<String> data = result.getList();
-            if(Utilities.isOneResult(data)){
+            final List<String> data = result.getList();
+            if (Utilities.isOneResult(data)) {
                 listController.setTrainDetails(listController.computeData(data.get(0)));
                 listController.setTrainCode(listController.getTrainDetails()[1]);
                 toggleFavouriteIcon(listController.getTrainNumber(), listController.getTrainCode());
-                spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
-            }else{
+                getSpiceManager().execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
+            } else {
                 final String[][] dataMatrix = listController.computeMatrix(data);
-                String[] choices = listController.computeChoices(dataMatrix);
+                final String[] choices = listController.computeChoices(dataMatrix);
                 getDialogBuilder().setSingleChoiceItems(choices, -1, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(final DialogInterface dialog, final int which) {
                         listController.setTrainDetails(dataMatrix[which]);
                         listController.setTrainCode(dataMatrix[which][1]);
-                        spiceManager.execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
+                        getSpiceManager().execute(listController.getNumberAndCodeRequest(), new TrainResultListener());
                         toggleFavouriteIcon(listController.getTrainNumber(), listController.getTrainCode());
                         dialog.dismiss();
                     }
@@ -154,7 +156,7 @@ public class StationListFragment extends AbstractFavouriteFragment {
         }
     }
 
-    private class TrainResultListener extends AbstractListener<Treno>{
+    private class TrainResultListener extends AbstractListener<Treno> {
         @Override
         public Context getDialogContext() {
             return getActivity();

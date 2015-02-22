@@ -33,31 +33,31 @@ import com.octo.android.robospice.UncachedSpiceService;
 
 import java.util.List;
 
+/**
+ * Fragment che mostra la lista di soluzioni disponibili.
+ *
+ * @author albertogiunta
+ */
 public class JourneyResultsFragment extends AbstractFavouriteFragment {
 
     private final JourneyListController controller = new JourneyListController();
     private RecyclerView recyclerView;
     private final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-    private JourneyListAdapter adapter = new JourneyListAdapter(controller.getPartialPlainSolutions());
+    private final JourneyListAdapter adapter = new JourneyListAdapter(controller.getPartialPlainSolutions());
 
+    /**
+     * Metodo che restituisce una nuova istanza del fragment.
+     * @return fragment
+     */
     public static JourneyResultsFragment newInstance() {
         return new JourneyResultsFragment();
     }
 
-    public JourneyResultsFragment() {
-    }
-
-//    @Override
-//    public void onCreate(final Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
-//    }
-
     @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-                             final Bundle savedInstanceState) {
+    public final View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+                                   final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View layoutInflater = inflater.inflate(R.layout.fragment_journey_results, container, false);
+        final View layoutInflater = inflater.inflate(R.layout.fragment_journey_results, container, false);
 
         setFavouriteController(new FavouriteControllerStrategy() {
             @Override
@@ -65,9 +65,8 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
                 return FavouriteJourneyController.getInstance();
             }
         });
-        super.spiceManager = new SpiceManager(UncachedSpiceService.class);
-//        this.favouriteController.setContext(getActivity().getApplicationContext());
-        this.recyclerView = (RecyclerView)layoutInflater.findViewById(R.id.cardListFragment);
+        setSpiceManager(new SpiceManager(UncachedSpiceService.class));
+        this.recyclerView = (RecyclerView) layoutInflater.findViewById(R.id.cardListFragment);
         this.adapter.notifyDataSetChanged();
         this.recyclerView.setLayoutManager(manager);
         this.recyclerView.setAdapter(adapter);
@@ -76,44 +75,60 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
         return layoutInflater;
     }
 
-    public void resetScrollListener() {
+
+    private void resetScrollListener() {
         recyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(manager) {
             @Override
-            public void onLoadMore(int current_page) {
-                spiceManager.execute(new JourneyTrainRequest(controller.getPlainSolutions(false)), new JourneyTrainRequestListener());
+            public void onLoadMore(final int currentPage) {
+                getSpiceManager().execute(new JourneyTrainRequest(controller.getPlainSolutions(false)), new JourneyTrainRequestListener());
             }
         });
 
     }
 
-    public void makeRequest(final String userRequestType, final String requestedTime, final boolean isCustomTime, final String... departureAndArrivalData) {
+    /**
+     * Metodo invocato per resettare la gui (azzera la lista) e resettare le lo spiceManager.
+     */
+    public final void resetGui() {
         controller.clearPartialPlainSolutionList();
-        adapter.notifyDataSetChanged();
         resetScrollListener();
+        adapter.notifyDataSetChanged();
+        super.resetRequests();
+    }
+
+
+    /**
+     * Metodo che resetta la il contorller e la gui e lancia le richieste in base alla modalità di richiesta.
+     * @param userRequestType modalità di richiesta (WITH IDS oppure WITH STATIONS)
+     * @param requestedTime data e ora a cui effettuare la richiesta
+     * @param isCustomTime boolean utile a sapere se l'utente ha selezionato o meno un orario, e fare la ricerca di conseguenza
+     * @param departureAndArrivalData stringhe contenenti i dati con cui effettuare la richiesta
+     */
+    public final void makeRequest(final String userRequestType, final String requestedTime, final boolean isCustomTime, final String... departureAndArrivalData) {
+        resetGui();
         controller.setRequestedTime(requestedTime);
         controller.setCustomTime(isCustomTime);
         if (userRequestType.equals(Constants.WITH_IDS)) {
             super.resetRequests();
             controller.setDepartureID(departureAndArrivalData[0]);
             controller.setArrivalID(departureAndArrivalData[1]);
-            spiceManager.execute(new JourneyRequest(controller.getDepartureID(), controller.getArrivalID(), requestedTime), new JourneyRequestListener());
+            getSpiceManager().execute(new JourneyRequest(controller.getDepartureID(), controller.getArrivalID(), requestedTime), new JourneyRequestListener());
             Toast.makeText(getActivity(), "Ricerca in corso...", Toast.LENGTH_SHORT).show();
         } else if (userRequestType.equals(Constants.WITH_STATIONS)) {
-            controller.setDepartureStation( departureAndArrivalData[0]);
+            controller.setDepartureStation(departureAndArrivalData[0]);
             controller.setArrivalStation(departureAndArrivalData[1]);
-            spiceManager.execute(new JourneyDataRequest(controller.getDepartureStation()), new DepartureDataRequestListenter());
+            getSpiceManager().execute(new JourneyDataRequest(controller.getDepartureStation()), new DepartureDataRequestListenter());
             Toast.makeText(getActivity(), "Ricerca in corso...", Toast.LENGTH_SHORT).show();
         }
     }
 
-
     @Override
-    public String[] getFavouriteForAdding() {
+    public final String[] getFavouriteForAdding() {
         return new String[]{controller.getDepartureID(), controller.getArrivalID(), controller.getDepartureStation(), controller.getArrivalStation()};
     }
 
     @Override
-    public String[] getFavouriteForRemoving() {
+    public final String[] getFavouriteForRemoving() {
         return new String[]{controller.getDepartureID(), controller.getArrivalID()};
     }
 
@@ -125,14 +140,13 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
         public Context getDialogContext() {
             return getActivity();
         }
-
         @Override
         public void onRequestSuccess(final ListWrapper lista) {
-            List<String> data = lista.getList();
+            final List<String> data = lista.getList();
 
             if (Utilities.isOneResult(data)) {
                 controller.setDepartureID(controller.splitData(lista.getList().get(0))[1]);
-                spiceManager.execute(new JourneyDataRequest(controller.getArrivalStation()), new ArrivalDataRequestListener());
+                getSpiceManager().execute(new JourneyDataRequest(controller.getArrivalStation()), new ArrivalDataRequestListener());
             } else {
                 final String[][] choices = controller.getTableForMultipleResults(data);
                 getDialogBuilder().setSingleChoiceItems(choices[0], -1, new DialogInterface.OnClickListener() {
@@ -140,12 +154,13 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
                     public void onClick(final DialogInterface dialog, final int which) {
                         controller.setDepartureID(choices[1][which]);
                         controller.setDepartureStation(choices[0][which]);
-                        spiceManager.execute(new JourneyDataRequest(controller.getArrivalStation()), new ArrivalDataRequestListener());
+                        getSpiceManager().execute(new JourneyDataRequest(controller.getArrivalStation()), new ArrivalDataRequestListener());
                         dialog.dismiss();
                     }
                 }).show();
             }
         }
+
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -156,16 +171,15 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
         public Context getDialogContext() {
             return getActivity();
         }
-
         @Override
         public void onRequestSuccess(final ListWrapper lista) {
 
-            List<String> data = lista.getList();
+            final List<String> data = lista.getList();
 
             if (Utilities.isOneResult(data)) {
                 controller.setArrivalID(controller.splitData(lista.getList().get(0))[1]);
                 toggleFavouriteIcon(controller.getDepartureID(), controller.getArrivalID());
-                spiceManager.execute(new JourneyRequest(controller.getDepartureID(), controller.getArrivalID(), controller.getRequestedTime()), new JourneyRequestListener());
+                getSpiceManager().execute(new JourneyRequest(controller.getDepartureID(), controller.getArrivalID(), controller.getRequestedTime()), new JourneyRequestListener());
             } else {
                 final String[][] choices = controller.getTableForMultipleResults(data);
                 getDialogBuilder().setSingleChoiceItems(choices[0], -1, new DialogInterface.OnClickListener() {
@@ -174,7 +188,7 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
                         controller.setArrivalID(choices[1][which]);
                         controller.setArrivalStation(choices[0][which]);
                         toggleFavouriteIcon(controller.getDepartureID(), controller.getArrivalID());
-                        spiceManager.execute(new JourneyRequest(controller.getDepartureID(), controller.getArrivalID(), controller.getRequestedTime()), new JourneyRequestListener());
+                        getSpiceManager().execute(new JourneyRequest(controller.getDepartureID(), controller.getArrivalID(), controller.getRequestedTime()), new JourneyRequestListener());
                         dialog.dismiss();
                     }
                 }).show();
@@ -182,6 +196,7 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
 
             ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(controller.getDepartureStation() + " -> " + controller.getArrivalStation());
         }
+
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -192,12 +207,12 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
         public Context getDialogContext() {
             return getActivity();
         }
-
         @Override
         public void onRequestSuccess(final Tragitto tragitto) {
             controller.buildPlainSolutions(tragitto);
-            spiceManager.execute(new JourneyTrainRequest(controller.getPlainSolutions(controller.isCustomTime())), new JourneyTrainRequestListener());
+            getSpiceManager().execute(new JourneyTrainRequest(controller.getPlainSolutions(controller.isCustomTime())), new JourneyTrainRequestListener());
         }
+
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -208,17 +223,11 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
         public Context getDialogContext() {
             return getActivity();
         }
-
         @Override
         public void onRequestSuccess(final PlainSolutionWrapper plainSolutions) {
             controller.addSolutions(plainSolutions.getList());
             adapter.notifyDataSetChanged();
         }
-    }
 
-    public void resetGui() {
-        super.resetRequests();
-        controller.clearPartialPlainSolutionList();
-        adapter.notifyDataSetChanged();
     }
 }
