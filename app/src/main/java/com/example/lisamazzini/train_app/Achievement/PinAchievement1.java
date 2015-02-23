@@ -23,11 +23,11 @@ public class PinAchievement1 extends BasicAchievement {
     public PinAchievement1(final Context context) {
         super(0L, new Strategy() {
             @Override
-            public Long compute(final PlainSolution train, final Long value) {
+            public long compute(final PlainSolution train, final long value) {
                 return value + 1L;
             }
             @Override
-            public void control(final Long value) throws AchievementException {
+            public void control(final long value) throws AchievementException {
                 if (value == LIMIT) {
                     throw new PinAchievementException(Constants.PIN_ACH);
                 }

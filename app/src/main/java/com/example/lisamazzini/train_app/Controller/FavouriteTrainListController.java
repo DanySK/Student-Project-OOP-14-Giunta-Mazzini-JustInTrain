@@ -1,5 +1,9 @@
 package com.example.lisamazzini.train_app.controller;
 
+import android.content.Context;
+
+import com.example.lisamazzini.train_app.controller.favourites.FavouriteTrainController;
+import com.example.lisamazzini.train_app.controller.favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.model.treno.Treno;
 import com.example.lisamazzini.train_app.network.total.TrainRequest;
 import com.example.lisamazzini.train_app.model.Constants;
@@ -22,10 +26,12 @@ public class FavouriteTrainListController {
 
     /**
      * Costruttore.
-     * @param map mappa dei preferiti
+     * @param context context necessario per ottenere i preferiti
      */
-    public FavouriteTrainListController(final Map<String, String> map) {
-        this.iterator = map.keySet().iterator();
+    public FavouriteTrainListController(Context context) {
+        final IFavouriteController favouriteController = FavouriteTrainController.getInstance();
+        favouriteController.setContext(context);
+        this.iterator = favouriteController.getFavouritesAsMap().keySet().iterator();
     }
 
     /**
@@ -51,6 +57,7 @@ public class FavouriteTrainListController {
     public final void addToFavouriteTrainList(final Treno train) {
         favouriteTrainsList.add(train);
     }
+
     /**
      * Metodo che restituisce il preferito successivo.
      * @return il preferito

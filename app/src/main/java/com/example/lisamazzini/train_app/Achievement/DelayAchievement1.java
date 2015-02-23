@@ -23,12 +23,12 @@ public class DelayAchievement1 extends BasicAchievement {
     public DelayAchievement1(final Context context) {
         super(0L, new Strategy() {
             @Override
-            public Long compute(final PlainSolution train, final Long value) {
+            public long compute(final PlainSolution train, final long value) {
                 return value + Long.parseLong(train.getDelay());
             }
 
             @Override
-            public void control(final Long value) throws DelayAchievementException {
+            public void control(final long value) throws DelayAchievementException {
                 if (value > LIMIT) {
                     throw new DelayAchievementException(Constants.DELAY_ACH);
                 }

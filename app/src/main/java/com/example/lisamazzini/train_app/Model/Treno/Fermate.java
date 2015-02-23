@@ -11,8 +11,8 @@ public class Fermate {
     private String id;
     private Long programmata;
     private Long effettiva;
-    private Long ritardo;
-    private Long actualFermataType;
+    private long ritardo;
+    private long actualFermataType;
     private String binarioEffettivoPartenzaDescrizione;
     private String binarioProgrammatoPartenzaDescrizione;
 
@@ -53,7 +53,7 @@ public class Fermate {
      * è stata visitata (1) o meno(0), se è straordinaria(2) o se è cancellata (3).
      * @return actualFermataType
      */
-    public final Long getActualFermataType() {
+    public final long getActualFermataType() {
         return actualFermataType;
     }
 
@@ -61,7 +61,7 @@ public class Fermate {
      * Setter per l'actualFermatatype.
      * @param pActualFermataType valore da settare
      */
-    public final void setActualFermataType(final Long pActualFermataType) {
+    public final void setActualFermataType(final long pActualFermataType) {
         this.actualFermataType = pActualFermataType;
     }
 
@@ -101,7 +101,7 @@ public class Fermate {
      * Getter per il ritardo.
      * @return ritardo
      */
-    public final Long getRitardo() {
+    public final long getRitardo() {
         return ritardo;
     }
 
@@ -109,7 +109,7 @@ public class Fermate {
      * Setter per il ritardo.
      * @param pRitardo ritardo da settare
      */
-    public final void setRitardo(final Long pRitardo) {
+    public final void setRitardo(final long pRitardo) {
         this.ritardo = pRitardo;
     }
 

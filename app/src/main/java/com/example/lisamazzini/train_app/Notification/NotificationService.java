@@ -71,7 +71,7 @@ public class NotificationService extends Service {
         if (timeDifference > QUARTER) {
             // è presto
             departureTime.addMinutes(-QUARTER);
-            final Long millis = departureTime.getMillis();
+            final long millis = departureTime.getMillis();
             final AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             am.set(AlarmManager.RTC_WAKEUP, millis, pIntentStart);
         } else {
@@ -186,7 +186,7 @@ public class NotificationService extends Service {
          * @return true se è non partito, false se è partito
          */
         private boolean notDeparted(final Treno train) {
-            return train.getFermate().get(0).getActualFermataType().equals(NOT_VISITED);
+            return train.getFermate().get(0).getActualFermataType() == NOT_VISITED;
         }
 
         /**
@@ -195,7 +195,7 @@ public class NotificationService extends Service {
          * @return true sè è arrivato, false se non è arrivato
          */
         private boolean isArrived(final Treno train) {
-            return !train.getFermate().get(train.getFermate().size() - 1).getActualFermataType().equals(NOT_VISITED);
+            return !(train.getFermate().get(train.getFermate().size() - 1).getActualFermataType() == NOT_VISITED);
         }
 
     }

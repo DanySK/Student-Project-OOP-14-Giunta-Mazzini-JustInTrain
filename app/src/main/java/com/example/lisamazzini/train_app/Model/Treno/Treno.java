@@ -15,11 +15,11 @@ public class Treno {
     private String stazioneUltimoRilevamento;
     private String idOrigine;
     private String compOraUltimoRilevamento;
-    private Long numeroTreno;
+    private long numeroTreno;
     private String categoria;
     private String subTitle;
     private String progress;
-    private Long ritardo;
+    private long ritardo;
 
     /**
      * Getter per la lista di Fermate.
@@ -89,7 +89,7 @@ public class Treno {
      * Getter per il numero di treno.
      * @return numero treno
      */
-    public final Long getNumeroTreno() {
+    public final long getNumeroTreno() {
         return numeroTreno;
     }
 
@@ -97,7 +97,7 @@ public class Treno {
      * Setter per il numero del treno.
      * @param pNumeroTreno numero da settare
      */
-    public final void setNumeroTreno(final Long pNumeroTreno) {
+    public final void setNumeroTreno(final long pNumeroTreno) {
         this.numeroTreno = pNumeroTreno;
     }
 
@@ -153,7 +153,7 @@ public class Treno {
      * Getter per il ritardo.
      * @return ritardo
      */
-    public final Long getRitardo() {
+    public final long getRitardo() {
         return ritardo;
     }
 
@@ -161,7 +161,7 @@ public class Treno {
      * Setter per il ritardo.
      * @param pRitardo ritardo da settare
      */
-    public final void setRitardo(final Long pRitardo) {
+    public final void setRitardo(final long pRitardo) {
         this.ritardo = pRitardo;
     }
 

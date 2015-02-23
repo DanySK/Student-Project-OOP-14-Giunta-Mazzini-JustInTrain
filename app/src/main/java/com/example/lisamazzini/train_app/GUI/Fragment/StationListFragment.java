@@ -169,7 +169,7 @@ public class StationListFragment extends AbstractFavouriteFragment {
             trainResponse.setProgress(listController.getProgress(trainResponse));
 
             String[] trainDetails = new String[2];
-            trainDetails[0] = trainResponse.getNumeroTreno().toString();
+            trainDetails[0] = Long.toString(trainResponse.getNumeroTreno());
             trainDetails[1] = trainResponse.getIdOrigine();
             listController.setTrainDetails(trainDetails);
             toggleFavouriteIcon(listController.getTrainNumber(), listController.getTrainCode());
@@ -181,7 +181,7 @@ public class StationListFragment extends AbstractFavouriteFragment {
             textLastSeen.setVisibility(View.VISIBLE);
             textProgress.setVisibility(View.VISIBLE);
             info.setText(trainResponse.getSubTitle());
-            delay.setText(trainResponse.getRitardo().toString() + "'");
+            delay.setText(Long.toString(trainResponse.getRitardo()) + "'");
             progress.setText(trainResponse.getProgress());
             lastSeenTime.setText(trainResponse.getCompOraUltimoRilevamento());
             lastSeenStation.setText(trainResponse.getStazioneUltimoRilevamento());

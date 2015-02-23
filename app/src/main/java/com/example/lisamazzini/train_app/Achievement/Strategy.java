@@ -18,14 +18,14 @@ public interface Strategy {
      * @param value valore che aggiorna
      * @return valore aggiornato
      */
-    Long compute(PlainSolution train, Long value);
+    long compute(PlainSolution train, long value);
 
     /**
      * Metodo che controlla se l'achievement è stato sbloccato.
      * @param value valore da controllare
      * @throws AchievementException se l'achievement è stato sbloccato
      */
-    void control(Long value) throws AchievementException;
+    void control(long value) throws AchievementException;
 
     /**
      * Metodo che restituisce la chiave con cui si identifica l'achievement.

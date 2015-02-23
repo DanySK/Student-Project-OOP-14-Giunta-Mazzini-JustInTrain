@@ -25,7 +25,10 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
     /**
      * Costante per assegnare un colore a seconda che la stazione sia stata visitata, cancellata, straordinaria, o da visitare.
      */
-    private final int[] rgbColors = new int[]{196, 230, 255};
+    private final int[] rgbVisited = new int[]{196, 230, 255};
+    private final int[] rgbCancelled = new int[]{230, 191, 191};
+    private final int[] rgbExtra = new int[]{255, 234, 164};
+
 
     /**
      * Costruttore.
@@ -49,17 +52,18 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
         viewHolder.stationName.setText(f.getStazione());
         if (f.getActualFermataType() == Constants.STATION_CANCELLED) {
             viewHolder.extraMessage.setText("CANCELLATA");
+            viewHolder.itemView.setBackgroundColor(Color.rgb(rgbCancelled[0], rgbCancelled[1], rgbCancelled[2]));
         } else if (f.getActualFermataType() == Constants.STATION_EXTRA) {
             viewHolder.extraMessage.setText("Fermata Straordinaria");
+            viewHolder.itemView.setBackgroundColor(Color.rgb(rgbExtra[0], rgbExtra[1], rgbExtra[2]));
+        } else if (f.getActualFermataType() == Constants.STATION_VISITED) {
+            viewHolder.extraMessage.setText("");
+            viewHolder.itemView.setBackgroundColor(Color.rgb(rgbVisited[0], rgbVisited[1], rgbVisited[2]));
         } else {
             viewHolder.extraMessage.setText("");
-        }
-        if (f.getActualFermataType() == Constants.STATION_VISITED) {
-            viewHolder.itemView.setBackgroundColor(Color.rgb(rgbColors[0], rgbColors[1], rgbColors[2]));
-        } else {
             viewHolder.itemView.setBackgroundColor(Color.WHITE);
         }
-        viewHolder.timeDifference.setText(f.getRitardo().toString());
+        viewHolder.timeDifference.setText(Long.toString(f.getRitardo()));
         viewHolder.plannedTime.setText(Utilities.fromMsToTime(f.getProgrammata()));
         viewHolder.plannedPlatform.setText(f.getBinarioEffettivoPartenzaDescrizione());
         viewHolder.actualTime.setText(Utilities.fromMsToTime(f.getEffettiva()));

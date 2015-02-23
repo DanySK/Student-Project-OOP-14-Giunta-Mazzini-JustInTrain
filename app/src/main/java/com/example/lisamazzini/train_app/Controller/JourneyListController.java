@@ -26,7 +26,7 @@ import java.util.Locale;
 public class JourneyListController {
 
     private static final int SOLUTION = 5;
-    private final SimpleDateFormat sdf = new SimpleDateFormat(Constants.SDF, new Locale("IT"));
+    private final SimpleDateFormat sdf = new SimpleDateFormat(Constants.SDF, Locale.ITALY);
     private final List<PlainSolution> totalPlainSolutions = new LinkedList<>();
     private int upperBound;
     private int lowerBound;

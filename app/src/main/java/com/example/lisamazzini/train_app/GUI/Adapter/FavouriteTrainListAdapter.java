@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.lisamazzini.train_app.Utilities;
 import com.example.lisamazzini.train_app.gui.activity.StationListActivity;
 import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.model.treno.Treno;
@@ -43,7 +44,7 @@ public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTra
 
         final Treno train = list.get(position);
         holder.trainCategory.setText(train.getCategoria());
-        holder.trainNumber.setText(train.getNumeroTreno().toString());
+        holder.trainNumber.setText(Long.toString(train.getNumeroTreno()));
 
         if (train.getFermate().isEmpty()  || !train.getSubTitle().equals("")) {
             holder.extra.setText(train.getSubTitle());
@@ -55,7 +56,7 @@ public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTra
             } else {
                 holder.delay.setText("  • IN ORARIO");
             }
-            holder.progress.setText(train.getProgress());
+            holder.progress.setText(Utilities.getProgress(train));
             holder.lastSeemTime.setText(train.getCompOraUltimoRilevamento());
             holder.lastSeenStation.setText(train.getStazioneUltimoRilevamento());
         }
@@ -94,7 +95,7 @@ public class FavouriteTrainListAdapter extends RecyclerView.Adapter<FavouriteTra
             delay = (TextView) itemView.findViewById(R.id.tFavDelay);
             lastSeemTime = (TextView) itemView.findViewById(R.id.tFavLastSeenTime);
             lastSeenStation = (TextView) itemView.findViewById(R.id.tFavLastSeenStation);
-            progress = (TextView) itemView.findViewById(R.id.lFavProgress);
+            progress = (TextView) itemView.findViewById(R.id.tFavProgress);
             extra = (TextView) itemView.findViewById(R.id.tFavExtraMessage);
         }
 

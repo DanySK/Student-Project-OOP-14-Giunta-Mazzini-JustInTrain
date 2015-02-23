@@ -17,7 +17,7 @@ import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 
 public class BasicAchievement implements IAchievement {
 
-    private Long value;
+    private long value;
     private final Strategy strategy;
     private final SharedPreferences data;
     private final SharedPreferences.Editor editor;
@@ -29,7 +29,7 @@ public class BasicAchievement implements IAchievement {
      * @param pStrategy oggetto Strategy che ne descrive il funzionamento
      * @param context il Context necessario per prendere le SharedPreferences
      */
-    public BasicAchievement(final Long pValue, final Strategy pStrategy, final Context context) {
+    public BasicAchievement(final long pValue, final Strategy pStrategy, final Context context) {
         this.value = pValue;
         this.strategy = pStrategy;
         data = context.getSharedPreferences(Constants.ACH_DATA_FILE, Context.MODE_APPEND);
