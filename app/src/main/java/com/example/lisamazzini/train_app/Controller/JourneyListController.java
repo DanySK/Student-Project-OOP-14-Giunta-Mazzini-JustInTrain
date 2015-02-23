@@ -3,11 +3,11 @@ package com.example.lisamazzini.train_app.controller;
 import android.util.Log;
 
 import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.Utilities;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.model.tragitto.Soluzioni;
 import com.example.lisamazzini.train_app.model.tragitto.Tragitto;
 import com.example.lisamazzini.train_app.model.tragitto.Vehicle;
-import com.example.lisamazzini.train_app.model.Utilities;
 
 import org.joda.time.DateTime;
 
@@ -250,7 +250,7 @@ public class JourneyListController {
             lowerBound = 0;
         }
         upperBound = getIndexForNSolutions(SOLUTION);
-        List<PlainSolution> temp = this.totalPlainSolutions.subList(lowerBound, upperBound);
+        final List<PlainSolution> temp = this.totalPlainSolutions.subList(lowerBound, upperBound);
         lowerBound = upperBound + 1;
         return temp;
     }

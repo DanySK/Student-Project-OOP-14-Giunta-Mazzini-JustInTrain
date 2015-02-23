@@ -82,7 +82,7 @@ public class MainController {
         favouriteStationIDs.clear();
         favouriteStationNames.clear();
 
-        for (Map.Entry<?, ?> entry : favouriteJourneyController.getFavouritesAsMap().entrySet()) {
+        for (final Map.Entry<?, ?> entry : favouriteJourneyController.getFavouritesAsMap().entrySet()) {
             favouriteStationIDs.add((String) entry.getKey());
             favouriteStationNames.add((String) entry.getValue());
         }

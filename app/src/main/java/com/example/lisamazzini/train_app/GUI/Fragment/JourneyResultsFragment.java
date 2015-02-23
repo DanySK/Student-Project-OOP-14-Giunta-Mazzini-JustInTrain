@@ -14,13 +14,14 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.lisamazzini.train_app.R;
-import com.example.lisamazzini.train_app.controller.EndlessRecyclerOnScrollListener;
+import com.example.lisamazzini.train_app.controller.AbstractEndlessRecyclerOnScrollListener;
 import com.example.lisamazzini.train_app.controller.JourneyListController;
 import com.example.lisamazzini.train_app.controller.favourites.FavouriteControllerStrategy;
 import com.example.lisamazzini.train_app.controller.favourites.FavouriteJourneyController;
 import com.example.lisamazzini.train_app.controller.favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.gui.adapter.JourneyListAdapter;
 import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.Utilities;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolutionWrapper;
 import com.example.lisamazzini.train_app.model.tragitto.Tragitto;
 import com.example.lisamazzini.train_app.model.treno.ListWrapper;
@@ -28,8 +29,6 @@ import com.example.lisamazzini.train_app.network.AbstractListener;
 import com.example.lisamazzini.train_app.network.data.JourneyDataRequest;
 import com.example.lisamazzini.train_app.network.total.JourneyRequest;
 import com.example.lisamazzini.train_app.network.total.JourneyTrainRequest;
-import com.example.lisamazzini.train_app.R;
-import com.example.lisamazzini.train_app.model.Utilities;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 
@@ -71,7 +70,7 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
 
 
     private void resetScrollListener() {
-        recyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(manager) {
+        recyclerView.setOnScrollListener(new AbstractEndlessRecyclerOnScrollListener(manager) {
             @Override
             public void onLoadMore(final int currentPage) {
                 getSpiceManager().execute(new JourneyTrainRequest(controller.getPlainSolutions(false)), new JourneyTrainRequestListener());
@@ -152,7 +151,7 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
             final List<String> data = lista.getList();
 
             if (Utilities.isOneResult(data)) {
-                String[] choices = controller.splitData(lista.getList().get(0));
+                final String[] choices = controller.splitData(lista.getList().get(0));
                 controller.setDepartureStation(choices[0]);
                 controller.setDepartureID(choices[1]);
                 getSpiceManager().execute(new JourneyDataRequest(controller.getArrivalStation()), new ArrivalDataRequestListener());
@@ -194,7 +193,7 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
             final List<String> data = lista.getList();
 
             if (Utilities.isOneResult(data)) {
-                String[] choices = controller.splitData(lista.getList().get(0));
+                final String[] choices = controller.splitData(lista.getList().get(0));
                 controller.setArrivalStation(choices[0]);
                 controller.setArrivalID(choices[1]);
                 toggleFavouriteIcon(controller.getDepartureID(), controller.getArrivalID());

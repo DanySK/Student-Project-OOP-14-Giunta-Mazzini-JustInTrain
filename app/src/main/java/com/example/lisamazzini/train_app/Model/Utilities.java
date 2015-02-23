@@ -1,7 +1,5 @@
 package com.example.lisamazzini.train_app.model;
 
-
-import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.model.treno.Fermate;
 import com.example.lisamazzini.train_app.model.treno.ListWrapper;
 import com.example.lisamazzini.train_app.model.treno.Treno;
@@ -45,7 +43,7 @@ public final class Utilities {
         if (millis == null) {
             return "--";
         }
-        DateTime date = new DateTime(millis);
+        final DateTime date = new DateTime(millis);
         date.plusHours(1);
         return DateTimeFormat.forPattern("HH:mm").print(date);
     }
@@ -115,9 +113,9 @@ public final class Utilities {
      * @return MutableDateTime impostato al giorno corrente e alla determinata ora
      */
     public static MutableDateTime getDate(final String time) {
-        DateTime now = new DateTime(Calendar.getInstance().getTime());
-        String[] arrTime = time.split(":");
-        MutableDateTime date = now.toMutableDateTime();
+        final DateTime now = new DateTime(Calendar.getInstance().getTime());
+        final String[] arrTime = time.split(":");
+        final MutableDateTime date = now.toMutableDateTime();
         date.setDate(Calendar.getInstance().getTimeInMillis());
         date.setTime(Integer.parseInt(arrTime[0]), Integer.parseInt(arrTime[1]), 0, 0);
         return date;
@@ -142,9 +140,9 @@ public final class Utilities {
 
         Long delta = 0L;
         Long intermediateDelta;
-        List<Fermate> visited = new LinkedList<>();
+        final List<Fermate> visited = new LinkedList<>();
 
-        for (Fermate f : train.getFermate()) {
+        for (final Fermate f : train.getFermate()) {
             if (f.getActualFermataType() != Constants.EMPTY) {
                 visited.add(f);
             }
@@ -205,9 +203,9 @@ public final class Utilities {
      * @throws IOException in caso di errori nell'utilizzo del BufferedReader
      */
     public static ListWrapper fetchData(final URL url) throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+        final BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
         String inputLine;
-        List<String> result = new LinkedList<>();
+        final List<String> result = new LinkedList<>();
         while ((inputLine = in.readLine()) != null) {
             result.add(inputLine);
         }
@@ -232,7 +230,7 @@ public final class Utilities {
      * @return true se è non partito, false se è partito
      */
     public static boolean notDeparted(final Treno train) {
-        return !(train.getFermate().get(0).getActualFermataType() == VISITED);
+        return train.getFermate().get(0).getActualFermataType() != VISITED;
     }
 
     /**
@@ -241,7 +239,7 @@ public final class Utilities {
      * @return true sè è arrivato, false se non è arrivato
      */
     public static boolean isArrived(final Treno train) {
-        return (train.getFermate().get(train.getFermate().size() - 1).getActualFermataType() == VISITED);
+        return train.getFermate().get(train.getFermate().size() - 1).getActualFermataType() == VISITED;
     }
 
 }

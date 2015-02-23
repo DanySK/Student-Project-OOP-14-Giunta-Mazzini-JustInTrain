@@ -1,19 +1,19 @@
 package com.example.lisamazzini.train_app.gui.fragment;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
-import android.app.Activity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,13 +28,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
 
+import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.gui.activity.JourneyListActivity;
 import com.example.lisamazzini.train_app.gui.activity.StationListActivity;
 import com.example.lisamazzini.train_app.gui.adapter.DrawerListAdapter;
 import com.example.lisamazzini.train_app.gui.fragment.pickers.DatePickerFragment;
 import com.example.lisamazzini.train_app.gui.fragment.pickers.TimePickerFragment;
 import com.example.lisamazzini.train_app.model.Constants;
-import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.model.Utilities;
 
 import java.text.Format;
@@ -138,14 +138,14 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
         timePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                showTimePickerDialog(v);
+                showTimePickerDialog();
             }
         });
 
         datePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                showDatePickerDialog(v);
+                showDatePickerDialog();
             }
         });
 
@@ -200,7 +200,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
     };
     ///////////////////////////////////////////////////////////////////////////////////////
 
-    private void showTimePickerDialog(final View v) {
+    private void showTimePickerDialog() {
         final TimePickerFragment timeFragment = new TimePickerFragment();
         final Calendar calender = Calendar.getInstance();
         final Bundle args = new Bundle();
@@ -211,7 +211,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
         timeFragment.show(getFragmentManager(), "Time Picker");
     }
 
-    private void showDatePickerDialog(final View v) {
+    private void showDatePickerDialog() {
         final DatePickerFragment dateFragment = new DatePickerFragment();
         final Calendar calender = Calendar.getInstance();
         final Bundle args = new Bundle();

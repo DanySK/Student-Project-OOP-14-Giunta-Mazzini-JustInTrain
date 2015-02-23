@@ -1,11 +1,11 @@
 package com.example.lisamazzini.train_app.network.total;
 
+import com.example.lisamazzini.train_app.model.Utilities;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolutionWrapper;
+import com.example.lisamazzini.train_app.model.treno.Fermate;
 import com.example.lisamazzini.train_app.model.treno.Treno;
 import com.example.lisamazzini.train_app.network.TrainRestClient;
-import com.example.lisamazzini.train_app.model.treno.Fermate;
-import com.example.lisamazzini.train_app.model.Utilities;
 import com.octo.android.robospice.request.SpiceRequest;
 
 import java.io.IOException;
@@ -47,7 +47,7 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
 
         List<String> result;
 
-        for (PlainSolution p : plainSolutions) {
+        for (final PlainSolution p : plainSolutions) {
             p.setIdPartenza(getID(p.getOrigine()));
             p.setIdArrivo(getID(p.getDestinazione()));
 
@@ -63,7 +63,7 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
                 boolean containsDepartureStation = false;
                 while (!containsDepartureStation && iterator.hasNext()) {
                     this.makeRequest(p);
-                    for (Fermate f : train.getFermate()) {
+                    for (final Fermate f : train.getFermate()) {
                         if (f.getId().equals(p.getIdPartenza())) {
                             p.setIdOrigine(train.getIdOrigine());
                             p.setDelay(train.getRitardo());
@@ -86,7 +86,7 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
      * @throws IOException
      */
     private String getID(final String stationName) throws IOException {
-        String cleanStationName = stationName.split("'")[0];
+        final String cleanStationName = stationName.split("'")[0];
         return Utilities.splitStationForTrainSearch(
                 Utilities.fetchData(
                         Utilities.generateStationAutocompleteURL(cleanStationName))
