@@ -29,6 +29,7 @@ import java.util.List;
  */
 public final class Utilities {
 
+    private static final long VISITED = 1L;
     private static final int FIVE = 5;
     private static final long TWO_MIN_DIFFERENCE = 2L;
     private static final String SPLITTER = "\\|";
@@ -119,6 +120,14 @@ public final class Utilities {
      * @return stringa che descrive l'andamento
      */
     public static String getProgress(final Treno train) {
+
+        if (isArrived(train)) {
+            return "Arrivato a destinazione";
+        }
+        if (notDeparted(train)) {
+            return "Non partito";
+        }
+
         Long delta = 0L;
         Long intermediateDelta;
         List<Fermate> visited = new LinkedList<>();
@@ -202,6 +211,25 @@ public final class Utilities {
      */
     public static boolean isOneResult(final List<String> list) {
         return list.size() == 1;
+    }
+
+    /**
+     * Metodo che determina se un treno è partito o meno, controllando se la prima stazione è visitata
+     *
+     * @param train treno da controllare
+     * @return true se è non partito, false se è partito
+     */
+    public static boolean notDeparted(final Treno train) {
+        return !(train.getFermate().get(0).getActualFermataType() == VISITED);
+    }
+
+    /**
+     * Metodo che determina se un treno è arrivato, controllando se l'ultima stazione è visitata.
+     * @param train treno da controllare
+     * @return true sè è arrivato, false se non è arrivato
+     */
+    public static boolean isArrived(final Treno train) {
+        return (train.getFermate().get(train.getFermate().size() - 1).getActualFermataType() == VISITED);
     }
 
 }
