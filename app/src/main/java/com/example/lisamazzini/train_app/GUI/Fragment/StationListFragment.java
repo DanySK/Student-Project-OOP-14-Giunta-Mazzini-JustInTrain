@@ -48,14 +48,6 @@ public class StationListFragment extends AbstractFavouriteFragment {
     private TextView textProgress;
     private TextView textLastSeen;
 
-    /**
-     * Metodo che restituisce una nuova istanza del fragment.
-     * @return fragment
-     */
-    public static StationListFragment newInstance() {
-        return new StationListFragment();
-    }
-
     @Override
     public final View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                                    final Bundle savedInstanceState) {

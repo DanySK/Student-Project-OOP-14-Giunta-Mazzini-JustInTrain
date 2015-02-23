@@ -21,9 +21,7 @@ public class AchievementListActivity extends AbstractBaseActivity {
         super.getToolbar();
 
         final FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, AchievementListFragment.newInstance());
-        //AchievementListFragment fragment = (AchievementListFragment)getSupportFragmentManager().findFragmentById(R.id.achievementListFragment);
-
+        fragmentManager.beginTransaction().replace(R.id.container, new AchievementListFragment());
     }
 
     @Override

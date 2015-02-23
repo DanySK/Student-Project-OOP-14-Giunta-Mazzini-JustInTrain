@@ -32,14 +32,6 @@ public class FavouriteTrainListFragment extends AbstractRobospiceFragment {
     private FavouriteTrainListController favouriteTrainListController;
     private FavouriteTrainListAdapter adapter;
 
-    /**
-     * Metodo che restituisce una nuova istanza del fragment.
-     * @return fragment
-     */
-    public static FavouriteTrainListFragment newInstance() {
-        return new FavouriteTrainListFragment();
-    }
-
     @Override
     public final View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                                    final Bundle savedInstanceState) {

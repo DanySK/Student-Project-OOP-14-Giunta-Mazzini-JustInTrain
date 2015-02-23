@@ -29,7 +29,7 @@ public class StationListActivity extends AbstractBaseActivity {
         super.getToolbar();
 
         final FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, StationListFragment.newInstance());
+        fragmentManager.beginTransaction().replace(R.id.container, new StationListFragment());
         final StationListFragment fragment = (StationListFragment) fragmentManager.findFragmentById(R.id.stationListFragment);
         fragment.makeRequest(trainNumber, stationCode);
         Toast.makeText(this, "Ricerca in corso...", Toast.LENGTH_LONG).show();

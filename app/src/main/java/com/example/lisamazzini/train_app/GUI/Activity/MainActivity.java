@@ -48,7 +48,7 @@ public class MainActivity extends ActionBarActivity {
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
         final FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, JourneyResultsFragment.newInstance());
+        fragmentManager.beginTransaction().replace(R.id.container, new JourneyResultsFragment());
         fragment = (JourneyResultsFragment) getSupportFragmentManager().findFragmentById(R.id.journeyResultsFragment);
     }
 

@@ -30,7 +30,7 @@ public class JourneyListActivity extends AbstractBaseActivity {
         super.getToolbar();
 
         final FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, JourneyResultsFragment.newInstance());
+        fragmentManager.beginTransaction().replace(R.id.container, new JourneyResultsFragment());
         final JourneyResultsFragment fragment = (JourneyResultsFragment) fragmentManager.findFragmentById(R.id.journeyResultsFragment);
         fragment.makeRequest(Constants.WITH_STATIONS, requestedTime, isCustomTime, departureStation, arrivalStation);
         Toast.makeText(this, "Ricerca in corso...", Toast.LENGTH_LONG).show();

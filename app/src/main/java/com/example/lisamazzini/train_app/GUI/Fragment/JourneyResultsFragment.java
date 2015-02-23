@@ -46,14 +46,6 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
     private final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
     private final JourneyListAdapter adapter = new JourneyListAdapter(controller.getPartialPlainSolutions());
 
-    /**
-     * Metodo che restituisce una nuova istanza del fragment.
-     * @return fragment
-     */
-    public static JourneyResultsFragment newInstance() {
-        return new JourneyResultsFragment();
-    }
-
     @Override
     public final View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                                    final Bundle savedInstanceState) {

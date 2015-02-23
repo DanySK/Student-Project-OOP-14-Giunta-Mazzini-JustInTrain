@@ -50,7 +50,9 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
         List<String> result;
 
         for (PlainSolution p : plainSolutions) {
+            Log.d("cazzi", "origine " + p.getOrigine());
             p.setIdPartenza(getID(p.getOrigine()));
+            Log.d("cazzi", "destinazione " + p.getDestinazione());
             p.setIdArrivo(getID(p.getDestinazione()));
 
             result = Utilities.fetchData(Utilities.generateTrainAutocompleteURL(p.getNumeroTreno())).getList();
@@ -87,8 +89,10 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
      * sarà sicuramente univoco.
      * @throws IOException
      */
-    private String getID(final String stationName) throws IOException {
+    private String getID(String stationName) throws IOException {
+        stationName = stationName.split("'")[0];
         Log.d("cazzi", "fermata: " + stationName);
+
         return Utilities.splitStationForTrainSearch(
                 Utilities.fetchData(
                         Utilities.generateStationAutocompleteURL(stationName))

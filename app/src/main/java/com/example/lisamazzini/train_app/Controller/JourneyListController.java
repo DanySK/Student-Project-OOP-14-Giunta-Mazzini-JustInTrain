@@ -26,7 +26,6 @@ import java.util.Locale;
 public class JourneyListController {
 
     private static final int SOLUTION = 5;
-
     private final SimpleDateFormat sdf = new SimpleDateFormat(Constants.SDF, Locale.ITALY);
     private final List<PlainSolution> totalPlainSolutions = new LinkedList<>();
     private int upperBound;
@@ -42,7 +41,7 @@ public class JourneyListController {
      * @return lista delle PlainSolution
      */
     public final List<PlainSolution> getPartialPlainSolutions() {
-        return new LinkedList<>(partialPlainSolutions);
+        return partialPlainSolutions;
     }
 
     /**
@@ -51,7 +50,6 @@ public class JourneyListController {
      */
     public final void addSolutions(final List<PlainSolution> list) {
         this.partialPlainSolutions.addAll(list);
-        Log.d("cazzi", "addall " + partialPlainSolutions.size());
     }
 
     /**
@@ -106,8 +104,7 @@ public class JourneyListController {
      * @param pDepartureStation da settare
      */
     public final void setDepartureStation(final String pDepartureStation) {
-        this.departureStation = pDepartureStation;
-//        this.departureStation = Utilities.trimAndCapitalizeString(pDepartureStation);
+        this.departureStation = Utilities.trimAndCapitalizeString(pDepartureStation);
     }
 
     /**
@@ -139,8 +136,7 @@ public class JourneyListController {
      * @param pArrivalStation da settare
      */
     public final void setArrivalStation(final String pArrivalStation) {
-        this.arrivalStation = pArrivalStation;
-//        this.arrivalStation = Utilities.trimAndCapitalizeString(pArrivalStation);
+        this.arrivalStation = Utilities.trimAndCapitalizeString(pArrivalStation);
     }
 
     /**
@@ -250,7 +246,7 @@ public class JourneyListController {
      * @return la lista parziale di plainsolutions
      */
     public final List<PlainSolution> getPlainSolutions(final boolean isCustom) {
-        List<PlainSolution> temp;
+        List<PlainSolution> temp = new LinkedList<>();
 
         if (isCustom) {
             lowerBound = 0;
@@ -258,7 +254,11 @@ public class JourneyListController {
         upperBound = getIndexForNSolutions(SOLUTION);
         temp = this.totalPlainSolutions.subList(lowerBound, upperBound);
         lowerBound = upperBound + 1;
-        return temp;
+        if (lowerBound < totalPlainSolutions.size()) {
+            return temp;
+        } else {
+            return new LinkedList<>();
+        }
     }
 
     /**
@@ -276,7 +276,6 @@ public class JourneyListController {
             vehicles++;
             index = totalPlainSolutions.size() > lowerBound + vehicles ? lowerBound + vehicles : index;
         }
-        Log.d("cazzi", "size = " + index);
         return index;
     }
 

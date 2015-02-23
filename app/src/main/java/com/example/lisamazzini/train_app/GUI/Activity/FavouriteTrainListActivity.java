@@ -20,7 +20,7 @@ public class FavouriteTrainListActivity extends AbstractBaseActivity {
         super.getToolbar();
 
         final FragmentManager fragmentMan = getSupportFragmentManager();
-        fragmentMan.beginTransaction().replace(R.id.container, FavouriteTrainListFragment.newInstance());
+        fragmentMan.beginTransaction().replace(R.id.container, new FavouriteTrainListFragment());
         final FavouriteTrainListFragment fragment = (FavouriteTrainListFragment) getSupportFragmentManager().findFragmentById(R.id.favouriteTrainListFragment);
         fragment.makeRequest();
     }

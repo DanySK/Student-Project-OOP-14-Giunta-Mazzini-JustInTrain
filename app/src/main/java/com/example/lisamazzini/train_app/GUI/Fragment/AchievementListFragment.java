@@ -20,14 +20,6 @@ import com.example.lisamazzini.train_app.R;
  */
 public class AchievementListFragment extends Fragment implements IBaseFragment {
 
-    /**
-     * Metodo che restituisce una nuova istanza del fragment.
-     * @return fragment
-     */
-    public static AchievementListFragment newInstance() {
-        return new AchievementListFragment();
-    }
-
     @Override
     public final View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                                    final Bundle savedInstanceState) {
