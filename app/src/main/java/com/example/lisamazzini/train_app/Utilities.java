@@ -2,9 +2,9 @@ package com.example.lisamazzini.train_app;
 
 
 import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.treno.Fermate;
 import com.example.lisamazzini.train_app.model.treno.ListWrapper;
 import com.example.lisamazzini.train_app.model.treno.Treno;
-import com.example.lisamazzini.train_app.model.treno.Fermate;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
@@ -33,6 +33,7 @@ public final class Utilities {
     private static final int FIVE = 5;
     private static final long TWO_MIN_DIFFERENCE = 2L;
     private static final String SPLITTER = "\\|";
+    private static final int MAX_LETTERS_IN_TITLE = 12;
     private Utilities() { }
 
     /**
@@ -87,12 +88,23 @@ public final class Utilities {
         return data.split(SPLITTER);
     }
 
+    /**
+     * Prende una stringa e la restituisce eliminandone eventuali spazi iniziali e finali, e trasforma le iniziali di ogni parola in maiuscole.
+     * @param s stringa da computare
+     * @return stringa "pulita"
+     */
     public static String trimAndCapitalizeString(final String s) {
         return WordUtils.capitalizeFully(s).replaceAll("\\s+$", "");
     }
 
+    /**
+     * Prende una stringa e la accorcia secondo i criteri stabiliti, per non creare problemi di visualizzazione in caso di
+     * nomi di stazione molto lunghi.
+     * @param s stringa da computare
+     * @return stringa "accorciata"
+     */
     public static String getShorterString(final String s) {
-        return s.length() > 12 ? s.substring(0, 10).concat("...") : s;
+        return s.length() > MAX_LETTERS_IN_TITLE ? s.substring(0, MAX_LETTERS_IN_TITLE - 2).concat("..") : s;
     }
 
     /**
@@ -190,7 +202,7 @@ public final class Utilities {
      *
      * @param url URL della pagina a cui connettersi
      * @return ListWrapper con le stringhe
-     * @throws IOException
+     * @throws IOException in caso di errori nell'utilizzo del BufferedReader
      */
     public static ListWrapper fetchData(final URL url) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -214,7 +226,7 @@ public final class Utilities {
     }
 
     /**
-     * Metodo che determina se un treno è partito o meno, controllando se la prima stazione è visitata
+     * Metodo che determina se un treno è partito o meno, controllando se la prima stazione è visitata.
      *
      * @param train treno da controllare
      * @return true se è non partito, false se è partito
