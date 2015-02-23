@@ -17,9 +17,10 @@
 
         android:paddingLeft="4dp"
         android:layout_marginTop="8dp"
-
+        android:text="RV"
+        android:textStyle="bold"
+        android:textSize="16dp"
         android:textAllCaps="true" />
-        <!--android:text="cat"-->
 
     <TextView
         android:id="@+id/tTrainNumber"
@@ -31,8 +32,10 @@
         android:layout_toRightOf="@+id/tDepartureTime"
 
         android:layout_marginTop="8dp"
+        android:text="2128"
+        android:textStyle="bold"
+        android:textSize="16dp"
         android:layout_marginLeft ="8dp" />
-        <!--android:text="num"-->
 
 
     <TextView
@@ -41,8 +44,9 @@
         android:layout_height="wrap_content"
 
         android:layout_below="@+id/tTrainCategory"
+    android:text="19:21"
+        android:textStyle="bold"
         android:layout_marginTop="4dp" />
-    <!--android:text="19:21"-->
 
 
     <TextView
@@ -56,8 +60,8 @@
         android:layout_marginTop="4dp"
         android:layout_marginLeft="8dp"
 
+        android:text="Pesaro"
         android:textAllCaps="true" />
-        <!--android:text="Pesaro"-->
 
     <TextView
         android:id="@+id/tArrivalTime"
@@ -65,8 +69,9 @@
         android:layout_height="wrap_content"
 
         android:layout_below="@+id/tDepartureTime"
+        android:text="20:55"
+        android:textStyle="bold"
         android:layout_marginTop="4dp" />
-        <!--android:text="20:55"-->
 
 
     <TextView
@@ -80,20 +85,21 @@
         android:layout_marginTop="4dp"
         android:layout_marginLeft="8dp"
 
+        android:text="Cesena"
         android:textAllCaps="true" />
-        <!--android:text="Cesena"-->
-
-        <!--android:text="9'"-->
 
 
-    <ImageButton
-        android:id="@+id/bOptions"
+    <TextView
+        android:id="@+id/lTimeDifference"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="25dp"
-        android:src="@drawable/ic_pin"
-        />
+
+        android:textSize="12dp"
+        android:textStyle="italic"
+        android:layout_marginTop="12dp"
+        android:layout_alignRight="@+id/tTimeDifference"
+        android:text="Ritardo:"/>
 
     <TextView
         android:id="@+id/tTimeDifference"
@@ -101,11 +107,12 @@
         android:layout_height="wrap_content"
 
         android:layout_toLeftOf="@+id/bOptions"
+        android:layout_below="@id/lTimeDifference"
 
-        android:layout_marginTop="20dp"
         android:layout_marginRight="16dp"
 
         android:textSize="40dp"
+        android:text="9'"
         />
 
     <TextView
@@ -116,8 +123,9 @@
 
         android:layout_below="@+id/tArrivalTime"
 
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="8dp"
+        android:textSize="12dp"
+        android:textStyle="italic"
+        android:layout_marginTop="6dp"
         android:text="@string/duration"
         />
 
@@ -131,9 +139,18 @@
         android:layout_toRightOf="@id/lDuration"
 
         android:layout_marginTop="4dp"
+        android:text="01:30"
+        android:textStyle="bold"
         android:layout_marginLeft="8dp" />
-        <!--android:text="01:30"-->
 
+    <ImageButton
+        android:id="@+id/bOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/ic_pin"
+        />
 
     <ImageView
         android:id="@+id/iDivider"
