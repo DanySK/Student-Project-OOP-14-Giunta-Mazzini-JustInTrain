@@ -11,7 +11,6 @@ import com.example.lisamazzini.train_app.model.Constants;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Classe che funge da controller per il FavouriteTrainListFragment.
@@ -28,7 +27,7 @@ public class FavouriteTrainListController {
      * Costruttore.
      * @param context context necessario per ottenere i preferiti
      */
-    public FavouriteTrainListController(Context context) {
+    public FavouriteTrainListController(final Context context) {
         final IFavouriteController favouriteController = FavouriteTrainController.getInstance();
         favouriteController.setContext(context);
         this.iterator = favouriteController.getFavouritesAsMap().keySet().iterator();

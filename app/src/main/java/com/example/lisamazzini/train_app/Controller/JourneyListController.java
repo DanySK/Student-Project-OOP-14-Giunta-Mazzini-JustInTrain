@@ -173,7 +173,7 @@ public class JourneyListController {
      * @param vehicle oggetto su cui fare le operazioni
      * @param category nome esteso della categoria da sostituire
      * @param abbr nome abbreviato della categoria
-     * @return
+     * @return la categoria abbreviata
      */
     private String setCategory(final Vehicle vehicle, final String category, final String abbr) {
         if (vehicle.getCategoriaDescrizione() != null && vehicle.getCategoriaDescrizione().equalsIgnoreCase(category)) {
@@ -246,19 +246,13 @@ public class JourneyListController {
      * @return la lista parziale di plainsolutions
      */
     public final List<PlainSolution> getPlainSolutions(final boolean isCustom) {
-        List<PlainSolution> temp = new LinkedList<>();
-
         if (isCustom) {
             lowerBound = 0;
         }
         upperBound = getIndexForNSolutions(SOLUTION);
-        temp = this.totalPlainSolutions.subList(lowerBound, upperBound);
+        List<PlainSolution> temp = this.totalPlainSolutions.subList(lowerBound, upperBound);
         lowerBound = upperBound + 1;
-        if (lowerBound < totalPlainSolutions.size()) {
-            return temp;
-        } else {
-            return new LinkedList<>();
-        }
+        return temp;
     }
 
     /**

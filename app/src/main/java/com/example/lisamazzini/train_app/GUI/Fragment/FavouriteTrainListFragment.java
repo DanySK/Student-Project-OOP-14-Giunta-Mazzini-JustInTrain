@@ -11,15 +11,12 @@ import android.view.ViewGroup;
 
 import com.example.lisamazzini.train_app.network.AbstractListener;
 import com.example.lisamazzini.train_app.controller.FavouriteTrainListController;
-import com.example.lisamazzini.train_app.controller.favourites.FavouriteTrainController;
-import com.example.lisamazzini.train_app.controller.favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.gui.adapter.FavouriteTrainListAdapter;
 import com.example.lisamazzini.train_app.model.treno.Treno;
 import com.example.lisamazzini.train_app.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 
-import java.util.Map;
 
 /**
  * Fragment che mostra la lista di treni favoriti.

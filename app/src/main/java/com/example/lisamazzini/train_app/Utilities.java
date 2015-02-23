@@ -1,8 +1,6 @@
 package com.example.lisamazzini.train_app;
 
 
-import android.util.Log;
-
 import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.model.treno.ListWrapper;
 import com.example.lisamazzini.train_app.model.treno.Treno;

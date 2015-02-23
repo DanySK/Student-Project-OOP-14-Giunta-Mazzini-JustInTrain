@@ -89,13 +89,13 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
      * sarà sicuramente univoco.
      * @throws IOException
      */
-    private String getID(String stationName) throws IOException {
-        stationName = stationName.split("'")[0];
+    private String getID(final String stationName) throws IOException {
+        String cleanStationName = stationName.split("'")[0];
         Log.d("cazzi", "fermata: " + stationName);
 
         return Utilities.splitStationForTrainSearch(
                 Utilities.fetchData(
-                        Utilities.generateStationAutocompleteURL(stationName))
+                        Utilities.generateStationAutocompleteURL(cleanStationName))
                         .getList()
                         .get(0))
                 [1];

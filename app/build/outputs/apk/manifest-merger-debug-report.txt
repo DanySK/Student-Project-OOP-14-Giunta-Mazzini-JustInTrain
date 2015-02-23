@@ -45,41 +45,41 @@ ADDED from AndroidManifest.xml:17:9
 		ADDED from AndroidManifest.xml:19:13
 	android:name
 		ADDED from AndroidManifest.xml:18:13
-service#com.example.lisamazzini.train_app.Notification.NotificationService
+service#com.example.lisamazzini.train_app.notification.NotificationService
 ADDED from AndroidManifest.xml:20:9
 	android:exported
 		ADDED from AndroidManifest.xml:22:13
 	android:name
 		ADDED from AndroidManifest.xml:21:13
-receiver#com.example.lisamazzini.train_app.Notification.ButtonListener
+receiver#com.example.lisamazzini.train_app.notification.ButtonListener
 ADDED from AndroidManifest.xml:26:9
 	android:exported
 		ADDED from AndroidManifest.xml:28:13
 	android:name
 		ADDED from AndroidManifest.xml:27:13
-activity#com.example.lisamazzini.train_app.GUI.Activity.StationListActivity
+activity#com.example.lisamazzini.train_app.gui.activity.StationListActivity
 ADDED from AndroidManifest.xml:40:9
 	android:name
 		ADDED from AndroidManifest.xml:40:19
-activity#com.example.lisamazzini.train_app.GUI.Activity.FavouriteTrainListActivity
+activity#com.example.lisamazzini.train_app.gui.activity.FavouriteTrainListActivity
 ADDED from AndroidManifest.xml:45:9
 	android:parentActivityName
 		ADDED from AndroidManifest.xml:47:13
 	android:name
 		ADDED from AndroidManifest.xml:46:13
-activity#com.example.lisamazzini.train_app.GUI.Activity.JourneyResultsActivity
+activity#com.example.lisamazzini.train_app.gui.activity.JourneyListActivity
 ADDED from AndroidManifest.xml:49:9
 	android:parentActivityName
 		ADDED from AndroidManifest.xml:51:13
 	android:name
 		ADDED from AndroidManifest.xml:50:13
-activity#com.example.lisamazzini.train_app.GUI.Activity.AchievementListActivity
+activity#com.example.lisamazzini.train_app.gui.activity.AchievementListActivity
 ADDED from AndroidManifest.xml:53:9
 	android:parentActivityName
 		ADDED from AndroidManifest.xml:55:13
 	android:name
 		ADDED from AndroidManifest.xml:54:13
-activity#com.example.lisamazzini.train_app.GUI.Activity.MainActivity
+activity#com.example.lisamazzini.train_app.gui.activity.MainActivity
 ADDED from AndroidManifest.xml:57:9
 	android:name
 		ADDED from AndroidManifest.xml:57:19

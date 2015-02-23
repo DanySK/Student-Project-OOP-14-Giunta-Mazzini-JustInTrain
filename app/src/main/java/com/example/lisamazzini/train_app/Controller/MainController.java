@@ -2,7 +2,6 @@ package com.example.lisamazzini.train_app.controller;
 
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.lisamazzini.train_app.controller.favourites.FavouriteJourneyController;
 import com.example.lisamazzini.train_app.controller.favourites.IFavouriteController;
@@ -74,13 +73,9 @@ public class MainController {
         favouriteStationIDs.clear();
         favouriteStationNames.clear();
 
-        final Map<String, String> favouriteJourneysMap = (Map<String, String>) favouriteJourneyController.getFavouritesAsMap();
-        for (final String s : favouriteJourneysMap.keySet()) {
-            favouriteStationIDs.add(s);
-        }
-
-        for (final String s : favouriteStationIDs) {
-            favouriteStationNames.add(favouriteJourneysMap.get(s));
+        for (Map.Entry<?, ?> entry : favouriteJourneyController.getFavouritesAsMap().entrySet()) {
+            favouriteStationIDs.add((String) entry.getKey());
+            favouriteStationNames.add((String) entry.getValue());
         }
     }
 
