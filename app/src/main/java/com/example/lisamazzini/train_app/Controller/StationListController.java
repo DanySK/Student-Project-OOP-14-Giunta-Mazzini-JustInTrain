@@ -4,7 +4,7 @@ import com.example.lisamazzini.train_app.model.treno.Fermate;
 import com.example.lisamazzini.train_app.network.data.TrainDataRequest;
 import com.example.lisamazzini.train_app.network.total.TrainRequest;
 import com.example.lisamazzini.train_app.model.treno.Treno;
-import com.example.lisamazzini.train_app.Utilities;
+import com.example.lisamazzini.train_app.model.Utilities;
 
 import java.util.Arrays;
 import java.util.LinkedList;

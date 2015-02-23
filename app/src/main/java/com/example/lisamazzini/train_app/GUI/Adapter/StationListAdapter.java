@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.lisamazzini.train_app.R;
-import com.example.lisamazzini.train_app.Utilities;
+import com.example.lisamazzini.train_app.model.Utilities;
 import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.model.treno.Fermate;
 

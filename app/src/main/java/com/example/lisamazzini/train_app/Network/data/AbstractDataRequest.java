@@ -2,7 +2,7 @@ package com.example.lisamazzini.train_app.network.data;
 
 import com.example.lisamazzini.train_app.exceptions.InvalidInputException;
 import com.example.lisamazzini.train_app.model.treno.ListWrapper;
-import com.example.lisamazzini.train_app.Utilities;
+import com.example.lisamazzini.train_app.model.Utilities;
 import com.octo.android.robospice.request.SpiceRequest;
 
 import java.io.IOException;

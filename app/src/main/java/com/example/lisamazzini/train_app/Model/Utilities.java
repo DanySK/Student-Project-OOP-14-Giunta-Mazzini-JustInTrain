@@ -1,4 +1,4 @@
-package com.example.lisamazzini.train_app;
+package com.example.lisamazzini.train_app.model;
 
 
 import com.example.lisamazzini.train_app.model.Constants;

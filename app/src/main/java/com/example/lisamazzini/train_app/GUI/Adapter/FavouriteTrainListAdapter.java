@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.lisamazzini.train_app.Utilities;
+import com.example.lisamazzini.train_app.model.Utilities;
 import com.example.lisamazzini.train_app.gui.activity.StationListActivity;
 import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.model.treno.Treno;
