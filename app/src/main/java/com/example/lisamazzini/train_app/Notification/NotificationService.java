@@ -38,7 +38,6 @@ import java.util.Calendar;
 public class NotificationService extends Service {
 
     private static final Integer QUARTER = 15;
-    private static final long NOT_VISITED = 0L;
     private final SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
     private PendingIntent pIntentRefresh;
     private PendingIntent pIntentClose;
@@ -147,13 +146,13 @@ public class NotificationService extends Service {
                     .setContentIntent(home);
 
             //If the train is not departed yet the notification will show the data
-            if (notDeparted(train)) {
+            if (Utilities.notDeparted(train)) {
             not = builder.setStyle(new NotificationCompat.InboxStyle()
                                 .setBigContentTitle(train.getNumeroTreno() + " " + train.getCategoria())
                                 .addLine("Il treno non è ancora partito"))
                         .build();
             //Else, the notification is empty
-            } else if (isArrived(train)) {
+            } else if (Utilities.isArrived(train)) {
                 not = builder.setStyle(new NotificationCompat.InboxStyle()
                                 .setBigContentTitle(train.getNumeroTreno() + " " + train.getCategoria())
                                 .addLine("Treno arrivato a destinazione"))
@@ -179,24 +178,7 @@ public class NotificationService extends Service {
             startForeground(ID_NOT, not);
         }
 
-        /**
-         * Metodo che determina se un treno è partito o meno, controllando se la prima stazione è visitata
-         *
-         * @param train treno da controllare
-         * @return true se è non partito, false se è partito
-         */
-        private boolean notDeparted(final Treno train) {
-            return train.getFermate().get(0).getActualFermataType() == NOT_VISITED;
-        }
 
-        /**
-         * Metodo che determina se un treno è arrivato, controllando se l'ultima stazione è visitata.
-         * @param train treno da controllare
-         * @return true sè è arrivato, false se non è arrivato
-         */
-        private boolean isArrived(final Treno train) {
-            return !(train.getFermate().get(train.getFermate().size() - 1).getActualFermataType() == NOT_VISITED);
-        }
 
     }
 }
