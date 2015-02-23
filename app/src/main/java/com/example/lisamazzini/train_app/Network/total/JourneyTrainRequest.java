@@ -1,13 +1,11 @@
 package com.example.lisamazzini.train_app.network.total;
 
-import android.util.Log;
-
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolutionWrapper;
 import com.example.lisamazzini.train_app.model.treno.Treno;
 import com.example.lisamazzini.train_app.network.TrainRestClient;
 import com.example.lisamazzini.train_app.model.treno.Fermate;
-import com.example.lisamazzini.train_app.Utilities;
+import com.example.lisamazzini.train_app.model.Utilities;
 import com.octo.android.robospice.request.SpiceRequest;
 
 import java.io.IOException;

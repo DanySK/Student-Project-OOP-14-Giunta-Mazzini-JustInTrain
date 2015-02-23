@@ -21,7 +21,7 @@ import com.example.lisamazzini.train_app.gui.adapter.StationListAdapter;
 import com.example.lisamazzini.train_app.model.treno.ListWrapper;
 import com.example.lisamazzini.train_app.model.treno.Treno;
 import com.example.lisamazzini.train_app.R;
-import com.example.lisamazzini.train_app.Utilities;
+import com.example.lisamazzini.train_app.model.Utilities;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
 

@@ -35,7 +35,7 @@ import com.example.lisamazzini.train_app.gui.fragment.pickers.DatePickerFragment
 import com.example.lisamazzini.train_app.gui.fragment.pickers.TimePickerFragment;
 import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.R;
-import com.example.lisamazzini.train_app.Utilities;
+import com.example.lisamazzini.train_app.model.Utilities;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;

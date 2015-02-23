@@ -7,7 +7,7 @@ import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.model.tragitto.Soluzioni;
 import com.example.lisamazzini.train_app.model.tragitto.Tragitto;
 import com.example.lisamazzini.train_app.model.tragitto.Vehicle;
-import com.example.lisamazzini.train_app.Utilities;
+import com.example.lisamazzini.train_app.model.Utilities;
 
 import org.joda.time.DateTime;
 
