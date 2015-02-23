@@ -37,7 +37,7 @@ public final class FavouriteJourneyController extends AbstractFavouriteControlle
         super.check();
         final String key = buildKey(strings[0], strings[1]);
         if (!super.alreadyFavourite(key)) {
-            getEditor().putString(key, buildKey(strings[2], strings[3]));
+            getEditor().putString(key, strings[2]);
             getEditor().apply();
         }
     }

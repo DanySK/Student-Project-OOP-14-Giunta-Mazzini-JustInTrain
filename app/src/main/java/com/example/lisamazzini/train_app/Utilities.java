@@ -88,10 +88,12 @@ public final class Utilities {
         return data.split(SPLITTER);
     }
 
-
-
     public static String trimAndCapitalizeString(final String s) {
-        return WordUtils.capitalize(s).replaceAll("\\s+$", "");
+        return WordUtils.capitalizeFully(s).replaceAll("\\s+$", "");
+    }
+
+    public static String getShorterString(final String s) {
+        return s.length() > 12 ? s.substring(0, 10).concat("...") : s;
     }
 
     /**
@@ -120,7 +122,7 @@ public final class Utilities {
      */
     public static String getProgress(final Treno train) {
         Long delta = 0L;
-        Long intermediateDelta = 0L;
+        Long intermediateDelta;
         List<Fermate> visited = new LinkedList<>();
 
         for (Fermate f : train.getFermate()) {

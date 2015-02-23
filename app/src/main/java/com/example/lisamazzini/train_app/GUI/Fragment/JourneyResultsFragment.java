@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +84,6 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
                 getSpiceManager().execute(new JourneyTrainRequest(controller.getPlainSolutions(false)), new JourneyTrainRequestListener());
             }
         });
-
     }
 
     /**
@@ -94,6 +94,13 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
         resetScrollListener();
         adapter.notifyDataSetChanged();
         super.resetRequests();
+    }
+
+    private void setToolbarTitle() {
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(
+                                                        Utilities.getShorterString(controller.getDepartureStation()) +
+                                                        " • " +
+                                                        Utilities.getShorterString(controller.getArrivalStation()));
     }
 
 
@@ -124,7 +131,7 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
 
     @Override
     public final String[] getFavouriteForAdding() {
-        return new String[]{controller.getDepartureID(), controller.getArrivalID(), controller.getDepartureStation(), controller.getArrivalStation()};
+        return new String[]{controller.getDepartureID(), controller.getArrivalID(), Utilities.getShorterString(controller.getDepartureStation()).concat(" • ").concat(Utilities.getShorterString(controller.getArrivalStation()))};
     }
 
     @Override
@@ -134,18 +141,27 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Inner class che viene eseguito in risposta a una JourneyDataRequest.
+     * Se questa ha successo, e se ci sono più risultati disponibili per la stringa inserita, verrà mostrato all'utente
+     * un popup che gli permetterà di scegliere la stazione giusta. altrimenti viene settato in automatico.
+     * Viene poi eseguita la richiesta per il resto dei dati (stazione di arrivo).
+     */
     private class DepartureDataRequestListenter extends AbstractListener<ListWrapper> {
 
         @Override
         public Context getDialogContext() {
             return getActivity();
         }
+
         @Override
         public void onRequestSuccess(final ListWrapper lista) {
             final List<String> data = lista.getList();
 
             if (Utilities.isOneResult(data)) {
-                controller.setDepartureID(controller.splitData(lista.getList().get(0))[1]);
+                String[] choices = controller.splitData(lista.getList().get(0));
+                controller.setDepartureStation(choices[0]);
+                controller.setDepartureID(choices[1]);
                 getSpiceManager().execute(new JourneyDataRequest(controller.getArrivalStation()), new ArrivalDataRequestListener());
             } else {
                 final String[][] choices = controller.getTableForMultipleResults(data);
@@ -165,20 +181,31 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Inner class che viene eseguito in risposta a una JourneyDataRequest.
+     * Se questa ha successo, e se ci sono più risultati disponibili per la stringa inserita, verrà mostrato all'utente
+     * un popup che gli permetterà di scegliere la stazione giusta. altrimenti viene settato in automatico.
+     * Ora che ci sono i dati sia di partenza che arrivo è possibile eseguire la richiesta vera e propria, da cui si otterrà la lista di soluzioni.
+     * Qui viene anche settato il titolo e togglato il pulsante dei preferiti.
+     */
     private class ArrivalDataRequestListener extends AbstractListener<ListWrapper> {
 
         @Override
         public Context getDialogContext() {
             return getActivity();
         }
+
         @Override
         public void onRequestSuccess(final ListWrapper lista) {
 
             final List<String> data = lista.getList();
 
             if (Utilities.isOneResult(data)) {
-                controller.setArrivalID(controller.splitData(lista.getList().get(0))[1]);
+                String[] choices = controller.splitData(lista.getList().get(0));
+                controller.setArrivalStation(choices[0]);
+                controller.setArrivalID(choices[1]);
                 toggleFavouriteIcon(controller.getDepartureID(), controller.getArrivalID());
+                setToolbarTitle();
                 getSpiceManager().execute(new JourneyRequest(controller.getDepartureID(), controller.getArrivalID(), controller.getRequestedTime()), new JourneyRequestListener());
             } else {
                 final String[][] choices = controller.getTableForMultipleResults(data);
@@ -188,15 +215,13 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
                         controller.setArrivalID(choices[1][which]);
                         controller.setArrivalStation(choices[0][which]);
                         toggleFavouriteIcon(controller.getDepartureID(), controller.getArrivalID());
+                        setToolbarTitle();
                         getSpiceManager().execute(new JourneyRequest(controller.getDepartureID(), controller.getArrivalID(), controller.getRequestedTime()), new JourneyRequestListener());
                         dialog.dismiss();
                     }
                 }).show();
             }
-
-            ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(controller.getDepartureStation() + " -> " + controller.getArrivalStation());
         }
-
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -207,12 +232,12 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
         public Context getDialogContext() {
             return getActivity();
         }
+
         @Override
         public void onRequestSuccess(final Tragitto tragitto) {
             controller.buildPlainSolutions(tragitto);
             getSpiceManager().execute(new JourneyTrainRequest(controller.getPlainSolutions(controller.isCustomTime())), new JourneyTrainRequestListener());
         }
-
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -223,11 +248,12 @@ public class JourneyResultsFragment extends AbstractFavouriteFragment {
         public Context getDialogContext() {
             return getActivity();
         }
+
         @Override
         public void onRequestSuccess(final PlainSolutionWrapper plainSolutions) {
             controller.addSolutions(plainSolutions.getList());
+            Log.d("cazzi", "plain " + plainSolutions.getList().size());
             adapter.notifyDataSetChanged();
         }
-
     }
 }

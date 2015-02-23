@@ -2,6 +2,7 @@ package com.example.lisamazzini.train_app.controller;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.lisamazzini.train_app.controller.favourites.FavouriteJourneyController;
 import com.example.lisamazzini.train_app.controller.favourites.IFavouriteController;
@@ -79,7 +80,7 @@ public class MainController {
         }
 
         for (final String s : favouriteStationIDs) {
-            favouriteStationNames.add(favouriteJourneysMap.get(s).replaceAll(Constants.SEPARATOR, " "));
+            favouriteStationNames.add(favouriteJourneysMap.get(s));
         }
     }
 
