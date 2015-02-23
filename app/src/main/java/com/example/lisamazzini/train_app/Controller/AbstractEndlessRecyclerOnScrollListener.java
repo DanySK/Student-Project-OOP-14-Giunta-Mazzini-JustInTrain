@@ -10,7 +10,7 @@ import android.support.v7.widget.RecyclerView;
  *
  * @author ssinss
  */
-public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
+public abstract class AbstractEndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
 
     private static final int N_SOL_LOAD = 5;
     private int previousTotal; // The total number of items in the dataset after the last load
@@ -25,7 +25,7 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
      * Costruttore.
      * @param linearLayoutManager layoutmanager
      */
-    public EndlessRecyclerOnScrollListener(final LinearLayoutManager linearLayoutManager) {
+    public AbstractEndlessRecyclerOnScrollListener(final LinearLayoutManager linearLayoutManager) {
         this.mLinearLayoutManager = linearLayoutManager;
     }
 
