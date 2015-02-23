@@ -1,7 +1,7 @@
 package com.example.lisamazzini.train_app.controller.favourites;
 
 import android.content.Context;
-import com.example.lisamazzini.train_app.exceptions.FavouriteException;
+
 import java.util.Map;
 
 /**
@@ -22,9 +22,8 @@ import java.util.Map;
      * Aggiunge un preferito.
      *
      * @param data sono le stringhe che combinate identificano la chiave per ottenere il preferito
-     * @throws FavouriteException
      */
-     void addFavourite(String... data) throws FavouriteException;
+     void addFavourite(String... data);
 
     /**
      * Rimuove un preferito.

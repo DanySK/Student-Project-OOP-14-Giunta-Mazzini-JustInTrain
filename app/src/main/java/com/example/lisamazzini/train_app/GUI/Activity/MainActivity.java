@@ -1,20 +1,20 @@
 package com.example.lisamazzini.train_app.gui.activity;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.SpinnerAdapter;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
 
+import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.controller.MainController;
 import com.example.lisamazzini.train_app.gui.fragment.JourneyResultsFragment;
 import com.example.lisamazzini.train_app.gui.fragment.NavigationDrawerFragment;
-import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.model.Constants;
 
 /**
@@ -25,7 +25,6 @@ import com.example.lisamazzini.train_app.model.Constants;
  * @author albertogiunta
  */
 public class MainActivity extends ActionBarActivity {
-    //implements NavigationDrawerFragment.NavigationDrawerCallbacks
     private NavigationDrawerFragment navigationDrawerFragment;
     private JourneyResultsFragment fragment;
     private MainController controller;

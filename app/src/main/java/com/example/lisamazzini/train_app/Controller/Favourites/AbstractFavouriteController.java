@@ -3,8 +3,6 @@ package com.example.lisamazzini.train_app.controller.favourites;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.lisamazzini.train_app.exceptions.FavouriteException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -82,7 +80,7 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
         this.editor = pEditor;
     }
     @Override
-    public abstract void addFavourite(final String... strings) throws FavouriteException;
+    public abstract void addFavourite(final String... strings);
 
     @Override
     public abstract void setContext(Context context);

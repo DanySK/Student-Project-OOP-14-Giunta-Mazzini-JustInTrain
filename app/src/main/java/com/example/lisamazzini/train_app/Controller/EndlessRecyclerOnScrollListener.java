@@ -4,6 +4,12 @@ package com.example.lisamazzini.train_app.controller;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+/**
+ * Classe che implementa la logica per gestire l' "endless scrolling" del journeyListFragment.
+ * I crediti vanno a: <a href="https://gist.github.com/ssinss">ssinss</a> .
+ *
+ * @author ssinss
+ */
 public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
 
     private static final int N_SOL_LOAD = 5;
@@ -44,5 +50,10 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
         }
     }
 
+    /**
+     * Metodo che definisce il comportamento dell'applicazione nel momento in cui l'utente scrolla la recycler view
+     * fino in fondo.
+     * @param pCurrentPage pagina corrente
+     */
     public abstract void onLoadMore(int pCurrentPage);
 }

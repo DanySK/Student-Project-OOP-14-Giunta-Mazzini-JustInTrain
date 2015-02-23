@@ -13,6 +13,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Controller per la mainActivity. Esegue le computazioni necessarie a gestire lo spinner menu.
+ *
+ * @author albertogiunta
+ */
 public class MainController {
 
     private final IFavouriteController favouriteJourneyController = FavouriteJourneyController.getInstance();
@@ -30,6 +35,10 @@ public class MainController {
     }
 
 
+    /**
+     * Metodo che setta i dati della tratta corrente, per poter essere poi facilmente usati per lanciare la ricerca.
+     * @param position posizione della tratta selezionata all'interno della lista delle tratte preferite
+     */
     public final void setCurrentJourney(final int position) {
         actualJourneyIds.clear();
         Collections.addAll(actualJourneyIds, favouriteStationIDs.get(position).split(Constants.SEPARATOR));

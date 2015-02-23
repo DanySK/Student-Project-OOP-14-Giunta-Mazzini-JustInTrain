@@ -39,7 +39,7 @@ public class Vehicle {
 
     /**
      * Getter per la stazione di partenza della Soluzione.
-     * @return
+     * @return nome della stazione di partenza della tratta
      */
     public final String getOrigine() {
         return origine;

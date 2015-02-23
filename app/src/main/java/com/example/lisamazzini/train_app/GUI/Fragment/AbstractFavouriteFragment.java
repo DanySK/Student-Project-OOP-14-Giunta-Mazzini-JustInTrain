@@ -1,16 +1,14 @@
 package com.example.lisamazzini.train_app.gui.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.controller.favourites.FavouriteControllerStrategy;
 import com.example.lisamazzini.train_app.controller.favourites.IFavouriteController;
-import com.example.lisamazzini.train_app.exceptions.FavouriteException;
-import com.example.lisamazzini.train_app.R;
 
 /**
  * Fragment astratto che devono estendere tutti i fragment che hanno bisogno di gestire un certo tipo di preferiti.
@@ -39,21 +37,17 @@ public abstract class AbstractFavouriteFragment extends AbstractRobospiceFragmen
 
     @Override
     public final boolean onOptionsItemSelected(final MenuItem item) {
-        try {
-            final int id = item.getItemId();
-            if (id == android.R.id.home) {
-                getActivity().onBackPressed();
-            } else if (id == R.id.action_prefere) {
-                Toast.makeText(getActivity().getApplicationContext(), "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show();
-                favouriteController.addFavourite(getFavouriteForAdding());
-                setAsFavouriteIcon(true);
-            } else if (id == R.id.action_deprefere) {
-                Toast.makeText(getActivity().getApplicationContext(), "Rimosso dai preferiti", Toast.LENGTH_SHORT).show();
-                favouriteController.removeFavourite(getFavouriteForRemoving());
-                setAsFavouriteIcon(false);
-            }
-        } catch (FavouriteException e) {
-            Log.d("ERR", "error");
+        final int id = item.getItemId();
+        if (id == android.R.id.home) {
+            getActivity().onBackPressed();
+        } else if (id == R.id.action_prefere) {
+            Toast.makeText(getActivity().getApplicationContext(), "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show();
+            favouriteController.addFavourite(getFavouriteForAdding());
+            setAsFavouriteIcon(true);
+        } else if (id == R.id.action_deprefere) {
+            Toast.makeText(getActivity().getApplicationContext(), "Rimosso dai preferiti", Toast.LENGTH_SHORT).show();
+            favouriteController.removeFavourite(getFavouriteForRemoving());
+            setAsFavouriteIcon(false);
         }
         return super.onOptionsItemSelected(item);
     }
