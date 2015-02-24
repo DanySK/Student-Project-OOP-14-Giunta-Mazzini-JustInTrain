@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
 
-import com.example.lisamazzini.train_app.gui.fragment.JourneyResultsFragment;
+import com.example.lisamazzini.train_app.gui.fragment.JourneyListFragment;
 import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.R;
 
@@ -30,8 +30,8 @@ public class JourneyListActivity extends AbstractBaseActivity {
         super.getToolbar();
 
         final FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, new JourneyResultsFragment());
-        final JourneyResultsFragment fragment = (JourneyResultsFragment) fragmentManager.findFragmentById(R.id.journeyResultsFragment);
+        fragmentManager.beginTransaction().replace(R.id.container, new JourneyListFragment());
+        final JourneyListFragment fragment = (JourneyListFragment) fragmentManager.findFragmentById(R.id.journeyResultsFragment);
         fragment.makeRequest(Constants.WITH_STATIONS, requestedTime, isCustomTime, departureStation, arrivalStation);
         Toast.makeText(this, Constants.TOAST_PENDING_RESEARCH, Toast.LENGTH_SHORT).show();
 

@@ -13,7 +13,7 @@ import android.widget.SpinnerAdapter;
 
 import com.example.lisamazzini.train_app.R;
 import com.example.lisamazzini.train_app.controller.MainController;
-import com.example.lisamazzini.train_app.gui.fragment.JourneyResultsFragment;
+import com.example.lisamazzini.train_app.gui.fragment.JourneyListFragment;
 import com.example.lisamazzini.train_app.gui.fragment.NavigationDrawerFragment;
 import com.example.lisamazzini.train_app.model.Constants;
 
@@ -27,7 +27,7 @@ import com.example.lisamazzini.train_app.model.Constants;
 public class MainActivity extends ActionBarActivity {
 
     private NavigationDrawerFragment navigationDrawerFragment;
-    private JourneyResultsFragment fragment;
+    private JourneyListFragment fragment;
     private MainController controller;
 
     @Override
@@ -48,8 +48,8 @@ public class MainActivity extends ActionBarActivity {
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
         final FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, new JourneyResultsFragment());
-        fragment = (JourneyResultsFragment) getSupportFragmentManager().findFragmentById(R.id.journeyResultsFragment);
+        fragmentManager.beginTransaction().replace(R.id.container, new JourneyListFragment());
+        fragment = (JourneyListFragment) getSupportFragmentManager().findFragmentById(R.id.journeyResultsFragment);
     }
 
     @Override
