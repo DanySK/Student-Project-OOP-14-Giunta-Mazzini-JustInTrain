@@ -16,6 +16,7 @@ import java.util.List;
  * @author lisamazzini
  */
 public class AchievementListController  {
+
     private final SharedPreferences data;
     private final List<String> achievements = new LinkedList<>();
 
@@ -35,17 +36,15 @@ public class AchievementListController  {
         for (final String s : data.getAll().keySet()) {
             switch (s) {
                 case Constants.DELAY_ACH:
-                    achievements.add("Ritardatario! (60 minuti)");
+                    achievements.add(Constants.ACH_DELAY_LV_1);
                     break;
                 case Constants.PIN_ACH:
-                    achievements.add("Pinnatore seriale!");
+                    achievements.add(Constants.ACH_PINNER_LV_1);
                     break;
                 default:
                     break;
             }
         }
-        return achievements;
+        return new LinkedList<>(achievements);
     }
-
-
 }

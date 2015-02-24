@@ -18,10 +18,10 @@ import java.util.List;
 
 public class StationListController {
 
-    private String trainNumber;
-    private String[] trainDetails;
-    private String trainCode;
     private final List<Fermate> fermateList = new LinkedList<>();
+    private String[] trainDetails;
+    private String trainNumber;
+    private String trainCode;
 
     /**
      * Getter per i dettagli del treno.

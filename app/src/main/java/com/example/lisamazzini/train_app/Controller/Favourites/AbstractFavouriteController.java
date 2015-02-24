@@ -20,8 +20,6 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
 
-
-
     @Override
     public final void removeFavourite(final String... data) {
         check();
@@ -72,6 +70,7 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     public final SharedPreferences.Editor getEditor() {
         return editor;
     }
+
     /**
      * Setter per l'Editor.
      * @param pEditor da settare
@@ -79,6 +78,7 @@ public abstract class AbstractFavouriteController implements IFavouriteControlle
     public final void setEditor(final SharedPreferences.Editor pEditor) {
         this.editor = pEditor;
     }
+
     @Override
     public abstract void addFavourite(final String... strings);
 

@@ -25,6 +25,7 @@ import com.example.lisamazzini.train_app.model.Constants;
  * @author albertogiunta
  */
 public class MainActivity extends ActionBarActivity {
+
     private NavigationDrawerFragment navigationDrawerFragment;
     private JourneyResultsFragment fragment;
     private MainController controller;
@@ -34,14 +35,14 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.controller = new MainController(MainActivity.this);
+
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
+
         navigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-
-        this.controller = new MainController(MainActivity.this);
-
         navigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
@@ -99,7 +100,7 @@ public class MainActivity extends ActionBarActivity {
         } else {
             getSupportActionBar().setDisplayShowTitleEnabled(true);
             getSupportActionBar().setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_STANDARD);
-            getSupportActionBar().setTitle("Nessuna tratta favorita!");
+            getSupportActionBar().setTitle(Constants.TOOLBAR_NO_FAV_JOURNEY);
             fragment.resetGui();
         }
     }

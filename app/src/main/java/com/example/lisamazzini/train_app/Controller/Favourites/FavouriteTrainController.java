@@ -13,8 +13,6 @@ public final class FavouriteTrainController extends AbstractFavouriteController 
 
     private static final FavouriteTrainController ADDER = new FavouriteTrainController();
 
-    private FavouriteTrainController() { }
-
     /**
      * Metodo che restituisce un'istanza del controller.
      * @return IFavouriteController
@@ -22,6 +20,8 @@ public final class FavouriteTrainController extends AbstractFavouriteController 
     public static IFavouriteController getInstance() {
         return ADDER;
     }
+
+    private FavouriteTrainController() { }
 
     @Override
     public void addFavourite(final String... strings) {

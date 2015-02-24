@@ -32,12 +32,12 @@ public class StationListActivity extends AbstractBaseActivity {
         fragmentManager.beginTransaction().replace(R.id.container, new StationListFragment());
         final StationListFragment fragment = (StationListFragment) fragmentManager.findFragmentById(R.id.stationListFragment);
         fragment.makeRequest(trainNumber, stationCode);
-        Toast.makeText(this, "Ricerca in corso...", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, Constants.TOAST_PENDING_RESEARCH, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected final String setToolbarTitle() {
-        return "Cerco...";
+        return Constants.TOOLBAR_PENDING_RESEARCH;
     }
 
     @Override

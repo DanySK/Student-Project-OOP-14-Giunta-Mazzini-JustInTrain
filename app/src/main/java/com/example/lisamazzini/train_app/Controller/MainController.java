@@ -1,6 +1,5 @@
 package com.example.lisamazzini.train_app.controller;
 
-
 import android.content.Context;
 
 import com.example.lisamazzini.train_app.controller.favourites.FavouriteJourneyController;
@@ -21,7 +20,6 @@ import java.util.Map;
 public class MainController {
 
     private final IFavouriteController favouriteJourneyController = FavouriteJourneyController.getInstance();
-
     private final List<String> favouriteStationNames = new LinkedList<>();
     private final List<String> favouriteStationIDs = new LinkedList<>();
     private final List<String> actualJourneyIds = new ArrayList<>();

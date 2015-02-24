@@ -203,6 +203,46 @@ public final class Constants {
      */
     public static final String OK_MSG = "Ok";
 
+    /**
+     * Testo achievement ritardatario livello 1.
+     */
+    public static final String ACH_DELAY_LV_1 = "Ritardatario! (60 minuti)";
+
+    /**
+     * Testo achievement pinnatore livello 1.
+     */
+    public static final String ACH_PINNER_LV_1 = "Pinnatore seriale!";
+
+    /**
+     * Testo per la ricerca in corso nel toast.
+     */
+    public static final String TOAST_PENDING_RESEARCH = "Ricerca in corso...";
+
+    /**
+     * Testo per la ricerca in corso nella toolbar.
+     */
+    public static final String TOOLBAR_PENDING_RESEARCH = "Cerco...";
+
+    /**
+     * Testo per la toolbar dei treni preferiti.
+     */
+    public static final String TOOLBAR_FAVOURITE_TRAINS = "Treni preferiti";
+
+    /**
+     * Testo per la toolbar dei treni favoriti, se nessuna è presente.
+     */
+    public static final String TOOLBAR_NO_FAV_TRAIN = "Nessuna treno preferito!";
+
+    /**
+     * Testo per la toolbar degli achievement sbloccati.
+     */
+    public static final String TOOLBAR_ACHIEVEMENTS = "Achievement sbloccati";
+
+    /**
+     * Testo per la toolbar delle tratte favorite, se nessuna è presente.
+     */
+    public static final String TOOLBAR_NO_FAV_JOURNEY = "Nessuna tratta preferita!";
+
     private Constants() {
     }
 }

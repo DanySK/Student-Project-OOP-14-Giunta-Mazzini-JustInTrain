@@ -8,6 +8,7 @@ import com.example.lisamazzini.train_app.model.treno.Treno;
 import com.example.lisamazzini.train_app.network.total.TrainRequest;
 import com.example.lisamazzini.train_app.model.Constants;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,9 +20,8 @@ import java.util.List;
  */
 public class FavouriteTrainListController {
 
-    private final Iterator<String> iterator;
-
     private final List<Treno> favouriteTrainsList = new LinkedList<>();
+    private final Iterator<String> iterator;
 
     /**
      * Costruttore.
@@ -46,7 +46,7 @@ public class FavouriteTrainListController {
      * @return lista dei treni
      */
     public final List<Treno> getFavouriteTrainsList() {
-        return favouriteTrainsList;
+        return Collections.unmodifiableList(favouriteTrainsList);
     }
 
     /**

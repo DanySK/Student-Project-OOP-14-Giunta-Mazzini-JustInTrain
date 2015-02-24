@@ -13,6 +13,7 @@ import org.joda.time.DateTime;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,22 +27,22 @@ import java.util.Locale;
 public class JourneyListController {
 
     private static final int SOLUTION = 5;
-    private final SimpleDateFormat sdf = new SimpleDateFormat(Constants.SDF, Locale.ITALY);
     private final List<PlainSolution> totalPlainSolutions = new LinkedList<>();
+    private final List<PlainSolution> partialPlainSolutions = new LinkedList<>();
+    private final SimpleDateFormat sdf = new SimpleDateFormat(Constants.SDF, Locale.ITALY);
+    private boolean foundFirstTakeable;
+    private boolean customTime;
     private int upperBound;
     private int lowerBound;
     private DateTime actualTime;
-    private boolean foundFirstTakeable;
-    private boolean customTime;
     private String departureID, departureStation, arrivalID, arrivalStation, requestedTime;
-    private final List<PlainSolution> partialPlainSolutions = new LinkedList<>();
 
     /**
      * Getter per le PlainSolution parziali.
      * @return lista delle PlainSolution
      */
     public final List<PlainSolution> getPartialPlainSolutions() {
-        return partialPlainSolutions;
+        return Collections.unmodifiableList(partialPlainSolutions);
     }
 
     /**
@@ -223,7 +224,8 @@ public class JourneyListController {
      * @throws ParseException
      */
     private boolean checkIsFirstTakeable(final Vehicle vehicle) throws ParseException {
-        return !foundFirstTakeable && vehicle.getOrarioPartenza() != null && new DateTime(sdf.parse(vehicle.getOrarioPartenza())).isAfter(actualTime);
+        return !foundFirstTakeable && vehicle.getOrarioPartenza() != null
+                && new DateTime(sdf.parse(vehicle.getOrarioPartenza())).isAfter(actualTime);
     }
 
     /**
@@ -235,7 +237,8 @@ public class JourneyListController {
      * @throws ParseException
      */
     private boolean checkIsTomorrow(final Vehicle vehicle) throws ParseException {
-        return foundFirstTakeable && vehicle.getOraPartenza() != null && new DateTime(sdf.parse(vehicle.getOrarioPartenza())).isAfter(new DateTime().plusDays(1).toDateMidnight());
+        return foundFirstTakeable && vehicle.getOraPartenza() != null
+                && new DateTime(sdf.parse(vehicle.getOrarioPartenza())).isAfter(new DateTime().plusDays(1).toDateMidnight());
     }
 
     /**
@@ -246,13 +249,27 @@ public class JourneyListController {
      * @return la lista parziale di plainsolutions
      */
     public final List<PlainSolution> getPlainSolutions(final boolean isCustom) {
+//        if (isCustom) {
+//            lowerBound = 0;
+//        }
+//        upperBound = getIndexForNSolutions(SOLUTION);
+//        final List<PlainSolution> temp = this.totalPlainSolutions.subList(lowerBound, upperBound);
+//        lowerBound = upperBound + 1;
+//        return temp;
+
+        List<PlainSolution> temp = new LinkedList<>();
+
         if (isCustom) {
             lowerBound = 0;
         }
         upperBound = getIndexForNSolutions(SOLUTION);
-        final List<PlainSolution> temp = this.totalPlainSolutions.subList(lowerBound, upperBound);
+        temp = this.totalPlainSolutions.subList(lowerBound, upperBound);
         lowerBound = upperBound + 1;
-        return temp;
+        if (lowerBound < totalPlainSolutions.size()) {
+            return temp;
+        } else {
+            return new LinkedList<>();
+        }
     }
 
     /**
@@ -264,7 +281,8 @@ public class JourneyListController {
         int index = lowerBound;
         int vehicles = 0;
         for (int i = 0; i < n; i++) {
-            while (this.totalPlainSolutions.size() > lowerBound + vehicles && !this.totalPlainSolutions.get(lowerBound + vehicles).isLastVehicleOfJourney()) {
+            while (this.totalPlainSolutions.size() > lowerBound + vehicles
+                    && !this.totalPlainSolutions.get(lowerBound + vehicles).isLastVehicleOfJourney()) {
                 vehicles++;
             }
             vehicles++;
@@ -277,7 +295,19 @@ public class JourneyListController {
     /**
      * Metodo che restituisce una matrice per righe fatta di stazioni e relativi id (nella stessa colonna)
      * da far scegliere nel caso si cerchi una stazione e vengano restituiti più di un risultato.
-     *
+     *List<PlainSolution> temp = new LinkedList<>();
+
+     if (isCustom) {
+     lowerBound = 0;
+     }
+     upperBound = getIndexForNSolutions(SOLUTION);
+     temp = this.totalPlainSolutions.subList(lowerBound, upperBound);
+     lowerBound = upperBound + 1;
+     if (lowerBound < totalPlainSolutions.size()) {
+     return temp;
+     } else {
+     return new LinkedList<>();
+     }
      * @param list una List<String> dei risultati restituiti dal server
      * @return una matrice per righe in cui ogni colonna è fatta di stazione e codice
      */

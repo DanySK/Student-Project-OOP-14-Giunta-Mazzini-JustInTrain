@@ -134,7 +134,6 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
             }
         });
 
-
         timePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -151,7 +150,6 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
 
         setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), false);
         calendar.add(Calendar.HOUR_OF_DAY, -1);
-        // TODO se sono le 00:20 per esempio lui va alle 23:20 ma dello stesso giorno (dovrebbe essere di quello prima)
         setTime(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
         actualTime = buildDateTime();
 
@@ -343,7 +341,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
             final ActionBar action = ((ActionBarActivity) getActivity()).getSupportActionBar();
             action.setDisplayShowTitleEnabled(true);
             action.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_STANDARD);
-            action.setTitle("Ricerca...");
+            action.setTitle(Constants.TOOLBAR_PENDING_RESEARCH);
         }
         super.onCreateOptionsMenu(menu, inflater);
     }

@@ -52,9 +52,7 @@ public class AchievementController {
                 a.addData(train);
             }
         } catch (AchievementException e) {
-            if (data.contains(e.getMessage())) {
-                return;
-            } else {
+            if (!data.contains(e.getMessage())) {
                 editor.putString(e.getMessage(), e.getMessage());
                 editor.apply();
                 throw e;

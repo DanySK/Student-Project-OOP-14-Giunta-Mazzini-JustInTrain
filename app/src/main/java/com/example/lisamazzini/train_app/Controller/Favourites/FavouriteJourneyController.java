@@ -15,8 +15,6 @@ public final class FavouriteJourneyController extends AbstractFavouriteControlle
 
     private static final FavouriteJourneyController ADDER = new FavouriteJourneyController();
 
-    private FavouriteJourneyController() { }
-
     /**
      * Metodo che ritorna un'istanza del controller.
      * @return IFavouriteController
@@ -24,6 +22,8 @@ public final class FavouriteJourneyController extends AbstractFavouriteControlle
     public static IFavouriteController getInstance() {
         return ADDER;
     }
+
+    private FavouriteJourneyController() { }
 
     @Override
     public void setContext(final Context context) {
