@@ -39,7 +39,7 @@ import java.util.List;
  *
  * @author albertogiunta
  */
-public class JourneyResultsFragment extends AbstractFavouriteFragment {
+public class JourneyListFragment extends AbstractFavouriteFragment {
 
     private final JourneyListController controller = new JourneyListController();
     private RecyclerView recyclerView;
