@@ -13,7 +13,7 @@ import com.example.lisamazzini.train_app.controller.favourites.FavouriteControll
  *
  * @author albertogiunta
  */
-public interface IFavouriteFragment extends IBaseFragment {
+public interface IFavouriteFragment extends IRobospiceFragment {
 
     /**
      * Metodo eseguito prima di qualsiasi altro alla creazione del fragment, serve a implementare il metodo setHasOptionsMenu(true).

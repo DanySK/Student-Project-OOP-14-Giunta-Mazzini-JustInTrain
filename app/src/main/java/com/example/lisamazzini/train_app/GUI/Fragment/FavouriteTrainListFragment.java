@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.TextConstants;
 import com.example.lisamazzini.train_app.network.AbstractListener;
 import com.example.lisamazzini.train_app.controller.FavouriteTrainListController;
 import com.example.lisamazzini.train_app.gui.adapter.FavouriteTrainListAdapter;
@@ -57,7 +57,7 @@ public class FavouriteTrainListFragment extends AbstractRobospiceFragment {
      */
     public final void makeRequest() {
         if (!favouriteTrainListController.hasAnotherFavourite()) {
-            ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(Constants.TOOLBAR_NO_FAV_TRAIN);
+            ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(TextConstants.TOOLBAR_NO_FAV_TRAIN);
         }
         while (favouriteTrainListController.hasAnotherFavourite()) {
             getSpiceManager().execute(favouriteTrainListController.getRequest(), new TrainRequestListener());

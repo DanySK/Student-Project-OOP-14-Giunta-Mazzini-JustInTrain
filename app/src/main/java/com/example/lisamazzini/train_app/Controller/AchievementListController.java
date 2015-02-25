@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.TextConstants;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -35,11 +36,11 @@ public class AchievementListController  {
     public final List<String> computeAchievement() {
         for (final String s : data.getAll().keySet()) {
             switch (s) {
-                case Constants.DELAY_ACH:
-                    achievements.add(Constants.ACH_DELAY_LV_1);
+                case TextConstants.DELAY_ACH:
+                    achievements.add(TextConstants.ACH_DELAY_LV_1);
                     break;
-                case Constants.PIN_ACH:
-                    achievements.add(Constants.ACH_PINNER_LV_1);
+                case TextConstants.PIN_ACH:
+                    achievements.add(TextConstants.ACH_PINNER_LV_1);
                     break;
                 default:
                     break;

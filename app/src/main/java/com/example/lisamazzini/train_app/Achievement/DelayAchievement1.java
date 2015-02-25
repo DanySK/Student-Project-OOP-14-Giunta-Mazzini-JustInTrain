@@ -1,7 +1,7 @@
 package com.example.lisamazzini.train_app.achievement;
 
 import com.example.lisamazzini.train_app.exceptions.DelayAchievementException;
-import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.TextConstants;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 
 import android.content.Context;
@@ -30,7 +30,7 @@ public class DelayAchievement1 extends BasicAchievement {
             @Override
             public void control(final long value) throws DelayAchievementException {
                 if (value > LIMIT) {
-                    throw new DelayAchievementException(Constants.DELAY_ACH);
+                    throw new DelayAchievementException(TextConstants.DELAY_ACH);
                 }
             }
             @Override

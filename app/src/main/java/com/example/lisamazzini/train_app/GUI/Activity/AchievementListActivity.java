@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 
 import com.example.lisamazzini.train_app.gui.fragment.AchievementListFragment;
 import com.example.lisamazzini.train_app.R;
-import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.TextConstants;
 
 /**
  * Classe che ospita il fragment per la visualizzazione di una lista di achievements.
@@ -27,7 +27,7 @@ public class AchievementListActivity extends AbstractBaseActivity {
 
     @Override
     protected final String setToolbarTitle() {
-        return Constants.TOOLBAR_ACHIEVEMENTS;
+        return TextConstants.TOOLBAR_ACHIEVEMENTS;
     }
 
     /**

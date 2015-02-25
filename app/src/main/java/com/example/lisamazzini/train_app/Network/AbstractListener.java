@@ -11,6 +11,7 @@ import com.example.lisamazzini.train_app.exceptions.InvalidTrainNumberException;
 import com.example.lisamazzini.train_app.exceptions.NoSolutionsAvailableException;
 import com.example.lisamazzini.train_app.gui.activity.MainActivity;
 import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.TextConstants;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
@@ -44,15 +45,15 @@ public abstract class AbstractListener<X> implements RequestListener<X> {
      */
     public final void onRequestFailure(final SpiceException spiceException) {
         if (spiceException.getCause() instanceof InvalidTrainNumberException) {
-            showDialog(Constants.WRONG_TRAIN_TITLE, Constants.WRONG_TRAIN);
+            showDialog(TextConstants.WRONG_TRAIN_TITLE, TextConstants.WRONG_TRAIN);
         } else if (spiceException.getCause() instanceof InvalidStationException) {
-            showDialog(Constants.WRONG_STATION_TITLE, Constants.WRONG_STATION);
+            showDialog(TextConstants.WRONG_STATION_TITLE, TextConstants.WRONG_STATION);
         } else if (spiceException.getCause() instanceof NoSolutionsAvailableException) {
-            showDialog(Constants.NO_AVAILABLE_SOLUTION_TITLE, Constants.NO_AVAILABLE_SOLUTION);
+            showDialog(TextConstants.NO_AVAILABLE_SOLUTION_TITLE, TextConstants.NO_AVAILABLE_SOLUTION);
         } else if (spiceException.getCause() instanceof RetrofitError) {
-            showDialog(Constants.SERVICE_NOT_AVAILABLE_TITLE, Constants.SERVICE_NOT_AVAILABLE);
+            showDialog(TextConstants.SERVICE_NOT_AVAILABLE_TITLE, TextConstants.SERVICE_NOT_AVAILABLE);
         } else {
-            showDialog(Constants.CONNECTION_ERROR_TITLE, Constants.CONNECTION_ERROR);
+            showDialog(TextConstants.CONNECTION_ERROR_TITLE, TextConstants.CONNECTION_ERROR);
             Toast.makeText(getDialogContext(),
                     "Error: " + spiceException.getMessage(), Toast.LENGTH_SHORT)
                     .show();
@@ -62,7 +63,7 @@ public abstract class AbstractListener<X> implements RequestListener<X> {
     private void showDialog(final String title, final String body) {
         dialogBuilder.setTitle(title)
                 .setMessage(body)
-                .setNeutralButton(Constants.OK_MSG, new DialogInterface.OnClickListener() {
+                .setNeutralButton(TextConstants.OK_MSG, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface dialog, final int which) {
                         final Intent intent = new Intent(getDialogContext(), MainActivity.class);

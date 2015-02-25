@@ -35,6 +35,7 @@ import com.example.lisamazzini.train_app.gui.adapter.DrawerListAdapter;
 import com.example.lisamazzini.train_app.gui.fragment.pickers.DatePickerFragment;
 import com.example.lisamazzini.train_app.gui.fragment.pickers.TimePickerFragment;
 import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.TextConstants;
 import com.example.lisamazzini.train_app.model.Utilities;
 
 import java.text.Format;
@@ -341,7 +342,7 @@ public class NavigationDrawerFragment extends Fragment implements IBaseFragment 
             final ActionBar action = ((ActionBarActivity) getActivity()).getSupportActionBar();
             action.setDisplayShowTitleEnabled(true);
             action.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_STANDARD);
-            action.setTitle(Constants.TOOLBAR_PENDING_RESEARCH);
+            action.setTitle(TextConstants.TOOLBAR_PENDING_RESEARCH);
         }
         super.onCreateOptionsMenu(menu, inflater);
     }

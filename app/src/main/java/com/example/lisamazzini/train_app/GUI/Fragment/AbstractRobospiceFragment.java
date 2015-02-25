@@ -9,7 +9,7 @@ import com.octo.android.robospice.SpiceManager;
  *
  * @author albertogiunta
  */
-public abstract class AbstractRobospiceFragment extends Fragment implements IBaseFragment {
+public abstract class AbstractRobospiceFragment extends Fragment implements IRobospiceFragment {
 
     private SpiceManager spiceManager;
 
@@ -35,6 +35,7 @@ public abstract class AbstractRobospiceFragment extends Fragment implements IBas
     /**
      * Metodo che resetta lo spiceManager e lo fa ripartire.
      */
+    @Override
     public final void resetRequests() {
         if (spiceManager.isStarted()) {
             spiceManager.dontNotifyAnyRequestListeners();
@@ -47,6 +48,7 @@ public abstract class AbstractRobospiceFragment extends Fragment implements IBas
      * Setter per lo spiceManager.
      * @param pSpiceManager spiceManager
      */
+    @Override
     public final void setSpiceManager(final SpiceManager pSpiceManager) {
         this.spiceManager = pSpiceManager;
     }
@@ -55,6 +57,7 @@ public abstract class AbstractRobospiceFragment extends Fragment implements IBas
      * Getter per lo spiceManager.
      * @return spiceManager
      */
+    @Override
     public final SpiceManager getSpiceManager() {
         return spiceManager;
     }

@@ -4,7 +4,7 @@ import android.support.v4.app.FragmentManager;
 
 import com.example.lisamazzini.train_app.gui.fragment.FavouriteTrainListFragment;
 import com.example.lisamazzini.train_app.R;
-import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.TextConstants;
 
 /**
  * Classe che ospita il fragment per la visualizzazione della lista di treni favoriti.
@@ -28,7 +28,7 @@ public class FavouriteTrainListActivity extends AbstractBaseActivity {
 
     @Override
     protected final String setToolbarTitle() {
-        return Constants.TOOLBAR_FAVOURITE_TRAINS;
+        return TextConstants.TOOLBAR_FAVOURITE_TRAINS;
     }
 
     /**

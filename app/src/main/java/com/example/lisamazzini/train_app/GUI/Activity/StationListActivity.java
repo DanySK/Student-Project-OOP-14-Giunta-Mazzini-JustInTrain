@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.example.lisamazzini.train_app.gui.fragment.StationListFragment;
 import com.example.lisamazzini.train_app.model.Constants;
 import com.example.lisamazzini.train_app.R;
+import com.example.lisamazzini.train_app.model.TextConstants;
 
 /**
  * Classe che ospita il fragment per la visualizzazione di una lista di stazioni.
@@ -32,12 +33,12 @@ public class StationListActivity extends AbstractBaseActivity {
         fragmentManager.beginTransaction().replace(R.id.container, new StationListFragment());
         final StationListFragment fragment = (StationListFragment) fragmentManager.findFragmentById(R.id.stationListFragment);
         fragment.makeRequest(trainNumber, stationCode);
-        Toast.makeText(this, Constants.TOAST_PENDING_RESEARCH, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, TextConstants.TOAST_PENDING_RESEARCH, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected final String setToolbarTitle() {
-        return Constants.TOOLBAR_PENDING_RESEARCH;
+        return TextConstants.TOOLBAR_PENDING_RESEARCH;
     }
 
     @Override

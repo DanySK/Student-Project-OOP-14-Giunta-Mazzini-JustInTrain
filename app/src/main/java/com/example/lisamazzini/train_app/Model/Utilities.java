@@ -41,7 +41,7 @@ public final class Utilities {
      */
     public static String fromMsToTime(final Long millis) {
         if (millis == null) {
-            return "--";
+            return "--:--";
         }
         final DateTime date = new DateTime(millis);
         date.plusHours(1);

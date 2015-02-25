@@ -16,6 +16,7 @@ import com.example.lisamazzini.train_app.controller.MainController;
 import com.example.lisamazzini.train_app.gui.fragment.JourneyListFragment;
 import com.example.lisamazzini.train_app.gui.fragment.NavigationDrawerFragment;
 import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.TextConstants;
 
 /**
  * Classe che ospita il fragment per la visualizzazione di una lista di journey, è la main activity,
@@ -100,7 +101,7 @@ public class MainActivity extends ActionBarActivity {
         } else {
             getSupportActionBar().setDisplayShowTitleEnabled(true);
             getSupportActionBar().setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_STANDARD);
-            getSupportActionBar().setTitle(Constants.TOOLBAR_NO_FAV_JOURNEY);
+            getSupportActionBar().setTitle(TextConstants.TOOLBAR_NO_FAV_JOURNEY);
             fragment.resetGui();
         }
     }

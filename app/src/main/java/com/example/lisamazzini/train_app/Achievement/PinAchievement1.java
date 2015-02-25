@@ -2,7 +2,7 @@ package com.example.lisamazzini.train_app.achievement;
 
 import com.example.lisamazzini.train_app.exceptions.AchievementException;
 import com.example.lisamazzini.train_app.exceptions.PinAchievementException;
-import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.TextConstants;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 import android.content.Context;
 
@@ -29,7 +29,7 @@ public class PinAchievement1 extends BasicAchievement {
             @Override
             public void control(final long value) throws AchievementException {
                 if (value == LIMIT) {
-                    throw new PinAchievementException(Constants.PIN_ACH);
+                    throw new PinAchievementException(TextConstants.PIN_ACH);
                 }
             }
             @Override
