@@ -81,8 +81,14 @@ public abstract class AbstractFavouriteFragment extends AbstractRobospiceFragmen
 
     @Override
     public final void setFavouriteController(final FavouriteControllerStrategy strategy) {
-        favouriteController = strategy.getController();
-        favouriteController.setContext(getActivity());
+        if (strategy != null) {
+            favouriteController = strategy.getController();
+            favouriteController.setContext(getActivity());
+        } else {
+            throw new IllegalArgumentException("Lo strategy non è stato istanziato correttamente. "
+                    + "Chiamare il metodo setFavouriteController nella classe che vuole usufruire di un favouriteController");
+
+        }
     }
 
     /**
