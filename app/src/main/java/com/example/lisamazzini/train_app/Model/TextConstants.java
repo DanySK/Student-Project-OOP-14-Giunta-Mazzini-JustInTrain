@@ -6,7 +6,7 @@ package com.example.lisamazzini.train_app.model;
  * @author lisamazzini
  * @author albertogiunta
  */
-public class TextConstants {
+public final class TextConstants {
 
     /**
      * Testo per l'achievement.
