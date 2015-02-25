@@ -1,5 +1,7 @@
 package com.example.lisamazzini.train_app.network.total;
 
+import android.util.Log;
+
 import com.example.lisamazzini.train_app.model.Utilities;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolutionWrapper;
@@ -52,23 +54,22 @@ public class JourneyTrainRequest extends SpiceRequest<PlainSolutionWrapper> {
             p.setIdArrivo(getID(p.getDestinazione()));
 
             result = Utilities.fetchData(Utilities.generateTrainAutocompleteURL(p.getNumeroTreno())).getList();
-            if (result.isEmpty()) {
-                return new PlainSolutionWrapper(new LinkedList<PlainSolution>());
-            }
-            iterator = result.iterator();
-            this.makeRequest(p);
-            p.setIdOrigine(train.getIdOrigine());
-            p.setDelay(train.getRitardo());
-            if (result.size() > ONE_SOL) {
-                boolean containsDepartureStation = false;
-                while (!containsDepartureStation && iterator.hasNext()) {
-                    this.makeRequest(p);
-                    for (final Fermate f : train.getFermate()) {
-                        if (f.getId().equals(p.getIdPartenza())) {
-                            p.setIdOrigine(train.getIdOrigine());
-                            p.setDelay(train.getRitardo());
-                            containsDepartureStation = true;
-                            break;
+            if (!result.isEmpty()) {
+                iterator = result.iterator();
+                this.makeRequest(p);
+                p.setIdOrigine(train.getIdOrigine());
+                p.setDelay(train.getRitardo());
+                if (result.size() > ONE_SOL) {
+                    boolean containsDepartureStation = false;
+                    while (!containsDepartureStation && iterator.hasNext()) {
+                        this.makeRequest(p);
+                        for (final Fermate f : train.getFermate()) {
+                            if (f.getId().equals(p.getIdPartenza())) {
+                                p.setIdOrigine(train.getIdOrigine());
+                                p.setDelay(train.getRitardo());
+                                containsDepartureStation = true;
+                                break;
+                            }
                         }
                     }
                 }

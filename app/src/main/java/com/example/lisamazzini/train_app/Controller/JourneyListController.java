@@ -249,15 +249,7 @@ public class JourneyListController {
      * @return la lista parziale di plainsolutions
      */
     public final List<PlainSolution> getPlainSolutions(final boolean isCustom) {
-//        if (isCustom) {
-//            lowerBound = 0;
-//        }
-//        upperBound = getIndexForNSolutions(SOLUTION);
-//        final List<PlainSolution> temp = this.totalPlainSolutions.subList(lowerBound, upperBound);
-//        lowerBound = upperBound + 1;
-//        return temp;
-
-        List<PlainSolution> temp = new LinkedList<>();
+        List<PlainSolution> temp;
 
         if (isCustom) {
             lowerBound = 0;
