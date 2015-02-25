@@ -99,7 +99,7 @@
         android:textStyle="italic"
         android:layout_marginTop="12dp"
         android:layout_alignRight="@+id/tTimeDifference"
-        android:text="Ritardo:"/>
+        android:text="@string/abbrDelay"/>
 
     <TextView
         android:id="@+id/tTimeDifference"

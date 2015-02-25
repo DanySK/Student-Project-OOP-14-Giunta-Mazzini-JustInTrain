@@ -23,15 +23,28 @@
          />
 
     <TextView
+        android:id="@+id/lTimeDifference"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_toRightOf="@+id/tStationName"
+        android:textSize="12dp"
+        android:layout_marginTop="19dp"
+        android:paddingLeft="16dp"
+        android:textStyle="italic"
+        android:text="@string/abbrDelay"
+        />
+
+    <TextView
         android:id="@+id/tTimeDifference"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/tStationName"
+        android:layout_toRightOf="@+id/lTimeDifference"
 
         android:layout_marginTop="17dp"
-        android:paddingLeft="16dp"
+        android:layout_marginLeft="4dp"
 
         />
 

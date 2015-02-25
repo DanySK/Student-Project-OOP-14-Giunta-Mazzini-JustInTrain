@@ -25,6 +25,7 @@
     <string name="showTime">Orario </string>
     <string name="showDate">Data </string>
     <string name="duration">Durata: </string>
+    <string name="abbrDelay">Ritardo:</string>
 
 
 </resources>

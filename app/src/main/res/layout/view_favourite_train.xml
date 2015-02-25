@@ -85,6 +85,7 @@
         android:layout_toRightOf="@+id/lFavProgress"
 
         android:paddingLeft="4dp"
+        android:textStyle="bold"
         android:layout_marginTop="4dp"
 
         android:textAllCaps="true"
@@ -101,7 +102,6 @@
         android:layout_marginTop="4dp"
 
         android:text="@string/last_seen"
-
         />
 
     <TextView
@@ -114,7 +114,7 @@
 
         android:layout_below="@id/lFavProgress"
         android:layout_toRightOf="@id/lFavLastSeen"
-
+        android:textStyle="bold"
         />
 
     <TextView
@@ -127,7 +127,7 @@
 
         android:layout_below="@id/lFavProgress"
         android:layout_toRightOf="@id/tFavLastSeenTime"
-
+        android:textStyle="bold"
         />
 
 </RelativeLayout>

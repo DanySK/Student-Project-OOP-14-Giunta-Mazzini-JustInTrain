@@ -63,7 +63,7 @@ public class StationListAdapter  extends RecyclerView.Adapter<StationListAdapter
             viewHolder.extraMessage.setText("");
             viewHolder.itemView.setBackgroundColor(Color.WHITE);
         }
-        viewHolder.timeDifference.setText(Long.toString(f.getRitardo()));
+        viewHolder.timeDifference.setText(Long.toString(f.getRitardo()).concat("'"));
         viewHolder.plannedTime.setText(Utilities.fromMsToTime(f.getProgrammata()));
         viewHolder.plannedPlatform.setText(f.getBinarioEffettivoPartenzaDescrizione());
         viewHolder.actualTime.setText(Utilities.fromMsToTime(f.getEffettiva()));
