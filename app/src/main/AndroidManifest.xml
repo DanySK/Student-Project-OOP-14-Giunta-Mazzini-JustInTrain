@@ -12,55 +12,46 @@
         android:label="Just In Train"
         android:theme="@style/AppTheme" >
 
-        <!-- <activity android:name=".JourneyListActivity" /> -->
-
         <service
             android:name="com.octo.android.robospice.UncachedSpiceService"
             android:exported="false" />
+
         <service
             android:name=".notification.NotificationService"
             android:exported="false" />
-
-        <!-- <service android:name=".Controller.DoubleTrainService" android:exported="false"/> -->
 
         <receiver
             android:name=".notification.ButtonListener"
             android:exported="true" />
 
-        <!-- <activity -->
-        <!-- android:name=".GUI.JourneyResultsActivity" -->
-        <!-- android:label="@string/title_activity_journey_results" > -->
-        <!-- &lt;!&ndash;<intent-filter>&ndash;&gt; -->
-        <!-- &lt;!&ndash;<action android:name="android.intent.action.MAIN" />&ndash;&gt; -->
+        <activity android:name=".gui.activity.StationListActivity"
+            android:screenOrientation="portrait"/>
 
-
-        <!-- &lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" />&ndash;&gt; -->
-        <!-- &lt;!&ndash;</intent-filter>&ndash;&gt; -->
-        <!-- </activity> -->
-        <activity android:name=".gui.activity.StationListActivity" />
-        <!-- <activity -->
-        <!-- android:name=".GUI.FavouriteJourneyListActivity" -->
-        <!-- android:label="@string/title_activity_favourite_journey_list" > -->
-        <!-- </activity> -->
         <activity
             android:name=".gui.activity.FavouriteTrainListActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".gui.activity.MainActivity" >
         </activity>
+
         <activity
             android:name=".gui.activity.JourneyListActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".gui.activity.MainActivity" >
         </activity>
+
         <activity
             android:name=".gui.activity.AchievementListActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".gui.activity.MainActivity" >
         </activity>
-        <activity android:name=".gui.activity.MainActivity" >
+
+        <activity android:name=".gui.activity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+    </application>
 </manifest>
