@@ -70,6 +70,9 @@ public class MainActivity extends ActionBarActivity {
         if (navigationDrawerFragment.onOptionsItemSelected(item)) {
             return true;
         }
+        if (item.getItemId() == R.id.action_prefere) {
+            return true;
+        }
         if (item.getItemId() == R.id.action_deprefere) {
             controller.removeFavourite();
             restoreToolbar();
