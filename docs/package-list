@@ -1,3 +1,5 @@
+android.support.v7.appcompat
+com.example.lisamazzini.train_app
 com.example.lisamazzini.train_app.achievement
 com.example.lisamazzini.train_app.controller
 com.example.lisamazzini.train_app.controller.favourites
