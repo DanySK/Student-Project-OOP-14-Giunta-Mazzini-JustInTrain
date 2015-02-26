@@ -72,7 +72,6 @@ public class StationListFragment extends AbstractFavouriteFragment {
         textLastSeen = (TextView) layoutInflater.findViewById(R.id.lLastSeen);
         textProgress = (TextView) layoutInflater.findViewById(R.id.lProgress);
 
-        // TODO fa unico meodo per visible e invisible (toggler)
         textDelay.setVisibility(View.INVISIBLE);
         textLastSeen.setVisibility(View.INVISIBLE);
         textProgress.setVisibility(View.INVISIBLE);
@@ -117,6 +116,12 @@ public class StationListFragment extends AbstractFavouriteFragment {
         }
     }
 
+    /**
+     * Inner class eseguita in seguito a una TrainDataRequest.
+     * Se questa ha successo, e se ci sono più risultati disponibili per la stringa inserita, verrà mostrato all'utente
+     * un popup che gli permetterà di scegliere il treno giusto. altrimenti viene settato in automatico.
+     * Viene poi eseguita la TrainRequest, per ottenere i dati effettivi del treno selezionato.
+     */
     private class StationCodeListener extends AbstractListener<ListWrapper> {
         @Override
         public void onRequestSuccess(final ListWrapper result) {
@@ -148,6 +153,11 @@ public class StationListFragment extends AbstractFavouriteFragment {
         }
     }
 
+    /**
+     * Inner class che viene eseguita in seguito a una TrainRequest.
+     * Se questa ha successo verranno settati tutti i campi della view con le informazioni ottenute e verrà riempita la lista di stazioni
+     * ognuna con i relativi dati.
+     */
     private class TrainResultListener extends AbstractListener<Treno> {
         @Override
         public Context getDialogContext() {

@@ -64,6 +64,11 @@ public class FavouriteTrainListFragment extends AbstractRobospiceFragment {
         }
     }
 
+    /**
+     * Inner class che viene eseguita in seguito a una TrainRequest.
+     * Se questa ha successo viene aggiunto un elemento alla lista dei treni favoriti che viene poi mostrata a schermo, con tutte le
+     * dovute informazioni.
+     */
     private class TrainRequestListener extends AbstractListener<Treno> {
 
         @Override

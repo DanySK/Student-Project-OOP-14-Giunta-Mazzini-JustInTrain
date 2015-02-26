@@ -1,7 +1,5 @@
 package com.example.lisamazzini.train_app.network.total;
 
-import android.util.Log;
-
 import com.example.lisamazzini.train_app.model.Utilities;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolution;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolutionWrapper;
@@ -12,7 +10,6 @@ import com.octo.android.robospice.request.SpiceRequest;
 
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 /**

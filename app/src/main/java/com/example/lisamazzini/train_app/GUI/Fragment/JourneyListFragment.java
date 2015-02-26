@@ -7,7 +7,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +20,7 @@ import com.example.lisamazzini.train_app.controller.favourites.FavouriteJourneyC
 import com.example.lisamazzini.train_app.controller.favourites.IFavouriteController;
 import com.example.lisamazzini.train_app.gui.adapter.JourneyListAdapter;
 import com.example.lisamazzini.train_app.model.Constants;
+import com.example.lisamazzini.train_app.model.TextConstants;
 import com.example.lisamazzini.train_app.model.Utilities;
 import com.example.lisamazzini.train_app.model.tragitto.PlainSolutionWrapper;
 import com.example.lisamazzini.train_app.model.tragitto.Tragitto;
@@ -112,12 +112,12 @@ public class JourneyListFragment extends AbstractFavouriteFragment {
             controller.setDepartureID(departureAndArrivalData[0]);
             controller.setArrivalID(departureAndArrivalData[1]);
             getSpiceManager().execute(new JourneyRequest(controller.getDepartureID(), controller.getArrivalID(), requestedTime), new JourneyRequestListener());
-            Toast.makeText(getActivity(), "Ricerca in corso...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), TextConstants.TOAST_PENDING_RESEARCH, Toast.LENGTH_SHORT).show();
         } else if (userRequestType.equals(Constants.WITH_STATIONS)) {
             controller.setDepartureStation(departureAndArrivalData[0]);
             controller.setArrivalStation(departureAndArrivalData[1]);
             getSpiceManager().execute(new JourneyDataRequest(controller.getDepartureStation()), new DepartureDataRequestListenter());
-            Toast.makeText(getActivity(), "Ricerca in corso...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), TextConstants.TOAST_PENDING_RESEARCH, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -179,6 +179,7 @@ public class JourneyListFragment extends AbstractFavouriteFragment {
      * un popup che gli permetterà di scegliere la stazione giusta. altrimenti viene settato in automatico.
      * Ora che ci sono i dati sia di partenza che arrivo è possibile eseguire la richiesta vera e propria, da cui si otterrà la lista di soluzioni.
      * Qui viene anche settato il titolo e togglato il pulsante dei preferiti.
+     * Da qui viene lanciata la JourneyRequest, per ottenere l'oggetto di tipo Tratta, con tutte le informazioni disponibili.
      */
     private class ArrivalDataRequestListener extends AbstractListener<ListWrapper> {
 
@@ -218,6 +219,13 @@ public class JourneyListFragment extends AbstractFavouriteFragment {
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Inner class che viene eseguita in risposta a una JourneyRequest.
+     * Se questa ha successo, restituisce un oggetto di tipo tragitto che contiene al suo interno tutte le Soluzioni
+     * con i relativi Vehicles. Questo dovrà essere convertito in una lista di PlainSolution, per consentire un accesso alle informazioni
+     * più facile e intuitivo al momento dell'elaborazione e utilizzo.
+     * Da qui verrà eseguita una JourneyTrainRequest, necessaria per ottenere i ritardi di ogni treno delle Solutioni.
+     */
     private class JourneyRequestListener extends AbstractListener<Tragitto> {
 
         @Override
@@ -234,6 +242,11 @@ public class JourneyListFragment extends AbstractFavouriteFragment {
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Inner class che viene eseguita in risposta a una JourneyTrainRequeset.
+     * Se questa ha successo notificherà il controller aggiornando la lista di soluzioni e notifica l'adapter per viusalizzare
+     * i risultati a schermo.
+     */
     private class JourneyTrainRequestListener extends AbstractListener<PlainSolutionWrapper> {
 
         @Override
@@ -244,7 +257,6 @@ public class JourneyListFragment extends AbstractFavouriteFragment {
         @Override
         public void onRequestSuccess(final PlainSolutionWrapper plainSolutions) {
             controller.addSolutions(plainSolutions.getList());
-            Log.d("cazzi", "plain " + plainSolutions.getList().size());
             adapter.notifyDataSetChanged();
         }
     }
