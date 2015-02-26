@@ -17,9 +17,6 @@
         android:icon="@drawable/ic_launcher"
         android:label="Just In Train"
         android:theme="@style/AppTheme" >
-
-        <!-- <activity android:name=".JourneyListActivity" /> -->
-
         <service
             android:name="com.octo.android.robospice.UncachedSpiceService"
             android:exported="false" />
@@ -27,40 +24,31 @@
             android:name="com.example.lisamazzini.train_app.notification.NotificationService"
             android:exported="false" />
 
-        <!-- <service android:name=".Controller.DoubleTrainService" android:exported="false"/> -->
-
         <receiver
             android:name="com.example.lisamazzini.train_app.notification.ButtonListener"
             android:exported="true" />
 
-        <!-- <activity -->
-        <!-- android:name=".GUI.JourneyResultsActivity" -->
-        <!-- android:label="@string/title_activity_journey_results" > -->
-        <!-- &lt;!&ndash;<intent-filter>&ndash;&gt; -->
-        <!-- &lt;!&ndash;<action android:name="android.intent.action.MAIN" />&ndash;&gt; -->
-
-
-        <!-- &lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" />&ndash;&gt; -->
-        <!-- &lt;!&ndash;</intent-filter>&ndash;&gt; -->
-        <!-- </activity> -->
-        <activity android:name="com.example.lisamazzini.train_app.gui.activity.StationListActivity" />
-        <!-- <activity -->
-        <!-- android:name=".GUI.FavouriteJourneyListActivity" -->
-        <!-- android:label="@string/title_activity_favourite_journey_list" > -->
-        <!-- </activity> -->
+        <activity
+            android:name="com.example.lisamazzini.train_app.gui.activity.StationListActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.example.lisamazzini.train_app.gui.activity.FavouriteTrainListActivity"
-            android:parentActivityName="com.example.lisamazzini.train_app.gui.activity.MainActivity" >
+            android:parentActivityName="com.example.lisamazzini.train_app.gui.activity.MainActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.lisamazzini.train_app.gui.activity.JourneyListActivity"
-            android:parentActivityName="com.example.lisamazzini.train_app.gui.activity.MainActivity" >
+            android:parentActivityName="com.example.lisamazzini.train_app.gui.activity.MainActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.lisamazzini.train_app.gui.activity.AchievementListActivity"
-            android:parentActivityName="com.example.lisamazzini.train_app.gui.activity.MainActivity" >
+            android:parentActivityName="com.example.lisamazzini.train_app.gui.activity.MainActivity"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="com.example.lisamazzini.train_app.gui.activity.MainActivity" >
+        <activity
+            android:name="com.example.lisamazzini.train_app.gui.activity.MainActivity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

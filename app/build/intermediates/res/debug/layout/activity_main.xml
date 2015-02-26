@@ -25,7 +25,7 @@
             android:layout_height="match_parent" >
 
             <fragment
-                android:name="com.example.lisamazzini.train_app.gui.fragment.JourneyResultsFragment"
+                android:name="com.example.lisamazzini.train_app.gui.fragment.JourneyListFragment"
                 android:id="@+id/journeyResultsFragment"
 
                 android:layout_width="fill_parent"
@@ -44,4 +44,4 @@
         </fragment>
 
     </android.support.v4.widget.DrawerLayout>
-</LinearLayout><!-- From: file:/Users/lisamazzini/AndroidStudioProjects/oop14-trainapp/app/src/main/res/layout/activity_main.xml -->
+</LinearLayout><!-- From: file:/Users/albertogiunta/AndroidStudioProjects/oop14-trainapp/app/src/main/res/layout/activity_main.xml -->
