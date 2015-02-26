@@ -123,7 +123,7 @@ public class JourneyListAdapter extends RecyclerView.Adapter<JourneyListAdapter.
             arrivalTime = (TextView) v.findViewById(R.id.tArrivalTime);
             delay = (TextView) v.findViewById(R.id.tTimeDifference);
             pinButton = (ImageButton) v.findViewById(R.id.bOptions);
-            divider = (View) v.findViewById(R.id.iDivider);
+            divider = v.findViewById(R.id.iDivider);
             stationCode = "";
         }
 
